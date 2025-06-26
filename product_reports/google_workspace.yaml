@@ -1,0 +1,233 @@
+user_management:
+  sso_support:
+    value: 'Google Workspace supports SAML 2.0 and OIDC for Single Sign-On, allowing
+      users to authenticate using a third-party Identity Provider (IdP). [1]'
+    reference: https://support.google.com/a/answer/60224?hl=en
+  sso_licensing_level_requirement:
+    value: SSO functionality is available in all Google Workspace editions, including
+      Business (Starter, Standard, Plus), Enterprise, and Education editions. [44]
+    reference: https://support.google.com/a/answer/60224?hl=en
+  scim_support:
+    value: yes
+    reference: https://support.google.com/a/answer/7411650?hl=en
+  scim_licensing_level_requirement:
+    value: 'Automated user provisioning (SCIM) is available in Business Standard, Business
+      Plus, and Enterprise editions. Business Starter is limited to 3 apps. [4]'
+    reference: https://support.google.com/a/answer/7411650?hl=en
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://support.google.com/a/answer/9050433?hl=en
+  scim_authentication_acquisition_steps: 'The term "SCIM" in the context of Google
+    Workspace usually refers to Google acting as an IdP to provision users *into*
+    other SaaS applications. To manage users *within* Google Workspace, the Directory
+    API is used. For third-party IdPs like Azure AD or Okta to provision users *into*
+    Google Workspace, they use the Directory API, which is not a standard SCIM endpoint.
+    They require setting up an "API client" with specific OAuth 2.0 scopes. The authentication
+    is via an OAuth 2.0 token obtained through a service account.
+
+    1.  **Create a Google Cloud Project:** Go to the Google Cloud Console and create
+    a new project. [32]
+
+    2.  **Enable the Admin SDK API:** In your new project, navigate to "APIs &
+    Services" > "Library" and enable the "Admin SDK API". [9, 43]
+
+    3.  **Create a Service Account:** Go to "IAM & Admin" > "Service Accounts"
+    and create a new service account. Grant it necessary roles. [3, 32]
+
+    4.  **Create a Service Account Key:** Create a JSON key for the service account
+    and download it securely. This file contains the credentials. [28, 29]
+
+    5.  **Enable Domain-Wide Delegation:** In the Google Workspace Admin Console,
+    go to "Security" > "Access and data control" > "API controls". [19]
+
+    6.  **Add a New API Client:** Under "Domain-wide Delegation", add a new client.
+    Enter the service account''s unique Client ID. [19]
+
+    7.  **Authorize API Scopes:** Grant the necessary OAuth scopes for user management,
+    such as `https://www.googleapis.com/auth/admin.directory.user` and `https://www.googleapis.com/auth/admin.directory.group`.
+    [15, 17]
+
+    8.  **Use the Service Account Key:** The downloaded JSON key is used by the client
+    application (e.g., an IdP connector) to authenticate and call the Directory API
+    endpoints.'
+  user_management_api_support:
+    value: yes
+    reference: https://developers.google.com/admin-sdk/directory/v1/guides/manage-users
+  user_management_api_licensing_level:
+    value: Access to the Admin SDK, including the Directory API, is available with
+      all Google Workspace editions.
+    reference: https://developers.google.com/admin-sdk/directory/v1/get-start/requirements
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developers.google.com/admin-sdk/directory/v1/guides/authorizing
+  user_management_api_authentication_acquisition_steps: '1. **Create a Google Cloud
+    Project:** If you don''t have one, create a project in the Google Cloud Console.
+    [32]
+
+    2. **Enable the Admin SDK API:** In the project, go to the API Library and enable
+    the "Admin SDK API". [9, 43]
+
+    3. **Create Credentials:** Go to "APIs & Services" > "Credentials".
+
+    4. **Create a Service Account:** Click "Create credentials" > "Service account".
+    Give it a name and grant it appropriate project roles (e.g., "Service Account
+    User"). [3, 32]
+
+    5. **Generate a Key:** After creating the service account, click on it, go to
+    the "Keys" tab, and select "Add Key" > "Create new key". Choose JSON and download
+    the key file. This file contains the private key and other credentials needed
+    to generate an OAuth 2.0 access token. [28, 29, 37]
+
+    6. **Delegate Domain-Wide Authority:** In the Google Workspace Admin Console, go
+    to "Security" > "Access and data control" > "API controls". [19]
+
+    7. **Manage Domain Wide Delegation:** Click "Manage Domain Wide Delegation" and
+    "Add New".
+
+    8. **Authorize the Service Account:** Enter the "Client ID" of the service account
+    you created. You can find this ID in the details of the service account in the
+    Google Cloud Console.
+
+    9. **Define OAuth Scopes:** In the "OAuth scopes" field, enter the required permission
+    scopes, separated by commas. For user management, common scopes are: `https://www.googleapis.com/auth/admin.directory.user`,
+    `https://www.googleapis.com/auth/admin.directory.group`. [15, 17]
+
+    10. **Authorize:** Click "Authorize". The service account can now use its key
+    to obtain an OAuth access token and act on behalf of users in your domain.'
+  seat_costs:
+  - license_level: All Paid Tiers
+    active:
+      value: 'yes'
+      reference: https://workspace.google.com/pricing.html
+    suspended_disabled:
+      value: 'yes'
+      reference: https://support.google.com/a/answer/1247358?hl=en
+    archived:
+      value: 'no'
+      reference: https://support.google.com/a/answer/9793543?hl=en
+  - license_level: Enterprise Tiers, Business Plus, Education Plus
+    active:
+      value: 'yes'
+      reference: https://workspace.google.com/pricing.html
+    suspended_disabled:
+      value: 'yes'
+      reference: https://support.google.com/a/answer/1247358?hl=en
+    archived:
+      value: 'yes'
+      reference: https://support.google.com/a/answer/9793543?hl=en
+  lifecycle_options:
+  - Active
+  - Suspended
+  - Deleted
+  - Archived User (Requires specific subscription tiers)
+  rbac_support:
+    value: 'yes'
+    reference: https://developers.google.com/admin-sdk/directory/v1/guides/manage-roles
+  rbac_api_assignment:
+    value: 'Yes, role assignments can be managed via the Directory API. The `roleAssignments.insert()`
+      and `roleAssignments.delete()` methods are used to assign and unassign roles
+      to users or groups. [6, 39]'
+    reference: https://developers.google.com/admin-sdk/directory/v1/reference/roleAssignments/insert
+  documentation_links:
+  - https://support.google.com/a/answer/60224?hl=en
+  - https://developers.google.com/admin-sdk/directory/v1/guides/manage-users
+  - https://developers.google.com/admin-sdk/directory/v1/guides/authorizing
+  - https://developers.google.com/admin-sdk/directory/v1/guides/manage-roles
+  - https://support.google.com/a/answer/9793543?hl=en
+  - https://support.google.com/a/answer/33327?hl=en
+  - https://developers.google.com/admin-sdk/directory/v1/reference/users
+  - https://developers.google.com/admin-sdk/directory/v1/reference/roleAssignments
+  - https://support.google.com/cloudidentity/answer/7319251?hl=en
+  - https://www.sailpoint.com/integrations/google-workspace/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Login Audit Log: Tracks user sign-in events, including successful and failed attempts, sign-in challenges, and session information. Event name is 'login'."
+      reference: "https://support.google.com/a/answer/9275956"
+    role_assignment:
+      value: "Admin Audit Log: Records all actions taken by administrators in the Google Admin console, including assigning or changing user roles and privileges. Event name is 'CHANGE_APPLICATION_SETTING'."
+      reference: "https://developers.google.com/admin-sdk/reports/v1/reference/activity-ref-appendix-a/admin-events"
+    api_call:
+      value: "Token Audit Log: Monitors the usage of third-party applications that have been granted access to Google Workspace data, including which users are using them and the OAuth2 scopes granted. Event name is 'token'."
+      reference: "https://support.google.com/a/answer/9275956"
+    data_export:
+      value: "Drive Audit Log: Tracks user activities in Google Drive, including file creation, preview, print, download, edit, and sharing. The 'download' event corresponds to data export."
+      reference: "https://support.google.com/a/answer/4579696"
+    configuration_change:
+      value: "Admin Audit Log: Tracks a wide range of configuration changes made in the Admin Console, such as modifying service settings, security policies, or domain settings. The event name group is 'admin_security_settings'."
+      reference: "https://developers.google.com/admin-sdk/reports/v1/reference/activity-ref-appendix-a/admin-events-security"
+    user_account_creation:
+      value: "User Accounts Audit Log: Records events related to user account management, including user creation, deletion, suspension, and renaming. Event name is 'CREATE_USER'."
+      reference: "https://developers.google.com/admin-sdk/reports/v1/reference/activity-ref-appendix-a/user_accounts-events"
+    security_policy_change:
+      value: "Admin Audit Log: Specifically tracks changes to security policies, such as modifications to 2-Step Verification settings, password policies, and data loss prevention (DLP) rules. The event name group is 'admin_security_settings'."
+      reference: "https://developers.google.com/admin-sdk/reports/v1/reference/activity-ref-appendix-a/admin-events-security"
+  event_logs_licensing_level:
+    value: "Basic audit logs are available in all Google Workspace editions. Advanced features like Google Drive labels audit log, long-term retention via Google Vault, and log export to BigQuery require higher tiers such as Business Plus, Enterprise, Education Plus, or the G Suite Business legacy edition."
+    reference: "https://support.google.com/a/answer/10070233"
+  monitoring_products:
+    - value: "Google Chronicle"
+      reference: "https://cloud.google.com/chronicle/docs/overview"
+    - value: "Splunk (via Splunk Add-on for Google Workspace)"
+      reference: "https://splunkbase.splunk.com/app/5556"
+    - value: "Microsoft Sentinel (via connector)"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/google-workspace"
+    - value: "Datadog"
+      reference: "https://docs.datadoghq.com/integrations/google_workspace/"
+    - value: "Sumo Logic"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/google-workspace/"
+  ingestion_methods:
+    - value: "Reports API: A RESTful API for retrieving audit logs for various services. It is subject to quotas and is suitable for smaller-scale or periodic log collection."
+      reference: "https://developers.google.com/admin-sdk/reports/v1/guides/get-started"
+    - value: "Direct Export to Google BigQuery: The recommended method for large-scale, continuous log export for SIEM integration. This requires an Enterprise or equivalent license."
+      reference: "https://support.google.com/a/answer/9079365"
+    - value: "Google Workspace Alert Center: Provides notifications for critical security events, which can be integrated with SIEMs to trigger alerts."
+      reference: "https://support.google.com/a/answer/7587848"
+  log_export_options:
+    tools_connectors:
+      value: "Official connectors for major SIEMs like Microsoft Sentinel and Splunk exist. Open-source tools like the 'gsuite-exporter' on GitHub or custom scripts using the Reports API are also common for exporting logs."
+      reference: "https://github.com/google/gsuite-exporter"
+  documentation_links:
+    - "https://support.google.com/a/answer/4579696"
+    - "https://developers.google.com/admin-sdk/reports/v1/guides/get-started"
+    - "https://support.google.com/a/answer/9079365"
+    - "https://cloud.google.com/architecture/exporting-g-suite-logs-to-splunk"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/google-workspace"
+    - "https://support.google.com/a/answer/9275956"
+    - "https://developers.google.com/admin-sdk/reports/v1/reference/activity-ref-appendix-a/login-events"
+incident_response:
+  suspend_user_management_api:
+    value: "The Directory API allows suspending a user account by making a 'users.update' request and setting the 'suspended' field to 'true'."
+    reference: "https://developers.google.com/admin-sdk/directory/v1/reference/users/update"
+  invalidate_sessions_api:
+    value: "The Directory API's 'users.signOut' method invalidates all of a user's web and device sessions, forcing them to sign in again and verify their identity."
+    reference: "https://developers.google.com/admin-sdk/directory/v1/reference/users/signOut"
+  revoke_api_key_api:
+    value: "Third-party application access (OAuth 2.0 tokens) can be revoked on a per-user, per-app basis using the 'tokens.delete' method in the Directory API."
+    reference: "https://developers.google.com/admin-sdk/directory/v1/reference/tokens/delete"
+  user_toggle_api:
+    value: "This is the same as the user suspension API. The 'users.update' method in the Directory API toggles the 'suspended' boolean field to suspend or unsuspend a user."
+    reference: "https://developers.google.com/admin-sdk/directory/v1/reference/users/update"
+  user_status_api:
+    value: "The 'users.get' method in the Directory API allows retrieving a user's full resource, which includes their current status fields like 'suspended', 'agreedToTerms', and 'changePasswordAtNextLogin'."
+    reference: "https://developers.google.com/admin-sdk/directory/v1/reference/users/get"
+  session_timeout_configuration:
+    value: "Session control policies, including setting a fixed session duration or requiring re-authentication after a set period, can be configured in the Admin console and applied to organizational units. This is a native feature, not an API for dynamic response."
+    reference: "https://support.google.com/a/answer/7576830"
+  known_automation_tools:
+    - value: "GAM (Google Apps Manager): A command-line tool for managing Google Workspace users and resources, widely used for automation scripts."
+      reference: "https://github.com/GAM-team/GAM"
+    - value: "Palo Alto Networks Cortex XSOAR (Content Pack for Google Workspace)"
+      reference: "https://cortex.paloaltonetworks.com/marketplace/details/GoogleWorkspace/"
+    - value: "Splunk SOAR (via Google Workspace App)"
+      reference: "https://splunkbase.splunk.com/app/6249/"
+    - value: "Google Apps Script: A native scripting platform that can interact with Workspace APIs to automate administrative tasks."
+      reference: "https://developers.google.com/apps-script"
+  documentation_links:
+    - "https://developers.google.com/admin-sdk/directory/v1/guides/manage-users"
+    - "https://developers.google.com/admin-sdk/directory/v1/guides/manage-tokens"
+    - "https://developers.google.com/admin-sdk/directory/v1/reference/users/signOut"
+    - "https://github.com/GAM-team/GAM/wiki"
+    - "https://support.google.com/a/answer/7587848"
+    - "https://developers.google.com/admin-sdk/directory/v1/guides/manage-groups"
+    - "https://support.google.com/a/answer/7576830"

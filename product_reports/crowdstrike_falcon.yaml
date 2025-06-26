@@ -1,0 +1,156 @@
+user_management:
+  sso_support:
+    value: "Yes, CrowdStrike Falcon supports SAML 2.0-based Single Sign-On (SSO) for both SP-initiated and IdP-initiated flows."
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/crowdstrike-tutorial
+  sso_licensing_level_requirement:
+    value: "A valid CrowdStrike Falcon subscription is required. Specific tiers are not explicitly mentioned in the documentation, but it's a standard feature for enterprise customers."
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/crowdstrike-tutorial
+  scim_support:
+    value: "yes"
+    reference: https://www.okta.com/partners/crowdstrike/
+  scim_licensing_level_requirement:
+    value: "Not explicitly stated in publicly available documentation, but typically included with enterprise-level subscriptions that support SSO."
+    reference: https://www.okta.com/partners/crowdstrike/
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: https://www.okta.com/partners/crowdstrike/
+  scim_authentication_acquisition_steps: "SCIM setup is typically done in conjunction with an Identity Provider like Okta or Azure AD. The setup involves enabling the SCIM API within the IdP's CrowdStrike application configuration. The IdP then generates an OAuth Bearer Token that is used for authenticating API requests to CrowdStrike's SCIM endpoint."
+  user_management_api_support:
+    value: "yes"
+    reference: https://github.com/CrowdStrike/falconpy/blob/main/docs/api/user-management.md
+  user_management_api_licensing_level:
+    value: "Access to the API is available to all CrowdStrike Falcon customers. However, the available API scopes depend on the purchased product tiers."
+    reference: https://www.crowdstrike.com/blog/tech-center/getting-started-falcon-apis/
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: https://www.crowdstrike.com/blog/tech-center/getting-started-falcon-apis/
+  user_management_api_authentication_acquisition_steps: "1. Log in to the Falcon console with an account that has the 'Falcon Administrator' role. 2. Navigate to 'Support and resources' -> 'API clients and keys'. 3. In the 'OAuth2 API clients' section, click 'Create API client'. 4. Provide a Client Name and Description. 5. Select the required API scopes, which must include 'User management' with at least 'Read' and 'Write' permissions. 6. Click 'Create'. 7. The system will generate a Client ID and a Client Secret. The Client Secret is only shown once and must be stored securely. 8. Use the Client ID and Client Secret to request an OAuth2 access token from the CrowdStrike API authentication endpoint. This token is then used in the Authorization header for subsequent API calls."
+  seat_costs:
+  - license_level: "All Tiers"
+    active:
+      value: "yes"
+      reference: https://www.vertice.one/crowdstrike/pricing
+    suspended_disabled:
+      value: "uncertain"
+      reference: "Specifics on whether disabled or suspended users consume a license are not publicly available in pricing documents. Licensing is typically per-device or per-endpoint."
+    archived:
+      value: "no"
+      reference: "User lifecycle states like 'archived' are not detailed in pricing. Cost is based on active endpoints, not user accounts."
+  lifecycle_options:
+  - create
+  - update
+  - delete
+  - retrieve
+  rbac_support:
+    value: "yes"
+    reference: https://www.crowdstrike.com/blog/what-is-role-based-access-control-rbac/
+  rbac_api_assignment:
+    value: "Yes, user roles can be assigned and managed via the API. The User Management API provides endpoints to grant, revoke, and list roles for a user."
+    reference: https://github.com/CrowdStrike/falconpy/blob/main/src/falconpy/user_management.py
+  documentation_links:
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/crowdstrike-tutorial
+  - https://docs.cyberark.com/Idaptive/Latest/en/Content/Apps/Apps-Single-Sign-On/Crowdstrike-SAML.htm
+  - https://github.com/CrowdStrike/falconpy/blob/main/docs/api/user-management.md
+  - https://www.crowdstrike.com/blog/tech-center/getting-started-falcon-apis/
+  - https://www.okta.com/partners/crowdstrike/
+  - https://help.okta.com/wf/en-us/content/topics/workflows/connector-reference/crowdstrike/actions/createuser.htm
+  - https://www.crowdstrike.com/blog/what-is-role-based-access-control-rbac/
+  - https://falcon.crowdstrike.com/documentation/
+  - https://www.ibm.com/docs/en/qradar-suite/1.10?topic=sources-connecting-crowdstrike-falcon-data
+  - https://zscaler-okta-deployment-guides.com/bundle/zscaler-okta-and-crowdstrike-deployment-guide/page/crowdstrike-zero-trust-assessment-zta-overview.html
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Successful and failed user login attempts to the Falcon console are logged. The event name is 'user_login' and includes details such as the user's email, source IP address, and whether the login was successful."
+      reference: "https://www.crowdstrike.com/blog/tech-center/falcon-data-replicator/"
+    role_assignment:
+      value: "Changes to user roles and permissions are logged as audit events. Actions like 'create_role', 'add_user_role_ids', and 'delete_user_role_ids' are captured, detailing the user performing the action, the target user, and the roles assigned or removed."
+      reference: "https://www.crowdstrike.com/blog/tech-center/falcon-data-replicator/"
+    api_call:
+      value: "All actions performed via the Falcon API are logged. This includes the creation, deletion, and modification of API keys and clients ('create_client', 'delete_client'). The audit log captures the API client ID, the operation performed, the user context, and the source IP."
+      reference: "https://www.crowdstrike.com/blog/tech-center/falcon-data-replicator/"
+    data_export:
+      value: "The creation and modification of log export configurations, such as setting up the Falcon Data Replicator (FDR) or event streaming, are logged. The events track who configured the export and when. The actual export of data records is streamed, not logged as individual audit events."
+      reference: "https://www.crowdstrike.com/blog/tech-center/falcon-data-replicator/"
+    configuration_change:
+      value: "Changes to Falcon platform configurations are logged extensively. This includes updates to IOA (Indicator of Attack) and IOC (Indicator of Compromise) exclusions, changes to sensor update policies, and modifications to general host group settings."
+      reference: "https://www.crowdstrike.com/blog/tech-center/falcon-data-replicator/"
+    user_account_creation:
+      value: "The creation of new user accounts in the Falcon console is a logged event. The audit log records the 'user_create' action, including the new user's details and the administrator who created the account."
+      reference: "https://falcon.crowdstrike.com/documentation/8/user-management"
+    security_policy_change:
+      value: "Creation, deletion, and modification of security policies are logged. This includes changes to Prevention Policies, Sensor Update Policies, and Response Policies. The logs detail which policy was changed, what the change was, and who made it."
+      reference: "https://falcon.crowdstrike.com/documentation/20/prevention-policy"
+  event_logs_licensing_level:
+    value: "Access to detailed audit logs and the ability to export them generally requires Falcon Insight (EDR) or a higher subscription tier. The Falcon Data Replicator (FDR) is an add-on module that requires a separate subscription."
+    reference: "https://www.crowdstrike.com/products/falcon-platform/falcon-data-replicator/"
+  monitoring_products:
+    - value: "Splunk (via Splunk Add-on for CrowdStrike)"
+      reference: "https://splunkbase.splunk.com/app/5938"
+    - value: "Microsoft Sentinel (via CrowdStrike Falcon Data Replicator Connector)"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/crowdstrike-falcon-data-replicator"
+    - value: "IBM QRadar (via CrowdStrike Falcon SIEM Connector)"
+      reference: "https://www.ibm.com/docs/en/qsip/7.5?topic=crowdstrike-falcon-siem-connector"
+    - value: "Palo Alto Networks Cortex XSOAR"
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/CrowdStrikeFalcon/"
+    - value: "Sumo Logic"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/crowdstrike-source/"
+  ingestion_methods:
+    - value: "Falcon Data Replicator (FDR): A managed service that writes Falcon event data to a customer's AWS S3 bucket in near real-time for large-scale SIEM ingestion."
+      reference: "https://www.crowdstrike.com/products/falcon-platform/falcon-data-replicator/"
+    - value: "Falcon Streaming API: Provides a near real-time stream of detection and audit events. This is the primary method used by most modern SIEM connectors."
+      reference: "https://falcon.crowdstrike.com/documentation/46/falcon-event-streams"
+    - value: "Falcon SIEM Connector: A tool provided by CrowdStrike that can be deployed to pull events from the Streaming API and forward them to a SIEM in formats like Syslog or CEF."
+      reference: "https://www.crowdstrike.com/blog/tech-center/stream-data-to-siem/"
+    - value: "Direct API Polling (for specific datasets like detections): Manually or programmatically querying specific API endpoints (e.g., Detections API) for data. This is less efficient for full-scale logging."
+      reference: "https://falcon.crowdstrike.com/documentation/42/detections-api"
+  log_export_options:
+    tools_connectors:
+      value: "Primary log export is facilitated by the Falcon Data Replicator (FDR) to AWS S3, or the Falcon Streaming API. Numerous third-party SIEM and SOAR platforms provide pre-built connectors that utilize these mechanisms, including tools from Splunk, Microsoft, IBM, and Sumo Logic."
+      reference: "https://www.crowdstrike.com/blog/tech-center/getting-started-with-the-falcon-data-replicator/"
+  documentation_links:
+    - "https://www.crowdstrike.com/blog/tech-center/falcon-data-replicator/"
+    - "https://falcon.crowdstrike.com/documentation/46/falcon-event-streams"
+    - "https://falcon.crowdstrike.com/documentation/170/falcon-s-apis"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/crowdstrike-falcon-data-replicator"
+    - "https://splunkbase.splunk.com/app/5938"
+    - "https://www.crowdstrike.com/blog/tech-center/stream-data-to-siem/"
+    - "https://github.com/CrowdStrike/psfalcon"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes, via the User Management API. Suspending a user is achieved by updating their status. The PATCH /users/entities/v1 endpoint is used to modify a user's `active` status to `false`."
+    reference: "https://falcon.crowdstrike.com/documentation/175/user-management-api#opIduser-management-api-updateuser"
+  invalidate_sessions_api:
+    value: "The primary method for invalidating API sessions is by revoking the associated OAuth2 token using the POST /oauth2/revoke endpoint. This immediately invalidates the bearer token used for API access. There is no direct API endpoint to invalidate a user's web UI session."
+    reference: "https://falcon.crowdstrike.com/documentation/45/oauth2-management-api#opIdoauth2_revoke"
+  revoke_api_key_api:
+    value: "Yes, API keys (clients) can be revoked using the API Clients API. The DELETE /clients/entities/api-clients/v1 endpoint is used to delete an API client, effectively revoking its access."
+    reference: "https://falcon.crowdstrike.com/documentation/85/api-clients-and-keys-api#opIddelete-api-client"
+  user_toggle_api:
+    value: "Yes, this is the same as suspending a user. The PATCH /users/entities/v1 endpoint allows toggling the `active` field for a user's profile between `true` and `false`."
+    reference: "https://falcon.crowdstrike.com/documentation/175/user-management-api#opIduser-management-api-updateuser"
+  user_status_api:
+    value: "Yes, the User Management API can be used to check a user's status. The GET /users/entities/user/v1 endpoint returns details for a specific user, including their `active` status."
+    reference: "https://falcon.crowdstrike.com/documentation/175/user-management-api#opIduser-management-api-readusers"
+  session_timeout_configuration:
+    value: "Session timeout for the Falcon web UI can be configured, but not via the API. It is a setting within the UI under Configuration -> General. The timeout can be set to various intervals (e.g., 15 minutes, 30 minutes, 1 hour)."
+    reference: "https://falcon.crowdstrike.com/documentation/8/user-management#a-name-session-timeout-a"
+  known_automation_tools:
+    - value: "Palo Alto Networks Cortex XSOAR: Provides a comprehensive integration for automating response actions, including user and host containment."
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/CrowdStrikeFalcon/"
+    - value: "Splunk SOAR: The Splunk SOAR app for CrowdStrike allows for automated actions using Falcon's APIs."
+      reference: "https://splunkbase.splunk.com/app/4357"
+    - value: "IBM Security QRadar SOAR: Has an integration that can trigger response actions in CrowdStrike Falcon."
+      reference: "https://exchange.xforce.ibmcloud.com/hub/extension/a6b64b4c33a27329243f059c11a2f646"
+    - value: "PSFalcon: A community-supported open-source PowerShell module for interacting with the CrowdStrike Falcon API, which can be used to script and automate response actions."
+      reference: "https://github.com/CrowdStrike/psfalcon"
+    - value: "Torq: A no-code automation platform with pre-built templates for CrowdStrike, including user suspension and host containment."
+      reference: "https://torq.io/integrations/crowdstrike/"
+  documentation_links:
+    - "https://falcon.crowdstrike.com/documentation/175/user-management-api"
+    - "https://falcon.crowdstrike.com/documentation/45/oauth2-management-api"
+    - "https://falcon.crowdstrike.com/documentation/85/api-clients-and-keys-api"
+    - "https://falcon.crowdstrike.com/documentation/28/real-time-response-api"
+    - "https://github.com/CrowdStrike/psfalcon"
+    - "https://www.crowdstrike.com/blog/tech-center/automating-security-operations-with-crowdstrike-falcon-apis/"
+    - "https://cortex.marketplace.pan.dev/marketplace/details/CrowdStrikeFalcon/"

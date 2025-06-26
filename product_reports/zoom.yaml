@@ -1,0 +1,200 @@
+user_management:
+  sso_support:
+    value: "Zoom supports SAML 2.0-based Single Sign-On (SSO). It integrates with
+      various Identity Providers (IdPs) like Okta, Microsoft Entra ID (formerly Azure
+      AD), ADFS, and others."
+    reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060855
+  sso_licensing_level_requirement:
+    value: A Business, Education, or Enterprise account with an approved Vanity URL
+      is required for SSO.
+    reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060855
+  scim_support:
+    value: yes
+    reference: https://developers.zoom.us/docs/api/rest/scim2-api/
+  scim_licensing_level_requirement:
+    value: A Business or Education account with an approved Vanity URL and enabled
+      SSO is required for SCIM.
+    reference: https://developers.zoom.us/docs/api/rest/scim2-api/
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developers.zoom.us/docs/api/rest/scim2-api/
+  scim_authentication_acquisition_steps: '1. Create a Server-to-Server OAuth or a
+    standard OAuth app on the Zoom App Marketplace. 2. During app creation, select
+    "SCIM2" as a scope for your app. 3. After creating the app, generate an OAuth
+    token. This token will be used as a Bearer Token in the authorization header
+    for SCIM API calls.'
+  user_management_api_support:
+    value: yes
+    reference: https://developers.zoom.us/docs/api/rest/user-api/
+  user_management_api_licensing_level:
+    value: Pro or a higher paid account is required for most user management API endpoints.
+    reference: https://marketplace.zoom.us/docs/api-reference/zoom-api/methods/#tag/Users
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developers.zoom.us/docs/api/rest/authorization/
+  user_management_api_authentication_acquisition_steps: "1. Go to the Zoom App Marketplace
+    and create a Server-to-Server OAuth app. 2. Provide a name for your app. 3. After
+    creation, you will find the Account ID, Client ID, and Client Secret in the 'App
+    Credentials' section. 4. Use these credentials to make a POST request to Zoom's
+    token endpoint (https://zoom.us/oauth/token?grant_type=account_credentials&account_id={accountId})
+    with a Basic Authorization header (base64 encoded client_id:client_secret).
+    5. The response will contain an access_token that can be used to make API calls."
+  seat_costs:
+  - license_level: Basic (Free)
+    active:
+      value: yes
+      reference: https://zoom.us/pricing
+    suspended_disabled:
+      value: n/a
+      reference: User management features like deactivation are for paid plans.
+    archived:
+      value: n/a
+      reference: User management features like deactivation are for paid plans.
+  - license_level: Pro
+    active:
+      value: yes
+      reference: https://zoom.us/pricing
+    suspended_disabled:
+      value: yes
+      reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0058813
+    archived:
+      value: 'no'
+      reference: Zoom's documentation primarily refers to deactivating, unlinking,
+        or deleting users. The concept of "archiving" where a user is retained in
+        a non-active state without consuming a license is not explicitly detailed.
+        Deactivated users do not consume a license.
+  - license_level: Business
+    active:
+      value: yes
+      reference: https://zoom.us/pricing
+    suspended_disabled:
+      value: yes
+      reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0058813
+    archived:
+      value: 'no'
+      reference: Zoom's documentation primarily refers to deactivating, unlinking,
+        or deleting users. The concept of "archiving" where a user is retained in
+        a non-active state without consuming a license is not explicitly detailed.
+        Deactivated users do not consume a license.
+  - license_level: Enterprise
+    active:
+      value: yes
+      reference: https://zoom.us/pricing
+    suspended_disabled:
+      value: yes
+      reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0058813
+    archived:
+      value: 'no'
+      reference: Zoom's documentation primarily refers to deactivating, unlinking,
+        or deleting users. The concept of "archiving" where a user is retained in
+        a non-active state without consuming a license is not explicitly detailed.
+        Deactivated users do not consume a license.
+  lifecycle_options:
+  - Create
+  - Update
+  - Deactivate
+  - Delete
+  - Disassociate
+  rbac_support:
+    value: yes
+    reference: https://support.zoom.us/hc/en/article?id=zm_kb&sysparm_article=KB0059535
+  rbac_api_assignment:
+    value: 'Yes, role assignments can be managed via the API. The User API includes
+      endpoints to assign and unassign roles to users.'
+    reference: https://marketplace.zoom.us/docs/api-reference/zoom-api/methods/#operation/assignRole
+  documentation_links:
+  - https://developers.zoom.us/docs/api/
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060855
+  - https://developers.zoom.us/docs/api/rest/scim2-api/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/zoom-provisioning-tutorial
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Zoom.html
+  - https://developers.zoom.us/docs/api/rest/user-api/
+  - https://marketplace.zoom.us/docs/api-reference/zoom-api/methods/#tag/Roles
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0059535
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Zoom's audit logs capture user sign-in and sign-out events. These can be accessed via the Reports section in the Zoom web portal or through the API."
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+    role_assignment:
+      value: "Changes to user roles and license assignments are recorded in the Admin Activity Logs. This includes assigning or removing admin privileges and changing user types (e.g., Licensed, On-Prem)."
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+    api_call:
+      value: "API activity is not explicitly detailed as a log category in the standard audit log documentation. However, actions performed via the API that result in configuration changes (e.g., user creation, setting changes) are logged as events under the relevant category in the Admin Activity Logs."
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+    data_export:
+      value: "The audit log captures events related to exporting reports, such as User Activity Reports. The 'Operations Logs' tab in the 'Reports' section shows when reports were exported."
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+    configuration_change:
+      value: "Admin Activity Logs (formerly Operations Logs) track changes made by admins to account settings, group settings, SSO configuration, and billing. This includes enabling or disabling features like cloud recording or changing security settings."
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+    user_account_creation:
+      value: "User creation, activation, and deactivation events are logged. The Admin Activity log shows when users are added, created, or their status is changed."
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+    security_policy_change:
+      value: "Changes to security settings, such as modifying passcode requirements, waiting room settings, or authentication profiles, are recorded in the Admin Activity Logs."
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+  event_logs_licensing_level:
+    value: "Pro, Business, Education, or Enterprise account. Access to Admin Activity Logs requires owner or admin privileges."
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+  monitoring_products:
+    - value: "Splunk (via Splunk Connect for Zoom or the Splunk App for Zoom)"
+      reference: "https://splunkbase.splunk.com/app/5402"
+    - value: "Microsoft Sentinel (via a dedicated connector)"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/zoom-meetings"
+    - value: "Palo Alto Networks Cortex XSOAR"
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/Zoom/"
+    - value: "IBM Security QRadar SOAR"
+      reference: "https://www.ibm.com/docs/en/cpfs?topic=apps-zoom-meetings"
+    - value: "ServiceNow"
+      reference: "https://docs.servicenow.com/bundle/vancouver-security-operations/page/administer/security-operations-integrations/splunk-es/concept/splunk-es-sir.html"
+  ingestion_methods:
+    - value: "Webhooks: Zoom can send near-real-time event notifications to a specified endpoint URL. This is the primary method for SIEM/SOAR integrations."
+      reference: "https://developers.zoom.us/docs/api/rest/webhook-reference/"
+    - value: "API Polling: The Zoom REST API can be polled to retrieve audit logs, user activity reports, and other security-relevant data. This is often used as a supplementary method to webhooks."
+      reference: "https://developers.zoom.us/docs/api/rest/reference/reports/report-routes/"
+  log_export_options:
+    tools_connectors:
+      value: "Zoom offers webhook-based event delivery that can be used by various connectors and tools. Official connectors exist for major SIEMs like Splunk and Microsoft Sentinel. The Zoom App Marketplace also lists third-party security and compliance apps that provide log archiving and monitoring capabilities."
+      reference: "https://marketplace.zoom.us/category/security-and-compliance"
+  documentation_links:
+    - "https://developers.zoom.us/docs/api/rest/webhook-reference/"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064287"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/zoom-meetings"
+    - "https://splunkbase.splunk.com/app/5402"
+    - "https://developers.zoom.us/docs/api/"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes, the API endpoint `PATCH /v2/users/{userId}/status` with the action 'deactivate' can be used. Deactivating a user removes their licenses and prevents them from logging in."
+    reference: "https://developers.zoom.us/docs/api/rest/reference/user/user-routes/#update-a-user-s-status"
+  invalidate_sessions_api:
+    value: "Yes, the `DELETE /v2/users/{userId}/token` API endpoint can be used to revoke a user's JWT or OAuth tokens, effectively logging them out."
+    reference: "https://developers.zoom.us/docs/api/rest/reference/user/user-routes/#revoke-a-user-s-token"
+  revoke_api_key_api:
+    value: "This action is performed within the Zoom Marketplace portal for a specific app. For OAuth apps, client secrets can be regenerated. For JWT apps (which are being deprecated), the credentials can be deactivated. There is not a direct API endpoint for revoking the primary API key of an app."
+    reference: "https://marketplace.zoom.us/"
+  user_toggle_api:
+    value: "Yes, the `PATCH /v2/users/{userId}/status` endpoint is used to both 'deactivate' and 'activate' a user."
+    reference: "https://developers.zoom.us/docs/api/rest/reference/user/user-routes/#update-a-user-s-status"
+  user_status_api:
+    value: "Yes, the `GET /v2/users/{userId}` API endpoint retrieves user information, including their status ('active', 'inactive', 'pending')."
+    reference: "https://developers.zoom.us/docs/api/rest/reference/user/user-routes/#get-a-user"
+  session_timeout_configuration:
+    value: "Account owners and admins can configure session timeout settings in the web portal under 'Advanced' > 'Security'. They can set the time for users to be automatically signed out after a specified period of inactivity."
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0059379"
+  known_automation_tools:
+    - value: "Palo Alto Networks Cortex XSOAR provides a Zoom integration with playbooks for user and meeting management, including deactivating users."
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/Zoom/"
+    - value: "Tines (SOAR Platform) offers automation stories for managing Zoom users, including deactivation and checking user existence."
+      reference: "https://www.tines.com/automations/zoom"
+    - value: "Splunk SOAR provides a Zoom connector for automating response actions like suspending users or ending meetings."
+      reference: "https://docs.splunk.com/Documentation/SOAR/current/PlaybookAPI/Zoom"
+    - value: "n8n.io provides nodes for Zoom that can be used to build custom automation workflows for incident response."
+      reference: "https://n8n.io/integrations/zoom/"
+  documentation_links:
+    - "https://developers.zoom.us/docs/api/rest/reference/user/user-routes/"
+    - "https://developers.zoom.us/docs/api/rest/reference/report/report-routes/"
+    - "https://marketplace.zoom.us/category/security-and-compliance"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0058694"
+    - "https://cortex.marketplace.pan.dev/marketplace/details/Zoom/"
+

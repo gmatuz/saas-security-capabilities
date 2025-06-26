@@ -1,0 +1,179 @@
+user_management:
+  sso_support:
+    value: Yes, SAML-based Single Sign-On is supported.
+    reference: https://help.shopify.com/en/manual/shopify-plus/organization-admin/users/security/saml-sso
+  sso_licensing_level_requirement:
+    value: Shopify Plus
+    reference: https://help.shopify.com/en/manual/shopify-plus/organization-admin/users/security/saml-sso
+  scim_support:
+    value: 'yes'
+    reference: https://help.shopify.com/en/manual/shopify-plus/organization-admin/users/security/scim-user-management
+  scim_licensing_level_requirement:
+    value: Shopify Plus
+    reference: https://help.shopify.com/en/manual/shopify-plus/organization-admin/users/security/scim-user-management
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://help.shopify.com/en/manual/shopify-plus/organization-admin/users/security/scim-user-management
+  scim_authentication_acquisition_steps: "1. From your Shopify organization admin, go to Users > Security.\n2. In the SCIM integration section, click 'Generate API token'.\n3. Copy the generated token. This token is used as the 'Secret Token' or 'SCIM Bearer Token' in your identity provider's (e.g., Okta, Azure AD, OneLogin) configuration. [2]"
+  user_management_api_support:
+    value: 'yes'
+    reference: https://shopify.dev/api/admin-graphql/2024-04/objects/StaffMember
+  user_management_api_licensing_level:
+    value: The `read_users` scope required to access staff member information via the API is available for custom/private apps on Shopify Advanced and Shopify Plus plans. [42, 27]
+    reference: https://community.shopify.com/c/graphql-basics-and-troubleshooting/shopify-staff-api-webhook/td-p/1628185
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://shopify.dev/apps/auth/oauth/access-tokens
+  user_management_api_authentication_acquisition_steps: "1. Create a custom app in the Shopify Partner Dashboard or directly in the Shopify Admin under 'Apps' > 'Develop apps'. [29]\n2. Configure the 'Admin API scopes' for the app, ensuring you select the necessary user-related permissions (e.g., `read_users`, `write_users`). Note that `read_users` may require Shopify Advanced or Plus. [42]\n3. Install the app on your store.\n4. During the OAuth 2.0 flow, the app will receive an authorization code after the user grants permission. [13]\n5. Exchange the authorization code for a permanent Admin API access token by making a POST request to the store's access token endpoint. [13]\n6. Securely store this access token to make authenticated API requests. [13]"
+  seat_costs:
+  - license_level: Shopify Plus
+    active:
+      value: 'yes'
+      reference: https://www.shopify.com/plus/pricing
+    suspended_disabled:
+      value: 'no'
+      reference: https://help.shopify.com/en/manual/your-account/staff-accounts/deactivate-staff-accounts
+    archived:
+      value: n/a
+      reference: ''
+  - license_level: Advanced
+    active:
+      value: 'yes'
+      reference: https://www.shopify.com/pricing
+    suspended_disabled:
+      value: 'no'
+      reference: https://help.shopify.com/en/manual/your-account/staff-accounts/deactivate-staff-accounts
+    archived:
+      value: n/a
+      reference: ''
+  - license_level: Shopify
+    active:
+      value: 'yes'
+      reference: https://www.shopify.com/pricing
+    suspended_disabled:
+      value: 'no'
+      reference: https://help.shopify.com/en/manual/your-account/staff-accounts/deactivate-staff-accounts
+    archived:
+      value: n/a
+      reference: ''
+  - license_level: Basic
+    active:
+      value: 'yes'
+      reference: https://www.shopify.com/pricing
+    suspended_disabled:
+      value: 'no'
+      reference: https://help.shopify.com/en/manual/your-account/staff-accounts/deactivate-staff-accounts
+    archived:
+      value: n/a
+      reference: ''
+  lifecycle_options:
+  - Create [19]
+  - Deactivate (Suspend) [19]
+  - Activate (Unsuspend) [19]
+  - Delete [19]
+  rbac_support:
+    value: 'yes'
+    reference: https://help.shopify.com/en/manual/users/roles
+  rbac_api_assignment:
+    value: Role assignment is supported via SCIM for supported identity providers like
+      Okta and OneLogin. [3] The GraphQL Admin API allows for querying staff member
+      permissions but does not appear to have mutations for directly assigning predefined
+      or custom roles. [32]
+    reference: https://shopify.changelog.com/posts/role-provisioning-through-scim
+  documentation_links:
+  - https://help.shopify.com/en/manual/shopify-plus/organization-admin/users/security/scim-user-management
+  - https://help.shopify.com/en/manual/shopify-plus/organization-admin/users/security/saml-sso
+  - https://shopify.dev/api/admin-graphql/
+  - https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/shopify-plus-provisioning-tutorial
+  - https://www.okta.com/integrations/shopify-plus/
+  - https://shopify.changelog.com/posts/role-provisioning-through-scim
+  - https://community.shopify.com/c/graphql-basics-and-troubleshooting/shopify-staff-api-webhook/td-p/1628185
+  - https://help.shopify.com/en/manual/users/roles
+  - https://help.shopify.com/en/manual/your-account/staff-accounts/deactivate-staff-accounts
+  - https://shopify.dev/apps/auth/oauth
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "User login events are captured in the Shopify Admin 'Store activity log'. The log records the staff member's name, date, and IP address for each login. This is available for store owners to view for their own account on the Shopify plan or higher, and for all staff accounts on the Advanced or Shopify Plus plans."
+      reference: "https://help.shopify.com/en/manual/your-account/staff-accounts/store-activity-log"
+    role_assignment:
+      value: "Changes to staff account permissions are logged in the 'Store activity log'. Events are recorded when a staff member's permissions are created, updated, or deleted."
+      reference: "https://help.shopify.com/en/manual/your-account/staff-accounts/store-activity-log"
+    api_call:
+      value: "The 'Event' object in the Admin API logs the creation, modification, and deletion of store resources (e.g., Orders, Products, Customers) resulting from API calls. Additionally, the installation of apps and creation/revocation of API keys are logged in the store activity log."
+      reference: "https://shopify.dev/docs/api/admin-rest/2023-10/resources/event"
+    data_export:
+      value: "The 'Store activity log' records when a staff member exports products, customers, or orders from the Shopify admin."
+      reference: "https://help.shopify.com/en/manual/your-account/staff-accounts/store-activity-log"
+    configuration_change:
+      value: "Changes to major store settings are recorded in the 'Store activity log'. This includes modifications to payment gateways, shipping zones, checkout processes, and notification settings."
+      reference: "https://help.shopify.com/en/manual/your-account/staff-accounts/store-activity-log"
+    user_account_creation:
+      value: "The creation of new staff accounts is a tracked event within the 'Store activity log'."
+      reference: "https://help.shopify.com/en/manual/your-account/staff-accounts/store-activity-log"
+    security_policy_change:
+      value: "Changes to security configurations, such as modifying two-factor authentication requirements for staff, are logged in the 'Store activity log'."
+      reference: "https://help.shopify.com/en/manual/your-account/staff-accounts/store-activity-log"
+  event_logs_licensing_level:
+    value: "Basic logging is available on all plans. However, viewing the activity log for all staff members requires the 'Advanced' or 'Shopify Plus' plan. Advanced features like 90-day log retention, activity log exports, and the AWS EventBridge integration are exclusive to the 'Shopify Plus' plan."
+    reference: "https://help.shopify.com/en/manual/shopify-plus/activity-log"
+  monitoring_products:
+    - value: "Splunk: The Splunkbase Add-on for Shopify uses the Admin API to pull event and order data."
+      reference: "https://splunkbase.splunk.com/app/4624"
+    - value: "Microsoft Sentinel: A data connector using an Azure Function App template is available to ingest Shopify data into Sentinel."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/shopify-using-azure-functions"
+    - value: "Datadog: An official integration exists that utilizes webhooks to send real-time event data from Shopify to Datadog."
+      reference: "https://docs.datadoghq.com/integrations/shopify/"
+    - value: "AWS EventBridge: A native, real-time event streaming integration available for Shopify Plus customers."
+      reference: "https://help.shopify.com/en/manual/shopify-plus/aws-eventbridge"
+  ingestion_methods:
+    - value: "Webhooks: Shopify can send real-time notifications for various topics (orders, customers, etc.) to any specified HTTPS endpoint. This is a primary method for event-driven integrations."
+      reference: "https://shopify.dev/docs/apps/webhooks/configuration/create"
+    - value: "REST Admin API (Polling): The 'Event' endpoint can be polled to retrieve a history of activities within the store. This is used by many SIEM connectors."
+      reference: "https://shopify.dev/docs/api/admin-rest/2023-10/resources/event"
+    - value: "GraphQL Admin API (Polling): The GraphQL API can also be queried for store events and activities."
+      reference: "https://shopify.dev/docs/api/admin-graphql"
+    - value: "AWS EventBridge Stream (Push): Shopify Plus stores can stream admin events directly to an AWS EventBridge event bus for serverless processing and ingestion."
+      reference: "https://shopify.dev/docs/apps/webhooks/eventbridge"
+  log_export_options:
+    tools_connectors:
+      value: "For Shopify Plus customers, a CSV export of the store's activity log is available directly from the admin interface."
+      reference: "https://help.shopify.com/en/manual/shopify-plus/activity-log"
+  documentation_links:
+    - "https://help.shopify.com/en/manual/your-account/staff-accounts/store-activity-log"
+    - "https://shopify.dev/docs/api/admin-rest/2023-10/resources/event"
+    - "https://shopify.dev/docs/apps/webhooks"
+    - "https://help.shopify.com/en/manual/shopify-plus/aws-eventbridge"
+    - "https://www.shopify.com/plus/security"
+    - "https://github.com/Shopify/shopify-api-js"
+incident_response:
+  suspend_user_management_api:
+    value: "User access is revoked by deleting the staff account. This can be done via the GraphQL Admin API using the 'staffMemberDelete' mutation. This action immediately invalidates the user's access and sessions."
+    reference: "https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/staffMemberDelete"
+  invalidate_sessions_api:
+    value: "There is no direct API endpoint to invalidate a user session. The standard procedure is to delete the staff account using the 'staffMemberDelete' GraphQL mutation or to trigger a password reset using the 'userAccountResetPassword' mutation, which effectively invalidates existing sessions."
+    reference: "https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/userAccountResetPassword"
+  revoke_api_key_api:
+    value: "API credentials for a custom app can be revoked using the 'privateApiAccessTokenDelete' mutation in the GraphQL Admin API. For public apps, the merchant must uninstall the application."
+    reference: "https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/privateApiAccessTokenDelete"
+  user_toggle_api:
+    value: "There is no API to temporarily 'disable' or 'suspend' a user. The user account must be deleted to revoke access. The 'staffMemberDelete' mutation is used for this purpose."
+    reference: "https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/staffMemberDelete"
+  user_status_api:
+    value: "The status of a user can be checked by querying for the user via the GraphQL `staffMembers` query or the REST `Users` endpoint. A successful retrieval indicates the user is active; an error or null response indicates the user does not exist or has been deleted. The 'StaffMember' object includes a 'deactivated' flag."
+    reference: "https://shopify.dev/docs/api/admin-graphql/2024-04/queries/staffMembers"
+  session_timeout_configuration:
+    value: "Session timeout is not configurable for most Shopify plans and defaults to a fixed period of inactivity. For Shopify Plus organizations, a session duration can be enforced for all users within the organization, requiring them to log in again after a set time (e.g., 8 hours, 1 day, 1 week)."
+    reference: "https://help.shopify.com/en/manual/shopify-plus/organization/users/security#set-session-duration-for-users-in-your-organization"
+  known_automation_tools:
+    - value: "Tines: Tines can be used to automate incident response workflows by interacting with the Shopify Admin API for actions like user deletion."
+      reference: "https://www.tines.com/blog/automating-with-the-shopify-api"
+    - value: "Generic SOAR Platforms: Platforms like Palo Alto XSOAR, Splunk SOAR, and Torq can be configured to make REST or GraphQL API calls to Shopify for automated remediation, though they may not have pre-built, dedicated integrations."
+      reference: "https://shopify.dev/docs/api/admin-graphql"
+  documentation_links:
+    - "https://shopify.dev/docs/api/admin-graphql"
+    - "https://shopify.dev/docs/api/admin-rest"
+    - "https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/staffMemberDelete"
+    - "https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/userAccountResetPassword"
+    - "https://shopify.dev/docs/api/admin-graphql/2024-04/mutations/privateApiAccessTokenDelete"
+    - "https://www.shopify.com/security"

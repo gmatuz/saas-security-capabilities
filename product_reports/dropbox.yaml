@@ -1,0 +1,161 @@
+user_management:
+  sso_support:
+    value: "yes"
+    reference: "https://www.dropbox.com/business/compare-plans"
+  sso_licensing_level_requirement:
+    value: "Dropbox Advanced or Enterprise plans are required for SSO."
+    reference: "https://www.dropbox.com/business/compare-plans"
+  scim_support:
+    value: "yes"
+    reference: "https://help.dropbox.com/installs-integrations/third-party/azure-ad-sync"
+  scim_licensing_level_requirement:
+    value: "A Dropbox team account (Standard, Advanced, Business, Business Plus, or Enterprise) is required. SCIM provisioning is configured through identity providers like Microsoft Entra ID or Google Workspace."
+    reference: "https://help.dropbox.com/installs-integrations/third-party/azure-ad-sync"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.dropbox.com/installs-integrations/third-party/azure-ad-sync"
+  scim_authentication_acquisition_steps: "SCIM is not offered as a direct, public API but as an integration feature with major Identity Providers (IdPs). The authentication is handled via the OAuth 2.0 flow established when an admin connects the IdP to Dropbox.\n1. Log in to dropbox.com with your admin credentials.\n2. Go to the Admin Console.\n3. Navigate to 'Settings' and then 'Identity management'.\n4. Follow the setup flow for your specific IdP (e.g., Microsoft Entra ID, Google Workspace, Okta). During this process, you will be prompted to authorize the IdP to manage users in Dropbox, which generates the necessary token/credentials in the background."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://www.dropbox.com/developers/documentation/http/teams"
+  user_management_api_licensing_level:
+    value: "A Dropbox Business (Standard, Advanced, or Enterprise) plan is required to use the Business API for team management."
+    reference: "https://www.dropbox.com/developers/documentation/http/overview#business-api"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://www.dropbox.com/developers/documentation/http/documentation#authorization"
+  user_management_api_authentication_acquisition_steps: "1. Go to the Dropbox App Console at https://www.dropbox.com/developers/apps.\n2. Click 'Create app'.\n3. Choose the 'Dropbox Business API'.\n4. Select the required permission level (e.g., 'Team member management' for adding/removing users).\n5. Name your app and click 'Create app'.\n6. On your app's settings page, under the 'Permissions' tab, select the necessary scopes, such as `members.read` and `members.write`.\n7. Navigate back to the 'Settings' tab.\n8. Scroll to the 'OAuth 2' section and click the 'Generate' button under 'Generated access token'.\n9. Copy the generated token. This token must be included as a Bearer token in the Authorization header of your API requests."
+  seat_costs:
+  - license_level: "Dropbox Standard, Advanced, Enterprise"
+    active:
+      value: "yes"
+      reference: "https://www.dropbox.com/business/compare-plans"
+    suspended_disabled:
+      value: "yes"
+      reference: "https://help.dropbox.com/organize/how-to-suspend-a-team-member#bill"
+    archived:
+      value: "n/a"
+      reference: "https://help.dropbox.com/organize/how-to-suspend-a-team-member"
+  lifecycle_options:
+  - "Add: Invite a new member to the team. [2]"
+  - "Suspend: Immediately revokes a user's access to their account and stops file syncing. The user's files are retained, and the account can be unsuspended. This action consumes a license. [25, 13]"
+  - "Delete (Remove): Permanently removes a user from the team. The admin can transfer the user's files to another team member. The user's email address cannot be reused for a new Dropbox account for 30 days. [13]"
+  - "Unsuspend: Reactivates a suspended user's account, restoring their access. [25]"
+  - "Recover: Admins can recover a deleted team member within a limited time. [2]"
+  rbac_support:
+    value: "yes"
+    reference: "https://www.dropbox.com/business/compare-plans"
+  rbac_api_assignment:
+    value: "Yes, role and group assignments can be managed via the API. The `team/members/set_admin_permissions` endpoint is used to assign admin roles, and the `team/groups/members/add` endpoint is used to add users to groups."
+    reference: "https://www.dropbox.com/developers/documentation/http/teams#team-members-set_admin_permissions_v2"
+  documentation_links:
+  - "https://www.dropbox.com/developers/documentation/http/teams"
+  - "https://www.dropbox.com/developers/documentation/http/documentation"
+  - "https://help.dropbox.com/installs-integrations/third-party/saml-sso"
+  - "https://developers.dropbox.com/dev-blog/improving-your-user-lifecycle-management-with-the-dropbox-api"
+  - "https://help.dropbox.com/installs-integrations/third-party/azure-ad-sync"
+  - "https://www.okta.com/integrations/dropbox/"
+  - "https://developers.dropbox.com/oauth-guide"
+  - "https://help.dropbox.com/organize/how-to-suspend-a-team-member"
+  - "https://www.dropbox.com/developers/documentation/http/teams#team-groups-create"
+  - "https://www.dropbox.com/postman"
+
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Successful and failed sign-ins to the Dropbox website are logged. Events include 'login_success' and 'login_fail'. These can be filtered by date, user, and content. The logs also capture the IP address and device used for access."
+      reference: "https://www.dropbox.com/business/trust/security/activity-monitoring"
+    role_assignment:
+      value: "Changes to a team member's administrative role are logged as 'member_change_admin_role'. This captures when a user's permissions are elevated or demoted."
+      reference: "https://docs.netskope.com/en/dropbox-audit-events.html"
+    api_call:
+      value: "API activity is logged. The 'team_log/get_events' endpoint in the Dropbox Business API can be used to retrieve team events, which includes API calls. The Compliance report for Dropbox Sign also includes API call logs."
+      reference: "https://developers.sign.dropbox.com/api/reference/tag/Admin-Console-Reports/"
+    data_export:
+      value: "Team admins can create and export activity reports from the Admin Console. These reports, generated in CSV format, contain detailed logs of team activities. Events related to mass data deletion or moves can also trigger security alerts."
+      reference: "https://help.dropbox.com/organize-simplify/view-team-activity"
+    configuration_change:
+      value: "Changes to settings in the admin console, such as shared folder permissions, password policies, or two-step verification settings, are recorded in the activity logs. These events are categorized under 'Admin actions'."
+      reference: "https://www.dropbox.com/business/trust/security/activity-monitoring"
+    user_account_creation:
+      value: "The activity log records when a new user is added to the team, capturing who performed the action and when."
+      reference: "https://www.dropbox.com/developers/reference/converted-dropbox-activity-log-common-event-format-events"
+    security_policy_change:
+      value: "Changes to security policies, such as password requirements or session timeouts, are logged. For example, the event 'sf_external_invite_warn' is logged when an admin changes the setting for warnings on external sharing."
+      reference: "https://docs.netskope.com/en/dropbox-audit-events.html"
+  event_logs_licensing_level:
+    value: "Dropbox Business, Business Plus, Advanced, or Enterprise plans are required for full access to team activity logs and security alerts. Some advanced features like file-level event auditing are restricted to Advanced or Enterprise plans."
+    reference: "https://help.dropbox.com/plans/security-add-on"
+  monitoring_products:
+    - value: "Splunk: Offers a Splunk Add-on for Dropbox to pull and analyze audit event data."
+      reference: "https://splunkbase.splunk.com/app/2815"
+    - value: "Microsoft Sentinel: Provides a connector to ingest Dropbox logs for monitoring and threat detection."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/dropbox"
+    - value: "Palo Alto Networks Cortex XSOAR: Has an event collector and automation playbooks for Dropbox to investigate and respond to alerts like massive file downloads or alterations. [17, 40]"
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/Dropbox/"
+    - value: "Sumo Logic: Integrates via a Cloud-to-Cloud Dropbox Source to monitor and analyze user activity, file access, and sharing. [4, 18]"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/dropbox-source/"
+    - value: "Panther: A SIEM platform that integrates with the Dropbox Business API to collect, normalize, and monitor logs for suspicious activity. [10, 31]"
+      reference: "https://panther.com/docs/log-onboarding/dropbox/"
+    - value: "Datadog: Integration is possible through third-party workflow automation tools like Zapier, Make (formerly Integromat), or n8n to send Dropbox events as metrics or logs. [5, 6, 21]"
+      reference: "https://www.datadoghq.com/blog/monitor-dropbox-with-datadog/"
+    - value: "IBM QRadar: Integrates with Dropbox for security monitoring, although specific connectors may need to be sourced or built."
+      reference: "https://www.ibm.com/community/qradar/home/discover/"
+    - value: "SaaS Alerts: A monitoring solution that tracks over 50 specific Dropbox events to identify harmful activities and sends immediate alerts. [12]"
+      reference: "https://saasalerts.com/saas-applications/dropbox-security/"
+  ingestion_methods:
+    - value: "API Polling: Using the '/2/team_log/get_events' endpoint of the Dropbox Business API to programmatically retrieve team event logs. [20, 33, 36]"
+      reference: "https://www.dropbox.com/developers/documentation/http/documentation#team_log-get_events"
+    - value: "Cloud-to-Cloud Connectors: Many SIEMs (e.g., Sumo Logic, Microsoft Sentinel) offer pre-built connectors that use the Dropbox API to ingest logs directly. [4, 18]"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/dropbox-source/"
+    - value: "Manual Export: Admins can generate and download activity reports in CSV format directly from the Admin Console. [14, 15, 16]"
+      reference: "https://help.dropbox.com/organize-simplify/view-team-activity"
+    - value: "Custom Scripts (GitHub): Open-source scripts, such as a Python script to convert activity logs to Common Event Format (CEF), can be used to facilitate ingestion into various SIEMs. [13, 32]"
+      reference: "https://github.com/dropbox/dropbox-sdk-python/tree/main/example"
+  log_export_options:
+    tools_connectors:
+      value: "Dropbox integrates with various SIEM and security analytics tools through API-based connectors. Key partners include Splunk, Microsoft Sentinel, Palo Alto Networks, and Sumo Logic, which provide official add-ons or connectors for streamlined log export and analysis. [3, 10, 17, 18]"
+      reference: "https://www.dropbox.com/app-integrations"
+  documentation_links:
+    - "https://www.dropbox.com/business/trust/security/activity-monitoring"
+    - "https://help.dropbox.com/organize-simplify/view-team-activity"
+    - "https://www.dropbox.com/developers/documentation/http/documentation#team_log-get_events"
+    - "https://panther.com/docs/log-onboarding/dropbox/"
+    - "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/dropbox-source/"
+    - "https://cortex.marketplace.pan.dev/marketplace/details/Dropbox/"
+    - "https://www.dropbox.com/developers/reference/converted-dropbox-activity-log-common-event-format-events"
+incident_response:
+  suspend_user_management_api:
+    value: "The '/2/team/members/suspend' API endpoint is used to suspend a member of a team. The user's account will be disabled, but their data will be retained."
+    reference: "https://www.dropbox.com/developers/documentation/http/documentation#team-members-suspend"
+  invalidate_sessions_api:
+    value: "The '/2/team/devices/revoke_device_session' and '/2/team/devices/revoke_device_session_batch' endpoints can be used to remotely log out a user from specific web, desktop, or mobile sessions."
+    reference: "https://www.dropbox.com/developers/documentation/http/documentation#team-devices-revoke_device_session"
+  revoke_api_key_api:
+    value: "The '/2/auth/token/revoke' API endpoint disables the specific access token used to make the call. Users can also manually revoke app access via their account security page, which revokes all tokens for that app-user pair. [7, 9, 11, 25]"
+    reference: "https://www.dropbox.com/developers/documentation/http/documentation#auth-token-revoke"
+  user_toggle_api:
+    value: "To unsuspend a user, the '/2/team/members/unsuspend' endpoint can be used. To fully remove a user and their data, use '/2/team/members/remove'."
+    reference: "https://www.dropbox.com/developers/documentation/http/documentation#team-members-unsuspend"
+  user_status_api:
+    value: "The '/2/team/members/get_info' endpoint can be used to retrieve profile information for members of a team, which includes their account status (e.g., active, suspended)."
+    reference: "https://www.dropbox.com/developers/documentation/http/documentation#team-members-get_info"
+  session_timeout_configuration:
+    value: "Admins can set session duration policies from the Admin Console under Settings > Authentication > Session duration. This allows setting fixed or idle timeout periods for web sessions."
+    reference: "https://help.dropbox.com/account-access/session-duration"
+  known_automation_tools:
+    - value: "Palo Alto Cortex XSOAR: Provides playbooks to automate responses to Dropbox alerts, including actions like blocking accounts and IPs. [40]"
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/Dropbox/"
+    - value: "Zapier: Allows for creating automated workflows (Zaps) that can link Dropbox triggers (like new files) to actions in other apps, which could include notification or basic response tasks."
+      reference: "https://zapier.com/apps/dropbox/integrations"
+    - value: "Make (formerly Integromat): A no-code platform that can be used to create automated workflows involving Dropbox API actions for incident response."
+      reference: "https://www.make.com/en/integrations/dropbox"
+    - value: "n8n.io: An open-source workflow automation tool that can be used to create custom integrations and automate response actions using the Dropbox API. [6]"
+      reference: "https://n8n.io/integrations/dropbox/"
+  documentation_links:
+    - "https://www.dropbox.com/developers/documentation/http/documentation#team"
+    - "https://www.postman.com/dropbox-developer/workspace/dropbox-api-reference/documentation/18839034-e4034739-1721-424a-8533-356c33c3938b"
+    - "https://help.dropbox.com/plans/security-add-on"
+    - "https://cortex.marketplace.pan.dev/marketplace/details/DropBoxMassiveFileOperations/"
+    - "https://www.dropbox.com/business/trust/security/features"
+    - "https://www.dropbox.com/developers/documentation/http/documentation#auth-token-revoke"

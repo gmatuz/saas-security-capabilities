@@ -1,0 +1,190 @@
+user_management:
+  sso_support:
+    value: Asana supports SAML 2.0 for Single Sign-On. Both IdP-initiated and SP-initiated
+      SSO are supported.
+    reference: https://help.asana.com/hc/en-us/articles/204865180-Authentication-and-access-management-options-for-paid-plans
+  sso_licensing_level_requirement:
+    value: Asana Enterprise, Enterprise+, and legacy Enterprise plans are required for
+      SAML SSO.
+    reference: https://asana.com/pricing
+  scim_support:
+    value: 'yes'
+    reference: https://developers.asana.com/docs/scim
+  scim_licensing_level_requirement:
+    value: Asana Enterprise, Enterprise+, and legacy Enterprise plans are required for
+      SCIM provisioning.
+    reference: https://help.asana.com/hc/en-us/articles/115001308388-Provisioning-and-deprovisioning-users-with-SCIM
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://help.asana.com/hc/en-us/articles/115001308388-Provisioning-and-deprovisioning-users-with-SCIM
+  scim_authentication_acquisition_steps: "1. Log in to Asana with a Super Admin account.\n2.
+    Click your profile picture in the top-right corner and select 'Admin Console'.\n3.
+    Navigate to the 'Apps' tab.\n4. Click 'Add service account'.\n5. Name the service
+    account (e.g., for your IdP).\n6. Under 'Permission scopes', select 'Scoped permissions'
+    and check the box for 'User provisioning (SCIM)'. Ensure all sub-permissions
+    (Users: Read, Users: Create and modify, Teams: Read, Teams: Create and modify)
+    are selected.\n7. Click 'Save Changes'.\n8. Copy the generated API token. This
+    token is the Bearer Token used for SCIM authentication."
+  user_management_api_support:
+    value: 'yes'
+    reference: https://developers.asana.com/reference/users
+  user_management_api_licensing_level:
+    value: The Asana API is available on all plans, including the free Personal plan.
+      However, features like service accounts for authentication and managing organization-level
+      settings are tied to paid plans (Enterprise and above).
+    reference: https://developers.asana.com/docs/quick-start-guide
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developers.asana.com/docs/authentication
+  user_management_api_authentication_acquisition_steps: "For automated integrations,
+    using a Service Account token is recommended (requires Enterprise plan):\n1. Log
+    in to Asana with a Super Admin account.\n2. Click your profile picture and select
+    'Admin Console'.\n3. Go to the 'Apps' tab and select 'Service accounts'.\n4. Click
+    'Add Service Account' and give it a name and description.\n5. Select the required
+    permission scopes.\n6. Click 'Save Changes' and copy the generated token.\n\nFor
+    individual scripts or testing, a Personal Access Token (PAT) can be used:\n1.
+    Log in to your Asana account.\n2. Go to the Developer Console by clicking your
+    profile picture > My Settings > Apps > Manage Developer Apps.\n3. Click '+ Create
+    new token'.\n4. Give the token a name, agree to the terms, and click 'Create token'.\n5.
+    Copy the generated token immediately as it will not be shown again."
+  seat_costs:
+  - license_level: All Paid Tiers (Starter, Advanced, Enterprise, Enterprise+)
+    active:
+      value: 'yes'
+      reference: https://asana.com/pricing
+    suspended_disabled:
+      value: 'no'
+      reference: https://help.asana.com/hc/en-us/articles/21156641572251-Pause-a-member-s-license
+    archived:
+      value: 'n/a'
+      reference: https://help.asana.com/hc/en-us/articles/204865180-Authentication-and-access-management-options-for-paid-plans
+  lifecycle_options:
+  - Create
+  - Deactivate (Deprovision)
+  - Pause License
+  - Delete
+  rbac_support:
+    value: 'yes'
+    reference: https://help.asana.com/hc/en-us/articles/4403553239323-Member-and-team-management
+  rbac_api_assignment:
+    value: 'Yes, team memberships can be managed via the API. The SCIM API allows for
+      adding/removing users from groups (teams). The standard REST API also has endpoints
+      to manage team memberships. User roles (e.g., Admin, Super Admin) are assigned
+      in the Admin Console, but membership in teams, which controls access to projects,
+      is manageable via API.'
+    reference: https://developers.asana.com/docs/scim#group-endpoints
+  documentation_links:
+  - https://developers.asana.com/docs/scim
+  - https://help.asana.com/hc/en-us/articles/115001308388-Provisioning-and-deprovisioning-users-with-SCIM
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/asana-provisioning-tutorial
+  - https://help.okta.com/en/prod/okta_help/Content/Topics/Apps/Asana/provisioning.htm
+  - https://developers.asana.com/reference/users
+  - https://developers.asana.com/docs/authentication
+  - https://help.asana.com/hc/en-us/articles/204865180-Authentication-and-access-management-options-for-paid-plans
+  - https://help.asana.com/hc/en-us/articles/4403553239323-Member-and-team-management
+  - https://help.asana.com/hc/en-us/articles/21156641572251-Pause-a-member-s-license
+  - https://help.asana.com/hc/en-us/articles/4403553240091-User-deprovisioning
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Supported. The Audit Log API captures successful user logins, password-related events (resets, changes), and changes to two-factor authentication settings. Failed logins are not explicitly mentioned as being logged. [5, 15]"
+      reference: "https://developers.asana.com/docs/audit-log-events#user-updates"
+    role_assignment:
+      value: "Supported. The Audit Log API tracks events related to user roles and permissions, such as when a user is added, removed, or has their role changed (e.g., Member, Admin, Guest). [5, 15]"
+      reference: "https://developers.asana.com/docs/audit-log-events#user-updates"
+    api_call:
+      value: "Partially Supported. The Audit Log API logs events related to API key management, such as the creation and deletion of Personal Access Tokens and Service Account tokens. However, it does not provide a comprehensive log of every individual API call made. [5]"
+      reference: "https://developers.asana.com/docs/audit-log-events#apps"
+    data_export:
+      value: "Supported. The Audit Log API records events when an admin exports data for the entire organization, such as a full user list via CSV or project data exports. [5, 11]"
+      reference: "https://developers.asana.com/docs/audit-log-events#content-export"
+    configuration_change:
+      value: "Supported. The Audit Log API tracks a wide range of administrative and workspace configuration changes. This includes modifications to authentication settings (SAML, password policies), security controls (mobile app policies, biometric authentication), and announcements. [5, 15]"
+      reference: "https://developers.asana.com/docs/audit-log-events#admin-settings"
+    user_account_creation:
+      value: "Supported. The Audit Log API logs events when a new user is invited to or joins a workspace, and when a user is created through SCIM provisioning. [5, 7]"
+      reference: "https://developers.asana.com/docs/audit-log-events#user-updates"
+    security_policy_change:
+      value: "Supported. The Audit Log API captures changes to security-related policies, such as enabling or disabling two-factor authentication, modifying SAML configurations, and changing password requirements. [1, 5]"
+      reference: "https://developers.asana.com/docs/audit-log-events#admin-settings"
+  event_logs_licensing_level:
+    value: "Asana Enterprise+. Access to the Audit Log API is restricted to customers on the Enterprise+ plan or the legacy Enterprise tier. [5, 17, 26]"
+    reference: "https://developers.asana.com/docs/audit-log-api"
+  monitoring_products:
+    - value: "Splunk Enterprise and Splunk Cloud (via Asana for Splunk App)"
+      reference: "https://splunkbase.splunk.com/app/6566"
+    - value: "Microsoft Defender for Cloud Apps"
+      reference: "https://learn.microsoft.com/en-us/defender-cloud-apps/connect-asana"
+    - value: "Datadog"
+      reference: "https://docs.datadoghq.com/integrations/asana/"
+    - value: "Panther"
+      reference: "https://asana.com/apps/panther"
+    - value: "Theta Lake (for compliance archiving)"
+      reference: "https://asana.com/apps/thetalake"
+    - value: "Nightfall (for Data Loss Prevention)"
+      reference: "https://asana.com/apps/nightfall"
+    - value: "Abnormal Security"
+      reference: "https://abnormalsecurity.com/platform/integrations/asana"
+  ingestion_methods:
+    - value: "Audit Log API: A RESTful API that allows for the programmatic retrieval of audit log events. Requires a Service Account with the 'Audit Logs' permission scope. [5, 26]"
+      reference: "https://developers.asana.com/docs/audit-log-api"
+    - value: "Official SIEM Connectors: Pre-built applications, such as the Asana for Splunk App, that handle the API connection and data ingestion process. [3]"
+      reference: "https://splunkbase.splunk.com/app/6566"
+    - value: "Third-party Integration Platforms: Services like Torii and others connect to the Audit Log API to pull security and activity data. [15]"
+      reference: "https://www.toriihq.com/integrations/asana"
+  log_export_options:
+    tools_connectors:
+      value: "Logs are primarily exported via the Audit Log API. Connectors for SIEMs like Splunk, Datadog, and Microsoft Defender for Cloud Apps utilize this API. There are also third-party tools like Panther and security platforms like Abnormal and Nightfall that integrate with it. [3, 4, 6, 26, 35]"
+      reference: "https://developers.asana.com/docs/audit-log-api"
+  documentation_links:
+    - "https://developers.asana.com/docs/audit-log-api"
+    - "https://developers.asana.com/docs/audit-log-events"
+    - "https://splunkbase.splunk.com/app/6566"
+    - "https://learn.microsoft.com/en-us/defender-cloud-apps/connect-asana"
+    - "https://docs.datadoghq.com/integrations/asana/"
+    - "https://asana.com/apps/panther"
+    - "https://asana.com/guide/help/premium/admin-console"
+    - "https://asana.com/pricing"
+    - "https://www.toriihq.com/integrations/asana"
+    - "https://abnormalsecurity.com/platform/integrations/asana"
+incident_response:
+  suspend_user_management_api:
+    value: "Supported via SCIM. User accounts can be deactivated (deprovisioned) using SCIM 2.0. This is an Enterprise/Enterprise+ feature and requires configuration with an identity provider like Okta or Microsoft Entra ID. A PATCH request to the /Users/:id endpoint with 'active: false' will deprovision the user. [21, 29]"
+    reference: "https://developers.asana.com/docs/scim"
+  invalidate_sessions_api:
+    value: "Partially Supported. While there isn't a direct API endpoint to invalidate a specific user's session tokens, an administrator can force a password reset for all users in an organization. For organizations using SAML, admins can set session timeout durations from the admin console. [1]"
+    reference: "https://asana.com/guide/help/premium/admin-console#gl-saml"
+  revoke_api_key_api:
+    value: "Not Supported. There is no specific API endpoint for an administrator to unilaterally revoke a user's Personal Access Tokens (PATs) or other API credentials. Users must manage their own PATs through their developer console."
+    reference: "https://developers.asana.com/docs/personal-access-token"
+  user_toggle_api:
+    value: "Supported via SCIM. The SCIM API allows for deprovisioning (disabling) and reprovisioning (re-enabling) users. A deprovisioned user has their access revoked and their tasks are reassigned. [21, 29]"
+    reference: "https://developers.asana.com/docs/scim#patch-usersid"
+  user_status_api:
+    value: "Supported via SCIM and standard REST API. The SCIM `/Users` endpoint can be queried to check if a user is 'active'. The standard REST API `/users/{user_gid}` endpoint provides user details, but 'active' status is best determined via SCIM. [12, 29]"
+    reference: "https://developers.asana.com/docs/scim#get-users"
+  session_timeout_configuration:
+    value: "Supported for SAML. Enterprise admins using SAML for authentication can configure session duration (timeout) from the administrator console. [1]"
+    reference: "https://asana.com/guide/help/premium/admin-console#gl-saml"
+  known_automation_tools:
+    - value: "SCIM Identity Providers (Okta, Microsoft Entra ID, JumpCloud) for automated user provisioning and deprovisioning."
+      reference: "https://asana.com/guide/help/enterprise/scim"
+    - value: "Microsoft Defender for Cloud Apps for applying governance actions like 'Suspend user' (requires Microsoft Entra ID)."
+      reference: "https://learn.microsoft.com/en-us/defender-cloud-apps/governance-actions-for-app-protection"
+    - value: "Zapier, n8n, and other workflow automation platforms can interact with Asana's API to build custom response flows, such as creating tasks based on alerts from other systems. [30, 18]"
+      reference: "https://zapier.com/apps/asana/integrations/github"
+    - value: "Trelica can be used for deprovisioning users via the API, requiring an Asana Enterprise plan. [20]"
+      reference: "https://www.trelica.com/apps/asana"
+    - value: "Custom scripts using the Asana API and webhooks to react to events and perform actions. [34]"
+      reference: "https://sardine.ai/blog/automating-release-notes-with-asana-and-github"
+  documentation_links:
+    - "https://developers.asana.com/docs/scim"
+    - "https://asana.com/guide/help/enterprise/scim"
+    - "https://developers.asana.com/docs/webhooks"
+    - "https://developers.asana.com/docs/rate-limits"
+    - "https://asana.com/guide/help/premium/admin-console"
+    - "https://learn.microsoft.com/en-us/defender-cloud-apps/connect-asana"
+    - "https://www.trelica.com/apps/asana"
+    - "https://asana.com/apps/okta"
+    - "https://asana.com/apps/azure-ad"
+    - "https://sardine.ai/blog/automating-release-notes-with-asana-and-github"

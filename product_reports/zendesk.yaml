@@ -1,0 +1,154 @@
+user_management:
+  sso_support:
+    value: "Zendesk supports SAML 2.0 and JWT for Single Sign-On. These can be configured for both team members (agents/admins) and end-users."
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408848187290-Enabling-SAML-single-sign-on"
+  sso_licensing_level_requirement:
+    value: "SSO (SAML and JWT) is available on Suite Professional, Suite Enterprise, and above plans. It's also available on the legacy Support Professional and Enterprise plans."
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408848187290-Enabling-SAML-single-sign-on"
+  scim_support:
+    value: "no"
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408868751898-Does-Zendesk-support-SCIM-"
+  scim_licensing_level_requirement:
+    value: "Not applicable as Zendesk does not have a native SCIM endpoint. Provisioning is handled via the standard REST API, which is available on all plans. However, IdP-led provisioning (like from Azure AD or Okta) which mimics SCIM functionality is typically a feature of higher-tier plans like Suite Professional and Enterprise."
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408868751898-Does-Zendesk-support-SCIM-"
+  scim_authentication_mechanisms:
+    value: "API key"
+    reference: "https://support.zendesk.com/hc/en-us/articles/115011394548-Enabling-automatic-user-provisioning-from-Azure-Active-Directory"
+  scim_authentication_acquisition_steps: "Zendesk does not support SCIM. However, for API-based provisioning (often used by IdPs like Azure AD and Okta), an API token is used. To acquire it:\n1. Log in to Zendesk as an administrator.\n2. Navigate to Admin Center.\n3. Go to 'Apps and integrations' > 'APIs' > 'Zendesk API'.\n4. Under 'Token Access', click the 'Add API token' button.\n5. Provide a description for the token and copy the generated token. This token will not be shown again."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://developer.zendesk.com/api-reference/ticketing/users/users/"
+  user_management_api_licensing_level:
+    value: "API access is available on all Zendesk plans, including legacy plans. However, rate limits vary by plan."
+    reference: "https://developer.zendesk.com/api-reference/introduction/rate-limits/"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://developer.zendesk.com/api-reference/introduction/authentication/#api-token"
+  user_management_api_authentication_acquisition_steps: "1. Log in to Zendesk as an administrator.\n2. In the Admin Center, navigate to 'Apps and integrations' > 'APIs' > 'Zendesk API'.\n3. Ensure 'Token Access' is enabled.\n4. Click the 'Add API token' button.\n5. Give the token a descriptive name.\n6. Copy the generated API token immediately. It will not be displayed again."
+  seat_costs:
+  - license_level: "All paid plans"
+    active:
+      value: "yes"
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408827725594-Does-Zendesk-charge-for-all-users-in-the-account-"
+    suspended_disabled:
+      value: "no"
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408844896794-What-happens-when-I-suspend-a-user-"
+    archived:
+      value: "no"
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408823521306-Deleting-users"
+  lifecycle_options:
+  - "Creation of users (agents, end-users)"
+  - "Suspension of users (user cannot sign in, tickets are suspended)"
+  - "Deletion of users (user is permanently removed)"
+  - "Updating user profiles and roles"
+  rbac_support:
+    value: "yes"
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408825959962-Creating-custom-roles-and-assigning-agents-Enterprise-"
+  rbac_api_assignment:
+    value: "Yes, you can assign an agent to a role via the Users API by setting the `role` and `custom_role_id` properties."
+    reference: "https://developer.zendesk.com/api-reference/ticketing/users/users/#update-user"
+  documentation_links:
+  - "https://developer.zendesk.com/api-reference/ticketing/users/users/"
+  - "https://support.zendesk.com/hc/en-us/articles/4408848187290-Enabling-SAML-single-sign-on"
+  - "https://support.zendesk.com/hc/en-us/articles/4408848202906-Enabling-JWT-single-sign-on"
+  - "https://developer.zendesk.com/api-reference/ticketing/custom_roles/custom_agent_roles/"
+  - "https://www.okta.com/integrations/zendesk/"
+  - "https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/zendesk-provisioning-tutorial"
+  - "https://support.zendesk.com/hc/en-us/articles/4408825959962-Creating-custom-roles-and-assigning-agents-Enterprise-"
+  - "https://developer.zendesk.com/api-reference/introduction/authentication/"
+  - "https://www.zendesk.com/pricing/"
+  - "https://support.zendesk.com/hc/en-us/articles/4408823521306-Deleting-users"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "User sign-in events are recorded in the audit log. The log captures the time, actor (user), and IP address of the sign-in."
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes"
+    role_assignment:
+      value: "Changes to user roles are logged in the audit log. This includes assigning or changing a user's role."
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes"
+    api_call:
+      value: "The audit log tracks the creation and updates of API tokens. Specific API call details are available through the Access Logs API, which is part of an add-on."
+      reference: "https://developer.zendesk.com/api-reference/ticketing/account-configuration/audit_logs/"
+    data_export:
+      value: "The audit log records when data is exported. The 'Exported' activity type can be used to filter for these events."
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes"
+    configuration_change:
+      value: "The audit log captures a wide range of configuration changes, including updates to business rules, ticket settings, and other account settings."
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes"
+    user_account_creation:
+      value: "Creation of new users is an event captured in the Zendesk audit log."
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes"
+    security_policy_change:
+      value: "Changes to security settings, such as password policies or 2-factor authentication settings, are recorded in the audit log."
+      reference: "https://www.zendesk.com/trust-center/"
+  event_logs_licensing_level:
+    value: "The audit log is available on Enterprise and Enterprise Plus plans. More detailed access logs require the Advanced Data Privacy and Protection add-on."
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes#topic_gpr_yn3_2jb"
+  monitoring_products:
+    - value: "Splunk: Zendesk data can be integrated with Splunk for monitoring and analysis. Connectors and integration apps are available."
+      reference: "https://www.splunk.com/en_us/blog/integrations/zendesk-and-splunk-on-call-integration.html"
+    - value: "Microsoft Sentinel: Zendesk can be connected to Microsoft Sentinel for security monitoring and incident response."
+      reference: "https://docs.microsoft.com/en-us/defender-for-cloud-apps/connect-zendesk"
+    - value: "Sumo Logic: Provides a dedicated app for Zendesk to monitor audit events, user activity, and security-related changes."
+      reference: "https://help.sumologic.com/docs/integrations/saas-apps/zendesk/"
+    - value: "Datadog: Integrates with Zendesk to collect and monitor audit logs, providing visibility into security and user activities."
+      reference: "https://docs.datadoghq.com/integrations/zendesk/"
+    - value: "Panther: A cloud SIEM platform that can collect, normalize, and monitor Zendesk logs for real-time threat detection."
+      reference: "https://panther.com/blog/zendesk-log-monitoring/"
+  ingestion_methods:
+    - value: "Zendesk API: The Audit Logs API and Access Logs API can be used to programmatically pull log data."
+      reference: "https://developer.zendesk.com/api-reference/ticketing/account-configuration/audit_logs/"
+    - value: "CSV Export: The audit log can be exported as a CSV file from the Admin Center."
+      reference: "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes"
+    - value: "Partner Connectors: SIEM solutions like Splunk, Sentinel, and Sumo Logic provide pre-built connectors to ingest Zendesk data."
+      reference: "https://docs.microsoft.com/en-us/defender-for-cloud-apps/connect-zendesk"
+  log_export_options:
+    tools_connectors:
+      value: "Various third-party tools and connectors facilitate log export, including integrations from Splunk, Microsoft Sentinel, Sumo Logic, Datadog, and Panther."
+      reference: "https://panther.com/docs/data-onboarding/log-source-guides/zendesk/"
+  documentation_links:
+    - "https://developer.zendesk.com/api-reference/ticketing/account-configuration/audit_logs/"
+    - "https://support.zendesk.com/hc/en-us/articles/4408824574490-Viewing-the-audit-log-for-changes"
+    - "https://www.zendesk.com/trust-center/"
+    - "https://docs.microsoft.com/en-us/defender-for-cloud-apps/connect-zendesk"
+    - "https://help.sumologic.com/docs/integrations/saas-apps/zendesk/"
+    - "https://panther.com/blog/zendesk-log-monitoring/"
+    - "https://docs.datadoghq.com/integrations/zendesk/"
+incident_response:
+  suspend_user_management_api:
+    value: "Users can be suspended via the UI or by using the Users API. The `suspended` attribute of a user can be set to `true`."
+    reference: "https://developer.zendesk.com/api-reference/ticketing/users/users/#update-user"
+  invalidate_sessions_api:
+    value: "The Sessions API allows for ending a user's session, effectively logging them out. The endpoint is `DELETE /api/v2/sessions/{id}`."
+    reference: "https://developer.zendesk.com/api-reference/ticketing/sessions/sessions/#delete-session"
+  revoke_api_key_api:
+    value: "API tokens can be deactivated and deleted through the Admin Center. Programmatic revocation is available for OAuth tokens via the `DELETE /api/v2/oauth/tokens/{id}` endpoint."
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408882109850-Managing-API-token-access-to-the-Zendesk-API"
+  user_toggle_api:
+    value: "The Users API allows for updating a user's status, including suspending and unsuspending them by setting the `suspended` boolean value."
+    reference: "https://developer.zendesk.com/api-reference/ticketing/users/users/#update-user"
+  user_status_api:
+    value: "The Users API can be used to retrieve the status of a user, including whether they are active or suspended. The endpoint is `GET /api/v2/users/{id}.json`."
+    reference: "https://developer.zendesk.com/api-reference/ticketing/users/users/#show-user"
+  session_timeout_configuration:
+    value: "Session expiration times for agents and end-users can be customized in the Admin Center under Security > Advanced. Default is 8 hours of inactivity."
+    reference: "https://support.zendesk.com/hc/en-us/articles/4408887858970-Understanding-and-customizing-session-time-out-settings"
+  known_automation_tools:
+    - value: "Microsoft Sentinel: Provides SOAR capabilities with playbooks to automate responses to Zendesk-related security alerts."
+      reference: "https://docs.microsoft.com/en-us/azure/sentinel/soar-content-catalog#zendesk"
+    - value: "CrowdStrike Falcon: Integrates with Zendesk for automated ticket creation and management as part of incident response workflows."
+      reference: "https://www.crowdstrike.com/marketplace/integrations/zendesk-soar-actions/"
+    - value: "Sumo Logic Cloud SOAR: Offers automation and orchestration for security operations, with the ability to integrate with Zendesk for incident response actions."
+      reference: "https://help.sumologic.com/docs/cloud-soar/integrations/zendesk/"
+    - value: "Workato: An integration platform that can be used to create automated incident management workflows involving Zendesk and other applications."
+      reference: "https://www.workato.com/integrations/zendesk"
+    - value: "Tines: A security automation platform that can integrate with the Zendesk API to automate incident response processes."
+      reference: "https://www.tines.com/integrations/zendesk"
+  documentation_links:
+    - "https://developer.zendesk.com/api-reference/ticketing/users/users/#update-user"
+    - "https://developer.zendesk.com/api-reference/ticketing/sessions/sessions/#delete-session"
+    - "https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_tokens/#revoke-token"
+    - "https://support.zendesk.com/hc/en-us/articles/4408882109850-Managing-API-token-access-to-the-Zendesk-API"
+    - "https://support.zendesk.com/hc/en-us/articles/4408887858970-Understanding-and-customizing-session-time-out-settings"
+    - "https://docs.microsoft.com/en-us/azure/sentinel/soar-content-catalog#zendesk"
+    - "https://www.crowdstrike.com/marketplace/integrations/zendesk-soar-actions/"

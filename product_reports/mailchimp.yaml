@@ -1,0 +1,179 @@
+user_management:
+  sso_support:
+    value: Mailchimp supports Single Sign-On (SSO) via the SAML 2.0 protocol. This allows users to authenticate through an external Identity Provider (IdP) like Okta, Azure AD, or OneLogin.
+    reference: https://mailchimp.com/help/manage-user-levels-in-your-account/
+  sso_licensing_level_requirement:
+    value: Premium
+    reference: https://mailchimp.com/pricing/premium/
+  scim_support:
+    value: "no"
+    reference: After extensive review of Mailchimp's developer and help documentation, there is no evidence of a native SCIM endpoint for provisioning account users. Third-party connectors may exist but are not an out-of-the-box feature.
+  scim_licensing_level_requirement:
+    value: n/a
+    reference: ''
+  scim_authentication_mechanisms:
+    value: n/a
+    reference: ''
+  scim_authentication_acquisition_steps: n/a
+  user_management_api_support:
+    value: "no"
+    reference: https://mailchimp.com/developer/marketing/api/
+  user_management_api_licensing_level:
+    value: n/a
+    reference: ''
+  user_management_api_authentication_mechanisms:
+    value: n/a
+    reference: ''
+  user_management_api_authentication_acquisition_steps: n/a
+  seat_costs:
+    - license_level: Free
+      active:
+        value: "yes"
+        reference: https://mailchimp.com/pricing/
+      suspended_disabled:
+        value: "no"
+        reference: https://mailchimp.com/help/manage-user-levels-in-your-account/
+      archived:
+        value: n/a
+        reference: https://mailchimp.com/help/archive-or-unarchive-your-contacts/
+    - license_level: Essentials
+      active:
+        value: "yes"
+        reference: https://mailchimp.com/pricing/
+      suspended_disabled:
+        value: "no"
+        reference: https://mailchimp.com/help/manage-user-levels-in-your-account/
+      archived:
+        value: n/a
+        reference: https://mailchimp.com/help/archive-or-unarchive-your-contacts/
+    - license_level: Standard
+      active:
+        value: "yes"
+        reference: https://mailchimp.com/pricing/
+      suspended_disabled:
+        value: "no"
+        reference: https://mailchimp.com/help/manage-user-levels-in-your-account/
+      archived:
+        value: n/a
+        reference: https://mailchimp.com/help/archive-or-unarchive-your-contacts/
+    - license_level: Premium
+      active:
+        value: "yes"
+        reference: https://mailchimp.com/pricing/
+      suspended_disabled:
+        value: "no"
+        reference: https://mailchimp.com/help/manage-user-levels-in-your-account/
+      archived:
+        value: n/a
+        reference: https://mailchimp.com/help/archive-or-unarchive-your-contacts/
+  lifecycle_options:
+    - Invite User
+    - Revoke Access
+    - Change User Role
+  rbac_support:
+    value: "yes"
+    reference: https://mailchimp.com/help/manage-user-levels-in-your-account/
+  rbac_api_assignment:
+    value: 'no'
+    reference: https://mailchimp.com/developer/marketing/api/
+  documentation_links:
+    - https://mailchimp.com/help/manage-user-levels-in-your-account/
+    - https://mailchimp.com/developer/marketing/api/
+    - https://mailchimp.com/pricing/
+    - https://mailchimp.com/help/about-api-keys/
+    - https://mailchimp.com/developer/marketing/guides/access-user-data-oauth-2/
+    - https://www.okta.com/integrations/mailchimp/
+    - https://onelogin.com/connector/mailchimp
+    - https://mailchimp.com/help/archive-or-unarchive-your-contacts/
+
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "User login activity is captured in the account's activity stream. The 'Account Activity' section shows recent logins, password changes, and other key account events. It is primarily accessible through the UI."
+      reference: "https://mailchimp.com/help/manage-user-levels-in-your-account/"
+    role_assignment:
+      value: "Changes to user roles (e.g., from Author to Admin) are logged in the account's activity history. This is managed in the UI under Account > Settings > Users. Role-based access control requires a Standard or Premium plan."
+      reference: "https://mailchimp.com/help/manage-user-levels-in-your-account/"
+    api_call:
+      value: "While Mailchimp processes API calls, publicly available documentation does not specify a dedicated, user-accessible audit log for all API calls. Some third-party tools like Apideck offer API monitoring proxies. GitGuardian notes that API call logs are available depending on the Mailchimp plan."
+      reference: "https://docs.gitguardian.com/secrets-detection/detectors/specifics/mailchimp_api_key"
+    data_export:
+      value: "User-initiated exports of account data (Audiences, Campaigns, Reports, etc.) are logged events. These can be initiated from the 'Manage my data' section of the account settings. The Transactional API also provides an endpoint to export activity history."
+      reference: "https://mailchimp.com/help/export-and-back-up-account-data/"
+    configuration_change:
+      value: "General account configuration changes, such as enabling or disabling security features like SMS verification or changing user roles, are logged as part of the account activity history."
+      reference: "https://mailchimp.com/help/set-account-security-options/"
+    user_account_creation:
+      value: "Invitations to new account users are logged and can be viewed on the 'Users' page within the account settings. This log shows pending invitations and their status."
+      reference: "https://mailchimp.com/help/manage-user-levels-in-your-account/"
+    security_policy_change:
+      value: "Changes to security settings, such as enabling two-factor authentication or setting SMS verification, are logged in the general account activity stream. There is no specific 'Security Policy Change' log category."
+      reference: "https://mailchimp.com/help/set-account-security-options/"
+  event_logs_licensing_level:
+    value: "Viewing basic account activity is available on all plans. However, advanced features like role-based access control which generate more granular user permission change logs are only available on Standard and Premium plans."
+    reference: "https://mailchimp.com/help/manage-user-levels-in-your-account/"
+  monitoring_products:
+    - value: "Datadog: An official integration exists to collect and forward campaign and list (audience) metrics to Datadog for monitoring."
+      reference: "https://docs.datadoghq.com/integrations/mailchimp/"
+    - value: "IBM QRadar: Can be connected via third-party automation tools like n8n to centralize and analyze log data in the SIEM."
+      reference: "https://n8n.io/integrations/mailchimp-and-qradar/"
+    - value: "Microsoft Sentinel: Can be connected via Microsoft's Logic Apps/Power Automate connector for Mailchimp, allowing for data ingestion and automation."
+      reference: "https://learn.microsoft.com/en-us/connectors/mailchimp/"
+    - value: "ManageEngine Analytics Plus: Offers an integration for advanced analytics on marketing campaign data, creating reports on clicks, opens, and performance."
+      reference: "https://www.manageengine.com/analytics-plus/help/integrations/mailchimp-integration.html"
+    - value: "Google Cloud Integration Connectors: A connector is available to perform operations on Mailchimp data within the Google Cloud ecosystem, which can generate its own audit logs of connector activity."
+      reference: "https://cloud.google.com/integration-connectors/docs/connectors/mailchimp/overview?hl=pt-br"
+  ingestion_methods:
+    - value: "REST API: The Mailchimp Marketing API is the primary method for programmatically accessing account data, including campaign reports and list activity."
+      reference: "https://mailchimp.com/developer/marketing/api/"
+    - value: "Webhooks: Real-time data can be sent to a specified URL upon certain events, such as subscribes, unsubscribes, profile updates, and campaign sending."
+      reference: "https://rollout.io/blog/mailchimp-api-essential-guide/"
+    - value: "Third-Party Connectors: Pre-built connectors for various SIEM, analytics, and automation platforms handle the ingestion process."
+      reference: "https://workato.com/integrations"
+  log_export_options:
+    tools_connectors:
+      value: "Users can export account data, including audiences and reports, directly from the UI as a ZIP file containing CSVs. The Transactional API has an `exports/activity` endpoint for programmatic export of activity history."
+      reference: "https://mailchimp.com/developer/transactional/api/exports/export-activity-history/"
+  documentation_links:
+    - "https://mailchimp.com/help/export-and-back-up-account-data/"
+    - "https://mailchimp.com/developer/marketing/api/"
+    - "https://mailchimp.com/help/manage-user-levels-in-your-account/"
+    - "https://mailchimp.com/developer/transactional/api/exports/export-activity-history/"
+    - "https://mailchimp.com/about/security/"
+    - "https://docs.datadoghq.com/integrations/mailchimp/"
+    - "https://learn.microsoft.com/en-us/connectors/mailchimp/"
+incident_response:
+  suspend_user_management_api:
+    value: "There is no direct API endpoint to suspend or disable an account user. Account user access must be revoked manually through the UI by an Owner or Admin. When a user's access is revoked, their associated API keys are also deleted."
+    reference: "https://mailchimp.com/help/manage-user-levels-in-your-account/"
+  invalidate_sessions_api:
+    value: "A specific API endpoint to programmatically invalidate a user's web session is not documented. Sessions time out after a period of inactivity, but cannot be force-expired via API."
+    reference: "https://mailchimp.com/help/i-cant-log-in/"
+  revoke_api_key_api:
+    value: "API keys can be revoked manually in the UI under Account > Extras > API Keys. There is no documented API endpoint for programmatically revoking an API key. However, revoking a user's access to the account will automatically delete any API keys they created."
+    reference: "https://mailchimp.com/help/about-api-keys/"
+  user_toggle_api:
+    value: "API endpoints exist to manage the status of *list members* (e.g., changing status from 'subscribed' to 'unsubscribed'). However, there is no API to toggle the access status of an *account user*. This must be done via 'Revoke Access' in the UI."
+    reference: "https://mailchimp.com/developer/marketing/api/list-members/update-list-member/"
+  user_status_api:
+    value: "The API allows checking the status of a list member (subscribed, unsubscribed, etc.). There is no API to check the status of an account user's access; this is visible in the UI to Admins and Owners."
+    reference: "https://mailchimp.com/developer/marketing/api/list-members/get-list-member-info/"
+  session_timeout_configuration:
+    value: "The platform enforces session timeouts after a period of inactivity for security, but the duration of this timeout is not a configurable setting for account administrators."
+    reference: "https://mailchimp.com/help/i-cant-log-in/"
+  known_automation_tools:
+    - value: "Pipedream: Allows for the creation of workflows that interact with the Mailchimp API, such as deleting a list member."
+      reference: "https://pipedream.com/apps/mailchimp/actions/delete-list-member"
+    - value: "n8n.io: An automation platform that can connect Mailchimp to other applications, including SIEMs like QRadar, to automate response and data transfer workflows."
+      reference: "https://n8n.io/integrations/mailchimp-and-qradar/"
+    - value: "Zapier: A widely used automation tool that can trigger actions in other applications based on Mailchimp events (and vice-versa), though primarily focused on list member management."
+      reference: "https://community.zapier.com/mailchimp-5/how-to-remove-user-from-a-mailchimp-group-but-keep-other-groups-selected-13359"
+    - value: "Microsoft Power Automate (Logic Apps): A connector provided by Microsoft enables building automated workflows involving Mailchimp actions like deleting a member from a list."
+      reference: "https://learn.microsoft.com/en-us/connectors/mailchimp/"
+  documentation_links:
+    - "https://mailchimp.com/help/about-api-keys/"
+    - "https://mailchimp.com/help/manage-user-levels-in-your-account/"
+    - "https://mailchimp.com/help/set-account-security-options/"
+    - "https://mailchimp.com/developer/marketing/api/list-members/delete-list-member/"
+    - "https://mailchimp.com/help/compromised-account/"
+    - "https://mailchimp.com/developer/marketing/guides/access-data-on-behalf-of-other-users-with-oauth-2/"

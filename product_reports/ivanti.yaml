@@ -1,0 +1,161 @@
+user_management:
+  sso_support:
+    value: "yes"
+    reference: "https://www.ivanti.com/products/ivanti-neurons-for-itsm"
+  sso_licensing_level_requirement:
+    value: "Information not publicly available"
+    reference: "https://www.rezolve.ai/blog/ivanti-pricing"
+  scim_support:
+    value: "yes"
+    reference: "https://help.ivanti.com/iv/help/en_US/inmm/110/mac/Content/Admin/Infrastructure/UserProvisioningSCIM.htm"
+  scim_licensing_level_requirement:
+    value: "Information not publicly available"
+    reference: "https://www.rezolve.ai/blog/ivanti-pricing"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.ivanti.com/iv/help/en_US/inmm/110/mac/Content/Admin/Infrastructure/UserProvisioningOkta.htm"
+  scim_authentication_acquisition_steps: |
+    The following steps apply to Ivanti Neurons for MDM:
+    1. Log in to the Ivanti Neurons for MDM administrative portal.
+    2. Navigate to Admin > Identity > User Provisioning.
+    3. Select your Identity Provider (IdP) from the dropdown list (e.g., Okta, Entra ID, or Generic SCIM).
+    4. Click the "Generate" button to create a new token.
+    5. A window will appear with the OAuth Bearer Token and the Target SCIM URL.
+    6. Copy both the token and the URL. These will be used as the credentials in the IdP's SCIM configuration. A maximum of two tokens can be active at one time.
+  user_management_api_support:
+    value: "yes"
+    reference: "https://help.ivanti.com/ht/help/en_US/ISM/2021/admin/Content/Configure/API/Rest-API.htm"
+  user_management_api_licensing_level:
+    value: "Information not publicly available"
+    reference: "https://www.rezolve.ai/blog/ivanti-pricing"
+  user_management_api_authentication_mechanisms:
+    value: "API key"
+    reference: "https://help.ivanti.com/ht/help/en_US/ISM/2021/admin/Content/Configure/API/Using-the-REST-API-Key.htm"
+  user_management_api_authentication_acquisition_steps: |
+    The following steps apply to Ivanti Service Manager (ISM) / Neurons for ITSM:
+    1. Log in to the Ivanti Service Manager tenant as an Administrator.
+    2. Navigate to the Configuration Console by clicking the wrench icon.
+    3. Go to "Configure" > "Security Controls" > "API Keys".
+    4. Click "Add New Key Group" to create a new group for your integration. Provide a name and set the Time-to-Live (TTL) for keys in this group.
+    5. Within the newly created key group, click "Add API Key".
+    6. Provide a description for the key.
+    7. Select the user account that will be associated with this key. This user's permissions and role will determine the API's access level. It is best practice to create a dedicated integration user with the principle of least privilege.
+    8. Click "Save". The API key will be generated and displayed. Copy it immediately as it may not be shown again.
+    9. The API key is used in the "Authorization" header with the format: `rest_api_key=YOUR_API_KEY_HERE`.
+  seat_costs:
+  - license_level: "All Levels"
+    active:
+      value: "yes"
+      reference: "https://www.ivanti.com/pricing"
+    suspended_disabled:
+      value: "uncertain"
+      reference: "Pricing and licensing details for non-active users are not publicly available."
+    archived:
+      value: "uncertain"
+      reference: "Pricing and licensing details for non-active users are not publicly available."
+  lifecycle_options:
+  - Create
+  - Update
+  - Deactivate
+  - Disable
+  rbac_support:
+    value: "yes"
+    reference: "https://help.ivanti.com/iv/help/en_US/EPMM/v12.10/en/GUID-0B59AB05-7281-4C51-855A-5B7495DBF62B.htm"
+  rbac_api_assignment:
+    value: "yes"
+    reference: "https://api.ivanti.com/public/doc/risk-based-vuln-management/v1/docs/RBAC.md"
+  documentation_links:
+  - https://help.ivanti.com/iv/help/en_US/inmm/110/mac/Content/Admin/Infrastructure/UserProvisioningSCIM.htm
+  - https://help.ivanti.com/ht/help/en_US/ISM/2021/admin/Content/Configure/API/Rest-API.htm
+  - https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/ivanti-service-manager-tutorial
+  - https://www.okta.com/integrations/ivanti-partners/
+  - https://help.ivanti.com/iv/help/en_US/inmm/110/mac/Content/Admin/Infrastructure/UserProvisioningOkta.htm
+  - https://help.ivanti.com/ht/help/en_US/ISM/2021/admin/Content/Configure/API/Using-the-REST-API-Key.htm
+  - https://api.ivanti.com/
+  - https://github.com/joeywas/IvantiPS
+  - https://www.sailpoint.com/integrations/ivanti-cherwell-service-desk/
+  - https://community.ivanti.com/s/article/Use-Case-on-Integration-ISM-with-AzureAD-via-SCIM-Provisioning
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Ivanti Neurons Platform and its components (UEM, ITSM) log user authentication events, including successful logins, failed logins, and logouts for both administrators and end-users. These are captured in the Audit Logs."
+      reference: "https://help.ivanti.com/iv/help/en_US/infor/2023/Admin/Audit/Audit_Logs.htm"
+    role_assignment:
+      value: "Administrator actions that change user roles and permissions are recorded in the Audit Logs of the Ivanti Neurons Platform. This includes creating, deleting, and modifying roles."
+      reference: "https://help.ivanti.com/iv/help/en_US/infor/2023/Admin/Audit/Audit_Logs.htm"
+    api_call:
+      value: "For Ivanti Neurons for UEM (formerly MobileIron Cloud), API calls made using API v2 are logged, providing an audit trail of programmatic actions. The Ivanti Neurons Platform Audit Logs also track API key usage events."
+      reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_access_control.htm"
+    data_export:
+      value: "Events related to the generation and export of reports are captured within the platform's audit logging capabilities, showing which administrator exported what data and when."
+      reference: "https://help.ivanti.com/iv/help/en_US/infor/2023/Admin/Audit/Audit_Logs.htm"
+    configuration_change:
+      value: "Core administrative changes to the system configuration are logged. For Ivanti Neurons for UEM, this includes changes to security policies, compliance rules, and system settings. The Ivanti Neurons Platform logs changes to its own settings."
+      reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/GSG/Generating_Audit_Tr.htm"
+    user_account_creation:
+      value: "The creation of new user accounts, whether done manually by an administrator or through an automated directory sync, is logged in the Audit Logs."
+      reference: "https://help.ivanti.com/iv/help/en_US/infor/2023/Admin/Audit/Audit_Logs.htm"
+    security_policy_change:
+      value: "For Ivanti Neurons for UEM, modifications to security policies, such as changing passcode requirements or device restrictions, are recorded as distinct events in the audit trail."
+      reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/GSG/Generating_Audit_Tr.htm"
+  event_logs_licensing_level:
+    value: "Specific licensing requirements for accessing different levels of audit logs or for API-based log export are not detailed in public documentation. Typically, basic audit logging is included in all tiers, while advanced threat intelligence events and longer log retention periods require premium licenses (e.g., Secure UEM Premium)."
+    reference: "https://www.ivanti.com/products/ivanti-neurons-for-uem"
+  monitoring_products:
+    - value: "Microsoft Sentinel: An official connector is available to ingest Ivanti Neurons Platform audit logs and Ivanti MTD (Mobile Threat Defense) events."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/ivanti-neurons-platform"
+    - value: "Splunk: Ivanti provides official add-ons and apps for Splunk, such as the 'Splunk Add-on for Ivanti MobileIron', which uses the API to pull log data."
+      reference: "https://splunkbase.splunk.com/app/3334"
+    - value: "IBM QRadar: Integration is supported, typically via Syslog for products like Ivanti UEM or via API for the Neurons platform. A DSM is available for parsing."
+      reference: "https://www.ibm.com/docs/en/dsm?topic=ivanti-mobileiron-uem"
+    - value: "Generic SIEM: Ivanti products support standardized export formats like Syslog (CEF) and API (JSON), allowing integration with most SIEM solutions."
+      reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/GSG/Syslog_Events.htm"
+  ingestion_methods:
+    - value: "API: The primary method for the Ivanti Neurons Platform. The Audit Logs API allows SIEM tools and custom scripts to pull event data in JSON format."
+      reference: "https://help.ivanti.com/iv/help/en_US/infor/2023/Admin/Audit/Audit_Logs_API_Overview.htm"
+    - value: "Syslog: The standard method for Ivanti Neurons for UEM (Cloud & On-Prem) and Ivanti Connect Secure. The platform can be configured to forward events in formats like CEF to a specified Syslog server."
+      reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/GSG/Syslog_Events.htm"
+  log_export_options:
+    tools_connectors:
+      value: "Multiple official and third-party connectors exist. Key examples include the Ivanti Neurons Platform connector for Microsoft Sentinel (uses Azure Function App and API) and the Splunk Add-on for Ivanti MobileIron (uses API)."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/ivanti-neurons-platform"
+  documentation_links:
+    - "https://help.ivanti.com/iv/help/en_US/infor/2023/Admin/Audit/Audit_Logs_API_Overview.htm"
+    - "https://help.ivanti.com/iv/help/en_US/UEM/11.10/GSG/Syslog_Events.htm"
+    - "https://forums.ivanti.com/s/article/Getting-Started-with-the-MobileIron-Cloud-API?language=en_US"
+    - "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/API_v2_introduction.htm"
+    - "https://github.com/ivanti-se/Sentinel-Solutions/tree/main/Data%20Connectors/Ivanti%20Neurons%20Platform%20Connector"
+    - "https://www.ivanti.com/resources/security"
+incident_response:
+  suspend_user_management_api:
+    value: "For Ivanti Neurons for UEM, you can effectively suspend a user by 'retiring' their device record, which removes corporate access and apps. This can be done via the API by making a POST request to `/api/v2/devices/{device_id}/retire`. Disabling the user in the source directory (like Azure AD) will also sync and block access."
+    reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_retired_devices.htm"
+  invalidate_sessions_api:
+    value: "Session invalidation is primarily device-centric in Ivanti UEM. Actions like 'Quarantine' or 'Wipe' on a device via API will sever its connection and invalidate its session. A direct API call to invalidate an administrator's web console session is not publicly documented."
+    reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_quarantined_devices.htm"
+  revoke_api_key_api:
+    value: "Revoking or deleting an API key programmatically is not a documented feature. This action must be performed manually by an administrator through the user interface (Admin -> Users -> API Users) for security reasons."
+    reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_access_control.htm"
+  user_toggle_api:
+    value: "For Ivanti UEM, user access can be toggled by retiring and then re-enrolling a device. A more direct method is to disable the user account in the directory service that is synchronized with Ivanti."
+    reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_retired_devices.htm"
+  user_status_api:
+    value: "Yes, you can retrieve the status and details of a user and their devices using the Ivanti UEM API. A GET request to `/api/v2/users/{id}` or `/api/v2/devices` provides information about the user's state, registration status, and device compliance."
+    reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_users_and_devices.htm"
+  session_timeout_configuration:
+    value: "Administrator session timeout is a configurable security setting. In Ivanti Neurons for UEM, this can be set in the Admin portal under 'Admin' -> 'Users' -> 'Session Timeout'."
+    reference: "https://help.ivanti.com/iv/help/en_US/UEM/clouddoc/Content/Users/Managing_admins.htm"
+  known_automation_tools:
+    - value: "Palo Alto Networks Cortex XSOAR: Integrations are available on the XSOAR marketplace to automate actions in Ivanti UEM (MobileIron), such as device quarantine and user management."
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/MobileIronV2/"
+    - value: "Splunk SOAR (Phantom): The MobileIron app for Splunk SOAR allows for automated response actions like quarantining a device or getting device information based on SIEM alerts."
+      reference: "https://splunkbase.splunk.com/app/3882/"
+    - value: "Generic SOAR/Scripts: The Ivanti Neurons for UEM REST API (v2) is comprehensive and allows for custom scripts and integration with any SOAR platform that can make RESTful API calls."
+      reference: "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/API_v2_introduction.htm"
+  documentation_links:
+    - "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/API_v2_introduction.htm"
+    - "https://www.ivanti.com/products/ivanti-neurons-for-automation"
+    - "https://forums.ivanti.com/s/article/Getting-Started-with-the-MobileIron-Cloud-API?language=en_US"
+    - "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_retired_devices.htm"
+    - "https://help.ivanti.com/iv/help/en_US/UEM/11.10/Api/api_quarantined_devices.htm"
+    - "https://www.ivanti.com/solutions/security/incident-management"

@@ -1,0 +1,163 @@
+user_management:
+  sso_support:
+    value: "Yes, Atlassian Jira Cloud supports SAML 2.0 and OAuth 2.0 for Single Sign-On."
+    reference: "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-saml-single-sign-on-with-an-identity-provider/"
+  sso_licensing_level_requirement:
+    value: "SSO capabilities require an Atlassian Guard (formerly Atlassian Access) subscription. This is an additional subscription that applies across all users of your Atlassian Cloud products."
+    reference: "https://www.atlassian.com/software/guard/pricing"
+  scim_support:
+    value: "yes"
+    reference: "https://support.atlassian.com/atlassian-cloud-admins/docs/understand-user-provisioning/"
+  scim_licensing_level_requirement:
+    value: "SCIM provisioning requires an Atlassian Guard (formerly Atlassian Access) subscription."
+    reference: "https://www.atlassian.com/software/guard/pricing"
+  scim_authentication_mechanisms:
+    value: "API key"
+    reference: "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-user-provisioning-with-an-identity-provider/"
+  scim_authentication_acquisition_steps: "1. Go to admin.atlassian.com and select your organization. \n2. Navigate to Security > Identity providers. \n3. Select your identity provider directory. \n4. In the User provisioning section, you will find the Directory base URL and an option to create or regenerate an API key. \n5. Copy the Directory base URL and the API key. The API key is used as a Bearer Token in the Authorization header of your SCIM requests. \n6. The API key is only shown once upon creation/regeneration, so it must be stored securely."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
+  user_management_api_licensing_level:
+    value: "Access to the Jira Cloud REST API is available on all plans, including Free, Standard, Premium, and Enterprise. However, some specific API functionalities might be implicitly tied to features available only in higher-tier plans."
+    reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
+  user_management_api_authentication_mechanisms:
+    value: "API key"
+    reference: "https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/"
+  user_management_api_authentication_acquisition_steps: "1. Log in to your Atlassian account. \n2. Go to https://id.atlassian.com/manage-profile/security/api-tokens. \n3. Click 'Create API token'. \n4. Give the token a descriptive label. \n5. Click 'Create'. \n6. Copy the generated API token immediately. You will not be able to see it again. \n7. Use this token with Basic Authentication, providing your email address as the username and the API token as the password."
+  seat_costs:
+    - license_level: "Any paid plan with Atlassian Guard"
+      active:
+        value: "yes"
+        reference: "https://www.atlassian.com/software/guard/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://community.atlassian.com/t5/Atlassian-Access-questions/Deactivated-vs-Suspended-User/qaq-p/2436423"
+      archived:
+        value: "n/a"
+        reference: ""
+    - license_level: "Any paid plan without Atlassian Guard"
+      active:
+        value: "yes"
+        reference: "https://www.atlassian.com/pricing/cloud/jira-software"
+      suspended_disabled:
+        value: "no"
+        reference: "https://community.atlassian.com/t5/Jira-questions/When-you-suspend-a-user-are-you-still-paying-for-licenses/qaq-p/2438676"
+      archived:
+        value: "n/a"
+        reference: ""
+  lifecycle_options:
+    - "Active: User has full access and is billable. [19]"
+    - "Deactivated (for managed accounts with Atlassian Guard): User cannot log in to any Atlassian product and is not counted for billing. This action is synced from the IdP via SCIM. [25]"
+    - "Suspended: User cannot access a specific site but can still log in and access other sites. They are not counted for billing for the site from which they are suspended. [25]"
+    - "Delete: User account is permanently removed."
+  rbac_support:
+    value: "yes"
+    reference: "https://support.atlassian.com/jira-cloud-administration/docs/manage-groups/"
+  rbac_api_assignment:
+    value: "Yes, user and group assignments can be managed via the REST API. You can add users to groups using the 'Add user to group' endpoint."
+    reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-groups/#api-rest-api-3-group-user-post"
+  documentation_links:
+    - "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-saml-single-sign-on-with-an-identity-provider/"
+    - "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-user-provisioning-with-an-identity-provider/"
+    - "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
+    - "https://www.atlassian.com/software/guard"
+    - "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/intro/"
+    - "https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/"
+    - "https://confluence.atlassian.com/cloud/api-tokens-938839638.html"
+    - "https://www.okta.com/resources/integration-guide/configure-atlassian-cloud-saml-sso/"
+    - "https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/atlassian-cloud-tutorial"
+    - "https://github.com/atlassian/jira-cloud-rest-api-docs"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Successful and failed user logins are tracked in the audit log. The specific event is 'User logged in' or 'User logged out'. Failed logins due to incorrect passwords or MFA are also logged."
+      reference: "https://support.atlassian.com/administration/docs/review-audit-logs-in-an-organization/"
+    role_assignment:
+      value: "Changes to user roles and permissions are logged. This includes events like 'User added to group', 'User removed from group', 'Global permissions changed', and 'Project role updated'."
+      reference: "https://support.atlassian.com/jira-cloud-administration/docs/track-important-events-with-the-audit-log/"
+    api_call:
+      value: "While direct API calls are not logged with full request/response bodies, actions performed via the API that result in configuration or data changes are logged. For example, creating an issue via the API would appear as 'Issue Created' in the audit log, attributed to the user or API token that performed the action."
+      reference: "https://support.atlassian.com/administration/docs/review-audit-logs-in-an-organization/"
+    data_export:
+      value: "User-initiated exports are logged as 'Exported issues' or 'Exported data'. For full site data exports, the event 'Backup created' is logged."
+      reference: "https://support.atlassian.com/jira-cloud-administration/docs/track-important-events-with-the-audit-log/"
+    configuration_change:
+      value: "A wide range of configuration changes are logged, including 'Workflow updated', 'General configuration changed', 'Project details updated', and changes to issue types, screens, and fields."
+      reference: "https://support.atlassian.com/jira-cloud-administration/docs/what-gets-logged-in-the-audit-log/"
+    user_account_creation:
+      value: "The creation of new user accounts is logged as 'User created' in the organization's audit log."
+      reference: "https://support.atlassian.com/administration/docs/audit-log-events-for-an-organization/"
+    security_policy_change:
+      value: "Changes to security settings are logged. This includes events like 'Authentication policy updated' (for SSO, 2FA enforcement), 'Password policy updated', and 'API token policy changed'."
+      reference: "https://support.atlassian.com/administration/docs/audit-log-events-for-an-organization/"
+  event_logs_licensing_level:
+    value: "Basic audit logs are available on all plans, including Free. However, to access the full audit log, stream logs to a SIEM, or have longer retention periods, a Jira Cloud Premium or Enterprise plan is required. Atlassian Guard (formerly Atlassian Access) is often a necessary subscription for advanced security features like audit log streaming."
+    reference: "https://www.atlassian.com/software/jira/pricing"
+  monitoring_products:
+    - value: "Splunk (via Splunk Add-on for Atlassian Cloud)"
+      reference: "https://splunkbase.splunk.com/app/5833"
+    - value: "Microsoft Sentinel (via Atlassian Jira Audit data connector)"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-jira-audit"
+    - value: "Sumo Logic (via Atlassian Cloud ULM App)"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/atlassian-cloud-ulm-app/"
+    - value: "Datadog (via Datadog-Jira integration)"
+      reference: "https://docs.datadoghq.com/integrations/jira/"
+    - value: "Panther"
+      reference: "https://panther.com/docs/configuration/log-sources/atlassian/"
+  ingestion_methods:
+    - value: "REST API: Pull audit logs programmatically. Requires Jira Cloud Premium or Enterprise."
+      reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-audit-records/#api-rest-api-3-auditing-record-get"
+    - value: "Atlassian Guard Data Connector: Stream organization audit logs to an AWS S3 bucket for ingestion by SIEM tools. Requires an Atlassian Guard subscription."
+      reference: "https://support.atlassian.com/guard/docs/connect-an-aws-s3-bucket-to-your-organization/"
+    - value: "Webhooks: Receive real-time notifications for specific events within Jira (e.g., issue created, updated). This is for operational events, not a full security audit log stream."
+      reference: "https://support.atlassian.com/jira-cloud-administration/docs/what-are-webhooks/"
+  log_export_options:
+    tools_connectors:
+      value: "Connectors and add-ons for SIEMs like Splunk, Microsoft Sentinel, and Sumo Logic are the primary methods. Custom scripts can also use the REST API. Atlassian Guard's S3 export is the most robust native mechanism for large-scale ingestion."
+      reference: "https://support.atlassian.com/guard/docs/track-security-activity-across-your-atlassian-products/"
+  documentation_links:
+    - "https://support.atlassian.com/administration/docs/review-audit-logs-in-an-organization/"
+    - "https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-audit-records/"
+    - "https://support.atlassian.com/guard/docs/understand-atlassian-guard/"
+    - "https://www.atlassian.com/trust/security/security-practices"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-jira-audit"
+    - "https://splunkbase.splunk.com/app/5833"
+    - "https://support.atlassian.com/jira-cloud-administration/docs/track-important-events-with-the-audit-log/"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes, via the Atlassian Admin REST API. You can deactivate a user's account by making a POST request to `/admin/v1/users/{account_id}/deactivate`. This requires an Atlassian Guard subscription."
+    reference: "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/#api-admin-v1-users-account-id-deactivate-post"
+  invalidate_sessions_api:
+    value: "Yes, this can be done by deleting a user's password using the Admin API endpoint `DELETE /admin/v1/users/{account_id}/password`. This action forces a logout from all active sessions that rely on that password. For users logged in via SSO, session invalidation must be handled at the Identity Provider (IdP) level."
+    reference: "https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-users/#api-users-account-id-manage-password-delete"
+  revoke_api_key_api:
+    value: "There is no dedicated central API endpoint for an administrator to revoke a specific user's API token. This is a significant limitation. The user must revoke their own tokens, or an admin can deactivate the user's account entirely, which effectively disables their tokens."
+    reference: "https://community.atlassian.com/t5/Jira-questions/Is-there-a-way-for-an-admin-to-revoke-a-user-s-API-token/qaq-p/1129819"
+  user_toggle_api:
+    value: "Yes, this is effectively the same as suspending a user. The Atlassian Admin API allows for deactivating and reactivating user accounts. Deactivation (`POST /admin/v1/users/{account_id}/deactivate`) suspends access, and reactivation (`POST /admin/v1/users/{account_id}/reactivate`) restores it."
+    reference: "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/"
+  user_status_api:
+    value: "Yes, the Atlassian Admin REST API can be used to retrieve user details, including their status (active, inactive, closed). A `GET` request to `/scim/directory/{directoryId}/Users/{userId}` will return the user's profile, which includes an 'active' boolean field."
+    reference: "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-scim-users/#api-scim-directory-directoryid-users-userid-get"
+  session_timeout_configuration:
+    value: "Session duration can be configured in the administration settings. Under 'Security' -> 'Authentication policies', an administrator can set a session timeout policy with durations ranging from minutes to days. This requires an Atlassian Guard subscription."
+    reference: "https://support.atlassian.com/administration/docs/configure-authentication-policies/"
+  known_automation_tools:
+    - value: "BetterCloud - A SaaS management platform that provides workflows for user lifecycle management, including deprovisioning users from Jira."
+      reference: "https://www.bettercloud.com/integrations/atlassian-jira/"
+    - value: "Okta (as an IdP) - Can manage user provisioning and deprovisioning automatically. When a user is deactivated in Okta, their Jira account can be automatically deactivated."
+      reference: "https://www.okta.com/integrations/jira/"
+    - value: "Torq - A no-code security automation platform that can integrate with the Atlassian Admin API to automate response actions like suspending a user."
+      reference: "https://torq.io/integrations/atlassian/"
+    - value: "Tines - A security automation platform that can orchestrate actions using the Jira API for incident response, such as creating tickets or suspending users via API calls."
+      reference: "https://www.tines.com/integrations/jira"
+    - value: "Jira-User-Deactivator (GitHub) - An open-source Python script demonstrating how to use the Atlassian API to deactivate users, often used for cleanup or as a base for automation."
+      reference: "https://github.com/dren79/Jira-User-Deactivator"
+  documentation_links:
+    - "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/"
+    - "https://support.atlassian.com/guard/docs/understand-atlassian-guard/"
+    - "https://support.atlassian.com/administration/docs/configure-authentication-policies/"
+    - "https://www.atlassian.com/trust/security"
+    - "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
+    - "https://torq.io/learn/jira-incident-response-automation-explained/"

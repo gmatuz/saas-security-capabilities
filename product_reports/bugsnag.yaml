@@ -1,0 +1,156 @@
+user_management:
+  sso_support:
+    value: Bugsnag supports SAML-based Single Sign-On (SSO) with various identity
+      providers.
+    reference: https://docs.bugsnag.com/product/single-sign-on/
+  sso_licensing_level_requirement:
+    value: SSO integration is available on Preferred and Enterprise plans. [6]
+    reference: https://docs.bugsnag.com/product/single-sign-on/
+  scim_support:
+    value: 'yes'
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  scim_licensing_level_requirement:
+    value: SCIM provisioning and deprovisioning is available on Enterprise plans. [4]
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  scim_authentication_acquisition_steps: "1. In your Insight Hub dashboard, navigate to
+    user settings and select 'Personal auth tokens'.\n2. Generate a new auth token
+    to be used for SCIM.\n3. In your organization settings, select 'Single sign-on'
+    to get the SCIM Base URL.\n4. In your SSO provider's SCIM configuration (e.g.,
+    Okta), enter the SCIM Base URL and the generated auth token. [4, 7]"
+  user_management_api_support:
+    value: 'yes'
+    reference: https://bugsnagapiv2.docs.apiary.io/#reference/users
+  user_management_api_licensing_level:
+    value: Information not found
+    reference: ''
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://bugsnagapiv2.docs.apiary.io/#reference/authentication
+  user_management_api_authentication_acquisition_steps: "1. Log into your Bugsnag
+    account.\n2. Navigate to 'My Account Settings'.\n3. Select 'Personal auth tokens'
+    under the 'Data Access API' section.\n4. Click 'Generate New Token'. [5, 14]"
+  seat_costs:
+  - license_level: All Paid Plans
+    active:
+      value: 'yes'
+      reference: https://www.bugsnag.com/pricing
+    suspended_disabled:
+      value: uncertain
+      reference: ''
+    archived:
+      value: uncertain
+      reference: ''
+  lifecycle_options:
+  - Create users
+  - Update user names and email addresses
+  - Deactivate users
+  - Push groups
+  rbac_support:
+    value: 'yes'
+    reference: https://www.bugsnag.com/pricing
+  rbac_api_assignment:
+    value: Bugsnag supports managing teams and team membership, which can be provisioned
+      via SCIM from an SSO provider. The Data Access API allows for listing and managing
+      collaborators within an organization.
+    reference: https://docs.bugsnag.com/product/single-sign-on/
+  documentation_links:
+  - https://docs.bugsnag.com/product/single-sign-on/
+  - https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  - https://bugsnagapiv2.docs.apiary.io/
+  - https://docs.bugsnag.com/api/data-access-api/
+  - https://docs.bugsnag.com/product/single-sign-on/okta/
+  - https://docs.bugsnag.com/product/single-sign-on/azure-ad/
+  - https://www.bugsnag.com/pricing
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Bugsnag captures user authentication events as part of its audit log. This includes collaborator access and changes to authentication settings."
+      reference: "https://docs.bugsnag.com/product/account-security-and-passwords/#can-i-view-audit-logs"
+    role_assignment:
+      value: "Changes to user roles and permissions are tracked within the audit log. The log records 'Collaborator creation, access, and authentication settings changes'."
+      reference: "https://docs.bugsnag.com/product/account-security-and-passwords/#can-i-view-audit-logs"
+    api_call:
+      value: "There is no documented evidence that every individual Data Access API call is logged in the audit trail. The audit log focuses on changes to configurations and user accounts, not all API activity."
+      reference: "https://docs.bugsnag.com/product/account-security-and-passwords/#can-i-view-audit-logs"
+    data_export:
+      value: "No specific event for data export is documented as part of the audit log. While the Data Access API allows for data retrieval, the act of exporting does not appear to be a distinct auditable event."
+      reference: "https://bugsnagapiv2.docs.apiary.io/#"
+    configuration_change:
+      value: "The audit log tracks changes to 'Organization and project settings' and 'Integration changes', which covers a wide range of configuration modifications."
+      reference: "https://docs.bugsnag.com/product/account-security-and-passwords/#can-i-view-audit-logs"
+    user_account_creation:
+      value: "The audit log tracks 'Collaborator creation'. Additionally, user creation can be automated and tracked via an identity provider using SCIM provisioning."
+      reference: "https://docs.bugsnag.com/product/single-sign-on/other-provider/#setup-provisioning-and-deprovisioning-scim"
+    security_policy_change:
+      value: "Changes to authentication settings, such as enabling SSO or modifying integration settings, are recorded in the audit log."
+      reference: "https://docs.bugsnag.com/product/account-security-and-passwords/#can-i-view-audit-logs"
+  event_logs_licensing_level:
+    value: "Enterprise"
+    reference: "https://docs.bugsnag.com/product/account-security-and-passwords/#can-i-view-audit-logs"
+  monitoring_products:
+    - value: "Splunk"
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/"
+    - value: "Datadog"
+      reference: "https://docs.datadoghq.com/integrations/bugsnag/"
+    - value: "Amazon SQS"
+      reference: "https://smartbear.com/insight-hub/pricing/"
+    - value: "Cortex"
+      reference: "https://docs.getcortex.com/docs/integrations/bugsnag"
+    - value: "Pipedream"
+      reference: "https://pipedream.com/apps/bugsnag/integrations"
+  ingestion_methods:
+    - value: "Data Access API: A REST API (v2) for pulling organization, project, error, and event data. Audit logs are not listed as an available resource for export via this API."
+      reference: "https://bugsnagapiv2.docs.apiary.io/#"
+    - value: "Data Forwarding via Webhooks: Forwards error data to third-party tools like Splunk (via HEC) and Datadog. This is for error events, not security audit logs."
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/"
+    - value: "UI Viewing: Audit logs are available for viewing directly within the Bugsnag dashboard for organization admins."
+      reference: "https://docs.bugsnag.com/product/account-security-and-passwords/#can-i-view-audit-logs"
+  log_export_options:
+    tools_connectors:
+      value: "No specific API or connector is documented for exporting security and audit logs. There is an open-source tool for exporting error events to CSV via the API, but not audit logs."
+      reference: "https://github.com/james-heinrich/bugsnag-event-csv"
+  documentation_links:
+    - "https://docs.bugsnag.com/product/account-security-and-passwords/"
+    - "https://bugsnagapiv2.docs.apiary.io/#"
+    - "https://docs.bugsnag.com/product/integrations/data-forwarding/"
+    - "https://smartbear.com/insight-hub/pricing/"
+    - "https://docs.bugsnag.com/api/"
+    - "https://docs.bugsnag.com/product/single-sign-on/other-provider/"
+incident_response:
+  suspend_user_management_api:
+    value: "The Data Access API does not have an endpoint to 'suspend' or 'disable' a user. The only available action is to permanently remove a user from an organization using the 'delete_collaborator' endpoint."
+    reference: "https://github.com/bugsnag/bugsnag-api-ruby/blob/master/lib/bugsnag/api/client/collaborators.rb#L45"
+  invalidate_sessions_api:
+    value: "No API endpoint is documented for invalidating a user's web dashboard authentication session or token. Session management must be handled externally, for instance by the identity provider."
+    reference: "https://docs.bugsnag.com/api/"
+  revoke_api_key_api:
+    value: "There is no documented API endpoint to revoke personal auth tokens. Revocation can be achieved by deleting the user the token belongs to, or by deleting the token in the Bugsnag UI. An old, deprecated endpoint existed for regenerating organization-level tokens, which is no longer the recommended authentication method."
+    reference: "https://bugsnagapiv2.docs.apiary.io/#reference/organizations/auth-token/regenerate-an-organization's-auth-token"
+  user_toggle_api:
+    value: "User de-provisioning (deactivation) can be automated through an identity provider using SCIM. This is the primary method for toggling user access programmatically."
+    reference: "https://docs.bugsnag.com/product/single-sign-on/okta-scim/"
+  user_status_api:
+    value: "The Data Access API can list collaborators in an organization. A user's status can be inferred by their presence (active) or absence (removed) from this list. The API response does not contain an explicit status field."
+    reference: "https://docs.bugsnag.com/api/data-access/examples/#get-the-active-errors-that-are-assigned-to-your-team"
+  session_timeout_configuration:
+    value: "For SSO users, the web session timeout can be controlled by the identity provider by setting the 'SessionNotOnOrAfter' value in the SAML response. There is no documented method for configuring session timeout for non-SSO email/password authentication."
+    reference: "https://docs.bugsnag.com/product/single-sign-on/other-provider/#session-timeout"
+  known_automation_tools:
+    - value: "SCIM Clients (Okta, Azure AD, etc.): Can be used to automate user provisioning and de-provisioning, which is a key incident response capability."
+      reference: "https://docs.bugsnag.com/product/single-sign-on/okta-scim/"
+    - value: "Pipedream: Provides a platform to build automated workflows using the Bugsnag API for tasks like sending notifications or creating issues."
+      reference: "https://pipedream.com/apps/bugsnag"
+    - value: "Cortex: Integrates with the Bugsnag API to pull error data into its service catalog for visibility and scorecarding."
+      reference: "https://docs.getcortex.com/docs/integrations/bugsnag"
+    - value: "Backstage Plugin: A plugin for the Backstage service catalog that uses the Bugsnag API to display project errors."
+      reference: "https://roadie.io/backstage/plugins/bugsnag/"
+  documentation_links:
+    - "https://docs.bugsnag.com/product/single-sign-on/other-provider/"
+    - "https://docs.bugsnag.com/product/single-sign-on/okta-scim/"
+    - "https://bugsnagapiv2.docs.apiary.io/#reference/organizations/collaborators"
+    - "https://github.com/bugsnag/bugsnag-api-ruby"
+    - "https://docs.bugsnag.com/security/"
+    - "https://docs.getcortex.com/docs/integrations/bugsnag"

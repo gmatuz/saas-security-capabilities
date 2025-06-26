@@ -1,0 +1,167 @@
+user_management:
+  sso_support:
+    value: Yes, Salesforce supports both SAML 2.0 and OpenID Connect protocols for
+      inbound Single Sign-On, where Salesforce acts as the Service Provider.
+    reference: https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&type=5
+  sso_licensing_level_requirement:
+    value: Federated authentication using SAML is available in all editions of Salesforce,
+      including Essentials, Professional, Enterprise, Unlimited, Performance, and
+      Developer Editions.
+    reference: https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&type=5
+  scim_support:
+    value: 'yes'
+    reference: https://help.salesforce.com/s/articleView?id=sf.identity_scim.htm&type=5
+  scim_licensing_level_requirement:
+    value: SCIM (System for Cross-domain Identity Management) is available in all editions
+      of Salesforce.
+    reference: https://help.salesforce.com/s/articleView?id=sf.identity_scim_and_rest_api_sheet.htm&type=5
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://help.salesforce.com/s/articleView?id=sf.identity_scim.htm&type=5
+  scim_authentication_acquisition_steps: "To get an OAuth 2.0 access token for SCIM operations, you must first create a Connected App in Salesforce:\n1.  **Navigate to App Manager:** In Salesforce Setup, search for 'App Manager' and click 'New Connected App'.\n2.  **Basic Information:** Fill in the Connected App Name, API Name, and Contact Email.\n3.  **Enable OAuth Settings:** Check 'Enable OAuth Settings'.\n4.  **Callback URL:** Provide a placeholder Callback URL (e.g., https://localhost/callback). The JWT bearer flow does not use it directly.\n5.  **Select OAuth Scopes:** Add the following scopes required for SCIM: 'Manage user data via APIs (api)' and 'Manage user data via SCIM (scim)'.\n6.  **Save the App:** Save the Connected App. It may take up to 10 minutes to become active. \n7.  **Retrieve Consumer Details:** Once saved, click 'Manage Consumer Details' to get the 'Consumer Key' (Client ID) and 'Consumer Secret'.\n8.  **Generate Access Token:** Use the obtained Consumer Key and an appropriate OAuth 2.0 flow (e.g., JWT Bearer Token Flow for server-to-server integration) to programmatically request an access token from the Salesforce token endpoint (e.g., https://MyDomainName.my.salesforce.com/services/oauth2/token)."
+  user_management_api_support:
+    value: 'yes'
+    reference: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_user.htm
+  user_management_api_licensing_level:
+    value: API access is included by default in Enterprise, Unlimited, Performance,
+      and Developer Editions. For Professional Edition, API access must be purchased
+      as an add-on.
+    reference: https://help.salesforce.com/s/articleView?id=sf.salesforce_app_limits_cheatsheet.htm&type=5
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_oauth_and_connected_apps.htm
+  user_management_api_authentication_acquisition_steps: "To acquire an OAuth 2.0 access token for the REST/SOAP API, you must create a Connected App:\n1.  **Navigate to App Manager:** In Salesforce Setup, go to 'App Manager' and select 'New Connected App'.\n2.  **Basic Information:** Provide a name for your app (e.g., 'User Management API Client'), an API name, and a contact email.\n3.  **Enable OAuth Settings:** Check the 'Enable OAuth Settings' box.\n4.  **Callback URL:** Enter a secure callback URL where you can receive the authorization code. For server-to-server integrations using the JWT flow, this can be a placeholder.\n5.  **Select OAuth Scopes:** Choose the necessary permissions. For full user management, select 'Full access (full)' or 'Manage user data via APIs (api)'.\n6.  **Save and Get Credentials:** Save the app. After a few minutes, go to 'Manage Consumer Details' to find your 'Consumer Key' (Client ID) and 'Consumer Secret'.\n7.  **Initiate OAuth Flow:** Use the Consumer Key and Secret to initiate an OAuth 2.0 flow (e.g., Authorization Code Flow for web apps, or JWT Bearer Token Flow for backend services) to obtain an access token."
+  seat_costs:
+  - license_level: All Editions (e.g., Professional, Enterprise, Unlimited)
+    active:
+      value: 'yes'
+      reference: https://www.salesforce.com/editions-pricing/sales-cloud/
+    suspended_disabled:
+      value: 'no'
+      reference: https://help.salesforce.com/s/articleView?id=sf.users_deactivate.htm&type=5
+    archived:
+      value: n/a
+      reference: https://help.salesforce.com/s/articleView?id=sf.users_deactivate.htm&type=5
+  lifecycle_options:
+  - Active - User can log in and access all features permitted by their license and
+    permissions. Consumes a license.
+  - Inactive (Deactivated) - User cannot log in. Their license becomes available for
+    another user. They still own records until they are transferred.
+  - Frozen - User is immediately prevented from logging in. This action does not
+    free up the user's license. It is often used as a temporary measure before deactivation.
+  rbac_support:
+    value: 'yes'
+    reference: https://help.salesforce.com/s/articleView?id=sf.admin_userperms.htm&type=5
+  rbac_api_assignment:
+    value: Yes, permission sets and permission set groups can be assigned to a user
+      via the API by creating a 'PermissionSetAssignment' record.
+    reference: https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_permissionsetassignment.htm
+  documentation_links:
+  - https://help.salesforce.com/s/articleView?id=sf.identity_scim.htm&type=5
+  - https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
+  - https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&type=5
+  - https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_user.htm
+  - https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_permissionsetassignment.htm
+  - https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm&type=5
+  - https://help.salesforce.com/s/articleView?id=sf.users_deactivate.htm&type=5
+  - https://trailhead.salesforce.com/content/learn/modules/identity-for-mobile-first-and-iot-world/scim-for-salesforce
+  - https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_oauth_and_connected_apps.htm
+  - https://medium.com/steve-tech-arc/step-by-step-guide-to-setting-up-a-salesforce-connected-app-for-easy-oauth-integration-5582f3473041
+
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "The 'LoginHistory' object tracks user login attempts, including successes and failures. For more granular detail, the 'Login' event type within EventLogFile objects can be used."
+      reference: "https://help.salesforce.com/s/articleView?id=sf.admin_loginhistory.htm&type=5"
+    role_assignment:
+      value: "Changes to user roles, profiles, and permission sets are tracked in the 'Setup Audit Trail'."
+      reference: "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
+    api_call:
+      value: "API activity is logged in detail through the 'Api' and 'RestApi' event types within EventLogFile objects, available via Event Monitoring. This includes SOAP, REST, and Bulk API calls."
+      reference: "https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_eventlogfile_apitrigger.htm"
+    data_export:
+      value: "Report exports and data extractions via API are logged in the 'ReportExport' and 'Api' event types within EventLogFile objects, available via Event Monitoring."
+      reference: "https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_eventlogfile_reportexport.htm"
+    configuration_change:
+      value: "The 'Setup Audit Trail' tracks metadata and configuration changes made by administrators, such as modifications to security settings, custom objects, and user management settings. It retains data for the last 180 days."
+      reference: "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
+    user_account_creation:
+      value: "User account creation is tracked as part of the 'Manage Users Events' within the 'Setup Audit Trail'."
+      reference: "https://www.manageengine.com/cloud-security/salesforce-setup-audit-trail-monitoring.html"
+    security_policy_change:
+      value: "Changes to security policies, such as password policies, session settings, and network access, are recorded in the 'Setup Audit Trail'."
+      reference: "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
+  event_logs_licensing_level:
+    value: "Basic logs like Login History and Setup Audit Trail are included in Enterprise, Unlimited, and Performance editions. Comprehensive, granular, and real-time event logging requires the 'Salesforce Shield' or 'Salesforce Event Monitoring' add-on subscription."
+    reference: "https://help.salesforce.com/s/articleView?id=sf.real_time_event_monitoring.htm&type=5"
+  monitoring_products:
+    - value: "Splunk App for Salesforce & Splunk Add-on for Salesforce"
+      reference: "https://splunkbase.splunk.com/app/1931"
+    - value: "Microsoft Sentinel Salesforce Connector"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/salesforce-service-cloud"
+    - value: "IBM QRadar SOAR"
+      reference: "https://www.ibm.com/products/qradar-soar/integrations"
+    - value: "Palo Alto Cortex XSOAR - Salesforce V2"
+      reference: "https://cortex.paloaltonetworks.com/marketplace/details/SalesforceV2/"
+    - value: "Salesforce Event Monitoring Analytics App"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.event_monitoring_analytics_app_psl.htm&type=5"
+  ingestion_methods:
+    - value: "API (Querying the EventLogFile object using SOAP or REST APIs)"
+      reference: "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_eventlogfile.htm"
+    - value: "Real-Time Event Monitoring (Streaming events via Streaming API)"
+      reference: "https://developer.salesforce.com/docs/platform/real-time-event-monitoring/guide/intro.html"
+    - value: "SIEM/SOAR Connectors (Pre-built integrations for platforms like Splunk, Sentinel, etc.)"
+      reference: "https://splunkbase.splunk.com/app/5483"
+    - value: "Manual CSV Download (From Setup Audit Trail and Login History pages)"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.admin_loginhistory.htm&type=5"
+  log_export_options:
+    tools_connectors:
+      value: "Logs can be exported using the Splunk Add-on for Salesforce, Microsoft Sentinel's connector, IBM QRadar's DSM, or by developing custom scripts to query the EventLogFile sObject via the Salesforce API."
+      reference: "https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Introduction"
+  documentation_links:
+    - "https://help.salesforce.com/s/articleView?id=sf.event_monitoring.htm&type=5"
+    - "https://developer.salesforce.com/docs/platform/real-time-event-monitoring/guide/intro.html"
+    - "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
+    - "https://trailhead.salesforce.com/en/content/learn/modules/event_monitoring"
+    - "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_eventlogfile.htm"
+    - "https://www.salesforce.com/products/platform/products/shield/event-monitoring/"
+    - "https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Introduction"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/salesforce-service-cloud"
+incident_response:
+  suspend_user_management_api:
+    value: "A user can be deactivated programmatically by sending a PATCH request to the User object endpoint via the REST API and setting the 'IsActive' field to 'false'."
+    reference: "https://reintech.io/blog/managing-salesforce-users-and-permissions-via-api"
+  invalidate_sessions_api:
+    value: "The SOAP API provides the 'invalidateSessions()' call, which can be used to end one or more sessions specified by an array of session IDs."
+    reference: "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_invalidatesessions.htm"
+  revoke_api_key_api:
+    value: "OAuth 2.0 access and refresh tokens can be revoked by making a POST request to the '/services/oauth2/revoke' endpoint with the token as a parameter. Revoking the refresh token effectively severs the application's long-term access."
+    reference: "https://developer.salesforce.com/blogs/developer-relations/2011/11/revoking-oauth-2-0-access-tokens-and-refresh-tokens"
+  user_toggle_api:
+    value: "A user's active status can be toggled by updating the 'IsActive' field on the User sObject via the REST or SOAP API. Setting it to 'false' deactivates the user, and setting it to 'true' reactivates them, provided a license is available."
+    reference: "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_update_fields.htm"
+  user_status_api:
+    value: "The status of a user can be checked by querying the 'IsActive' field on the User sObject via a SOQL query using the REST or SOAP API."
+    reference: "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_query.htm"
+  session_timeout_configuration:
+    value: "Session timeout duration is configured declaratively in the 'Session Settings' page within Salesforce Setup. It is not designed to be changed programmatically as an incident response action."
+    reference: "https://help.salesforce.com/s/articleView?id=sf.security_session_settings.htm&type=5"
+  known_automation_tools:
+    - value: "Palo Alto Cortex XSOAR (Provides playbooks for Salesforce incident response, including searching and updating objects)."
+      reference: "https://cortex.paloaltonetworks.com/marketplace/details/SalesforceV2/"
+    - value: "Splunk SOAR (Formerly Phantom; integrates with Salesforce to automate actions based on events)."
+      reference: "https://github.com/splunk-soar-connectors/salesforce"
+    - value: "IBM QRadar SOAR (Offers bi-directional synchronization and case management between Salesforce and the SOAR platform)."
+      reference: "https://exchange.xforce.ibmcloud.com/hub/extension/9a6e13881f13b838769395f32be9634e"
+    - value: "FortiSOAR (Provides a connector and sample playbooks for interacting with Salesforce objects)."
+      reference: "https://docs.fortinet.com/document/fortisoar/1.0.1/salesforce/519655/about-the-connector"
+    - value: "Kinetic Data Salesforce User Disable Handler (A pre-built automation for disabling Salesforce users)."
+      reference: "https://community.kineticdata.com/support/handler/salesforce_user_disable/handler.md"
+  documentation_links:
+    - "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_invalidatesessions.htm"
+    - "https://developer.salesforce.com/blogs/developer-relations/2011/11/revoking-oauth-2-0-access-tokens-and-refresh-tokens"
+    - "https://cortex.paloaltonetworks.com/marketplace/details/SalesforceV2/"
+    - "https://www.ibm.com/products/qradar-soar/integrations"
+    - "https://github.com/splunk-soar-connectors/salesforce"
+    - "https://help.salesforce.com/s/articleView?id=sf.security_session_management.htm&type=5"
+    - "https://reintech.io/blog/managing-salesforce-users-and-permissions-via-api"

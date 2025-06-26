@@ -1,0 +1,201 @@
+user_management:
+  sso_support:
+    value: Yes, Confluence Cloud supports SAML 2.0 and OpenID Connect (OIDC) for Single
+      Sign-On. This is managed centrally through an Atlassian organization.
+    reference: https://support.atlassian.com/atlassian-access/docs/saml-single-sign-on/
+  sso_licensing_level_requirement:
+    value: SSO requires a subscription to Atlassian Access.
+    reference: https://www.atlassian.com/software/access
+  scim_support:
+    value: yes
+    reference: https://support.atlassian.com/atlassian-access/docs/user-provisioning/
+  scim_licensing_level_requirement:
+    value: SCIM user provisioning requires a subscription to Atlassian Access.
+    reference: https://support.atlassian.com/atlassian-access/docs/user-provisioning/
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://support.atlassian.com/atlassian-access/docs/configure-user-provisioning-with-an-identity-provider/
+  scim_authentication_acquisition_steps: '1. Log in to admin.atlassian.com and navigate
+    to your organization. 2. Go to **Security** > **Identity providers**. 3. Select
+    your identity provider directory. 4. Go to the **User provisioning** tab. 5.
+    Click **Regenerate token** or **Create token**. 6. Copy the SCIM base URL (Directory
+    URL) and the API token (Directory token). The token is a long-lived bearer token.'
+  user_management_api_support:
+    value: yes
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-users/
+  user_management_api_licensing_level:
+    value: The User Management REST API is available on all Atlassian Cloud plans,
+      including Free, Standard, Premium, and Enterprise. No special subscription
+      like Atlassian Access is required for basic user and group management via API.
+    reference: https://developer.atlassian.com/cloud/admin/user-management/
+  user_management_api_authentication_mechanisms:
+    value: API key
+    reference: https://developer.atlassian.com/cloud/confluence/platform/security/basic-auth-for-rest-apis/
+  user_management_api_authentication_acquisition_steps: '1. Log in to https://id.atlassian.com/manage-profile/security/api-tokens.
+    2. Click **Create API token**. 3. Enter a label for your token and click **Create**.
+    4. Click **Copy** to save the token. This token will be used with Basic Authentication
+    (username is your email address, password is the API token).'
+  seat_costs:
+  - license_level: All Cloud Plans (Free, Standard, Premium, Enterprise)
+    active:
+      value: yes
+      reference: https://www.atlassian.com/licensing/cloud/overview
+    suspended_disabled:
+      value: no
+      reference: https://support.atlassian.com/user-management/docs/deactivate-a-managed-user/
+    archived:
+      value: n/a
+      reference: https://support.atlassian.com/user-management/docs/deactivate-a-managed-user/
+  lifecycle_options:
+  - create
+  - deactivate
+  - reactivate
+  - delete
+  - suspend (via Atlassian Access)
+  rbac_support:
+    value: yes
+    reference: https://support.atlassian.com/confluence-cloud/docs/assign-permissions/
+  rbac_api_assignment:
+    value: Yes, users can be added to or removed from groups using the User Management
+      REST API, which effectively manages their roles and permissions.
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-users-add-user-to-group/
+  documentation_links:
+  - https://support.atlassian.com/atlassian-access/docs/saml-single-sign-on/
+  - https://support.atlassian.com/atlassian-access/docs/user-provisioning/
+  - https://developer.atlassian.com/cloud/admin/user-management/
+  - https://support.atlassian.com/confluence-cloud/docs/user-and-group-management-in-confluence/
+  - https://support.atlassian.com/user-management/docs/deactivate-a-managed-user/
+  - https://support.atlassian.com/atlassian-access/docs/configure-user-provisioning-with-okta/
+  - https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/atlassian-cloud-tutorial
+  - https://support.atlassian.com/user-management/docs/suspend-or-unsuspend-a-user/
+  - https://developer.atlassian.com/cloud/confluence/platform/rest/v1/api-group-user/
+  - https://www.atlassian.com/software/access/pricing
+incident_response:
+  documentation_links:
+  - https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/
+  - https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/
+  - https://support.atlassian.com/organization-administration/docs/revoke-user-api-tokens/
+  - https://support.atlassian.com/security-and-access-policies/docs/configure-session-duration-and-idle-timeout/
+  - https://www.atlassian.com/software/guard
+  - https://www.paloaltonetworks.com/blog/2022/06/cortex-xsoar-atlassian-confluence/
+  invalidate_sessions_api:
+    reference: https://support.atlassian.com/security-and-access-policies/docs/configure-session-duration-and-idle-timeout/
+    value: While there is no direct public API to invalidate a specific user's session,
+      organization admins can configure session duration and idle timeouts for authentication
+      policies. Resetting a user's password also invalidates their existing sessions.
+      Atlassian also has an automated backend service that invalidates sessions associated
+      with known compromised credentials.
+  known_automation_tools:
+  - reference: https://www.paloaltonetworks.com/blog/2022/06/cortex-xsoar-atlassian-confluence/
+    value: Palo Alto Cortex XSOAR
+  - reference: https://docs.microsoft.com/en-us/azure/logic-apps/connectors/connectors-create-api-atlassian-jira
+    value: Microsoft Sentinel Logic App Connector
+  - reference: https://n8n.io/integrations/n8n-nodes-n8n-nodes-atlassian-confluence/
+    value: n8n.io
+  - reference: https://www.atlassian.com/software/jira/service-management/features/automation
+    value: Jira Service Management Automation
+  - reference: https://support.atlassian.com/jira-software-cloud/docs/automate-your-jira-cloud-processes-and-workflows/
+    value: Atlassian Automation
+  revoke_api_key_api:
+    reference: https://support.atlassian.com/organization-administration/docs/revoke-user-api-tokens/
+    value: 'Organization admins can programmatically revoke user-generated API tokens.
+      The API endpoint is not explicitly documented in public developer docs but is
+      referenced in support articles. The manual process is to select "Revoke" for
+      a token in the User API tokens section of Atlassian Administration. The capability
+      is part of Atlassian Guard.'
+  session_timeout_configuration:
+    reference: https://support.atlassian.com/security-and-access-policies/docs/configure-session-duration-and-idle-timeout/
+    value: 'Organization admins can configure session duration for managed accounts
+      by editing the authentication policy in Atlassian Administration. Settings include
+      session duration (from 15 minutes to 30 days) and idle session timeout.'
+  suspend_user_management_api:
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/#api-scim-directory-directoryid-users-userid-patch
+    value: 'A user account can be deactivated via the Atlassian SCIM v2 API by sending
+      a PATCH request to the /scim/directory/{directoryId}/Users/{userId} endpoint.
+      The request body should contain an "Operations" array that sets the "active"
+      field to "false". This action deactivates the user and prevents them from logging
+      in. This capability requires an Atlassian Guard subscription.'
+  user_status_api:
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/#api-scim-directory-directoryid-users-userid-get
+    value: The status of a user (active or inactive) can be retrieved by sending
+      a GET request to the SCIM v2 API endpoint /scim/directory/{directoryId}/Users/{userId}.
+      The returned user object contains the "active" boolean field.
+  user_toggle_api:
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/#api-scim-directory-directoryid-users-userid-patch
+    value: 'This is the same as suspending a user. A user account''s active status
+      can be toggled using a PATCH request to the /scim/directory/{directoryId}/Users/{userId}
+      endpoint and setting the "active" field to true or false. This requires an
+      Atlassian Guard subscription.'
+security_monitoring:
+  documentation_links:
+  - https://support.atlassian.com/confluence-cloud/docs/view-the-audit-log/
+  - https://developer.atlassian.com/cloud/confluence/rest/api-group-audit/
+  - https://www.atlassian.com/software/guard/features
+  - https://splunkbase.splunk.com/app/6445
+  - https://docs.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-confluence-audit-rest-api
+  - https://docs.datadoghq.com/integrations/confluence/
+  event_logs:
+    api_call:
+      reference: https://www.atlassian.com/software/guard/features#security-analytics
+      value: API token activity is monitored. With Atlassian Guard Premium, anomalous
+        API usage can trigger alerts. The standard audit log also captures events
+        performed using an admin key.
+    configuration_change:
+      reference: https://support.atlassian.com/confluence-cloud/docs/what-is-audited/
+      value: The audit log captures changes to global administration settings, such
+        as site logo, color scheme, and other global configurations.
+    data_export:
+      reference: https://support.atlassian.com/confluence-cloud/docs/what-is-audited/
+      value: Events for space and site exports are recorded in the audit log, showing
+        when content has been exported from the instance.
+    role_assignment:
+      reference: https://support.atlassian.com/confluence-cloud/docs/what-is-audited/
+      value: All changes to user permissions are logged, including adding or removing
+        users from groups, and changes to global and space-level permissions.
+    security_policy_change:
+      reference: https://support.atlassian.com/organization-administration/docs/track-security-activity-in-the-organization-audit-log/
+      value: Changes to security policies, such as modifications to authentication
+        policies (password requirements, session duration, 2FA enforcement), are
+        recorded in the organization audit log, which requires Atlassian Guard.
+    user_account_creation:
+      reference: https://support.atlassian.com/confluence-cloud/docs/what-is-audited/
+      value: The audit log tracks the full user lifecycle, including when users are
+        created, deactivated (suspended), and reactivated.
+    user_login:
+      reference: https://docs.datadoghq.com/integrations/jira_and_confluence_audit_records/
+      value: Authentication and authorization events, including successful and failed
+        logins, are captured in the audit logs. SIEM integrations can use this to
+        visualize login origins.
+  event_logs_licensing_level:
+    reference: https://www.atlassian.com/software/confluence/pricing
+    value: 'Basic audit logs are available on Standard, Premium, and Enterprise plans.
+      The Free plan does not have this feature. For organization-wide audit logs covering
+      all Atlassian products and advanced threat detection capabilities, an Atlassian
+      Guard (Standard or Premium) subscription is required.'
+  ingestion_methods:
+  - reference: https://developer.atlassian.com/cloud/confluence/rest/api-group-audit/#api-wiki-rest-api-audit-get
+    value: Confluence REST API - GET /rest/api/audit
+  - reference: https://developer.atlassian.com/cloud/admin/organization/rest/api-group-organizations/#api-orgs-orgid-events-get
+    value: Atlassian Organization REST API (requires Atlassian Guard)
+  - reference: https://support.atlassian.com/atlassian-guard/docs/stream-events-to-a-siem/
+    value: Atlassian Guard event streaming via API
+  - reference: https://docs.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-confluence-audit-rest-api
+    value: Pre-built SIEM connectors (e.g., Microsoft Sentinel, Splunk) that utilize
+      the REST APIs.
+  log_export_options:
+    tools_connectors:
+      reference: https://developer.atlassian.com/cloud/confluence/rest/api-group-audit/#api-wiki-rest-api-audit-export-get
+      value: Logs can be exported as a CSV file via the REST API. The primary tools
+        for continuous export are dedicated SIEM connectors and add-ons, such as the
+        Splunk Add-on for Atlassian Cloud or the Microsoft Sentinel connector for Confluence.
+  monitoring_products:
+  - reference: https://splunkbase.splunk.com/app/6445
+    value: Splunk (via Confluence Cloud Audit Log Ingestor)
+  - reference: https://docs.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-confluence-audit-rest-api
+    value: Microsoft Sentinel (via Atlassian Confluence Audit data connector)
+  - reference: https://docs.datadoghq.com/integrations/jira_and_confluence_audit_records/
+    value: Datadog (via Jira & Confluence Audit Records integration)
+  - reference: https://www.hycu.com/blog/confluence-security-data-protection
+    value: HYCU
+  - reference: https://docs.seibert-media.com/display/autopage/Automatically+document+your+Jira+incident+management
+    value: AutoPage for Confluence

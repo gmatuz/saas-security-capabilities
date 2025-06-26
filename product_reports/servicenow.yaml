@@ -1,0 +1,160 @@
+user_management:
+  sso_support:
+    value: ServiceNow supports SAML 2.0 and OpenID Connect (OIDC) for Single Sign-On, allowing integration with multiple Identity Providers (IdPs). [6, 16, 18, 22]
+    reference: https://docs.servicenow.com/bundle/vancouver-platform-administration/page/administer/security/concept/c_MultipleProviderSingleSignOn.html
+  sso_licensing_level_requirement:
+    value: The "Integration - Multiple Provider Single Sign-On Installer" plugin (com.snc.integration.sso.multi.installer) is required to enable SSO. [6, 7] Access to this plugin and SSO capabilities are generally included with standard ServiceNow subscriptions, but it's recommended to verify with the specific licensing package.
+    reference: https://docs.pingidentity.com/r/en-us/pingone/pingone_integration_servicenow/wih1564020500155
+  scim_support:
+    value: 'yes'
+    reference: https://docs.servicenow.com/bundle/vancouver-application-development/page/integrate/inbound-rest/concept/c_SCIMAPI.html
+  scim_licensing_level_requirement:
+    value: Requires the activation of the "SCIM v2 - ServiceNow Cross-domain Identity Management (com.snc.integration.scim2)" plugin. [5, 37] This plugin is available with standard platform licensing but needs to be explicitly activated by an administrator.
+    reference: https://docs.servicenow.com/bundle/vancouver-platform-administration/page/administer/plugins/reference/r_ListOfPlugins.html
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/vancouver/rest/scim-api
+  scim_authentication_acquisition_steps: "1. Activate the 'SCIM v2 - ServiceNow Cross-domain Identity Management (com.snc.integration.scim2)' plugin. [5]\n2. Navigate to 'System OAuth' > 'Application Registry' in the ServiceNow platform UI.\n3. Open the 'SCIM API' record. [5]\n4. Configure the OAuth policy for the SCIM API, typically using an OAuth OIDC provider configuration. [5]\n5. Create a dedicated service user account with the necessary roles to perform SCIM operations (e.g., roles for managing `sys_user` and `sys_user_group` tables). The 'snc_platform_rest_api_access' and SCIM-specific roles are required. [34]\n6. Use the Client ID and Client Secret from the 'SCIM API' Application Registry record, along with the service user's credentials, to obtain an OAuth token from the ServiceNow token endpoint."
+  user_management_api_support:
+    value: 'yes'
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/vancouver/rest/c_TableAPI
+  user_management_api_licensing_level:
+    value: Access to the REST APIs, including the Table API for user management, is included with the core platform license. [2] However, usage is subject to rate limits which may vary based on the subscription tier. [2]
+    reference: https://www.zuplo.com/blog/servicenow-api
+  user_management_api_authentication_mechanisms:
+    value: Basic Authentication
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/vancouver/rest/c_TableAPI#table-auth
+  user_management_api_authentication_acquisition_steps: "1. Create a dedicated service account user in ServiceNow via 'User Administration' > 'Users'. [4]\n2. Check the 'Web service access only' box on the user record to prevent UI logins and restrict usage to API interactions. [4]\n3. Assign the necessary roles to the user. At a minimum, roles like 'rest_service', 'snc_platform_rest_api_access', and roles granting CRUD permissions on the User (`sys_user`) and Group (`sys_user_group`) tables are required. [4]\n4. Use the username and password of this service account as credentials for Basic Authentication in the Authorization header of your API requests."
+  seat_costs:
+  - license_level: Fulfiller (e.g., ITIL)
+    active:
+      value: 'yes'
+      reference: https://www.reco.ai/blog/servicenow-license-cost-a-comprehensive-guide-for-it-administrators
+    suspended_disabled:
+      value: 'no'
+      reference: https://community.servicenow.com/community?id=community_question&sys_id=e7368b61db1cdbc01dcaf3231f96191c
+    archived:
+      value: 'no'
+      reference: https://community.servicenow.com/community?id=community_question&sys_id=e7368b61db1cdbc01dcaf3231f96191c
+  lifecycle_options:
+  - User records in the `sys_user` table have an "Active" boolean flag. Setting this to `false` deactivates the user and frees up their license. [32]
+  - A "Locked out" flag can be set to temporarily prevent a user from logging in, but this does not typically release the license if the user is still marked as "Active".
+  rbac_support:
+    value: 'yes'
+    reference: https://www.servicenow.com/products/governance-risk-and-compliance.html
+  rbac_api_assignment:
+    value: Yes, role and group assignments can be managed via the Table API. This is done by creating or deleting records in the `sys_user_grmember` table for group memberships and the `sys_user_has_role` table for direct role assignments. [33]
+    reference: https://stackoverflow.com/questions/34588970/how-to-add-a-user-to-a-group-in-servicenow-using-table-api
+  documentation_links:
+  - https://docs.servicenow.com/bundle/vancouver-platform-administration/page/administer/security/concept/c_MultipleProviderSingleSignOn.html
+  - https://docs.servicenow.com/bundle/vancouver-application-development/page/integrate/inbound-rest/concept/c_SCIMAPI.html
+  - https://developer.servicenow.com/dev.do#!/reference/api/vancouver/rest/c_TableAPI
+  - https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
+  - https://www.okta.com/integrations/servicenow/
+  - https://community.servicenow.com/community?id=community_question&sys_id=e7368b61db1cdbc01dcaf3231f96191c
+  - https://www.reco.ai/blog/servicenow-license-cost-a-comprehensive-guide-for-it-administrators
+  - https://www.zuplo.com/blog/servicenow-api
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "The sysevent table records all system events, including user logins (event name: 'login') and failed logins (event name: 'login.failed'). The sys_user_session table tracks currently active user sessions."
+      reference: https://docs.servicenow.com/bundle/vancouver-platform-administration/page/administer/time/reference/r_TransactionLogs.html
+    role_assignment:
+      value: "Changes to user roles are tracked in the sys_audit table where the tablename field is 'sys_user_has_role'. The sys_audit_role table also specifically logs role-related events. [10]"
+      reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/reference/r_ViewTheAuditLog.html
+    api_call:
+      value: "Inbound REST and SOAP API usage can be monitored via the 'REST and SOAP API analytics' module. [5] Detailed transaction data for individual API requests is available in the Transaction Logs (syslog_transaction table). [5, 17] These logs include the API endpoint, IP address, user, and response time. [5]"
+      reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/integrate/inbound-rest/concept/c_APIAnalytics.html
+    data_export:
+      value: "Events related to data exports, such as downloading attachments or running reports, are captured in various log tables. Attachment downloads are logged in the sysevent table. [10] Report executions are logged in the report_view table. [10] Direct table exports can be tracked via transaction logs."
+      reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/system-logs/reference/r_EventLog.html
+    configuration_change:
+      value: "System configuration changes are primarily captured in two places: the Audit (sys_audit) table tracks changes to individual records on audited tables (e.g., changes to system properties), and the Customer Updates (sys_update_xml) table tracks changes deployed via Update Sets."
+      reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/concept/c_HighSecuritySettings.html
+    user_account_creation:
+      value: "User account creation, updates (e.g., enabling/disabling), and deletions are captured in the Audit (sys_audit) table for the User (sys_user) table. [10]"
+      reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/reference/r_ViewTheAuditLog.html
+    security_policy_change:
+      value: "Changes to security-related configurations, such as Access Control Lists (ACLs), are audited in the sys_audit table. The specific table name being modified (e.g., sys_security_acl) is recorded in the audit entry."
+      reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/reference/r_ViewTheAuditLog.html
+  event_logs_licensing_level:
+    value: "Core logging and auditing capabilities are available with the standard ServiceNow platform license. [8] However, advanced features like the Log Export Service (LES) and the full Security Operations (SecOps) suite, which includes Security Incident Response (SIR) and Vulnerability Response (VR), require specific subscriptions such as SecOps Standard or Professional. [23, 41]"
+    reference: https://www.servicenow.com/products/security-operations.html
+  monitoring_products:
+  - value: Splunk
+    reference: https://store.servicenow.com/sn_appstore_store.do#!/store/application/27448378dbe13300a7b27a7f29961947
+  - value: Microsoft Sentinel
+    reference: https://docs.servicenow.com/bundle/washington-security-management/page/product/microsoft-security-response-integration/concept/additional-spokes-ms-sec-resp.html
+  - value: Google Security Operations (formerly Chronicle)
+    reference: https://cloud.google.com/security-operations/docs/soar/integration/servicenow
+  - value: Cortex XSOAR (Palo Alto Networks)
+    reference: https://xsoar.pan.dev/docs/reference/integrations/service-now-v2
+  - value: Exabeam
+    reference: https://docs.exabeam.com/en/cloud-connectors/saas-and-applications/servicenow-cloud-connector
+  - value: Devo
+    reference: https://docs.devo.com/soar/content/automations/integrations/itsm/servicenow
+  - value: Elastic (ELK Stack)
+    reference: https://www.elastic.co/guide/en/kibana/current/servicenow-connector.html
+  - value: IBM QRadar
+    reference: https://www.ibm.com/community/qradar/home/discover/
+  ingestion_methods:
+  - value: "Log Export Service (LES): A near real-time, scalable service to push logs via Kafka to an external consumer like a SIEM. [43]"
+    reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/log-export-service/concept/log-export-service.html
+  - value: "Table API: Polling specific log tables (e.g., sysevent, sys_audit) via the REST API to pull event data. [6]"
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/washington/rest/c_TableAPI
+  - value: "SIEM-specific Connectors/Add-ons: Vendor-provided applications, like the 'ServiceNow Add-on for Splunk', that are installed on the SIEM side to pull data from ServiceNow APIs. [32]"
+    reference: https://splunkbase.splunk.com/app/5634
+  - value: "MID Server Consumer: Using an on-premises or cloud-based MID Server to connect to the Hermes Messaging Service (Kafka) and forward logs to analytics tools. [43]"
+    reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/log-export-service/concept/mid-server-consumer.html
+  log_export_options:
+    tools_connectors:
+      value: "ServiceNow provides several official connectors and add-ons for SIEM and SOAR platforms, including the 'ServiceNow Security Operations Event Ingestion Addon for Splunk ES' and integrations for Cortex XSOAR, Microsoft Sentinel, and others, available on the ServiceNow Store or partner marketplaces. [32, 18]"
+      reference: https://store.servicenow.com/sn_appstore_store.do#!/store/home
+  documentation_links:
+  - https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/system-logs/reference/system-logs.html
+  - https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/log-export-service/concept/log-export-service.html
+  - https://developer.servicenow.com/dev.do#!/reference/api/washington/rest/c_TableAPI
+  - https://docs.servicenow.com/bundle/washington-security-management/page/product/security-incident-response/concept/sec-ops-integration-landing-page.html
+  - https://store.servicenow.com/sn_appstore_store.do#!/store/home
+  - https://www.servicenow.com/community/security-response-blog/soar-your-security-operations-with-servicenow/ba-p/2304917
+  - https://www.servicenow.com/products/security-operations.html
+incident_response:
+  suspend_user_management_api:
+    value: "A user account can be suspended (locked out) by making a PATCH or PUT request to the Table API for the User (sys_user) table, setting the 'locked_out' field to 'true' for the target user's record. This action also terminates the user's active sessions. [38, 47]"
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/washington/rest/c_TableAPI#table-PATCH
+  invalidate_sessions_api:
+    value: "User sessions can be invalidated programmatically. One method is to use the GlideSessions API via a Scripted REST API, calling 'GlideSessions.lockOutSessionsInAllNodes('userName')' to terminate all sessions for a specific user. [3] Another approach is to interact with the 'v_user_session' table to lock individual sessions. [45]"
+    reference: https://community.servicenow.com/community?id=community_question&sys_id=b2a65b99db1b85d066f1d9d96896191c
+  revoke_api_key_api:
+    value: "For integrations using OAuth 2.0, refresh and access tokens can be revoked. This is typically managed within the 'Application Registry' and the 'Manage Tokens' interface. Programmatic revocation can be achieved by sending a request to the OAuth token revocation endpoint (/oauth_token.do with a 'revoke' action)."
+    reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/task/t_RevokeAnOAuthToken.html
+  user_toggle_api:
+    value: "A user account can be enabled or disabled using the Table API. This is done by making a PATCH or PUT request to the User (sys_user) table and setting the 'active' field to 'true' or 'false' respectively."
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/washington/rest/c_TableAPI#table-PATCH
+  user_status_api:
+    value: "The status of a user (e.g., active status, locked out status, roles) can be checked by making a GET request to the Table API for the User (sys_user) table, querying by user ID or other unique identifiers. [27, 24]"
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/washington/rest/c_TableAPI#table-GET
+  session_timeout_configuration:
+    value: "User session timeout due to inactivity is controlled by the system property 'glide.ui.session_timeout', which is measured in minutes. The default is 30 minutes. [1, 20] A separate property, 'glide.ui.active.session.life_span', can enforce a maximum session duration regardless of activity. [1]"
+    reference: https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/task/t_ConfigureUserSessionTimeout.html
+  known_automation_tools:
+  - value: "ServiceNow Security Operations (SecOps): The native SOAR capability within ServiceNow for orchestrating incident response workflows. [29, 40]"
+    reference: https://www.servicenow.com/products/security-operations.html
+  - value: "Palo Alto Cortex XSOAR: Provides a comprehensive integration with ServiceNow for creating, updating, and querying records, enabling automated incident response playbooks. [16, 18]"
+    reference: https://xsoar.pan.dev/docs/reference/integrations/service-now-v2
+  - value: "Splunk SOAR: Integrates with ServiceNow to automate actions like ticket creation and updates based on security alerts."
+    reference: https://docs.splunk.com/Documentation/SOAR/current/PlaybookAPI/ServiceNow
+  - value: "CrowdStrike Falcon Fusion (SOAR): Automates ticket creation and updates in ServiceNow for streamlined remediation efforts. [7]"
+    reference: https://www.crowdstrike.com/marketplace/integrations/servicenow-itsm/
+  - value: "D3 Smart SOAR: Offers a suite of automated commands for ITSM, including ticket creation, updates, and user detail retrieval. [34]"
+    reference: https://d3security.com/blog/automated-incident-response-with-servicenow-and-smart-soar/
+  - value: "Google SecOps SOAR: Automates incident ticketing, phishing investigation, and user provisioning workflows by integrating with ServiceNow. [4]"
+    reference: https://cloud.google.com/security-operations/docs/soar/integration/servicenow
+  documentation_links:
+  - https://developer.servicenow.com/dev.do#!/reference/api/washington/rest/c_TableAPI
+  - https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/auto-test-framework/concept/g_GlideSystemAPIs.html
+  - https://www.servicenow.com/community/itsm-forum/invalidate-timeout-user-session/m-p/1183204
+  - https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/task/t_ConfigureUserSessionTimeout.html
+  - https://xsoar.pan.dev/docs/reference/integrations/service-now-v2
+  - https://docs.servicenow.com/bundle/washington-platform-administration/page/administer/security/task/t_RevokeAnOAuthToken.html
+  - https://docs.servicenow.com/bundle/washington-security-management/page/product/security-operations/concept/security-operations.html

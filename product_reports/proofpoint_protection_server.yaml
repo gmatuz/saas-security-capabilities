@@ -1,0 +1,153 @@
+user_management:
+  sso_support:
+    value: "Yes, via SAML 2.0. Integration guides are available for major identity
+      providers such as Okta, Microsoft Entra ID, and JumpCloud."
+    reference: https://help.proofpoint.com/Proofpoint_Essentials/Email_Security/Administrator_Topics/Administration/Integrations/Okta_SSO_Integration
+  sso_licensing_level_requirement:
+    value: Information not found in public documentation.
+    reference: https://www.proofpoint.com/us/products/email-protection/email-security-and-protection
+  scim_support:
+    value: 'no'
+    reference: https://www.okta.com/integrations/proofpoint-protection-server/
+  scim_licensing_level_requirement:
+    value: n/a
+    reference: https://www.okta.com/integrations/proofpoint-protection-server/
+  scim_authentication_mechanisms:
+    value: n/a
+    reference: https://www.okta.com/integrations/proofpoint-protection-server/
+  scim_authentication_acquisition_steps: n/a
+  user_management_api_support:
+    value: 'no'
+    reference: https://www.okta.com/integrations/proofpoint-protection-server/
+  user_management_api_licensing_level:
+    value: n/a
+    reference: https://www.okta.com/integrations/proofpoint-protection-server/
+  user_management_api_authentication_mechanisms:
+    value: n/a
+    reference: https://www.okta.com/integrations/proofpoint-protection-server/
+  user_management_api_authentication_acquisition_steps: n/a
+  seat_costs:
+  - license_level: All
+    active:
+      value: uncertain
+      reference: https://www.proofpoint.com/us/products/email-protection
+    suspended_disabled:
+      value: uncertain
+      reference: https://www.proofpoint.com/us/products/email-protection
+    archived:
+      value: uncertain
+      reference: https://www.proofpoint.com/us/products/email-protection
+  lifecycle_options:
+  - create
+  - delete
+  - update (via sync)
+  rbac_support:
+    value: 'yes'
+    reference: https://www.youtube.com/watch?v=d1gTxrGEXUI
+  rbac_api_assignment:
+    value: Information not found in public documentation. Role management appears to
+      be UI-only.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  documentation_links:
+  - https://help.proofpoint.com/Proofpoint_Essentials/Email_Security/Administrator_Topics/User_Management/Importing_and_Syncing_Users/Tips_and_Tricks_for_Importing_Groups_and_Users_from_LDAP_AD
+  - https://help.proofpoint.com/Proofpoint_Essentials/Email_Security/Administrator_Topics/Administration/Integrations/Okta_SSO_Integration
+  - https://help.proofpoint.com/Proofpoint_Essentials/Email_Security/Administrator_Topics/Administration/Integrations/Azure_Active_Directory_Synchronization
+  - https://community.proofpoint.com/s/article/Email-Protection-PPS-PoD-Best-Practices-for-Proofpoint-to-Entra-ID-Azure-Integration-1643911578330
+  - https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  - https://www.jumpcloud.com/sso/proofpoint
+  - https://www.youtube.com/watch?v=d1gTxrGEXUI
+  - https://community.proofpoint.com/s/article/latest-pps-documentation-1591820610228
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Administrative login and session activity is logged. The 'audit' log module captures administrative actions. Specific user login events are part of the general system and audit logs."
+      reference: "https://www.ccn-cert.cni.es/guias/series-ccn-stic/1000-procedimientos-de-empleo-seguro/1636-ccn-stic-1636-procedimiento-de-empleo-seguro-email-protection-y-targeted-attack-protection.html"
+    role_assignment:
+      value: "Changes to administrator roles and permissions are logged in the audit logs. These logs detail the user who made the change, the state before, and the state after the modification."
+      reference: "https://www.ccn-cert.cni.es/guias/series-ccn-stic/1000-procedimientos-de-empleo-seguro/1636-ccn-stic-1636-procedimiento-de-empleo-seguro-email-protection-y-targeted-attack-protection.html"
+    api_call:
+      value: "API access and operations are logged. For on-premise deployments, API access must be explicitly enabled in the 'filter.cfg' file. For cloud (PoD) deployments, API access is requested via support and associated with a role. All API activities would be captured in audit logs."
+      reference: "https://www.blink.ops.io/integrations/proofpoint-protection-server"
+    data_export:
+      value: "Log exports via syslog are configurable and would be logged as system events. Manual data exports, such as from the Smart Search interface, are logged in the audit logs."
+      reference: "https://www.securonix.com/products/ingest-and-integrate/proofpoint-email-api-syslog-json/"
+    configuration_change:
+      value: "All system configuration changes made through the management interface are recorded in the audit logs. The Spanish National Cryptologic Centre's guide specifies that these logs include the date, modifying user, state before modification, and state after modification."
+      reference: "https://www.ccn-cert.cni.es/guias/series-ccn-stic/1000-procedimientos-de-empleo-seguro/1636-ccn-stic-1636-procedimiento-de-empleo-seguro-email-protection-y-targeted-attack-protection.html"
+    user_account_creation:
+      value: "Creation, modification, or deletion of administrator accounts is logged in the audit logs. End-user account provisioning is typically handled via LDAP synchronization, and changes would be logged as part of that sync process."
+      reference: "https://www.proofpoint.com/sites/default/files/pfpt-us-ds-protection-server-7-5-update-course.pdf"
+    security_policy_change:
+      value: "Changes to email filtering rules, spam policies, antivirus settings, and other security policies are logged as configuration changes in the audit logs."
+      reference: "https://www.ibm.com/docs/en/qradar-common?topic=p-configuring-proofpoint-enterprise-protection-enterprise-privacy-dsm-communicate-qradar"
+  event_logs_licensing_level:
+    value: "Syslog export from on-premise appliances is a standard feature. For Proofpoint on Demand (cloud-hosted), the 'Remote Syslog' feature requires an additional license. The Proofpoint on Demand Log API also requires an add-on license."
+    reference: "https://splunkbase.splunk.com/app/3080"
+  monitoring_products:
+    - value: "Splunk"
+      reference: "https://splunkbase.splunk.com/app/3080/"
+    - value: "IBM QRadar"
+      reference: "https://www.ibm.com/docs/en/qradar-common?topic=p-configuring-proofpoint-enterprise-protection-enterprise-privacy-dsm-communicate-qradar"
+    - value: "Cortex XSIAM"
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/ProofpointProtectionServer/"
+    - value: "Securonix"
+      reference: "https://www.securonix.com/products/ingest-and-integrate/proofpoint-email-api-syslog-json/"
+    - value: "LogRhythm"
+      reference: "https://docs.logrhythm.com/docs/OC/configure-the-proofpoint-log-source-in-siem"
+    - value: "Google Security Operations (Chronicle)"
+      reference: "https://cloud.google.com/security-operations/docs/ingestion/third-party-api/proofpoint-on-demand?hl=es"
+    - value: "Sumo Logic"
+      reference: "https://help.sumo.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/proofpoint-on-demand-source/"
+  ingestion_methods:
+    - value: "Syslog (TCP/UDP): Standard mechanism for exporting 'filter' and 'maillog' data from on-premise and cloud (with license) appliances. This is the most commonly referenced method."
+      reference: "https://www.ibm.com/docs/en/qradar-common?topic=p-configuring-proofpoint-enterprise-protection-enterprise-privacy-dsm-communicate-qradar"
+    - value: "Proofpoint on Demand Log API (WebSocket): A WebSocket-based API for cloud customers to stream email processing logs in JSON format in real-time. Requires a specific license."
+      reference: "https://www.cyderes.com/wp-content/uploads/2020/11/Proofpoint-on-Demand-Log-API.pdf"
+    - value: "Proofpoint TAP SIEM API (REST): A RESTful API to pull threat intelligence events related to the Targeted Attack Protection (TAP) module, such as malicious clicks and attachments. Events can be formatted as JSON or syslog."
+      reference: "https://help.proofpoint.com/Threat_Insight_Dashboard/API_Documentation/SIEM_API"
+  log_export_options:
+    tools_connectors:
+      value: "Connectors and add-ons are available for major SIEM platforms including the 'Splunk Add-on for Proofpoint Protection Server', 'Splunk Connect for Syslog (SC4S)', and parsers for various other SIEMs."
+      reference: "https://splunkbase.splunk.com/app/3080/"
+  documentation_links:
+    - "https://www.ibm.com/docs/en/dsm?topic=proofpoint-configuring-enterprise-protection-privacy-communicate-qradar-product"
+    - "https://www.splunk.com/pdfs/solution-guides/splunk-and-proofpoint-solution-guide.pdf"
+    - "https://cortex.marketplace.pan.dev/marketplace/details/ProofpointProtectionServer/"
+    - "https://www.securonix.com/products/ingest-and-integrate/proofpoint-email-api-syslog-json/"
+    - "https://docs.splunk-connect-for-syslog.sc4s.io/sources/vendor/Proofpoint/ProofpointProtectionServer/"
+    - "https://help.proofpoint.com/Threat_Insight_Dashboard/API_Documentation/SIEM_API"
+    - "https://www.cyderes.com/wp-content/uploads/2020/11/Proofpoint-on-Demand-Log-API.pdf"
+incident_response:
+  suspend_user_management_api:
+    value: "No direct API endpoint to suspend a user account on the Proofpoint Protection Server was found. User management is primarily done via the Admin UI or LDAP synchronization. Response actions are focused on messages (e.g., quarantine), not user accounts."
+    reference: "https://www.proofpoint.com/sites/default/files/pfpt-us-ds-protection-server-7-5-update-course.pdf"
+  invalidate_sessions_api:
+    value: "No API endpoint to invalidate administrator or user sessions was found. Session management appears to be handled within the web interface, without programmatic controls for invalidation."
+    reference: "https://www.proofpoint.com/sites/default/files/pfpt-us-ds-protection-server-technical-brief.pdf"
+  revoke_api_key_api:
+    value: "API access for on-premise PPS is enabled via a configuration file, not managed by revokable keys. For PoD, API access is provisioned by Proofpoint support, and revocation would likely be a support-managed process. No self-service API key revocation endpoint was found."
+    reference: "https://www.blink.ops.io/integrations/proofpoint-protection-server"
+  user_toggle_api:
+    value: "No API was found to programmatically enable or disable user accounts directly on the Proofpoint Protection Server. Automation would likely require scripting actions against the underlying directory service (e.g., Active Directory) that PPS syncs with."
+    reference: "https://www.uh.edu/infotech/services/email-collaboration/email/email-protection/"
+  user_status_api:
+    value: "No direct API to check a user's status (e.g., active, suspended) on the Protection Server was found. The People API, which is part of the broader Proofpoint ecosystem (TAP/Threat Insight), can provide information on user risk posture but is not a core PPS API for account status."
+    reference: "https://help.proofpoint.com/Threat_Insight_Dashboard/API_Documentation/People_API"
+  session_timeout_configuration:
+    value: "No API endpoint for configuring session timeout was found. This is an administrative setting configured through the web management interface."
+    reference: "https://www.proofpoint.com/sites/default/files/pfpt-us-ds-protection-server-technical-brief.pdf"
+  known_automation_tools:
+    - value: "Cortex XSOAR: Provides a v2 integration with actions for searching logs (smart search) and managing quarantined messages (list, release, move)."
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/ProofpointProtectionServerV2/"
+    - value: "Securonix SOAR: Integrates with Proofpoint Protection Server to perform actions such as fetching email details and releasing or moving emails from quarantine."
+      reference: "https://www.securonix.com/resources/integration-guides/proofpoint-protection-server/"
+    - value: "Tines: Offers a connect flow for Proofpoint Protection Server to automate security workflows, likely leveraging the Quarantine API."
+      reference: "https://www.tines.com/connect-flows/proofpoint-protection-server"
+    - value: "Blink: Provides an integration that uses the Quarantine API. Documentation specifies that enabling the API for on-premise requires editing 'filter.cfg' and creating an API role."
+      reference: "https://www.blink.ops.io/integrations/proofpoint-protection-server"
+  documentation_links:
+    - "https://cortex.marketplace.pan.dev/marketplace/details/ProofpointProtectionServerV2/"
+    - "https://www.securonix.com/resources/integration-guides/proofpoint-protection-server/"
+    - "https://www.blink.ops.io/integrations/proofpoint-protection-server"
+    - "https://help.proofpoint.com/Threat_Insight_Dashboard/API_Documentation/SIEM_API"
+    - "https://community.tines.com/story/proofpoint-protection-server-email-security-gateway-98336"

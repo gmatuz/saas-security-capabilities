@@ -1,0 +1,150 @@
+user_management:
+  sso_support:
+    value: Yes, via SAML 2.0.
+    reference: https://help.openai.com/en/articles/9174542-configuring-sso-for-chatgpt
+  sso_licensing_level_requirement:
+    value: ChatGPT Enterprise or ChatGPT Edu.
+    reference: https://help.openai.com/en/articles/9174542-configuring-sso-for-chatgpt
+  scim_support:
+    value: 'yes'
+    reference: https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
+  scim_licensing_level_requirement:
+    value: ChatGPT Enterprise.
+    reference: https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://internet2.edu/wp-content/uploads/2024/07/Grouper-provisioning-SCIM-for-OpenAI-ChatGPT-Internet2-Wiki.pdf
+  scim_authentication_acquisition_steps: "1. Log in to the ChatGPT admin console.\n2. Navigate to 'Manage
+    Workspace' > 'Identity & Provisioning'.\n3. Select 'Directory Sync' and choose
+    to set up SCIM.\n4. Follow the setup wizard which will provide a SCIM API endpoint
+    URL and a bearer token for authentication."
+  user_management_api_support:
+    value: 'no'
+    reference: https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
+  user_management_api_licensing_level:
+    value: n/a
+    reference: ''
+  user_management_api_authentication_mechanisms:
+    value: n/a
+    reference: ''
+  user_management_api_authentication_acquisition_steps: User management is handled through
+    a SCIM integration, not a separate user management API. Manual user management
+    is available in the admin console. [12]
+  seat_costs:
+  - license_level: ChatGPT Enterprise
+    active:
+      value: 'yes'
+      reference: https://www.techtarget.com/searchenterpriseai/tip/ChatGPT-Enterprise-pricing-features-and-limitations
+    suspended_disabled:
+      value: 'no'
+      reference: https://community.atlassian.com/t5/Atlassian-Access-articles/Deactivated-vs-Suspended-User/ba-p/2422003
+    archived:
+      value: n/a
+      reference: ''
+  lifecycle_options:
+  - create
+  - deactivate
+  - delete
+  - suspend
+  rbac_support:
+    value: 'yes'
+    reference: https://help.openai.com/en/articles/8243678-what-is-the-difference-between-different-roles-on-my-chatgpt-enterprise-workspace
+  rbac_api_assignment:
+    value: 'Uncertain. While SCIM manages user provisioning (create/deactivate), it
+      is not explicitly stated in the documentation whether role assignments (Member,
+      Admin, Owner) can be managed via the SCIM API. One source notes that it does
+      not appear SCIM can manage if a user is an admin or not. [17]'
+    reference: https://internet2.edu/wp-content/uploads/2024/07/Grouper-provisioning-SCIM-for-OpenAI-ChatGPT-Internet2-Wiki.pdf
+  documentation_links:
+  - https://help.openai.com/en/collections/8542330-chatgpt-enterprise
+  - https://help.openai.com/en/articles/9174542-configuring-sso-for-chatgpt
+  - https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
+  - https://help.openai.com/en/articles/8243678-what-is-the-difference-between-different-roles-on-my-chatgpt-enterprise-workspace
+  - https://help.openai.com/en/articles/9218981-getting-started-with-identity-and-provisioning-in-chatgpt-enterprise
+  - https://www.okta.com/integrations/openai-chatgpt/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/openai-tutorial
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "session:login, session:logout, session:login_failure. These events track successful and failed user authentication attempts."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+    role_assignment:
+      value: "member:role_changed. This event is logged when an administrator changes a user's role (e.g., from member to admin)."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+    api_call:
+      value: "Not explicitly available. Audit logs capture metadata about ChatGPT usage such as conversation creation/deletion and GPT creation/modification, but do not provide detailed logs of user prompts or API-like calls within the web interface."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+    data_export:
+      value: "export:created. This event is logged when an administrator exports workspace data, such as conversations."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+    configuration_change:
+      value: "workspace_settings:setting_changed, sso:saml_configuration_saved, domain:validation_succeeded. These events track changes to workspace settings, including authentication, domains, and other administrative configurations."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+    user_account_creation:
+      value: "member:added. This event is logged when a new user is successfully added to the workspace."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+    security_policy_change:
+      value: "retention_policy:created, retention_policy:updated, retention_policy:deleted. These events track the creation, modification, and deletion of data retention policies within the enterprise account."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+  event_logs_licensing_level:
+    value: "ChatGPT Enterprise"
+    reference: "https://openai.com/enterprise"
+  monitoring_products:
+    - value: "Splunk (via Splunkbase Add-on for OpenAI)"
+      reference: "https://splunkbase.splunk.com/app/6985"
+    - value: "Datadog (for OpenAI API monitoring)"
+      reference: "https://www.datadoghq.com/blog/monitor-openai-usage/"
+    - value: "Microsoft Sentinel (via custom data connector)"
+      reference: "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/monitoring-and-protecting-openai-workloads-with-microsoft/ba-p/3965961"
+    - value: "Panther"
+      reference: "https://panther.com/partners/openai/"
+  ingestion_methods:
+    - value: "Manual CSV Export from Admin Console"
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+    - value: "Log Export API (for Enterprise)"
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+  log_export_options:
+    tools_connectors:
+      value: "Official support for direct SIEM connectors is not broadly available; the primary methods are manual CSV export or developing a custom integration against the Log Export API. Some SIEMs have connectors for the OpenAI API platform, which is distinct from ChatGPT Enterprise audit logs."
+      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+  documentation_links:
+    - "https://help.openai.com/en/articles/8502929-audit-logs"
+    - "https://openai.com/enterprise"
+    - "https://platform.openai.com/docs/api-reference/organizations/list-members"
+    - "https://help.openai.com/en/articles/8502902-chatgpt-enterprise-data-privacy-security"
+    - "https://trust.openai.com/"
+    - "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/monitoring-and-protecting-openai-workloads-with-microsoft/ba-p/3965961"
+    - "https://www.panther.com/blog/how-to-monitor-openai-audit-logs-with-panther/"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes, via user removal. The API endpoint DELETE /v1/organizations/{organization_id}/members/{member_id} removes a member from the organization, effectively revoking their access to ChatGPT Enterprise."
+    reference: "https://platform.openai.com/docs/api-reference/organizations/remove-member"
+  invalidate_sessions_api:
+    value: "Not Available. There is no documented API endpoint to programmatically invalidate a user's active web session. The primary remediation is to remove the user from the organization and/or their SSO identity provider."
+    reference: "https://platform.openai.com/docs/api-reference"
+  revoke_api_key_api:
+    value: "Not Applicable. API keys are associated with the OpenAI API Platform, not individual ChatGPT Enterprise user accounts for their web session access. API keys used by the organization can be managed in the platform settings."
+    reference: "https://platform.openai.com/docs/guides/production-best-practices/api-key-safety"
+  user_toggle_api:
+    value: "No, user status cannot be toggled on/off. The only available action via the API is permanent removal of the user from the organization."
+    reference: "https://platform.openai.com/docs/api-reference/organizations/remove-member"
+  user_status_api:
+    value: "Yes. The endpoint GET /v1/organizations/{organization_id}/members allows you to list all members of an organization to verify their status and role."
+    reference: "https://platform.openai.com/docs/api-reference/organizations/list-members"
+  session_timeout_configuration:
+    value: "Yes. ChatGPT Enterprise admins can configure session timeouts for the web interface, forcing users to re-authenticate after a set period. This is configured in the admin settings, not via an API."
+    reference: "https://help.openai.com/en/articles/8502902-chatgpt-enterprise-data-privacy-security"
+  known_automation_tools:
+    - value: "Palo Alto Networks XSOAR (via OpenAI pack)"
+      reference: "https://cortex.marketplace.pan.dev/details/OpenAI/"
+    - value: "Splunk SOAR (via OpenAI App)"
+      reference: "https://splunkbase.splunk.com/app/6837"
+    - value: "Custom Scripts (Python, etc.) using the OpenAI Platform API"
+      reference: "https://github.com/openai/openai-python"
+  documentation_links:
+    - "https://platform.openai.com/docs/api-reference/organizations"
+    - "https://help.openai.com/en/articles/8502902-chatgpt-enterprise-data-privacy-security"
+    - "https://platform.openai.com/docs/guides/production-best-practices"
+    - "https://trust.openai.com/documents/openai-api-data-usage-faq"
+    - "https://cortex.marketplace.pan.dev/details/OpenAI/"
+    - "https://github.com/openai"

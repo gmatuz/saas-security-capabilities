@@ -1,0 +1,169 @@
+user_management:
+  sso_support:
+    value: 'yes'
+    reference: 'https://docs.keeper.io/sso-connect-cloud/'
+  sso_licensing_level_requirement:
+    value: Keeper Business or Keeper Enterprise
+    reference: 'https://www.keepersecurity.com/pricing/business'
+  scim_support:
+    value: 'yes'
+    reference: 'https://docs.keeper.io/sso-connect-cloud/user-and-team-provisioning/api-provisioning-with-scim'
+  scim_licensing_level_requirement:
+    value: Keeper Enterprise
+    reference: 'https://www.keeper.io/pricing/business-enterprise'
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: 'https://docs.keeper.io/sso-connect-cloud/user-and-team-provisioning/api-provisioning-with-scim'
+  scim_authentication_acquisition_steps: "1. Log in to the Keeper Admin Console.\n2. Navigate to the Admin tab and select the desired node for provisioning.\n3. Click the 'Provisioning' tab and then 'Add Method'.\n4. Select 'SCIM (System for Cross-Domain Identity Management)' and click 'Next'.\n5. Click 'Create Provisioning Token'.\n6. The Tenant URL (Base URL) and Secret Token (Bearer Token) will be displayed. Copy the token immediately.\n7. Click 'Save' in the Keeper Admin Console to save the provisioning method."
+  user_management_api_support:
+    value: 'yes'
+    reference: 'https://docs.keeper.io/secrets-manager/commander-cli/overview'
+  user_management_api_licensing_level:
+    value: Keeper Enterprise customers can use the Keeper Commander CLI/SDK for advanced automation and user management. [25] MSPs and distributors have access to specific Account Management APIs. [36]
+    reference: 'https://docs.keeper.io/secrets-manager/commander-cli/overview'
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: 'https://docs.keeper.io/secrets-manager/commander-cli/overview'
+  user_management_api_authentication_acquisition_steps: The primary method for programmatic user management is the Keeper Commander CLI. Authentication is typically handled by logging into Commander, which can be configured for various authentication methods, including master password and SSO. It does not use a simple, static API key in the traditional sense for user management scripts; rather, it uses the authenticated session of the administrator running the commands.
+  seat_costs:
+  - license_level: Keeper Business
+    active:
+      value: 'yes'
+      reference: 'https://www.keepersecurity.com/pricing/business'
+    suspended_disabled:
+      value: 'yes'
+      reference: 'https://docs.keeper.io/enterprise-guide/user-management-and-lifecycle#user-status'
+    archived:
+      value: n/a
+      reference: ''
+  - license_level: Keeper Enterprise
+    active:
+      value: 'yes'
+      reference: 'https://www.keepersecurity.com/pricing/business'
+    suspended_disabled:
+      value: 'yes'
+      reference: 'https://docs.keeper.io/enterprise-guide/user-management-and-lifecycle#user-status'
+    archived:
+      value: n/a
+      reference: ''
+  lifecycle_options:
+  - Invited
+  - Active
+  - Locked (Suspended)
+  - Locked by IdP
+  - Delete User
+  - Transfer Account
+  rbac_support:
+    value: 'yes'
+    reference: 'https://docs.keeper.io/enterprise-guide/roles-rbac-and-permissions'
+  rbac_api_assignment:
+    value: "Yes, role and team assignments can be managed via the Keeper Commander CLI. [28] SCIM can also be used to assign users to teams, and teams can be mapped to roles within Keeper. [9, 7]"
+    reference: 'https://docs.keeper.io/secrets-manager/commander-cli/command-reference/enterprise-management-commands'
+  documentation_links:
+  - https://docs.keeper.io/sso-connect-cloud/user-and-team-provisioning/api-provisioning-with-scim
+  - https://docs.keeper.io/enterprise-guide/user-and-team-provisioning
+  - https://docs.keeper.io/sso-connect-cloud/user-and-team-provisioning/azure-ad-provisioning
+  - https://docs.keeper.io/sso-connect-cloud/user-and-team-provisioning/okta-provisioning
+  - https://docs.keeper.io/secrets-manager/commander-cli/overview
+  - https://github.com/Keeper-Security/Commander
+  - https://docs.keeper.io/enterprise-guide/user-management-and-lifecycle
+  - https://docs.keeper.io/enterprise-guide/roles-rbac-and-permissions
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Keeper tracks successful and failed login attempts. The event is typically named 'login' in the audit logs."
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem#event-descriptions"
+    role_assignment:
+      value: "Changes to user roles and administrative permissions are tracked. Events include 'add_user_to_role' and 'remove_user_from_role'."
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem#event-descriptions"
+    api_call:
+      value: "API-related activities are logged, particularly those made through the Keeper Commander SDK and other integrations. Events related to Secrets Manager access and rotation are also included."
+      reference: "https://docs.keeper.io/secrets-manager/commander-cli/event-reporting"
+    data_export:
+      value: "The 'share_report' command in Keeper Commander can generate reports of what is shared and to whom. The 'external-shares-report' command specifically tracks and can revoke shares to external users. The act of exporting a report is also a logged event."
+      reference: "https://docs.keeper.io/secrets-manager/commander-cli/command-reference/sharing-commands#external-shares-report-command"
+    configuration_change:
+      value: "Administrative changes to policies and configurations are logged. This includes events like 'policy_change' which tracks modifications to role enforcement policies."
+      reference: "https://www.youtube.com/watch?v=R-3z44t5E8g"
+    user_account_creation:
+      value: "Events related to user provisioning such as inviting a user ('add') are logged."
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem#event-descriptions"
+    security_policy_change:
+      value: "Modifications to Role Enforcement Policies, such as changing master password complexity or session timeout rules, are logged as specific events."
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem#event-descriptions"
+  event_logs_licensing_level:
+    value: "Basic event logging ('Recent Activity') is available in all Keeper Business and Enterprise plans. Access to over 200 event types, custom reporting, and external SIEM integration requires the 'Advanced Reporting and Alerts Module' (ARAM), which is an add-on."
+    reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem"
+  monitoring_products:
+    - value: "Splunk"
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/splunk"
+    - value: "Microsoft Sentinel"
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/azure-sentinel"
+    - value: "IBM QRadar"
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/qradar"
+    - value: "Sumo Logic"
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/sumo-logic"
+    - value: "Datadog"
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/datadog"
+    - value: "Cortex XSOAR"
+      reference: "https://www.paloaltonetworks.com/cortex/marketplace/keeper-security"
+    - value: "Hunters"
+      reference: "https://www.hunters.ai/product/integrations/keeper"
+  ingestion_methods:
+    - value: "AWS S3 Bucket: Keeper can be configured to push event logs to an AWS S3 bucket at specified intervals."
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/aws-s3-bucket"
+    - value: "Syslog Push: Allows for pushing logs to any syslog-compatible collector."
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/syslog"
+    - value: "Webhook: The alerting feature can send event data to a webhook URL, which can be used for custom integrations with tools like Slack or Microsoft Teams."
+      reference: "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/webhooks"
+    - value: "Keeper Commander CLI: The 'audit-report' command can be used to generate and export event reports, which can then be ingested by other systems."
+      reference: "https://www.youtube.com/watch?v=R-3z44t5E8g"
+  log_export_options:
+    tools_connectors:
+      value: "Keeper provides built-in connectors for numerous SIEMs including Splunk, Sentinel, QRadar, Sumo Logic, Datadog, and more. For others, it offers a direct push to an AWS S3 bucket or a generic Syslog feed."
+      reference: "https://www.keepersecurity.com/integrations.html?t=siem"
+  documentation_links:
+    - "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem"
+    - "https://docs.keeper.io/secrets-manager/commander-cli/event-reporting"
+    - "https://www.keepersecurity.com/integrations.html?t=siem"
+    - "https://www.youtube.com/watch?v=R-3z44t5E8g"
+    - "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/event-descriptions"
+    - "https://docs.keeper.io/enterprise-guide/reporting-alerts-and-siem/aws-s3-bucket"
+    - "https://www.paloaltonetworks.com/cortex/marketplace/keeper-security"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes, via the Keeper Commander CLI using the 'enterprise-user --lock <user_email>' command. This action suspends the user's account, preventing them from accessing their vault. When provisioning via SCIM with Microsoft Entra ID, disabling a user also results in a 'locked' state."
+    reference: "https://docs.keeper.io/secrets-manager/commander-cli/command-reference/enterprise-management-commands#enterprise-user-command"
+  invalidate_sessions_api:
+    value: "Yes, an administrator can force a user's Master Password to expire using the Keeper Commander CLI command 'enterprise-user --expire-password <user_email>'. While this doesn't invalidate the current session token immediately, it forces the user to log out and reset their password upon the next re-authentication attempt."
+    reference: "https://pypi.org/project/keepercommander/"
+  revoke_api_key_api:
+    value: "Not explicitly for user API keys. However, access for applications using the Secrets Manager SDK is controlled by an application-specific configuration. Revoking the application's access or removing its shared secrets within the Keeper Vault effectively revokes its ability to retrieve secrets."
+    reference: "https://docs.keeper.io/secrets-manager/secrets-manager-overview/architecture"
+  user_toggle_api:
+    value: "Yes, the Keeper Commander CLI supports both '--lock' and '--unlock' actions via the 'enterprise-user' command, allowing an admin to suspend and reactivate a user."
+    reference: "https://docs.keeper.io/secrets-manager/commander-cli/command-reference/enterprise-management-commands#enterprise-user-command"
+  user_status_api:
+    value: "Yes, the 'enterprise-user <user_email>' command in the Keeper Commander CLI provides information about a specific user, including their status (Active, Locked, Invited)."
+    reference: "https://docs.keeper.io/user-guides/user-and-team-provisioning/user-management-and-lifecycle"
+  session_timeout_configuration:
+    value: "Session timeout can be configured as an enforcement policy for different roles within the Admin Console. This allows administrators to set logout timers for the Web Vault, Desktop App, and Browser Extension."
+    reference: "https://docs.keeper.io/enterprise-guide/roles-rbac-and-permissions"
+  known_automation_tools:
+    - value: "Keeper Commander: A Python-based CLI and SDK that allows for scripting and automating almost all administrative and user-level tasks, including user management and reporting."
+      reference: "https://github.com/Keeper-Security/Commander"
+    - value: "GitHub Actions: Keeper provides a dedicated GitHub Action to retrieve secrets from the Keeper Vault into CI/CD pipelines."
+      reference: "https://docs.keeper.io/secrets-manager/integrations/github-actions"
+    - value: "Keeper Secrets Manager SDKs: Available for various languages to integrate secret retrieval into custom applications and automation scripts."
+      reference: "https://docs.keeper.io/secrets-manager/developer-sdk-and-cli"
+    - value: "Cortex XSOAR: Provides an integration pack to fetch audit logs and manage Keeper products."
+      reference: "https://www.paloaltonetworks.com/cortex/marketplace/keeper-security"
+  documentation_links:
+    - "https://docs.keeper.io/secrets-manager/commander-cli/overview"
+    - "https://github.com/Keeper-Security/Commander"
+    - "https://docs.keeper.io/secrets-manager/commander-cli/command-reference/enterprise-management-commands"
+    - "https://docs.keeper.io/user-guides/user-and-team-provisioning/user-management-and-lifecycle"
+    - "https://docs.keeper.io/enterprise-guide/account-transfer-policy"
+    - "https://www.paloaltonetworks.com/cortex/marketplace/keeper-security"
+    - "https://docs.keeper.io/enterprise-guide/roles-rbac-and-permissions"
+

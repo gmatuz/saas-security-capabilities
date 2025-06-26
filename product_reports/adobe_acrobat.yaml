@@ -1,0 +1,177 @@
+user_management:
+  sso_support:
+    value:
+      "Adobe supports SAML 2.0 for Single Sign-On. This is typically configured
+      in the Adobe Admin Console for enterprise customers, allowing users to authenticate
+      using their company's Identity Provider (IdP)."
+    reference: https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html
+  sso_licensing_level_requirement:
+    value:
+      'SSO (via Federated ID) is a feature of Adobe''s enterprise plans (like Adobe
+      Creative Cloud for enterprise or Adobe Acrobat for enterprise). It is not available
+      for individual or Teams plans. [18, 24, 25]'
+    reference: https://helpx.adobe.com/enterprise/using/identity.html
+  scim_support:
+    value: yes
+    reference: https://helpx.adobe.com/enterprise/using/add-azure-sync.html
+  scim_licensing_level_requirement:
+    value:
+      SCIM provisioning is available for enterprise plans (Creative Cloud for enterprise,
+      Document Cloud for enterprise) that use the Adobe Admin Console and have configured
+      a federated directory. [19]
+    reference: https://helpx.adobe.com/enterprise/using/add-azure-sync.html
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/adobe-identity-management-provisioning-tutorial
+  scim_authentication_acquisition_steps:
+    "1. Log in to the Adobe Admin Console with System Administrator privileges.\n2.
+    Navigate to Settings > Directory Details.\n3. Select the 'Sync' tab.\n4. Click
+    'Add Sync'.\n5. Choose 'Sync users from Microsoft Azure' (or your respective
+    IdP like Google Workspace). [20, 21]\n6. Click 'Next'.\n7. The Admin Console will
+    display the 'Tenant URL' (SCIM Endpoint) and a 'Secret Token' (Authentication
+    Token). [20]\n8. Copy these values to be used in your Identity Provider's provisioning
+    configuration. [20]\n"
+  user_management_api_support:
+    value: yes
+    reference: https://developer.adobe.com/umapi-documentation/docs/en/API_introduction.md
+  user_management_api_licensing_level:
+    value:
+      Access to the User Management API is available for Adobe's enterprise customers
+      (Creative Cloud for enterprise, Document Cloud for enterprise, Experience Cloud).
+      [3, 10]
+    reference: https://developer.adobe.com/umapi-documentation/
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developer.adobe.com/umapi-documentation/docs/en/authentication.md
+  user_management_api_authentication_acquisition_steps:
+    "1. A System Administrator must log in to the Adobe Developer Console (https://developer.adobe.com/console).\n2.
+    Create a new Project. [7]\n3. Within the project, click 'Add API'.\n4. Select
+    the 'User Management API' and click 'Next'. [14]\n5. Choose 'OAuth Server-to-Server'
+    as the authentication type. [7, 14]\n6. Select the product profiles your integration
+    needs to access.\n7. The console will then generate credentials including the
+    'Client ID' (API Key), 'Client Secret', 'Technical account ID', and 'Organization
+    ID'. [11]\n8. To get an access token for API calls, you must make a POST request
+    to the Adobe IMS endpoint with your Client ID, Client Secret, and the appropriate
+    scope (e.g., 'user_management_sdk'). The response will contain a time-limited
+    bearer token. [7]\n"
+  seat_costs:
+  - license_level: Enterprise
+    active:
+      value: 'yes'
+      reference: https://www.adobe.com/creativecloud/business/enterprise.html
+    suspended_disabled:
+      value: no
+      reference: https://helpx.adobe.com/enterprise/using/reclaim-licenses.html
+    archived:
+      value: n/a
+      reference: https://community.adobe.com/t5/enterprise-teams-discussions/how-to-set-lifecycle-status-for-audiences/td-p/615550
+  lifecycle_options:
+  - create
+  - update
+  - delete
+  - remove from organization
+  - deactivate
+  rbac_support:
+    value: 'yes'
+    reference: https://helpx.adobe.com/enterprise/using/admin-roles.html
+  rbac_api_assignment:
+    value:
+      'Yes, user and group assignments to product profiles (which grant access to
+      products) and administrative roles can be managed via the User Management API.
+      [6, 41]'
+    reference: https://developer.adobe.com/umapi-documentation/docs/en/api_reference/
+  documentation_links:
+  - https://helpx.adobe.com/enterprise/using/identity.html
+  - https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html
+  - https://developer.adobe.com/umapi-documentation/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/adobe-identity-management-provisioning-tutorial
+  - https://helpx.adobe.com/enterprise/using/admin-roles.html
+  - https://github.com/adobe/user-sync.py
+  - https://helpx.adobe.com/enterprise/using/add-azure-sync.html
+  - https://helpx.adobe.com/enterprise/using/user-sync.html
+  - https://developer.adobe.com/umapi-documentation/docs/en/authentication.md
+  - https://developer.adobe.com/umapi-documentation/docs/en/api_reference/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "The Audit Log records user login events. The log includes details such as the date, event name ('User logged in'), the affected user's email, the admin involved (if applicable), and the IP address from which the login occurred. [2]"
+      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+    role_assignment:
+      value: "The Audit Log tracks changes to administrative roles and product profile assignments. Events are logged when an admin is added or removed, or when a user is added to or removed from a product profile, which grants or revokes product access. [2, 4]"
+      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+    api_call:
+      value: "While the Admin Console Audit Log tracks administrative actions, detailed logs of individual API calls made using credentials from the Adobe Developer Console are not explicitly detailed in the standard audit log. However, actions performed *through* the API, such as user creation, are logged. [2, 37]"
+      reference: "https://adobe-apiplatform.github.io/umapi-documentation/en/api/api_reference.html"
+    data_export:
+      value: "The Admin Console allows for the export of various reports, including the Audit Log itself. These export actions are logged within the Audit Log, showing that an administrator downloaded a report. [2]"
+      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+    configuration_change:
+      value: "The Audit Log tracks changes made in the Admin Console, which includes settings related to products, user management, and identity configurations. [4, 11]"
+      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+    user_account_creation:
+      value: "User creation, whether done manually in the Admin Console, via bulk CSV import, or programmatically through the User Management API, is recorded in the Audit Log. [2, 3]"
+      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+    security_policy_change:
+      value: "Changes to security-related settings within the Adobe Admin Console, such as identity provider configurations or password requirements, are captured in the Audit Log. [4]"
+      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+  event_logs_licensing_level:
+    value: "Access to the Audit Log in the Adobe Admin Console is available for enterprise and teams plans. [4]"
+    reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+  monitoring_products:
+    - value: "ServiceNow: Integrates with Adobe Cloud (including Document Cloud) for license management and compliance reporting. This requires an Adobe Enterprise subscription. [14]"
+      reference: "https://docs.servicenow.com/bundle/tokyo-it-asset-management/page/product/software-asset-management2/task/adobe-cloud-integration.html"
+    - value: "Okta Workflows: The Adobe User Management connector allows for automation of user account creation, deletion, and group management. [29]"
+      reference: "https://help.okta.com/wf/en-us/Content/Topics/Workflows/connector-reference/adobousermanagement/adobousermanagement.htm"
+    - value: "Microsoft 365 App Certification: Provides information on Adobe Acrobat Sign's security posture, including event logging and monitoring processes. [6]"
+      reference: "https://learn.microsoft.com/en-us/microsoft-365-app-certification/teams/adobe-acrobat-sign"
+  ingestion_methods:
+    - value: "Adobe User Management API: Allows programmatic access to user and entitlement data, which can be pulled into external monitoring systems. [1, 37]"
+      reference: "https://developer.adobe.com/usermanagement/docs/"
+    - value: "Manual CSV Export: The Audit Log can be manually downloaded as a CSV file from the Adobe Admin Console for a maximum of 90 days of data. [2]"
+      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+  log_export_options:
+    tools_connectors:
+      value: "The primary tool for automated log/user data extraction is the User Sync Tool, which is built on the User Management API. It synchronizes directory information (like Active Directory/LDAP) with the Adobe Admin Console. While not a direct log shipper, it facilitates managing users based on directory events. For direct log ingestion, custom scripts using the User Management API are the main method. [3, 9]"
+      reference: "https://developer.adobe.com/usermanagement/docs/user-sync-tool/"
+  documentation_links:
+    - "https://helpx.adobe.com/enterprise/using/audit-log.html"
+    - "https://developer.adobe.com/usermanagement/docs/"
+    - "https://adobe-apiplatform.github.io/umapi-documentation/en/api/api_reference.html"
+    - "https://github.com/adobe/umapi-cli"
+    - "https://github.com/adobe-apiplatform/user-sync.py"
+    - "https://helpx.adobe.com/acrobat/using/activity-log-audit-report.html"
+incident_response:
+  suspend_user_management_api:
+    value: "The Adobe User Management API allows administrators to remove users from product profiles and user groups, effectively revoking their access and entitlements. A specific 'suspend' status is not explicitly documented; the action is to remove the user from the organization or specific entitlements. [1, 37]"
+    reference: "https://adobe-apiplatform.github.io/umapi-documentation/en/api/api_reference.html"
+  invalidate_sessions_api:
+    value: "Adobe's documentation does not describe a direct API endpoint to invalidate a specific user's active session for Acrobat. The primary method of session control is timeout configuration. Logging a user out of Adobe Connect invalidates the session cookie, but a similar direct function for Acrobat/Document Cloud is not specified. [19, 48]"
+    reference: "https://helpx.adobe.com/adobe-connect/webservices/manage-login-sessions-of-users-using.html"
+  revoke_api_key_api:
+    value: "API keys (credentials for a project) are managed through the Adobe Developer Console. They can be manually revoked by deleting the credential in the project's dashboard. There is no documented API endpoint to perform this revocation programmatically. [18]"
+    reference: "https://developer.adobe.com/developer-console/docs/guides/authentication/credentials/create-credential/#delete-a-credential"
+  user_toggle_api:
+    value: "The User Management API supports removing users, which deactivates their access. The User Sync tool can be configured to process and remove users based on changes in an enterprise directory. [3, 9]"
+    reference: "https://developer.adobe.com/usermanagement/docs/user-sync-tool/"
+  user_status_api:
+    value: "The User Management API provides endpoints to get information about users within an organization, which would include their current status and product entitlements. [15, 20]"
+    reference: "https://adobe-apiplatform.github.io/umapi-documentation/en/api/users_in_org.html"
+  session_timeout_configuration:
+    value: "Session timeout settings are not consistently documented for Adobe Acrobat specifically. Related products like Adobe Connect and AEM Forms have configurable session timeouts, often in an administration console or configuration file, but a central, user-facing setting for Acrobat web sessions is not clearly specified. [7, 8]"
+    reference: "https://helpx.adobe.com/adobe-connect/kb/configure-session-timeout-value.html"
+  known_automation_tools:
+    - value: "User Sync Tool: An open-source, command-line tool from Adobe that automates user management by syncing an enterprise directory (AD/LDAP) with the Adobe Admin Console. [3, 9]"
+      reference: "https://github.com/adobe-apiplatform/user-sync.py"
+    - value: "UMAPI-CLI: A command-line interface for the User Management API, allowing for scripted user and group operations. [5]"
+      reference: "https://github.com/adobe/umapi-cli"
+    - value: "unofficial Go SDK for UMAPI: A third-party Go library that wraps the Adobe User Management API. [20]"
+      reference: "https://github.com/bear-san/adobe-umapi"
+    - value: "Google Workspace Automatic Provisioning: Can be configured to automatically provision and de-provision users in Adobe based on their Google Workspace status. [31]"
+      reference: "https://support.google.com/a/answer/9250917?hl=en"
+  documentation_links:
+    - "https://developer.adobe.com/usermanagement/docs/"
+    - "https://adobe-apiplatform.github.io/umapi-documentation/en/getstarted.html"
+    - "https://github.com/adobe/umapi-cli"
+    - "https://developer.adobe.com/developer-console/docs/guides/getting-started/"
+    - "https://github.com/adobe-apiplatform/user-sync.py"
+    - "https://helpx.adobe.com/enterprise/using/admin-console-api.html"

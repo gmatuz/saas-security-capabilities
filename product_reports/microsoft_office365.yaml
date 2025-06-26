@@ -1,0 +1,144 @@
+user_management:
+  sso_support:
+    value: "Yes, Microsoft 365 supports SSO via SAML and OpenID Connect protocols. It uses Microsoft Entra ID (formerly Azure Active Directory) as its identity provider, which can also be federated with other third-party IdPs."
+    reference: "https://learn.microsoft.com/en-us/microsoft-365/enterprise/about-microsoft-365-identity"
+  sso_licensing_level_requirement:
+    value: "Basic SSO features are included with Microsoft 365 subscriptions. More advanced features, such as conditional access policies, require a Microsoft Entra ID Premium P1 or P2 license."
+    reference: "https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id-pricing"
+  scim_support:
+    value: "yes"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups"
+  scim_licensing_level_requirement:
+    value: "Automated user provisioning from an HR app to Microsoft Entra ID and outbound provisioning to other applications requires a Microsoft Entra ID Premium P1 or P2 license."
+    reference: "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/what-is-provisioning#what-license-do-i-need"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups#step-2-configure-provisioning-for-your-scim-endpoint"
+  scim_authentication_acquisition_steps: "When configuring SCIM for an application in the Microsoft Entra admin center, the 'Tenant URL' and 'Secret Token' are provided by the target SaaS application. For inbound SCIM to Entra ID, you must configure an application in Entra ID that acts as the SCIM endpoint. The authentication token is generated within the configuration of the SCIM-enabled application you are provisioning to."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://learn.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0"
+  user_management_api_licensing_level:
+    value: "Access to the Microsoft Graph API is included with Microsoft 365 and Microsoft Entra ID subscriptions. However, using certain API features may require specific licenses (e.g., Premium P1/P2 for advanced identity governance features)."
+    reference: "https://learn.microsoft.com/en-us/graph/overview#what-is-microsoft-graph"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://learn.microsoft.com/en-us/graph/auth/auth-concepts"
+  user_management_api_authentication_acquisition_steps: "1. Sign in to the Microsoft Entra admin center. 2. Navigate to 'Identity' > 'Applications' > 'App registrations' and select 'New registration'. 3. Provide a name for the application and configure the supported account types. 4. Once registered, the 'Application (client) ID' and 'Directory (tenant) ID' will be available on the overview page. 5. Go to 'Certificates & secrets' and create a new client secret. Copy the secret's value immediately as it will not be visible again. 6. Go to 'API permissions', click 'Add a permission', select 'Microsoft Graph', and choose the required permissions (e.g., User.ReadWrite.All, Directory.ReadWrite.All). 7. Grant admin consent for the selected permissions. 8. Use the client ID, client secret, and tenant ID to request an OAuth 2.0 access token from the Microsoft identity platform endpoint."
+  seat_costs:
+    - license_level: "Any licensed plan (e.g., Business, Enterprise)"
+      active:
+        value: "yes"
+        reference: "https://learn.microsoft.com/en-us/microsoft-365/enterprise/manage-user-accounts-and-licenses-with-microsoft-365-powershell"
+      suspended_disabled:
+        value: "no"
+        reference: "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/remove-licenses-from-users?view=o365-worldwide#what-happens-when-you-remove-a-license"
+      archived:
+        value: "n/a"
+        reference: "https://learn.microsoft.com/en-us/purview/archive-mailboxes"
+  lifecycle_options:
+    - "Active"
+    - "Disabled/Blocked"
+    - "Soft-deleted"
+    - "Hard-deleted"
+  rbac_support:
+    value: "yes"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/overview"
+  rbac_api_assignment:
+    value: "Yes, role assignments can be managed via the Microsoft Graph API using the 'roleManagement' resource."
+    reference: "https://learn.microsoft.com/en-us/graph/api/resources/rolemanagement?view=graph-rest-1.0"
+  documentation_links:
+    - "https://learn.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0"
+    - "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups"
+    - "https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow"
+    - "https://learn.microsoft.com/en-us/graph/api/resources/rolemanagement?view=graph-rest-1.0"
+    - "https://learn.microsoft.com/en-us/microsoft-365/enterprise/about-microsoft-365-identity"
+    - "https://github.com/microsoftgraph/msgraph-sdk-python"
+    - "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso"
+    - "https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0&tabs=http"
+    - "https://developer.microsoft.com/en-us/graph/graph-explorer"
+    - "https://learn.microsoft.com/en-us/entra/identity-governance/lifecycle-workflows-overview"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "UserLoggedIn"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    role_assignment:
+      value: "Add member to role."
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    api_call:
+      value: "All activities are logged and available through the Office 365 Management Activity API."
+      reference: "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference"
+    data_export:
+      value: "DataExport"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    configuration_change:
+      value: "Updated channel configuration."
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    user_account_creation:
+      value: "UserAdded"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    security_policy_change:
+      value: "New-AdminAuditLogSearch or New-ComplianceSearch"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+  event_logs_licensing_level:
+    value: "Microsoft Purview Audit (Standard) is included with most Microsoft 365 and Office 365 subscriptions and provides a default 180-day retention for audit logs. Audit (Premium) requires higher-tier licensing (like E5) for longer retention (up to 10 years), and access to higher API bandwidth and more intelligent insights."
+    reference: "https://learn.microsoft.com/en-us/purview/audit-solutions-overview"
+  monitoring_products:
+  - value: "Microsoft Sentinel"
+    reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-365-defender"
+  - value: "Splunk Add-on for Microsoft Office 365"
+    reference: "https://splunkbase.splunk.com/app/4055"
+  - value: "Datadog"
+    reference: "https://docs.datadoghq.com/integrations/microsoft_365/"
+  - value: "M365 Manager Plus"
+    reference: "https://www.manageengine.com/microsoft-365-manager-plus/microsoft-365-auditing.html"
+  ingestion_methods:
+  - value: "Office 365 Management Activity API"
+    reference: "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference"
+  - value: "Microsoft Sentinel data connectors"
+    reference: "https://learn.microsoft.com/en-us/azure/sentinel/connect-office-365"
+  log_export_options:
+    tools_connectors:
+      value: "Logs can be exported via the Microsoft Purview compliance portal as a CSV file. Programmatic access is available through the Office 365 Management Activity API, which is used by various SIEM connectors and third-party tools."
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-export"
+  documentation_links:
+  - "https://learn.microsoft.com/en-us/purview/audit-solutions-overview"
+  - "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-apis-overview"
+  - "https://learn.microsoft.com/en-us/azure/sentinel/connect-office-365"
+  - "https://splunkbase.splunk.com/app/4055"
+  - "https://docs.datadoghq.com/integrations/microsoft_365/"
+  - "https://learn.microsoft.com/en-us/purview/audit-log-search?tabs=new-audit-search"
+incident_response:
+  suspend_user_management_api:
+    value: "Update user's 'accountEnabled' property to 'false' via Microsoft Graph API."
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-update?view=graph-rest-1.0&tabs=http"
+  invalidate_sessions_api:
+    value: "POST /users/{id | userPrincipalName}/revokeSignInSessions"
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0&tabs=http"
+  revoke_api_key_api:
+    value: "Revocation is managed at the application level within Microsoft Entra ID (formerly Azure AD) by removing secrets or certificates from the application registration, rather than a per-user API key."
+    reference: "https://learn.microsoft.com/en-us/entra/identity-platform/howto-remove-app-role-from-user"
+  user_toggle_api:
+    value: "The 'accountEnabled' property on the user resource in Microsoft Graph API can be set to true or false to enable or disable the user account."
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-update?view=graph-rest-1.0&tabs=http"
+  user_status_api:
+    value: "GET /users/{id | userPrincipalName}"
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http"
+  session_timeout_configuration:
+    value: "Session lifetimes can be configured through Conditional Access policies in Microsoft Entra ID."
+    reference: "https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-session-lifetime"
+  known_automation_tools:
+  - value: "Microsoft Sentinel (SOAR)"
+    reference: "https://learn.microsoft.com/en-us/azure/sentinel/tutorial-respond-threats-playbook"
+  - value: "Microsoft Power Automate"
+    reference: "https://powerautomate.microsoft.com/en-us/connectors/details/shared_office365/office-365-users/"
+  - value: "Splunk SOAR"
+    reference: "https://splunkbase.splunk.com/app/5087"
+  documentation_links:
+  - "https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0"
+  - "https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0"
+  - "https://learn.microsoft.com/en-us/powershell/module/azuread/revoke-azureaduserallrefreshtoken?view=azureadps-2.0"
+  - "https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview"
+  - "https://developer.microsoft.com/en-us/graph/graph-explorer"
+  - "https://www.vasil-mitrev.com/archive/2022/02/how-to-immediately-revoke-access-to-office-365-applications-updated-for-2022/"

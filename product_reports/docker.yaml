@@ -1,0 +1,164 @@
+user_management:
+  sso_support:
+    value: Docker supports Single Sign-On (SSO) via SAML 2.0 and OpenID Connect (OIDC)
+      with providers like Azure AD and Okta. [1, 3]
+    reference: https://docs.docker.com/security/for-admins/single-sign-on/sso-providers/
+  sso_licensing_level_requirement:
+    value: Docker Business [5, 6, 7, 9]
+    reference: https://www.docker.com/pricing/
+  scim_support:
+    value: 'yes'
+    reference: https://docs.docker.com/security/for-admins/scim/
+  scim_licensing_level_requirement:
+    value: Docker Business [5, 7, 9]
+    reference: https://www.docker.com/pricing/
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://docs.docker.com/security/for-admins/scim/
+  scim_authentication_acquisition_steps: "1. Sign in to the Docker Admin Console.\n2.
+    Select your organization or company.\n3. Navigate to the 'SSO & SCIM' section.\n4.
+    In the SSO connections table, find your configured SSO connection.\n5. Select
+    the Actions icon (three dots) and choose 'Setup SCIM'.\n6. Copy the generated
+    'API Token'. This token is the bearer token used for SCIM authentication. [2]"
+  user_management_api_support:
+    value: 'yes'
+    reference: https://docs.docker.com/docker-hub/api/latest/
+  user_management_api_licensing_level:
+    value: The ability to manage organization members and teams via the API is available
+      on all plans that support organizations (Team and Business plans). [7]
+    reference: https://www.docker.com/pricing/
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://docs.docker.com/docker-hub/api/latest/#authentication
+  user_management_api_authentication_acquisition_steps: "1. Sign in to Docker Hub.\n2.
+    Click on your username in the top-right corner and select 'Account Settings'.\n3.
+    Navigate to the 'Security' tab.\n4. Click on 'New Access Token'.\n5. Provide
+    a description for the token.\n6. Set the desired permissions (e.g., 'Read, Write,
+    Delete').\n7. Click 'Generate' to create the token.\n8. Copy the generated token.
+    This is your Personal Access Token (PAT) for API authentication. [22]"
+  seat_costs:
+  - license_level: Docker Business
+    active:
+      value: 'yes'
+      reference: https://www.docker.com/pricing/
+    suspended_disabled:
+      value: uncertain
+      reference: The documentation specifies that with SCIM, deactivating a user in
+        the IdP can deactivate them in Docker. [12] However, it does not explicitly
+        state if this frees up a paid seat. Typically, deactivating a user means they
+        cannot log in but may still occupy a seat until fully removed.
+    archived:
+      value: n/a
+      reference: The concept of an 'archived' user state separate from 'deactivated'
+        or 'removed' is not mentioned in the Docker documentation.
+  lifecycle_options:
+  - create
+  - read
+  - update
+  - deactivate
+  - remove
+  rbac_support:
+    value: 'yes'
+    reference: https://docs.docker.com/security/for-admins/roles-and-permissions/
+  rbac_api_assignment:
+    value: 'yes'
+    reference: https://docs.docker.com/docker-hub/api/latest/#tag/teams/paths/~1v2~1orgs~1%7Borg%7D~1teams~1%7Bteam_slug%7D~1members/post
+  documentation_links:
+  - https://docs.docker.com/security/for-admins/single-sign-on/
+  - https://docs.docker.com/security/for-admins/scim/
+  - https://docs.docker.com/docker-hub/api/latest/
+  - https://docs.docker.com/security/for-admins/roles-and-permissions/
+  - https://www.docker.com/pricing/
+  - https://docs.docker.com/security/for-admins/sso-providers/azure-ad/
+  - https://docs.docker.com/security/for-admins/sso-providers/okta/
+  - https://docs.docker.com/security/for-admins/scim/okta/
+  - https://docs.docker.com/security/for-admins/scim/azure-ad/
+  - https://docs.docker.com/security/for-admins/user-provisioning/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Successful and failed user login events are logged in the Activity Log. Docker Hub also enforces lockouts after 10 failed attempts in 5 minutes."
+      reference: "https://docs.docker.com/security/general-faqs/"
+    role_assignment:
+      value: "Changes to a user's role within an organization (e.g., promoting to owner, changing to member) are recorded in the Activity Log."
+      reference: "https://docs.docker.com/docker-hub/activity-logs/"
+    api_call:
+      value: "The Activity Log records events initiated via the API, such as repository creation, team management, and user invitations. The Audit Log API provides detailed access to these events."
+      reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Audit-Logs"
+    data_export:
+      value: "The action of exporting the member list in a Docker Business organization is an auditable event. Direct export of the audit log itself via the UI is not specified, but access via API is logged."
+      reference: "https://www.docker.com/blog/announcing-docker-hub-export-members/"
+    configuration_change:
+      value: "Changes to organization settings, such as repository privacy, team permissions, and billing information, are captured in the Activity Log."
+      reference: "https://docs.docker.com/docker-hub/activity-logs/"
+    user_account_creation:
+      value: "Invitations sent to new users to join an organization and the subsequent acceptance are logged events. Creation of users is implicit in the 'Invite member' and 'Add member' log entries."
+      reference: "https://docs.docker.com/docker-hub/activity-logs/"
+    security_policy_change:
+      value: "Changes to security-related settings, such as SSO configuration or access permissions for teams, are recorded as events in the audit log."
+      reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Audit-Logs"
+  event_logs_licensing_level:
+    value: "Docker Team or Docker Business"
+    reference: "https://docs.docker.com/docker-hub/activity-logs/"
+  monitoring_products:
+    - value: "Panther"
+      reference: "https://panther.com/docs/panther-log-source-integrations/docker/"
+    - value: "Wazuh"
+      reference: "httpshttps://wazuh.com/blog/container-security/docker-security-monitoring-with-wazuh/"
+    - value: "Sysdig"
+      reference: "https://sysdig.com/blog/container-forensics-incident-response/"
+    - value: "Splunk"
+      reference: "https://splunkbase.splunk.com/app/1723"
+    - value: "Microsoft Sentinel"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/docker-container-monitoring-solution"
+  ingestion_methods:
+    - value: "REST API"
+      reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Audit-Logs/operation/GetAuditLogs"
+    - value: "Docker logging drivers (for Docker Engine)"
+      reference: "https://docs.docker.com/config/containers/logging/configure/"
+    - value: "Fluentd/Fluent Bit agents (for Docker Engine)"
+      reference: "https://docs.fluentd.org/container-deployment/docker-container"
+  log_export_options:
+    tools_connectors:
+      value: "Logs can be exported programmatically via the official Docker Hub REST API. For Docker Business, a list of organization members can be exported to a CSV file."
+      reference: "https://docs.docker.com/docker-hub/api/latest/"
+  documentation_links:
+    - "https://docs.docker.com/docker-hub/activity-logs/"
+    - "https://docs.docker.com/docker-hub/api/latest/"
+    - "https://www.docker.com/blog/announcing-docker-hub-export-members/"
+    - "https://docs.docker.com/security/general-faqs/"
+    - "https://www.docker.com/products/docker-scout/"
+    - "https://docs.docker.com/engine/security/"
+incident_response:
+  suspend_user_management_api:
+    value: "There is no direct 'suspend' API. The remediation action is to remove a member from the organization, which revokes their access. This can be done via an undocumented API endpoint: DELETE /v2/orgs/{orgName}/members/{dockerUserName}/."
+    reference: "https://github.com/docker/roadmap/issues/261"
+  invalidate_sessions_api:
+    value: "Web UI sessions expire automatically after 24 hours. For accounts using SSO, session timeout can be configured via a SAML attribute from the IdP. For API access, revoking a Personal Access Token (PAT) invalidates its session."
+    reference: "https://docs.docker.com/security/general-faqs/"
+  revoke_api_key_api:
+    value: "Personal Access Tokens (PATs) can be revoked (deleted) via the Docker Hub API using the endpoint: DELETE /v2/access-tokens/{uuid}."
+    reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Personal-Access-Tokens/operation/DeleteAccessToken"
+  user_toggle_api:
+    value: "A user's access can be toggled by removing them from an organization and then re-adding them. For API keys, a Personal Access Token can be deactivated and reactivated via the API endpoint: PATCH /v2/access-tokens/{uuid}."
+    reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Personal-Access-Tokens/operation/UpdateAccessToken"
+  user_status_api:
+    value: "The status of organization members can be retrieved by listing members in a team or organization. The 'Export Members' feature for Docker Business also includes user status. An undocumented endpoint GET /v2/orgs/{orgName}/members/ can be used."
+    reference: "https://github.com/docker/roadmap/issues/261"
+  session_timeout_configuration:
+    value: "Web UI session timeout is fixed at 24 hours by default. For organizations using SSO, the timeout can be configured via a SAML attribute ('Docker session minutes') provided by the Identity Provider."
+    reference: "https://docs.docker.com/security/general-faqs/"
+  known_automation_tools:
+    - value: "TheHive Project (via API integration)"
+      reference: "https://hub.docker.com/r/thehiveproject/thehive"
+    - value: "Iris - Incident Response Platform (via API integration)"
+      reference: "https://github.com/dfir-iris/iris-web"
+    - value: "Generic SOAR Platforms (Splunk SOAR, Palo Alto XSOAR, etc.) using REST API connectors."
+      reference: "https://docs.docker.com/docker-hub/api/latest/"
+  documentation_links:
+    - "https://docs.docker.com/docker-hub/api/latest/#tag/Personal-Access-Tokens"
+    - "https://docs.docker.com/engine/reference/commandline/login/"
+    - "https://docs.docker.com/docker-hub/access-tokens/"
+    - "https://docs.docker.com/docker-hub/organizations/manage-members/"
+    - "https://github.com/docker/roadmap/issues/261"
+    - "https://docs.docker.com/subscription/service-terms/"

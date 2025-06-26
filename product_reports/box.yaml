@@ -1,0 +1,187 @@
+user_management:
+  sso_support:
+    value: Box supports SAML 2.0 for Single Sign-On, integrating with various Identity
+      Providers like Okta, Azure AD, Google Cloud, and others. It supports both IdP-initiated
+      and SP-initiated flows. [1, 38]
+    reference: https://support.box.com/hc/en-us/articles/360043696414-Setting-Up-Single-Sign-On-SSO-for-Your-Organization
+  sso_licensing_level_requirement:
+    value: SSO authentication is available for Box Business and Enterprise plans. [1]
+    reference: https://support.box.com/hc/en-us/articles/360043696414-Setting-Up-Single-Sign-On-SSO-for-Your-Organization
+  scim_support:
+    value: yes
+    reference: https://community.box.com/t5/Platform-and-Development-Forum/Box-API-is-SCIM/td-p/118321
+  scim_licensing_level_requirement:
+    value: User provisioning capabilities are generally associated with Business and
+      Enterprise plans, which are the same tiers that support SSO and IdP integration.
+      Microsoft's documentation for configuring provisioning also implies an enterprise
+      context. [35]
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/box-user-provisioning-tutorial
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developer.box.com/guides/authentication/
+  scim_authentication_acquisition_steps: |-
+    SCIM for Box is typically configured within an Identity Provider (IdP) like Azure AD or Okta. The authentication is handled by the API integration configured in the IdP, which uses OAuth 2.0 or JWT.
+    1. In your IdP (e.g., Azure AD), navigate to the Enterprise Applications section and select your Box application.
+    2. Go to the "Provisioning" tab.
+    3. Set the Provisioning Mode to "Automatic".
+    4. In the "Admin Credentials" section, click "Authorize". This will open a Box login prompt.
+    5. Sign in with a Box Admin account to grant the IdP permission to manage users.
+    6. The IdP securely stores the authorization token to make SCIM API calls to Box.
+  user_management_api_support:
+    value: 'yes'
+    reference: https://developer.box.com/reference/resources/users/
+  user_management_api_licensing_level:
+    value: Access to the Box API for custom development is available with all plans,
+      including free developer accounts. However, to manage enterprise users (Managed
+      Users), an application must be authorized within a paid Business or Enterprise
+      account.
+    reference: https://developer.box.com/guides/authentication/jwt/
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developer.box.com/guides/authentication/
+  user_management_api_authentication_acquisition_steps: |-
+    For server-to-server user management, JWT is the recommended method.
+    1. **Create a Box Developer Account:** Sign up at box.com/developers.
+    2. **Create a Custom App:** In the Developer Console, create a new "Custom App".
+    3. **Select JWT Authentication:** Choose "Server Authentication (with JWT)" as the authentication method.
+    4. **Configure App Scopes:** In the "Configuration" tab, grant the necessary permissions like "Manage users" and "Manage groups".
+    5. **Generate a Key Pair:** Under "Add and Manage Public Keys", click "Generate a Public/Private Keypair". This will download a JSON configuration file containing your client ID, client secret, and other necessary credentials. Securely store this file.
+    6. **Admin Authorization:** A Box Admin for your enterprise must authorize the application. In the Admin Console under "Apps" > "Custom Apps", the admin clicks "Authorize New App" and provides the app's Client ID (from the downloaded JSON file).
+    7. **Use the JSON config:** The downloaded JSON file is used with Box SDKs to instantiate an API client that will automatically handle token generation and refresh.
+  seat_costs:
+  - license_level: All Business and Enterprise Plans
+    active:
+      value: 'yes'
+      reference: https://www.box.com/pricing
+    suspended_disabled:
+      value: uncertain
+      reference: https://support.box.com/hc/en-us/community/posts/360049132174-Does-a-deactivated-user-still-consume-a-license
+    archived:
+      value: n/a
+      reference: Box does not have a user status called 'archived'.
+  lifecycle_options:
+  - active
+  - inactive
+  - cannot_delete_edit
+  - cannot_delete_edit_upload
+  rbac_support:
+    value: 'yes'
+    reference: https://support.box.com/hc/en-us/articles/360044196213-Understanding-Collaborator-Permission-Levels
+  rbac_api_assignment:
+    value: 'Yes, role and group assignments can be managed via the API. The API has
+      endpoints for managing groups, adding/removing users from groups, and creating
+      collaborations (i.e., assigning a group or user to a folder with a specific
+      role). [18, 19]'
+    reference: https://developer.box.com/reference/resources/groups/
+  documentation_links:
+  - https://support.box.com/hc/en-us/articles/360043696414-Setting-Up-Single-Sign-On-SSO-for-Your-Organization
+  - https://developer.box.com/guides/authentication/jwt/
+  - https://developer.box.com/reference/resources/users/
+  - https://developer.box.com/reference/resources/groups/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/box-user-provisioning-tutorial
+  - https://developer.okta.com/docs/guides/scim-provisioning-integration-prerequisites/
+  - https://medium.com/box-developer-blog/box-platform-basics-authentication-methods-101-5c3c0633b490
+  - https://github.com/box/boxcli/tree/main/examples/Mass%20Groups%20%26%20Collaborations%20Update
+  - https://support.box.com/hc/en-us/articles/360044193493-Best-Practice-Managing-Users-in-the-Admin-Console
+  - https://community.box.com/t5/Platform-and-Development-Forum/Box-API-is-SCIM/td-p/118321
+
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "LOGIN, FAILED_LOGIN, ABNORMAL_DOWNLOAD_ACTIVITY, USER_AUTHENTICATE_OAUTH2_ACCESS_TOKEN_CREATE"
+      reference: "https://developer.box.com/guides/events/event-types/"
+    role_assignment:
+      value: "CHANGE_ADMIN_ROLE, NEW_USER"
+      reference: "https://developer.box.com/guides/events/event-types/"
+    api_call:
+      value: "All actions performed via the API are logged. Each API call corresponds to a specific event type, such as 'ITEM_CREATE' or 'ITEM_DOWNLOAD'. A full list is available."
+      reference: "https://developer.box.com/guides/events/event-types/"
+    data_export:
+      value: "ITEM_DOWNLOAD, ITEM_SHARED_DOWNLOAD, GENERIC_SHARED_ITEM_ACCESS, ITEM_SYNC, ITEM_MOVE, ITEM_COPY"
+      reference: "https://developer.box.com/guides/events/event-types/"
+    configuration_change:
+      value: "Numerous events exist for configuration changes, including GROUP_ADD_USER, CHANGE_FOLDER_PERMISSION, and various events prefixed with 'SHIELD_' for security policy changes, such as SHIELD_ALERT."
+      reference: "https://developer.box.com/guides/events/event-types/"
+    user_account_creation:
+      value: "NEW_USER, ADD_USER_TO_GROUP"
+      reference: "https://developer.box.com/guides/events/event-types/"
+    security_policy_change:
+      value: "SHIELD_ALERT, SHIELD_ALERT_DISPOSITION_STATE_CHANGED, SHIELD_THREAT_DETECTION_RULE_CREATE, SHIELD_THREAT_DETECTION_RULE_UPDATE, SHIELD_THREAT_DETECTION_RULE_DELETE"
+      reference: "https://developer.box.com/guides/events/event-types/"
+  event_logs_licensing_level:
+    value: "Standard event reporting is available to all Business plans. However, access to near real-time events via the API and advanced security events (e.g., from Box Shield) requires higher-tier plans like Enterprise, Enterprise Plus, or the purchase of add-ons like Box Shield and Box Governance."
+    reference: "https://www.box.com/pricing/enterprise"
+  monitoring_products:
+    - value: "Splunk (Box for Splunk App and Add-on)"
+      reference: "https://splunkbase.splunk.com/app/1959"
+    - value: "Microsoft Sentinel (Box data connector)"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/box"
+    - value: "Sumo Logic"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/box-app/"
+    - value: "Palo Alto Networks Cortex XSOAR"
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/BoxV2/"
+    - value: "IBM QRadar (Box Device Support Module)"
+      reference: "https://www.ibm.com/docs/en/dsm?topic=b-box-dsm-specifications"
+    - value: "Datadog"
+      reference: "https://docs.datadoghq.com/integrations/box/"
+    - value: "Broadcom/Symantec DLP"
+      reference: "https://support.box.com/hc/en-us/articles/360043695494-DLP-Partner-Integrations"
+  ingestion_methods:
+    - value: "Enterprise Events API: A near real-time stream of event data, accessible via long polling. This is the primary method for SIEM/SOAR integrations."
+      reference: "https://developer.box.com/guides/events/enterprise-events/"
+    - value: "Admin Console Reports: Admins can manually generate and export reports on user activity and file activity in CSV format."
+      reference: "https://support.box.com/hc/en-us/articles/360043696514-Creating-Reports"
+    - value: "Box App for Splunk: Uses the Enterprise Events API to pull data into Splunk."
+      reference: "https://splunkbase.splunk.com/app/1959"
+    - value: "Microsoft Sentinel Connector: Utilizes the Box API to ingest event data into a Log Analytics workspace."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/box"
+  log_export_options:
+    tools_connectors:
+      value: "The primary method for exporting logs is the Box Enterprise Events API. Many third-party connectors (Splunk, Sentinel, etc.) are built on top of this API. There are also open-source scripts on GitHub that leverage the API for custom log export."
+      reference: "https://github.com/box/box-python-sdk/blob/main/docs/usage/events.md"
+  documentation_links:
+    - "https://developer.box.com/guides/events/"
+    - "https://developer.box.com/guides/events/event-types/"
+    - "https://support.box.com/hc/en-us/articles/360043696514-Creating-Reports"
+    - "https://www.box.com/products/shield"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/box"
+    - "https://splunkbase.splunk.com/app/1959"
+    - "https://developer.box.com/guides/authentication/select/"
+incident_response:
+  suspend_user_management_api:
+    value: "Use the 'Update user' API endpoint (PUT /2.0/users/{user_id}) and set the 'status' field to 'inactive'. This deactivates the user, effectively suspending their access."
+    reference: "https://developer.box.com/reference/put-users-id/"
+  invalidate_sessions_api:
+    value: "Admins can log a specific user out of all their Box sessions via the Admin Console UI. Programmatically, deleting a user's access tokens associated with a custom application can be done via the `POST /oauth2/revoke` endpoint. For all user sessions, a common workaround is to deactivate the user (which invalidates all tokens) and then reactivate them if needed."
+    reference: "https://support.box.com/hc/en-us/articles/360043692834-Managing-Individual-Users"
+  revoke_api_key_api:
+    value: "For a specific application, use the endpoint `POST /oauth2/revoke` to revoke an access token. For developer tokens, the associated 'application' can be deleted in the Developer Console, which invalidates the token."
+    reference: "https://developer.box.com/reference/post-oauth2-revoke/"
+  user_toggle_api:
+    value: "The `PUT /2.0/users/{user_id}` endpoint allows toggling a user's status between 'active' and 'inactive'."
+    reference: "https://developer.box.com/reference/put-users-id/"
+  user_status_api:
+    value: "The `GET /2.0/users/{user_id}` endpoint retrieves all information about a user, including their 'status' field ('active', 'inactive', 'cannot_delete_edit', 'cannot_delete_edit_upload')."
+    reference: "https://developer.box.com/reference/get-users-id/"
+  session_timeout_configuration:
+    value: "In the Admin Console, under 'Enterprise Settings > Security', administrators can configure session duration for web and mobile applications, forcing re-login after a specified period of inactivity (e.g., 24 hours)."
+    reference: "https://support.box.com/hc/en-us/articles/360044195993-Enterprise-Settings-Security-Tab"
+  known_automation_tools:
+    - value: "Palo Alto Cortex XSOAR: Provides a comprehensive integration with commands for user management (get, update, delete), managing collaborations, and searching events."
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/BoxV2/"
+    - value: "Splunk SOAR (Phantom): The Box connector for Splunk SOAR allows for automated actions such as 'detonate file', 'get user', 'list collaborations', and 'terminate session'."
+      reference: "https://docs.splunk.com/Documentation/SOARonprem/5.3.6/RP/Apps/Box"
+    - value: "Torq: No-code automation platform with pre-built workflows for Box, including user management and threat response."
+      reference: "https://torq.io/integrations/box/"
+    - value: "Tines: Security automation platform that can integrate with the Box API to perform response actions."
+      reference: "https://www.tines.com/integrations/box"
+    - value: "Box Python SDK (Open Source): A library that can be used to build custom automation scripts for incident response."
+      reference: "https://github.com/box/box-python-sdk"
+  documentation_links:
+    - "https://developer.box.com/reference/resources/user/"
+    - "https://developer.box.com/reference/put-users-id/"
+    - "https://developer.box.com/reference/post-oauth2-revoke/"
+    - "https://support.box.com/hc/en-us/articles/360043692834-Managing-Individual-Users"
+    - "https://cortex.marketplace.pan.dev/marketplace/details/BoxV2/"
+    - "https://github.com/box/box-python-sdk"
+    - "https://support.box.com/hc/en-us/articles/360044195993-Enterprise-Settings-Security-Tab"

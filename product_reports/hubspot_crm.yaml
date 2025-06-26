@@ -1,0 +1,172 @@
+user_management:
+  sso_support:
+    value: yes
+    reference: https://knowledge.hubspot.com/account/set-up-single-sign-on
+  sso_licensing_level_requirement:
+    value: Available with Marketing Hub, Sales Hub, Service Hub, Operations Hub, and
+      Content Hub at the Professional or Enterprise tiers.
+    reference: https://knowledge.hubspot.com/account/set-up-single-sign-on
+  scim_support:
+    value: 'yes'
+    reference: https://knowledge.hubspot.com/account/provision-hubspot-users-with-scim-through-okta
+  scim_licensing_level_requirement:
+    value: SCIM requires SSO to be enabled, which is available on Professional and Enterprise
+      tiers.
+    reference: https://knowledge.hubspot.com/account/provision-hubspot-users-with-scim-through-okta
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://knowledge.hubspot.com/account/provision-hubspot-users-with-scim-through-okta
+  scim_authentication_acquisition_steps: "1. In your Identity Provider (e.g., Okta), add
+    the HubSpot application.\n2. In the HubSpot application's provisioning settings,
+    click 'Configure API Integration'.\n3. Select 'Enable API integration' and then
+    click 'Authenticate with HubSpot'.\n4. An OAuth 2.0 flow will initiate. You will
+    be prompted to log in to your HubSpot account and grant access to the application.\n5.
+    Upon successful authentication, a bearer token is generated and automatically
+    configured in the Identity Provider for SCIM communication."
+  user_management_api_support:
+    value: 'yes'
+    reference: https://developers.hubspot.com/docs/api/settings/user-provisioning
+  user_management_api_licensing_level:
+    value: The User Provisioning API is available for Professional and Enterprise accounts.
+    reference: https://community.hubspot.com/t5/APIs-Integrations/An-API-for-adding-and-removing-users/m-p/393112
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developers.hubspot.com/docs/api/migrate-an-api-key-integration-to-a-private-app
+  user_management_api_authentication_acquisition_steps: "HubSpot has deprecated API
+    keys in favor of Private App access tokens. To get an access token:\n1. In your
+    HubSpot account, navigate to 'Settings' > 'Integrations' > 'Private Apps'.\n2.
+    Click 'Create a private app'.\n3. On the 'Basic Info' tab, give your app a name
+    and description.\n4. Go to the 'Scopes' tab and select the necessary permissions
+    for your integration (e.g., `settings.users.write`, `settings.users.read`).\n5.
+    Click 'Create app'.\n6. After the app is created, a dialog box will show your
+    app's access token. Click 'Show token' and then 'Copy' to get your token.\n7.
+    Use this token in the Authorization header of your API requests as a Bearer token
+    (e.g., `Authorization: Bearer YOUR_TOKEN`)."
+  seat_costs:
+  - license_level: All paid tiers (Starter, Professional, Enterprise)
+    active:
+      value: 'yes'
+      reference: https://www.hubspot.com/pricing/sales
+    suspended_disabled:
+      value: 'yes'
+      reference: https://community.hubspot.com/t5/HubSpot-Ideas/Billing-Seat-Management-for-Deactivated-Users/idi-p/399083
+    archived:
+      value: n/a
+      reference: https://knowledge.hubspot.com/account/remove-hubspot-users
+  lifecycle_options:
+  - create
+  - deactivate
+  - remove
+  - reactivate
+  rbac_support:
+    value: 'yes'
+    reference: https://knowledge.hubspot.com/account/hubspot-user-permissions-guide
+  rbac_api_assignment:
+    value: Role assignments can be managed via the User Provisioning API. Specifically,
+      you can retrieve all roles and assign roles to users when creating or updating
+      them. However, some sources indicate that for SCIM provisioning, roles are passed
+      via SAML assertion rather than directly through the SCIM API.
+    reference: https://developers.hubspot.com/docs/api/settings/user-provisioning
+  documentation_links:
+  - https://knowledge.hubspot.com/account/set-up-single-sign-on
+  - https://knowledge.hubspot.com/account/provision-hubspot-users-with-scim-through-okta
+  - https://developers.hubspot.com/docs/api/settings/user-provisioning
+  - https://developers.hubspot.com/docs/api/crm/users
+  - https://knowledge.hubspot.com/account/hubspot-user-permissions-guide
+  - https://knowledge.hubspot.com/account/remove-hubspot-users
+  - https://developers.hubspot.com/docs/api/migrate-an-api-key-integration-to-a-private-app
+  - https://www.okta.com/integrations/hubspot/
+  - https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/hubspot-tutorial
+  - https://community.hubspot.com/t5/HubSpot-Ideas/Enable-SSO-for-Professional-Plan/idc-p/484211
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "The 'Account Login History' provides information on user login attempts including timestamp, email, IP address, and location. For Enterprise subscriptions, a more comprehensive 'Centralized Audit Log' also includes this data alongside other user actions."
+      reference: "https://knowledge.hubspot.com/account/view-and-export-account-activity-history"
+    role_assignment:
+      value: "The 'Security Activity History' log records the adding or removing of admin permissions. The Enterprise-level 'Centralized Audit Log' also captures these changes under the 'User & Teams' category."
+      reference: "https://knowledge.hubspot.com/account/view-and-export-account-activity-history"
+    api_call:
+      value: "API call logs are available for integrations. For legacy API keys, a call log is accessible in settings. For private apps and OAuth, call logs can be viewed in the app's monitoring tab. The Enterprise 'Centralized Audit Log' can also be filtered to show API-related activities."
+      reference: "https://developers.hubspot.com/docs/api/private-apps/api-call-logs"
+    data_export:
+      value: "HubSpot maintains a dedicated 'Export Audit Log' that records all data exports, including the user who initiated the export, the source (e.g., Contacts, Deals), the number of records, and the date. Super Admins can also set up notifications for large exports."
+      reference: "https://knowledge.hubspot.com/import-and-export/set-up-export-notifications-and-view-a-log-of-exports-in-your-account"
+    configuration_change:
+      value: "The 'Security Activity History' log tracks changes to security settings like Single Sign-On (SSO) and Two-Factor Authentication (2FA). The 'Centralized Audit Log' for Enterprise users provides more extensive tracking of configuration changes across the platform, including workflows, properties, and more."
+      reference: "https://knowledge.hubspot.com/account/view-and-export-account-activity-history#view-or-export-a-centralized-audit-log-of-login-activity-and-security-actions"
+    user_account_creation:
+      value: "The 'Security Activity History' log includes events for adding, removing, and deactivating users."
+      reference: "https://knowledge.hubspot.com/account/view-and-export-account-activity-history"
+    security_policy_change:
+      value: "The 'Security Activity History' log tracks changes to security policies such as enabling or disabling Single Sign-On (SSO) and Two-Factor Authentication (2FA)."
+      reference: "https://knowledge.hubspot.com/account/view-and-export-account-activity-history"
+  event_logs_licensing_level:
+    value: "A comprehensive, filterable 'Centralized Audit Log' is available only with an **Enterprise** subscription. Basic logs like 'Account Login History' and 'Security Activity History' are available to Super Admins on all plans."
+    reference: "https://knowledge.hubspot.com/account/view-and-export-account-activity-history-in-a-centralized-audit-log"
+  monitoring_products:
+    - value: "Datadog (via automation platforms like Zapier or n8n to send custom metrics/events)."
+      reference: "https://zapier.com/apps/datadog/integrations/hubspot"
+    - value: "Elastic SIEM (via custom integration using HubSpot API or middleware like elastic.io or n8n)."
+      reference: "https://www.elastic.io/integrations/hubspot-crm/"
+    - value: "Microsoft Sentinel (No native connector found; requires custom ingestion via HubSpot Audit Log API and Azure Logic Apps or Azure Functions)."
+      reference: "https://developers.hubspot.com/docs/api/account-and-app-settings/audit-logs-api"
+    - value: "Splunk (No native connector found; requires custom ingestion via HubSpot Audit Log API and Splunk HTTP Event Collector)."
+      reference: "https://developers.hubspot.com/docs/api/account-and-app-settings/audit-logs-api"
+  ingestion_methods:
+    - value: "REST API Polling: The Audit Logs API can be polled to retrieve security and user action events (Enterprise only)."
+      reference: "https://developers.hubspot.com/docs/api/account-and-app-settings/audit-logs-api"
+    - value: "Manual Export: Logs can be manually exported from the UI as a CSV file and then imported into a SIEM."
+      reference: "https://knowledge.hubspot.com/account/view-and-export-account-activity-history-in-a-centralized-audit-log"
+    - value: "Data Sync (Operations Hub): Provides bidirectional, real-time sync of CRM object data with other applications, which can then be forwarded to a SIEM."
+      reference: "https://www.hubspot.com/products/operations/data-sync"
+    - value: "Webhooks: Can be used to subscribe to events (e.g., contact creation, deal updates) and push them to an ingestion endpoint, though not directly for all audit log event types."
+      reference: "https://developers.hubspot.com/docs/api/webhooks"
+  log_export_options:
+    tools_connectors:
+      value: "Third-party automation platforms like Workato, Zapier, n8n, and elastic.io are the primary tools for connecting HubSpot to various SIEMs and monitoring tools. Direct connectors are not common."
+      reference: "https://www.workato.com/integrations/hubspot+github"
+  documentation_links:
+    - "https://knowledge.hubspot.com/account/view-and-export-account-activity-history-in-a-centralized-audit-log"
+    - "https://developers.hubspot.com/docs/api/account-and-app-settings/audit-logs-api"
+    - "https://knowledge.hubspot.com/import-and-export/set-up-export-notifications-and-view-a-log-of-exports-in-your-account"
+    - "https://www.hubspot.com/trust-center/security"
+    - "https://www.hubspot.com/products/operations/data-sync"
+    - "https://developers.hubspot.com/docs/api/overview"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes, a user can be deactivated via the UI, which removes their access. While the main User Provisioning API (SCIM) does not appear to have a direct 'deactivate' function, community discussions suggest it is possible via other API calls, likely by setting an 'active' attribute to 'false'. Third-party management tools like Oomnitza also provide this function, confirming its existence."
+    reference: "https://community.hubspot.com/t5/APIs-Integrations/User-provisioning-Schema-and-activate-user-deactivate-user-API/m-p/728952"
+  invalidate_sessions_api:
+    value: "A user can be forced to log out of all active sessions through the UI by an administrator ('Log Out of All Sessions'). However, there is no documented public API endpoint to perform this action programmatically."
+    reference: "https://knowledge.hubspot.com/account/log-out-of-hubspot"
+  revoke_api_key_api:
+    value: "HubSpot is sunsetting legacy API keys. For Private Apps, the access token can be rotated (a new one created and the old one implicitly invalidated) via the UI. HubSpot also automatically deactivates tokens exposed in public GitHub repositories. There is no documented public API endpoint for an administrator to programmatically revoke a specific token."
+    reference: "https://developers.hubspot.com/changelog/public-beta-automatic-deactivation-of-exposed-tokens"
+  user_toggle_api:
+    value: "This is functionally the same as the user suspension/deactivation capability. A user can be deactivated (removing access) or reactivated through the UI and likely through an API."
+    reference: "https://knowledge.hubspot.com/account/remove-hubspot-users"
+  user_status_api:
+    value: "No, there appears to be a known limitation. The User Provisioning (SCIM) API (GET /settings/v3/users) does not return the active/inactive status of a user, making it difficult to programmatically verify if a user is deactivated."
+    reference: "https://community.hubspot.com/t5/HubSpot-Ideas/User-status-details-through-user-provisioning/idi-p/936442"
+  session_timeout_configuration:
+    value: "Yes, Super Admins can configure the session inactivity timeout for all users. The available options are limited, with a maximum duration that users have noted as being relatively short (e.g., 24 hours)."
+    reference: "https://community.hubspot.com/t5/HubSpot-Ideas/Extend-options-for-hubspot-user-session-timeout-length/idc-p/978805"
+  known_automation_tools:
+    - value: "Oomnitza: Provides pre-built workflows for user management, including user deactivation and deletion."
+      reference: "https://docs.oomnitza.com/docs/creating-workflows-for-hubspot-users"
+    - value: "n8n: A workflow automation tool that can connect GitHub and HubSpot for custom automation tasks."
+      reference: "https://n8n.io/integrations/github-and-hubspot/"
+    - value: "Workato: An iPaaS platform that can orchestrate complex workflows between HubSpot and other security/IT tools."
+      reference: "https://www.workato.com/integrations/hubspot"
+    - value: "Shuffle SOAR: An open-source SOAR platform that can integrate with HubSpot's APIs for response actions."
+      reference: "https://shuffler.io/apps/603e5a5c-59e6-4299-813c-0e7d7045b84e/workflows"
+    - value: "Blink: A no-code security automation platform listed as a SOAR solution for HubSpot CRM."
+      reference: "https://www.g2.com/products/blink/reviews"
+  documentation_links:
+    - "https://developers.hubspot.com/docs/api/settings/user-provisioning"
+    - "https://developers.hubspot.com/docs/api/crm/users"
+    - "https://knowledge.hubspot.com/account/remove-hubspot-users"
+    - "https://developers.hubspot.com/docs/api/migrate-an-api-key-integration-to-a-private-app"
+    - "https://knowledge.hubspot.com/account/hubspot-security-features"
+    - "https://www.hubspot.com/product-updates/session-timeout-at-24-hour-user-inactivity"

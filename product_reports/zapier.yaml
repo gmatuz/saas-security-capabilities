@@ -1,0 +1,149 @@
+user_management:
+  sso_support:
+    value: "yes"
+    reference: "https://zapier.com/help/account/manage-your-account/set-up-single-sign-on-with-saml"
+  sso_licensing_level_requirement:
+    value: "SSO is included in the Team plan and the Enterprise plan. [35, 37, 38]"
+    reference: "https://zapier.com/help/account/updates/2024/mar/team-plan-updates-sso-is-now-included-and-new-user-limits"
+  scim_support:
+    value: "yes"
+    reference: "https://zapier.com/help/account/manage-your-account/provision-user-accounts-with-scim"
+  scim_licensing_level_requirement:
+    value: "Enterprise plan. [25]"
+    reference: "https://stackby.com/blog/zapier-pricing-and-alternatives-guide-pricing"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://zapier.com/help/account/manage-your-account/provision-user-accounts-with-scim"
+  scim_authentication_acquisition_steps: "1. As an account owner or super admin, go to your Zapier account Settings. 2. In the left sidebar under the 'Security' section, click on 'User Provisioning'. 3. Click the 'Enable' button to activate user provisioning. 4. A SCIM Bearer Token will be generated. Copy this token to use in your Identity Provider's SCIM configuration. 5. The base URL for the SCIM API is https://zapier.com/scim/v3. The token must be included in an Authorization header as a Bearer token. [4, 16, 27]"
+  user_management_api_support:
+    value: "uncertain"
+    reference: "https://platform.zapier.com/reference/management-api"
+  user_management_api_licensing_level:
+    value: "Information not found"
+    reference: "https://platform.zapier.com/reference/management-api"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://platform.zapier.com/reference/authentication#oauth-2"
+  user_management_api_authentication_acquisition_steps: "Zapier's public APIs (Partner API, Workflow API) primarily use OAuth 2.0. To get an access token: 1. You must have a published, public integration in Zapier's App Directory. 2. In the Zapier Developer Platform, go to 'Embed' -> 'Settings' -> 'Credentials' to find your Client ID and Client Secret. 3. Configure your Redirect URIs in the same section. 4. Initiate the OAuth 2.0 authorization code flow to obtain a user access token, which is then passed as a bearer token in the Authorization header of API requests. [17]"
+  seat_costs:
+  - license_level: "All plans"
+    active:
+      value: "yes"
+      reference: "https://zapier.com/pricing"
+    suspended_disabled:
+      value: "no"
+      reference: "https://zapier.com/help/account/manage-your-account/remove-members-from-your-team-or-enterprise-account"
+    archived:
+      value: "no"
+      reference: "https://zapier.com/help/account/manage-your-account/remove-members-from-your-team-or-enterprise-account"
+  lifecycle_options:
+  - create
+  - disable (deactivate)
+  - update
+  reference: "https://zapier.com/help/account/manage-your-account/provision-user-accounts-with-scim"
+  rbac_support:
+    value: "yes"
+    reference: "https://zapier.com/help/account/user-roles-and-permissions/user-role-permissions-in-projects-and-assets"
+  rbac_api_assignment:
+    value: "Zapier's SCIM API supports provisioning and de-provisioning users, which is a form of access management. The API allows for creating, updating, and deactivating users. While specific role assignment via a dedicated RBAC API is not explicitly detailed, user status (active/inactive) can be managed. [4]"
+    reference: "https://zapier.com/help/account/manage-your-account/provision-user-accounts-with-scim"
+  documentation_links:
+  - "https://zapier.com/help/account/manage-your-account/set-up-single-sign-on-with-saml"
+  - "https://zapier.com/help/account/manage-your-account/provision-user-accounts-with-scim"
+  - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+  - "https://www.okta.com/integrations/zapier-saml/"
+  - "https://duo.com/docs/sso-zapier"
+  - "https://zapier.com/help/account/user-roles-and-permissions/user-role-permissions-in-projects-and-assets"
+  - "https://zapier.com/trust/security"
+  - "https://platform.zapier.com/reference/management-api"
+  - "https://zapier.com/pricing"
+  - "https://jumpcloud.com/support/sso-with-zapier"
+
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Zapier logs user logins and other account activity, which can be viewed in the Audit Log. This includes actions performed by users and the Zapier system."
+      reference: "https://zapier.com/help/account/data-privacy-security/use-the-audit-log-to-review-your-account-activity"
+    role_assignment:
+      value: "The Audit Log does not explicitly state that it logs role assignments. However, it does log when ownership of a Zap is changed. For user role management, Zapier relies on SCIM, and actions like role changes would be initiated from the Identity Provider (e.g., Azure AD, Okta), and those logs would reside there."
+      reference: "https://help.zapier.com/hc/en-us/articles/8496291983629-Use-the-audit-log-to-review-your-account-activity"
+    api_call:
+      value: "Zap History tracks the execution of Zaps, including data in and out, which functions as a log of API calls made by Zaps. The Audit Log tracks changes to App Connections, which are used for API authentication."
+      reference: "https://zapier.com/app/history"
+    data_export:
+      value: "Zapier allows users on Team or Enterprise plans to export their own Zaps or all account Zaps (for owners) as a JSON file. This action itself does not appear to be explicitly logged in the Audit Log, but the log does cover other configuration changes. [46]"
+      reference: "https://help.zapier.com/hc/en-us/articles/8496272993165-Import-and-export-Zaps-in-your-Team-or-Enterprise-account"
+    configuration_change:
+      value: "The Audit Log tracks various configuration changes for Zaps, including creation, publishing new versions, deletion, being turned on/off, and ownership changes. It also logs activities related to App Connections and Variables. [2]"
+      reference: "https://zapier.com/help/account/data-privacy-security/use-the-audit-log-to-review-your-account-activity"
+    user_account_creation:
+      value: "User account creation and de-provisioning are managed via SCIM (System for Cross-domain Identity Management). Logs for these events are primarily generated and stored within the Identity Provider (e.g., Azure AD, Okta) that is integrated with Zapier. [4]"
+      reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+    security_policy_change:
+      value: "Changes to security settings like SAML SSO configuration are available for Enterprise plans. The Audit Log is the designated feature for tracking account activities, but specific logging of security policy changes is not explicitly detailed in the available documentation. [22]"
+      reference: "https://www.lindy.ai/blog/make-vs-zapier-vs-lindy"
+  event_logs_licensing_level:
+    value: "Team and Enterprise plans. Team accounts have access to 6 months of history, while Enterprise accounts have 12 months. [3]"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291983629-Use-the-audit-log-to-review-your-account-activity"
+  monitoring_products:
+    - value: "Splunk (via custom data export and ingestion)"
+      reference: "https://zapier.com/apps/splunk/integrations"
+    - value: "Datadog (via Webhooks)"
+      reference: "https://docs.datadoghq.com/integrations/zapier/"
+    - value: "Microsoft Sentinel (via Azure Logic Apps/Functions to ingest data)"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/custom-logs"
+    - value: "Sumo Logic (via HTTP Logs and Metrics Source)"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/http-source/logs-metrics/"
+  ingestion_methods:
+    - value: "SCIM Integration: For user provisioning and de-provisioning events from Identity Providers like Azure AD and Okta. [4]"
+      reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+    - value: "Webhooks: Zaps can be configured to send data to any SIEM or monitoring tool that supports webhook ingestion. This is a primary method for real-time event forwarding."
+      reference: "https://zapier.com/apps/webhook/integrations"
+    - value: "Manual Export: Zap data can be manually exported as a JSON file for import into other systems. [46]"
+      reference: "https://help.zapier.com/hc/en-us/articles/8496272993165-Import-and-export-Zaps-in-your-Team-or-Enterprise-account"
+  log_export_options:
+    tools_connectors:
+      value: "Zapier itself is the primary tool for creating log export workflows to other platforms (e.g., Google Sheets, S3, SIEM webhooks). [43] There are no dedicated third-party connectors for exporting Zapier's internal audit logs; instead, users build their own export Zaps. [45]"
+      reference: "https://safetyculture.com/product-updates/zapier-export-inspection-data-to-google-sheets-spreadsheets/"
+  documentation_links:
+    - "https://zapier.com/help/account/data-privacy-security/use-the-audit-log-to-review-your-account-activity"
+    - "https://zapier.com/security"
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+    - "https://zapier.com/apps/webhook/integrations"
+    - "https://help.zapier.com/hc/en-us/articles/8496272993165-Import-and-export-Zaps-in-your-Team-or-Enterprise-account"
+    - "https://zapier.com/trust"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes, via SCIM. Users can be de-provisioned (deactivated) through an integrated Identity Provider like Azure AD or Okta. This removes them from the Zapier organization and disables their access. [4]"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+  invalidate_sessions_api:
+    value: "NOT_FOUND. There is no documented public API to programmatically invalidate a user's session. Session management is handled by the user logging out or an administrator de-provisioning the user via SCIM. [9]"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291969037-Set-up-single-sign-on-with-SAML"
+  revoke_api_key_api:
+    value: "NOT_FOUND. While API keys for app connections can be managed in the UI, there is no documented public API endpoint to programmatically revoke a specific user's or app's API key. Admins can refresh their own API keys in the UI. [28]"
+    reference: "https://help.sleekflow.io/en-US/articles/69-zapier-integration"
+  user_toggle_api:
+    value: "Yes, via SCIM. The SCIM protocol supports toggling a user's 'active' status. When a user is unassigned from the Zapier application in the Identity Provider (e.g., Okta, Azure AD), they are deactivated in Zapier. [4, 36]"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+  user_status_api:
+    value: "Yes, via SCIM. SCIM-compliant Identity Providers can retrieve the status of users they manage within Zapier to keep user attributes synchronized. [4]"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+  session_timeout_configuration:
+    value: "Yes, for accounts using SAML SSO (an Enterprise feature). Zapier's default session timeout is 7 days. If the integrated Identity Provider (IdP) has a shorter session timeout configured, Zapier will honor the shorter duration. [9]"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291969037-Set-up-single-sign-on-with-SAML"
+  known_automation_tools:
+    - value: "Zapier: Zapier's own platform can be used to automate workflows based on triggers from other security tools, although it cannot directly perform incident response actions upon itself due to lack of a public management API for such tasks."
+      reference: "https://zapier.com/"
+    - value: "Activepieces (Open Source): An open-source, self-hostable alternative to Zapier that could be used to build custom automation workflows. [30]"
+      reference: "https://github.com/activepieces/activepieces"
+    - value: "Automatisch (Open Source): Another open-source, self-hosted alternative for building business automation workflows. [32]"
+      reference: "https://github.com/automatisch/automatisch"
+    - value: "Okta / Azure AD: These Identity Providers automate user provisioning, de-provisioning, and status updates in Zapier via SCIM, which are core incident response actions. [4]"
+      reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+  documentation_links:
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+    - "https://zapier.com/security"
+    - "https://help.zapier.com/hc/en-us/articles/8496291969037-Set-up-single-sign-on-with-SAML"
+    - "https://zapier.com/blog/saas-security/"
+    - "https://zapier.com/trust/security-white-paper.pdf"
+    - "https://zapier.com/developer/platform/security-and-compliance"

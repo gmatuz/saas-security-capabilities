@@ -1,0 +1,201 @@
+user_management:
+  sso_support:
+    value: Xero primarily functions as an Identity Provider (IdP) using OpenID Connect,
+      allowing users to log into third-party applications with their Xero credentials.
+      It does not offer native support for SAML or OIDC to act as a Service Provider
+      for logging into the Xero platform itself. Third-party identity solutions can
+      provide SSO for Xero, but this is not a native feature.
+    reference: https://developer.xero.com/documentation/oauth2/sign-in-with-xero
+  sso_licensing_level_requirement:
+    value: The ability to use "Sign in with Xero" (Xero as an IdP) is available to
+      all users with a Xero account and is not tied to a specific pricing plan. Third-party
+      SSO solutions will have their own separate licensing costs.
+    reference: https://www.codat.io/blog/5-things-you-need-to-know-before-you-integrate-with-the-xero-api/
+  scim_support:
+    value: 'no'
+    reference: https://www.okta.com/integrations/xero-by-aquera/
+  scim_licensing_level_requirement:
+    value: SCIM provisioning is not a native feature. It can be achieved through third-party
+      connectors like 'Xero by Aquera', which is available on the Okta marketplace.
+      The licensing requirement would be based on the pricing of the third-party
+      provider (e.g., Aquera), not on the Xero subscription plan.
+    reference: https://www.okta.com/integrations/xero-by-aquera/
+  scim_authentication_mechanisms:
+    value: n/a
+    reference: ''
+  scim_authentication_acquisition_steps: 'SCIM is not natively supported by Xero. To
+    use SCIM, you must procure a third-party service like Aquera. The steps would
+    be:
+
+    1. Purchase a subscription to the third-party SCIM provider (e.g., Aquera).
+
+    2. Follow the provider''s documentation to configure the connection to your Identity
+    Provider (e.g., Okta).
+
+    3. The third-party tool will then use Xero''s OAuth 2.0 API for authentication.
+    You will need to create a Xero API app in the Xero Developer Centre.
+
+    4. In the Xero Developer Centre, go to "My Apps" and create a new app.
+
+    5. Obtain the Client ID and Client Secret from your new Xero app.
+
+    6. Provide these credentials to the third-party SCIM tool for it to authenticate
+    with the Xero API.'
+  user_management_api_support:
+    value: 'no'
+    reference: https://developer.xero.com/documentation/api/accounting/users/
+  user_management_api_licensing_level:
+    value: The Xero Accounting API's 'Users' endpoint is available on all Xero plans,
+      but it is read-only (GET method only). For more stable machine-to-machine connections,
+      a "Custom Connection" is available as a paid add-on (approx. $5-10 USD/month)
+      which uses the client_credentials grant type, but this does not add user management
+      capabilities.
+    reference: https://developer.xero.com/documentation/guides/oauth2/custom-connections/
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://developer.xero.com/documentation/oauth2/auth-flow/
+  user_management_api_authentication_acquisition_steps: 'The Xero API for retrieving
+    user data uses OAuth 2.0. User creation, update, and deletion are not supported
+    via the API. To get authentication credentials for read-only access:
+
+    1. Create a free user account on the Xero Developer Center (developer.xero.com).
+
+    2. Navigate to the "My Apps" section.
+
+    3. Click the "New App" button.
+
+    4. Fill in your application''s details, including the App Name, Company URL,
+    and at least one OAuth 2.0 redirect URI (e.g., http://localhost:3000/callback
+    for development).
+
+    5. Agree to the terms and conditions and click "Create app".
+
+    6. On the app details screen, your "Client ID" will be visible.
+
+    7. Click "Generate a secret" to create a "Client Secret". Copy this value immediately
+    as it will only be shown once.
+
+    8. These credentials are used in the OAuth 2.0 authorization flow to obtain an
+    access token.'
+  seat_costs:
+  - license_level: All Plans (e.g., Early, Growing, Established)
+    active:
+      value: 'no'
+      reference: https://www.business.com/articles/xero-review-pricing/
+    suspended_disabled:
+      value: 'no'
+      reference: https://central.xero.com/s/article/Suspend-a-subscription
+    archived:
+      value: 'no'
+      reference: https://central.xero.com/s/article/Archive-a-contact
+  lifecycle_options:
+  - Invite User
+  - Edit User Permissions
+  - Delete User
+  - Resend Invitation
+  rbac_support:
+    value: 'yes'
+    reference: https://central.xero.com/s/article/User-roles-and-permissions-in-Xero-Business-edition
+  rbac_api_assignment:
+    value: The API allows you to retrieve a user's role (`OrganisationRole` field),
+      but it does not support creating, updating, or assigning user roles. Role management
+      must be performed through the Xero web UI.
+    reference: https://developer.xero.com/documentation/api/accounting/users/
+  documentation_links:
+  - https://developer.xero.com/documentation/api/accounting/users/
+  - https://developer.xero.com/documentation/oauth2/sign-in-with-xero
+  - https://developer.xero.com/documentation/guides/oauth2/custom-connections/
+  - https://central.xero.com/s/article/User-roles-and-permissions-in-Xero-Business-edition
+  - https://www.okta.com/integrations/xero-by-aquera/
+  - https://central.xero.com/s/article/Invite-or-remove-a-user
+  - https://productideas.xero.com/forums/918292-xero-api/suggestions/38988631-api-for-user-management-creation-and-permission
+  - https://github.com/conductorone/baton-xero
+  - https://equalsmoney.com/blog/manage-users-xero
+  - https://central.xero.com/s/article/Find-and-change-assigned-user-roles
+security_monitoring:
+  event_logs:
+    user_login:
+      value: 'User login attempts are logged. Individual users can see their last 10 logins, including date, time, country, and IP address. Users with the Advisor role can use the "Assurance Dashboard" to view when users have logged in.'
+      reference: "https://central.xero.com/s/article/Check-your-Xero-login-history"
+    role_assignment:
+      value: 'Changes to user roles and permissions are tracked in the "History & Notes Activity" report, which functions as the main audit trail. It records which user made the change and when.'
+      reference: "https://central.xero.com/s/article/Find-and-change-assigned-user-roles"
+    api_call:
+      value: 'While Xero''s internal teams perform extensive logging of their infrastructure, detailed logs of API calls made by third-party applications are not directly exposed to customers for security monitoring. Errors from API calls are logged by the connecting app.'
+      reference: "https://developer.xero.com/documentation/guides/oauth2/error-handling/"
+    data_export:
+      value: 'The action of a user exporting a report or data from Xero is logged and can be viewed in the "History & Notes Activity" report.'
+      reference: "https://central.xero.com/s/article/History-and-notes-report"
+    configuration_change:
+      value: 'Changes to financial data and organisation settings, such as invoices, bills, contacts, and inventory items, are recorded in the "History & Notes Activity" report.'
+      reference: "https://central.xero.com/s/article/History-and-notes-report"
+    user_account_creation:
+      value: 'The invitation of a new user or the deletion of an existing user is captured in the "History & Notes Activity" report.'
+      reference: "https://central.xero.com/s/article/History-and-notes-report"
+    security_policy_change:
+      value: 'Changes to a user''s security settings, such as the setup or removal of multi-factor authentication, are logged. These events are visible in the "History & Notes Activity" report.'
+      reference: "https://central.xero.com/s/article/History-and-notes-report"
+  event_logs_licensing_level:
+    value: 'Access to the comprehensive "History & Notes Activity" report, which serves as the primary audit log, requires the "Advisor" user role. This role is available on all standard Xero business plans.'
+    reference: "https://central.xero.com/s/article/History-and-notes-report#ViewtheHistoryandnotesreport"
+  monitoring_products:
+  - value: 'Sumo Logic: Used internally by Xero for their own platform monitoring and log analytics.'
+    reference: "https://www.sumologic.com/customers/xero/"
+  - value: 'Dataddo: Provides a platform to connect and export Xero data to various databases, data warehouses, and BI tools.'
+    reference: "https://www.dataddo.com/blog/export-xero-data-to-any-database-or-analytics-tool"
+  - value: 'Broadcom CloudSOC: Lists Xero as a supported cloud application, indicating the availability of a connector for monitoring and CASB functionality.'
+    reference: "https://techdocs.broadcom.com/us/en/symantec-security-software/information-security/cloudsoc/1/getting-started/Cloud-Application-Catalog/Cloud-Application-Catalog-X-Y-Z.html"
+  - value: 'Alteryx: Offers a connector for integrating Xero data into analytics workflows.'
+    reference: "https://help.alteryx.com/current/en/designer/tools/connectors/xero-connections.html"
+  - value: 'Microsoft Power BI / Excel / Google Sheets: Can be connected using third-party tools like Coefficient or by manual export for monitoring and reporting.'
+    reference: "https://coefficient.io/integrations/xero/export-xero-data"
+  ingestion_methods:
+  - value: 'REST API: The primary method for programmatically extracting data, including reports and lists that can be used for monitoring.'
+    reference: "https://developer.xero.com/documentation/api/api-overview"
+  - value: 'Webhooks: Xero can send real-time notifications for specific events (e.g., contact or invoice updates) to a specified URL, which can be used to trigger monitoring alerts.'
+    reference: "https://developer.xero.com/documentation/webhooks/overview/"
+  - value: 'Manual Export: Users can manually export most reports and data from the Xero UI in CSV, PDF, or Excel formats.'
+    reference: "https://central.xero.com/s/article/About-exporting-data-out-of-Xero"
+  log_export_options:
+    tools_connectors:
+      value: 'Log and data export is primarily achieved via the REST API. While direct SIEM connectors are not offered by Xero, third-party data integration platforms like Dataddo, Coefficient, and Alteryx provide pre-built connectors to pull data from the API and send it to SIEMs, databases, or analytics tools.'
+      reference: "https://www.dataddo.com/blog/export-xero-data-to-any-database-or-analytics-tool"
+  documentation_links:
+  - "https://central.xero.com/s/article/History-and-notes-report"
+  - "https://developer.xero.com/documentation/api/api-overview"
+  - "https://developer.xero.com/documentation/guides/security/security-overview/"
+  - "https://www.xero.com/us/about/security/"
+  - "https://central.xero.com/s/article/Check-your-Xero-login-history"
+  - "https://developer.xero.com/documentation/webhooks/overview/"
+  - "https://central.xero.com/s/article/About-exporting-data-out-of-Xero"
+incident_response:
+  suspend_user_management_api:
+    value: 'Not supported. Xero does not have a user "suspend" or "deactivate" feature via the API or UI. The only available actions are to change a user''s permissions to a role with no access or to permanently delete the user. This is a known feature request.'
+    reference: "https://productideas.xero.com/forums/913999-user-roles-permissions/suggestions/37452664-ability-to-suspend-users"
+  invalidate_sessions_api:
+    value: 'Not supported. There is no API endpoint to programmatically invalidate a user''s web UI session or force a logout.'
+    reference: "https://community.xero.com/developer/discussion/64971"
+  revoke_api_key_api:
+    value: 'Supported. An application''s access can be revoked for a specific user/tenant connection by making a POST request to the `https://identity.xero.com/connect/revocation` endpoint with the user''s refresh token. This will invalidate the refresh token and remove the connection.'
+    reference: "https://developer.xero.com/documentation/oauth2/auth-flow#revoke"
+  user_toggle_api:
+    value: 'Supported. While you cannot toggle a "suspended" state, you can remove a user from an organization entirely via the API by making a DELETE request to the `Users` endpoint with the UserID. You must first GET the user to retrieve their ID.'
+    reference: "https://developer.xero.com/documentation/api/users#DELETE"
+  user_status_api:
+    value: 'Supported. A list of all users in an organisation, including their name, email, and role, can be retrieved by making a GET request to the `Users` endpoint. A user''s status is implicitly "Active" as there is no "Suspended" state.'
+    reference: "https://developer.xero.com/documentation/api/users#GET"
+  session_timeout_configuration:
+    value: 'Not configurable. Xero automatically logs users out of the web application after a period of inactivity. This timeout period cannot be changed or turned off by the user or administrator.'
+    reference: "https://www.grow.co.nz/blog/not-for-profit-finance-forum-2018-xero-and-internal-controls"
+  known_automation_tools:
+  - value: 'Xero''s internal SRE team developed a custom ChatOps bot named "Multivac" integrated with Slack and PagerDuty to automate their internal incident response processes. This tool is not available to customers.'
+    reference: "https://www.pagerduty.com/customers/xero/"
+  - value: 'Generic automation platforms (e.g., Zapier, Make) can be used to create custom workflows by connecting to Xero''s APIs, but there are no specific pre-built incident response playbooks publicly available.'
+    reference: "https://zapier.com/apps/xero/integrations"
+  documentation_links:
+  - "https://developer.xero.com/documentation/oauth2/auth-flow#revoke"
+  - "https://developer.xero.com/documentation/api/users"
+  - "https://developer.xero.com/documentation/guides/oauth2/connections#disconnecting"
+  - "https://productideas.xero.com/forums/913999-user-roles-permissions/suggestions/37452664-ability-to-suspend-users"
+  - "https://www.pagerduty.com/customers/xero/"
+  - "https://developer.xero.com/documentation/guides/oauth2/error-handling/"

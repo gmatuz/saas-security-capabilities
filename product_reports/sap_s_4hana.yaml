@@ -1,0 +1,238 @@
+user_management:
+  sso_support:
+    value:
+      SAP S/4HANA supports multiple Single Sign-On (SSO) mechanisms. For web-based
+      applications like SAP Fiori, it supports SAML 2.0, OAuth 2.0, Kerberos/SPNEGO,
+      and X.509 certificates. For SAP GUI access, it uses Secure Network Communications
+      (SNC). [1, 7] SAP's Identity Authentication Service (IAS) often acts as a central
+      identity provider or as a proxy to corporate identity providers like Microsoft
+      Entra ID (Azure AD), enabling SSO across SAP and non-SAP applications. [24,
+      37]
+    reference: https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/e30de622a38045639637748124569933/d78334571e4945c1b57b966e632b4b9b.html
+  sso_licensing_level_requirement:
+    value:
+      While the core functionality for SSO is part of the SAP NetWeaver stack (the
+      foundation of S/4HANA), integrating with specific identity providers like Microsoft
+      Entra ID may require premium licenses on the IdP side (e.g., Azure Active Directory
+      Premium). [28] There is no specific S/4HANA license mentioned as a requirement
+      for SSO itself, but the overall landscape, such as using SAP Identity Authentication
+      Service, would be subject to its own licensing or be included in a bundle. [24]
+    reference: https://absoft.co.uk/insights/single-sign-on-with-azure-ad-and-sap/
+  scim_support:
+    value: yes
+    reference: https://help.sap.com/docs/identity-provisioning/identity-provisioning/sap-s-4hana-cloud
+  scim_licensing_level_requirement:
+    value:
+      SCIM functionality is provided through the SAP Identity Provisioning Service
+      (IPS), which is part of SAP Business Technology Platform (BTP). [5, 18] Access
+      to IPS and its connectors is typically included in bundles with other SAP Cloud
+      products like S/4HANA Cloud or available as a separate subscription on SAP BTP.
+      [3, 40]
+    reference: https://www.pwc.ch/en/insights/consulting/sap-s4-transformation-identity-management-from-the-cloud.html
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://community.sap.com/t5/technology-blogs-by-members/sac-user-management-with-the-rest-api-python/ba-p/13509720
+  scim_authentication_acquisition_steps: 'In SAP S/4HANA Cloud, the communication for
+    SCIM is typically set up via a Communication Arrangement (like SAP_COM_0093 or
+    SAP_COM_0193) which generates a technical communication user and credentials (like
+    a password or certificate) for the integration. For on-premise, integration with
+    SAP Identity Provisioning Service involves setting up a connector in IPS and providing
+    the necessary connection details, including the credentials of a technical user
+    in the S/4HANA system with the required permissions. The authentication from the
+    provisioning tool (e.g., Azure AD) to the SAP Identity Provisioning Service uses
+    OAuth 2.0 Client Credentials. [22, 42]'
+  user_management_api_support:
+    value: yes
+    reference: https://api.sap.com/api/MANAGEBUSINESSUSERIN/overview
+  user_management_api_licensing_level:
+    value:
+      Access to APIs in S/4HANA is generally tied to the user's license type and authorizations,
+      not a separate API-specific license. [13] However, usage of the SAP Business
+      Technology Platform (BTP) for building applications that consume these APIs
+      would have its own licensing costs. [4]
+    reference: https://www.soa-people.com/blog/sap-s-4hana-on-premise-licensing-explained/
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://help.sap.com/docs/sap-s-4hana-cloud/it-setup-guide/setting-up-product-structure-template-management-35q
+  user_management_api_authentication_acquisition_steps: '1. Log into your SAP S/4HANA
+    system.
+
+    2. To enable OAuth 2.0 for API access, you need to configure an OAuth 2.0 client.
+    This is done via the `OA2C_CONFIG` transaction. [17]
+
+    3. In `OA2C_CONFIG`, you create a new client configuration. You will need to define
+    a client profile and provide the OAuth 2.0 Client ID obtained from the service
+    you are integrating with. [8, 17]
+
+    4. You will also need to provide the Client Secret and the Authorization and Token
+    endpoints from the OAuth provider. [8]
+
+    5. The process typically involves creating a service key in the SAP BTP subaccount
+    where the service is hosted, which contains the `clientid`, `clientsecret`, and
+    `url` (for the token endpoint). [26]
+
+    6. Once the OAuth 2.0 client is configured and saved, the system can use this
+    configuration to obtain an access token to call the API on behalf of the user
+    or system. [9]'
+  seat_costs:
+  - license_level: Professional / Advanced User
+    active:
+      value: 'yes'
+      reference: https://www.soterion.com/sap-licensing-the-impact-of-named-users-and-the-new-measurement-approach/
+    suspended_disabled:
+      value: uncertain
+      reference: ''
+    archived:
+      value: uncertain
+      reference: ''
+  - license_level: Functional / Core User
+    active:
+      value: 'yes'
+      reference: https://www.soterion.com/sap-licensing-the-impact-of-named-users-and-the-new-measurement-approach/
+    suspended_disabled:
+      value: uncertain
+      reference: ''
+    archived:
+      value: uncertain
+      reference: ''
+  - license_level: Productivity / Employee / Self-Service User
+    active:
+      value: 'yes'
+      reference: https://www.soterion.com/sap-licensing-the-impact-of-named-users-and-the-new-measurement-approach/
+    suspended_disabled:
+      value: uncertain
+      reference: ''
+    archived:
+      value: uncertain
+      reference: ''
+  - license_level: Developer User
+    active:
+      value: 'yes'
+      reference: https://news.sap.com/2024/11/licensing-user-types-in-sap-s-4hana/
+    suspended_disabled:
+      value: uncertain
+      reference: ''
+    archived:
+      value: uncertain
+      reference: ''
+  lifecycle_options:
+  - Create
+  - Update (Enable/Disable)
+  - Delete
+  rbac_support:
+    value: 'yes'
+    reference: https://www.deloitte.com/de/de/pages/risk/articles/iam-in-sap-s4-hana.html
+  rbac_api_assignment:
+    value:
+      Yes, role assignments can be managed via API. The SAP Cloud Identity Access
+      Governance (IAG) provides services for role design and access requests which
+      can be automated. [31, 46] For direct assignments in S/4HANA Cloud, the `MANAGEBUSINESSUSERIN`
+      SOAP API allows for the assignment of business roles to a business user. [35]
+      In the SAP BTP environment, there is also an Authorization Management API that
+      can manage role assignments to users. [4]
+    reference: https://me.sap.com/notes/2830982
+  documentation_links:
+  - https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/e30de622a38045639637748124569933/d78334571e4945c1b57b966e632b4b9b.html
+  - https://help.sap.com/docs/identity-provisioning
+  - https://api.sap.com/api/MANAGEBUSINESSUSERIN/overview
+  - https://community.sap.com/t5/technology-blogs-by-sap/single-sign-on-configuration-for-s-4hana-2021-with-azure-active-directory/ba-p/13568770
+  - https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/sap-s4hana-cloud-provisioning-tutorial
+  - https://www.sailpoint.com/identity-library/sap-s4hana-cloud/
+  - https://help.sap.com/docs/SAP_S4HANA_CLOUD/f544846954f24b9183eddadcc41bdc3b/1618a5247963450e8924b22c2a7dda8e.html
+  - https://community.sap.com/t5/security-blogs-by-sap/sap-cloud-identity-access-governance-and-sap-s-4hana-integration/ba-p/13569766
+  - https://wiki.scn.sap.com/wiki/display/Security/OAuth+2.0+-+Integrating+access+protected+web+services+using+the+OAuth+2.0+Client
+  - https://help.sap.com/docs/identity-authentication/identity-authentication/identity-authentication-configuration-for-sap-s-4hana
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "The Security Audit Log (SAL) records security-relevant system information, including successful and unsuccessful user logins. These events can be accessed via the 'Read Audit Logs' API or viewed in the Security Audit Log app."
+      reference: "https://help.sap.com/docs/SAP_S4HANA_CLOUD/210b6f1a3a6243989c8a40ab65352656/321858a741c944178ea437150a575a43.html"
+    role_assignment:
+      value: "Changes to user authorizations and role assignments are tracked within the Security Audit Log."
+      reference: "https://help.sap.com/docs/SAP_S4HANA_CLOUD/210b6f1a3a6243989c8a40ab65352656/321858a741c944178ea437150a575a43.html"
+    api_call:
+      value: "The Audit Log Service provides an Audit Log Retrieval API that can be used to download audit data, which can include API calls and other security events."
+      reference: "https://discovery-center.cloud.sap/serviceCatalog/audit-log-service?region=all"
+    data_export:
+      value: "The Security Audit Log can record events related to data access and potential exfiltration, such as multiple file downloads. Specific data export events are often defined in threat detection patterns within SAP Enterprise Threat Detection."
+      reference: "https://community.sap.com/t5/technology-blog-posts/microsoft-sentinel-solution-for-sap-applications-overview/ba-p/13600508"
+    configuration_change:
+      value: "Changes to system configuration are recorded in the audit logs. The Audit Log Retrieval API allows for filtering and retrieving these configuration change events."
+      reference: "https://www.youtube.com/watch?v=sU14ehw0b-M"
+    user_account_creation:
+      value: "User account creation and changes to user master records are logged in the Security Audit Log."
+      reference: "https://blogs.sap.com/2021/11/02/how-to-get-the-most-out-of-using-the-security-audit-log-from-configuration-to-monitoring/"
+    security_policy_change:
+      value: "Changes to security policies, such as modifications to the audit configuration itself, are logged events within the Security Audit Log."
+      reference: "https://community.sap.com/t5/technology-blog-posts/understanding-sap-audit-logs-for-security-and-compliance/ba-p/13670986"
+  event_logs_licensing_level:
+    value: "The ability to view and retrieve audit logs is a core function. Advanced features, such as configuring the retention period beyond the default 90 days or logging events from custom applications, require the premium edition service plan for the Audit Log Service."
+    reference: "https://discovery-center.cloud.sap/serviceCatalog/audit-log-service"
+  monitoring_products:
+  - value: "Microsoft Sentinel"
+    reference: "https://learn.microsoft.com/en-us/azure/sentinel/sap/deployment-overview"
+  - value: "SAP Enterprise Threat Detection (ETD)"
+    reference: "https://www.sap.com/products/security/enterprise-threat-detection.html"
+  - value: "Splunk"
+    reference: "https://securiment.com/how-to-integrate-sap-with-microsoft-sentinel-siem-for-security-monitoring/"
+  - value: "IBM QRadar"
+    reference: "https://www.ibm.com/docs/en/qradar-common?topic=dsm-sap-enterprise-threat-detection-alert-api-log-source-parameters"
+  - value: "SecurityBridge"
+    reference: "https://securitybridge.com/news/grow-with-sap-and-securitybridge/"
+  - value: "PowerConnect for SAP"
+    reference: "https://docs.powerconnect.io/powerconnect-cloud/inputs/s4-hana-public-audit/"
+  - value: "Onapsis"
+    reference: "https://onapsis.com/sap-cloud-security"
+  ingestion_methods:
+  - value: "Audit Log Retrieval API: A REST-based API for pulling audit logs from SAP S/4HANA Cloud. This is a primary method for SIEM integration."
+    reference: "https://help.sap.com/docs/SAP_S4HANA_CLOUD/210b6f1a3a6243989c8a40ab65352656/321858a741c944178ea437150a575a43.html"
+  - value: "Microsoft Sentinel Connector: An agentless connector that uses SAP Cloud Connector and SAP Integration Suite to pull logs. There is also a containerized agent option."
+    reference: "https://learn.microsoft.com/en-us/azure/sentinel/sap/deployment-overview"
+  - value: "SAP LogServ for RISE customers: A service for RISE with SAP customers that centralizes logs and can forward them to Microsoft Sentinel."
+    reference: "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/sap-cx.sap_logserv_s4_hana_cloud_private_edition?tab=Overview"
+  log_export_options:
+    tools_connectors:
+      value: "Integrations are available for major SIEMs like Microsoft Sentinel, Splunk, and IBM QRadar. These typically use the Audit Log Retrieval API or specialized connectors like the one for Sentinel."
+      reference: "https://www.sapsa.se/wp-content/uploads/2018/11/SAP-Enterprise-Threat-Detection-SIEM-integration.pdf"
+  documentation_links:
+  - "https://help.sap.com/docs/SAP_S4HANA_CLOUD/210b6f1a3a6243989c8a40ab65352656/321858a741c944178ea437150a575a43.html"
+  - "https://api.sap.com/api/AUDIT_LOG_VIEWER_V2/overview"
+  - "https://learn.microsoft.com/en-us/azure/sentinel/sap/deployment-overview"
+  - "https://www.sap.com/products/security/enterprise-threat-detection.html"
+  - "https://community.sap.com/t5/technology-blog-posts/sap-logserv-integration-with-microsoft-sentinel-for-s-4hana-cloud-private/ba-p/13645393"
+  - "https://blogs.sap.com/2019/07/22/why-you-need-to-use-logs-to-secure-your-sap-s4hana-system/"
+  - "https://discovery-center.cloud.sap/serviceCatalog/audit-log-service?region=all"
+incident_response:
+  suspend_user_management_api:
+    value: "The Business User (A2X) SOAP API can be used to manage users. It includes a 'LockedIndicator' field which can be set to true to lock a user's account, effectively suspending them."
+    reference: "https://api.sap.com/api/API_BUSINESS_USER_SRV/overview"
+  invalidate_sessions_api:
+    value: "In SAP S/4HANA Cloud, the 'Maintain User Sessions' Fiori app can be used to view and manually delete active user sessions, similar to the on-premise SM04 transaction. There is no explicit API for remote session invalidation, but locking the user via the Business User API would prevent re-authentication."
+    reference: "https://answers.sap.com/questions/13936932/how-to-terminate-user-session-in-sap-s4hana-cloud.html"
+  revoke_api_key_api:
+    value: "API access is typically managed through Communication Arrangements and Communication Users. Deactivating or deleting the Communication Arrangement or locking the associated Communication User would revoke access for that integration."
+    reference: "https://community.sap.com/t5/enterprise-resource-planning-q-a/api-for-business-user-creation/qaq-p/12148498"
+  user_toggle_api:
+    value: "The Business User (A2X) SOAP API supports updating user accounts, including setting the 'LockedIndicator' to true (disable) or false (enable)."
+    reference: "https://api.sap.com/api/API_BUSINESS_USER_SRV/overview"
+  user_status_api:
+    value: "The Business User (A2X) SOAP API can be used to read the current status of a user, including whether the account is locked ('LockedIndicator')."
+    reference: "https://api.sap.com/api/API_BUSINESS_USER_SRV/overview"
+  session_timeout_configuration:
+    value: "Session timeout is configured in two places: within the Fiori Launchpad settings ('Manage Launchpad Settings' app) and in the associated Identity Authentication tenant. The default is 12 hours."
+    reference: "https://help.sap.com/docs/SAP_S4HANA_CLOUD/4b11337b425341899144413a826477de/aaad6834515142149ee7f516d7a6f272.html"
+  known_automation_tools:
+  - value: "Microsoft Sentinel SOAR Playbooks: Can be configured to automate response actions for SAP threats, such as blocking a user in Azure AD which can then sync to S/4HANA."
+    reference: "https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-solution-security-content"
+  - value: "SAP Automation Pilot: Can be integrated with the SAP Alert Notification Service to trigger automated remediation workflows based on security alerts."
+    reference: "https://www.linkedin.com/pulse/security-logging-alerting-sap-btp-ernst-gregor-sutti-g7u3f"
+  - value: "Oracle Access Governance: This tool integrates with S/4HANA via SOAP APIs to perform remediation tasks like locking accounts based on detected policy violations."
+    reference: "https://docs.oracle.com/en/cloud/security/access-governance/cagsa/index.html#A24794218-D7CA-468B-B03C-BE9E9B308A59"
+  documentation_links:
+  - "https://api.sap.com/api/API_BUSINESS_USER_SRV/overview"
+  - "https://help.sap.com/docs/SAP_S4HANA_CLOUD/4b11337b425341899144413a826477de/aaad6834515142149ee7f516d7a6f272.html"
+  - "https://answers.sap.com/questions/13936932/how-to-terminate-user-session-in-sap-s4hana-cloud.html"
+  - "https://help.sap.com/docs/btp/sap-business-technology-platform/what-is-audit-logging-in-cloud-foundry-environment"
+  - "https://community.sap.com/t5/technology-blog-posts/user-management-using-api-in-s4-cloud-system/ba-p/13554593"
+  - "https://help.sap.com/docs/SAP_CLOUD_IDENTITY/6d6d63354d1242d185ab4830fc04feb1/5ca23e4d96a24683a4185207122822a3.html"
+  - "https://help.sap.com/docs/sap-s-4hana-cloud/identity-and-access-management/locking-and-unlocking-business-users"

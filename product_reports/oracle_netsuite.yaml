@@ -1,0 +1,193 @@
+user_management:
+  sso_support:
+    value: "NetSuite supports SAML 2.0 for Single Sign-On, allowing users to authenticate
+      via a third-party Identity Provider (IdP) like Okta, Microsoft Entra ID, or
+      CyberArk."
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4071982924.html
+  sso_licensing_level_requirement:
+    value: The SAML Single Sign-on feature must be enabled by an administrator. There
+      is no explicit mention of a specific license tier being required; it appears
+      to be a feature that can be enabled in the account.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4071982924.html#bridgehead_1494499878
+  scim_support:
+    value: uncertain
+    reference: https://community.oracle.com/netsuite/discussion/4493399/when-will-netsuite-support-scim-via-azure-active-directory
+  scim_licensing_level_requirement:
+    value: Not found.
+    reference: https://community.oracle.com/netsuite/discussion/4493399/when-will-netsuite-support-scim-via-azure-active-directory
+  scim_authentication_mechanisms:
+    value: n/a
+    reference: ''
+  scim_authentication_acquisition_steps: Not applicable as native SCIM support is uncertain.
+    Community discussions suggest that a previously available SCIM API was deprecated
+    or is broken, particularly for integrations like Azure AD. [33] While some IdP
+    documentation mentions SCIM, it often requires a custom connector and may not
+e supported out-of-the-box.
+    [43]
+  user_management_api_support:
+    value: 'yes'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_1540392965.html
+  user_management_api_licensing_level:
+    value: Access to the SuiteTalk APIs (SOAP and REST) and SuiteScript is generally
+      included with a NetSuite account, but requires enabling specific features and
+      configuring permissions. There is no specific license tier mentioned for API
+      access itself.
+    reference: https://www.netsuite.com/portal/developers/suitetalk.shtml
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1542142718.html
+  user_management_api_authentication_acquisition_steps: 'NetSuite uses a method called
+    Token-Based Authentication (TBA), which is an implementation of OAuth 1.0a. Here
+    are the steps to acquire the necessary credentials:
+
+    1.  **Enable Features:** An administrator must go to `Setup > Company > Enable
+    Features` and on the `SuiteCloud` subtab, enable `TOKEN-BASED AUTHENTICATION`,
+    `REST WEB SERVICES`, and any other necessary SuiteTalk or SuiteScript features.
+    [11, 17]
+
+    2.  **Create an Integration Record:** Navigate to `Setup > Integration > Manage
+    Integrations > New`. Provide a name, ensure `Token-Based Authentication` is checked,
+    and save. NetSuite will generate a **Consumer Key** and **Consumer Secret**.
+    Save these immediately as they will not be shown again. [16, 17]
+
+    3.  **Create a Dedicated Role:** Go to `Setup > Users/Roles > Manage Roles >
+    New`. Create a new role for the integration. On the `Permissions` subtab, under
+    `Setup`, add `REST Web Services`, `Log in using Access Tokens`, and `User Access
+    Tokens`. Add other necessary permissions for the records the integration needs
+    to access (e.g., Employees, Customers). [17, 18]
+
+    4.  **Assign the Role to a User:** Assign the newly created role to a specific
+    user (often a dedicated integration user). This can be done on the Employee record''s
+    `Access` subtab. [7, 15]
+
+    5.  **Create an Access Token:** Navigate to `Setup > Users/Roles > Access Tokens
+    > New`. Select the Integration Record, the User, and the Role you created in
+    the previous steps. Give the token a name and save. NetSuite will generate a **Token
+    ID** and **Token Secret**. Save these immediately. [6, 16]
+
+    These four values (Consumer Key, Consumer Secret, Token ID, Token Secret) are
+    used to sign API requests. [6]'
+  seat_costs:
+  - license_level: Full User License
+    active:
+      value: 'yes'
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N252643.html
+    suspended_disabled:
+      value: 'no'
+      reference: https://www.reddit.com/r/Netsuite/comments/xiz51b/replacing_a_user/
+    archived:
+      value: 'no'
+      reference: https://www.reddit.com/r/Netsuite/comments/xiz51b/replacing_a_user/
+  lifecycle_options:
+  - Create
+  - Update
+  - Inactivate
+  rbac_support:
+    value: 'yes'
+    reference: https://www.netsuite.com/portal/resource/articles/erp/role-based-access-control.shtml
+  rbac_api_assignment:
+    value: Yes, role assignments can be managed via the SuiteTalk API (SOAP and REST)
+      by updating the `role` sublist on the `employee` record.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N253846.html#bridgehead_N253928
+  documentation_links:
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4071982924.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_1540392965.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1542142718.html
+  - https://www.netsuite.com/portal/developers/suitetalk.shtml
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N253846.html
+  - https://medium.com/@eric.popivker/how-to-use-netsuite-rest-api-with-tba-oauth-1-and-c-net-a442a8b38a7c
+  - https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/CoreServices/Apps/App-NetSuite.htm
+  - https://community.oracle.com/netsuite/discussion/4493399/when-will-netsuite-support-scim-via-azure-active-directory
+  - https://www.reddit.com/r/Netsuite/comments/xiz51b/replacing_a_user/
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N252643.html
+
+security_monitoring:
+  event_logs:
+    user_login:
+      value: 'The Login Audit Trail provides a searchable record of all user login attempts, including successful and failed attempts, timestamp, user, role, and source IP address. It can be accessed via the UI at Setup > Users/Roles > User Management > View Login Audit Trail.'
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4382575210.html"
+    role_assignment:
+      value: 'Changes to user roles and permissions are tracked within System Notes. A saved search on Employee records can be configured to show system notes related to the "Role" field to track assignments and changes.'
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_N347703.html"
+    api_call:
+      value: 'The SOAP Web Services Usage Log tracks all incoming SOAP API requests and responses. It includes details on the action, record type, user, and status (success/failure). It is available to administrators at Setup > Integration > SOAP Web Services Usage Log.'
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3426274.html"
+    data_export:
+      value: 'The Analytics Audit Trail shows changes to saved searches and reports, which are the primary native tools for exporting data. For bulk data exports via SuiteAnalytics Connect, monitoring would occur on the connected data warehouse or SIEM side. Exports via CSV are manual actions and changes to the underlying saved search are logged.'
+      reference: "https://www.netwrix.com/blog/six_ways_to_track_activity_in_netsuite.html"
+    configuration_change:
+      value: 'System Notes provide a comprehensive audit trail for changes to records, custom fields, forms, workflows, and other configuration settings. The context, user, role, date, and old/new values are recorded.'
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_N347703.html#bridgehead_N347721"
+    user_account_creation:
+      value: 'Creation of an Employee record is logged in System Notes. The "Give Access" action, which turns an employee into a user, is also tracked in the System Notes for that Employee record.'
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N894951.html"
+    security_policy_change:
+      value: 'Changes to security policies, such as password policy modifications on the General Preferences page, are logged under the "System Note" for the "Company" record or related configuration records.'
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N244833.html"
+  event_logs_licensing_level:
+    value: 'Standard audit logs like System Notes and Login Audit Trail are available in all NetSuite licenses. However, to export this data in bulk for external monitoring (e.g., to a SIEM), the "SuiteAnalytics Connect" add-on module is required, which has an additional monthly cost.'
+    reference: "https://www.reddit.com/r/Netsuite/comments/gd2cej/get_netsuite_logs_into_siem/"
+  monitoring_products:
+    - value: "Datadog: An integration is available on the Datadog Marketplace provided by Continuous AI to monitor NetSuite system, audit, and script logs."
+      reference: "https://www.datadoghq.com/blog/monitor-netsuite-performance-with-continuous-ai/"
+    - value: "Splunk: Data can be ingested via the SuiteAnalytics Connect module's ODBC/JDBC drivers. The Splunk DB Connect app is typically used to facilitate this."
+      reference: "https://splunkbase.splunk.com/app/2686"
+    - value: "Microsoft Sentinel: Ingestion is supported through the SuiteAnalytics Connect module, typically by using a custom connector or log forwarder that can query the ODBC/JDBC source."
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_3996274388.html"
+    - value: "Celigo: An iPaaS platform that offers prebuilt integration templates for connecting NetSuite to various applications, which can include logging and monitoring systems."
+      reference: "https://www.celigo.com/integrations/oracle-netsuite/"
+    - value: "Netwrix Strongpoint: A third-party tool that enhances NetSuite's native change tracking and provides more detailed and structured change logs than standard System Notes."
+      reference: "https://www.netwrix.com/blog/six_ways_to_track_activity_in_netsuite.html"
+  ingestion_methods:
+    - value: "SuiteAnalytics Connect: Provides read-only ODBC, JDBC, and ADO.NET access to NetSuite data, including audit trail and system note tables, allowing SIEM tools to pull data directly. This is the primary method for bulk log ingestion."
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4563338221.html"
+    - value: "SuiteTalk API (REST/SOAP): Can be used to programmatically query and extract specific log data (e.g., from Saved Searches of audit logs), but is subject to API governance limits and is less efficient for bulk export than SuiteAnalytics Connect."
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/preface_3710624003.html"
+    - value: "Manual Export: Users with appropriate permissions can run Saved Searches on audit logs within the UI and manually export the results as CSV files."
+      reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N676039.html"
+  log_export_options:
+    tools_connectors:
+      value: 'Tactical Connect for NetSuite Export: A SuiteApp that automates the export of Saved Search data (including log data) as CSV files to destinations like Amazon S3, Azure Blob, and SharePoint.'
+      reference: "https://www.suiteapp.com/Tactical-Connect-for-NetSuite-Export"
+  documentation_links:
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_N347703.html"
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4382575210.html"
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4563338221.html"
+    - "https://www.netwrix.com/blog/creating-a-netsuite-audit-log"
+    - "https://www.stratusgreen.com/blog/complete-guide-to-netsuite-pci-compliance-data-security"
+    - "https://www.datadoghq.com/blog/monitor-netsuite-performance-with-continuous-ai/"
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3426274.html"
+incident_response:
+  suspend_user_management_api:
+    value: 'User access is suspended programmatically by sending a PATCH request to the `/record/v1/employee/{id}` endpoint of the REST API and setting the "giveAccess" field to "false". This prevents the user from logging in.'
+    reference: "https://www.reddit.com/r/Netsuite/comments/wkq1wo/api_create_employee_help/"
+  invalidate_sessions_api:
+    value: 'There is no direct API to programmatically invalidate a specific user''s active UI session. The SOAP web services `logout` operation is deprecated. Session control is primarily managed via configurable idle and absolute timeouts in the UI.'
+    reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3435882.html"
+  revoke_api_key_api:
+    value: 'There is no documented API endpoint to programmatically revoke an access token. Revocation is a manual process performed by an administrator in the NetSuite UI by navigating to Setup > Users/Roles > Access Tokens, selecting the token, and clicking "Revoke". Revoked tokens are kept for auditing purposes.'
+    reference: "https://stackoverflow.com/questions/33423730/how-to-delete-oauth-access-token-in-netsuite"
+  user_toggle_api:
+    value: 'A user account can be disabled by sending a PATCH request to the `/record/v1/employee/{id}` endpoint and setting the "isInactive" field to "true". To re-enable, set it to "false". This is distinct from removing login access.'
+    reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_164260337803.html"
+  user_status_api:
+    value: 'User status can be checked by sending a GET request to the `/record/v1/employee/{id}` endpoint of the REST API. The response body will contain the boolean fields "giveAccess" and "isInactive" indicating the user''s login and overall status.'
+    reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_164260337803.html"
+  session_timeout_configuration:
+    value: 'Administrators can configure idle and absolute session timeouts. The Idle Session Timeout can be set from 15 to 720 minutes at Setup > Company > General Preferences. The absolute UI session timeout is 12 hours.'
+    reference: "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N249392.html"
+  known_automation_tools:
+    - value: "Palo Alto Cortex XSOAR: Can be used to orchestrate response actions by making HTTP requests to NetSuite's REST/SOAP APIs to update employee records (e.g., set giveAccess to false), as part of an automation playbook."
+      reference: "https://cortex.marketplace.pan.dev/marketplace/"
+    - value: "Splunk SOAR: Can automate response workflows by calling NetSuite APIs. A playbook can be configured to take actions like disabling a user by updating the relevant employee record via an API call."
+      reference: "https://www.splunk.com/en_us/products/splunk-soar.html"
+    - value: "Blink: An automation platform that lists Oracle NetSuite as a supported integration, allowing for the creation of automated workflows that can interact with NetSuite APIs."
+      reference: "https://www.blink.ops.io/integrations"
+  documentation_links:
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/preface_3710624003.html"
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N894951.html"
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N249392.html"
+    - "https://stackoverflow.com/questions/33423730/how-to-delete-oauth-access-token-in-netsuite"
+    - "https://www.reddit.com/r/Netsuite/comments/wfxu28/user_management_api/"
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4581223926.html"
+    - "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3435882.html"
