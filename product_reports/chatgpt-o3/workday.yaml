@@ -1,0 +1,156 @@
+user_management:
+  sso_support:
+    value: "Yes. Workday supports SAML 2.0 for single sign-on, including both IdP-initiated and SP-initiated flows, plus optional Single Logout and forced re-authentication."
+    reference: "https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Workday.html"
+  sso_license_level_requirement:
+    value: "Workday requires an SSO-enabled subscription to use single sign-on (SSO must be enabled for the tenant)."
+    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/workday-tutorial"
+  scim_support:
+    value: "no"
+    reference: "https://apidocs.workdayspend.com/services/scim/v2.html"
+  scim_licensing_level_requirement:
+    value: "Not applicable – Workday HCM does not expose a SCIM 2.0 API; only the separate Workday Strategic Sourcing module offers one."
+    reference: "https://apidocs.workdayspend.com/services/scim/v2.html"
+  scim_authentication_mechanisms:
+    value: "Basic Authentication"
+    reference: "https://apidocs.workdayspend.com/services/scim/v2.html"
+  scim_authentication_acquisition_steps: >
+    Not applicable for core Workday HCM.  
+    *Workday Strategic Sourcing’s SCIM 2.0 API uses HTTP Basic auth (user email + token) with an X-Api-Key header.*
+  user_management_api_support:
+    value: "yes"
+    reference: "https://www.workday.com/en-us/products/platform-product-extensions/integrations.html"
+  user_management_api_licensing_level:
+    value: "All Workday subscriptions include access to Workday Integration Cloud APIs at no additional cost."
+    reference: "https://forms.workday.com/content/dam/web/en-us/documents/datasheets/datasheet-workday-cloud-connect-platform.pdf"
+  user_management_api_authentication_mechanisms:
+    value: "Basic authentication (Integration System User) or OAuth 2.0 bearer token"
+    reference: "https://support.freshservice.com/support/solutions/articles/50000009624-how-to-authenticate-and-connect-workday-app-with-freshservice"
+  user_management_api_authentication_acquisition_steps: >
+    **Basic Auth (ISU):** Create an Integration System User, assign it to a security group, then use its username/password for API calls.  
+    **OAuth 2.0:** Use the *Register API Client* task, choose scopes, allow non-expiring refresh tokens, and exchange the refresh token at Workday’s token endpoint for an access token.
+    reference: "https://learn.microsoft.com/en-us/viva/learning/workday-generate-connection-parameters"
+  seat_costs:
+    - license_level: "Workday HCM (enterprise subscription)"
+      active:
+        value: "yes"
+        reference: "https://www.reddit.com/r/workday/comments/1jouwib/workday_price_per_employee_per_month_pepm/"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://www.reddit.com/r/workday/comments/1jouwib/workday_price_per_employee_per_month_pepm/"
+      archived:
+        value: "no"
+        reference: "https://www.reddit.com/r/workday/comments/1jouwib/workday_price_per_employee_per_month_pepm/"
+  lifecycle_options:
+    - "Pre-hire (record created before official start; limited access)"
+    - "Active (currently employed with an active Workday account)"
+    - "Disabled (account access turned off; Active flag cleared)"
+    - "Terminated (employment ended; account deactivated)"
+    - "Rehire (previously terminated worker rehired; account re-activated)"
+  rbac_support:
+    value: "yes"
+    reference: "https://www.reco.ai/hub/configuring-workday-security-role-based-permissions"
+  rbac_api_assignment:
+    value: "Workday’s Identity Management web-service includes operations to assign users to security groups (e.g., *Assign Users to User-Based Security Group*)."
+    reference: "https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html"
+  documentation_links:
+    - "https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Workday.html"
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/workday-tutorial"
+    - "https://apidocs.workdayspend.com/services/scim/v2.html"
+    - "https://forms.workday.com/content/dam/web/en-us/documents/datasheets/datasheet-workday-cloud-connect-platform.pdf"
+    - "https://support.freshservice.com/support/solutions/articles/50000009624-how-to-authenticate-and-connect-workday-app-with-freshservice"
+    - "https://learn.microsoft.com/en-us/viva/learning/workday-generate-connection-parameters"
+    - "https://www.workday.com/en-us/products/platform-product-extensions/integrations.html"
+    - "https://www.reco.ai/hub/configuring-workday-security-role-based-permissions"
+    - "https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html"
+    - "https://www.reddit.com/r/workday/comments/1jouwib/workday_price_per_employee_per_month_pepm/"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "All user sign-on attempts (successful and failed) are recorded in Workday’s Signons and Attempted Signons logs (accessible via the standard Sign-On History report)."
+      reference: "https://www1.workday.com/content/dam/web/se/documents/datasheets/datasheet-workday-security-se.pdf"
+    role_assignment:
+      value: "Workday provides a **Security History for Users Audit** report (introduced in 2025R1) that tracks changes in security group membership, i.e. role assignments granted or revoked for users."
+      reference: "https://www.pwc.com/us/en/technology/alliances/library/workday-security-history.html"
+    api_call:
+      value: "API calls to Workday are captured in the user activity logs. (For example, in the User Activity report, events with task names containing 'api/' denote API requests made by integrations or users.)"
+      reference: "https://docs.datadoghq.com/integrations/workday/"
+    data_export:
+      value: "User-driven data exports (such as running or exporting a report) are logged as **READ** actions in Workday’s activity logs, with details like the report name, time, and user recorded."
+      reference: "https://www.workday.com/en-us/products/financial-management/audit-internal-controls.html"
+    configuration_change:
+      value: "Changes to system configuration (e.g. business process policy changes) are captured in Workday’s audit trail. (Workday delivers reports like **“Business Process Security Policies Changed within Time Range”** to review recent configuration changes.)"
+      reference: "https://blog.invisors.com/blog/a-tactical-guide-to-workday-security"
+    user_account_creation:
+      value: "Creation of new user accounts (for example, when hiring a worker or creating an integration user) is logged with an audit entry showing who created the account and when it was created."
+      reference: "https://www.workday.com/en-us/products/financial-management/audit-internal-controls.html"
+    security_policy_change:
+      value: "Security policy changes (such as updates to domain security policies or other access rules) are audited. Administrators can use delivered reports like **“Domain Security Policies Change within Time Range”** to see recent security policy modifications."
+      reference: "https://blog.invisors.com/blog/a-tactical-guide-to-workday-security"
+  event_logs_licensing_level:
+    value: "Access to Workday’s sign-on and activity logs does not require a special license tier – these audit logs are a built-in feature available to all tenants. (Access is controlled by security permissions, e.g. Auditor role or Integration System user rights, rather than by subscription level.)"
+    reference: "https://www.workday.com/en-ca/applications/financial-management/audit-and-internal-controls.html"
+  monitoring_products:
+    - value: "Splunk (Workday Add-on for Splunk) – Official add-on that pulls Workday sign-on and user activity logs into Splunk for monitoring and alerting."
+      reference: "https://splunkbase.splunk.com/app/3783/"
+    - value: "Sumo Logic Workday Source – Cloud SIEM integration that retrieves Workday SignOn and Activity logs via Workday’s APIs for analysis in Sumo Logic."
+      reference: "https://help.sumologic.com/docs/integrations/saas-cloud/workday/"
+    - value: "Microsoft Sentinel Workday Connector – A solution in Azure Sentinel that ingests Workday User Activity Logs through Workday’s REST API (via a codeless connector)."
+      reference: "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azuresentinel.azure-sentinel-solution-workday"
+    - value: "Datadog Cloud SIEM Integration – Workday integration in Datadog that collects Workday user activity logging data for security monitoring and correlation."
+      reference: "https://docs.datadoghq.com/integrations/workday/"
+    - value: "Exabeam Workday Cloud Connector – SIEM connector to gather Workday audit events (e.g. sign-in and unauthorized sign-in events) directly from Workday into the Exabeam platform."
+      reference: "https://docs.exabeam.com/en/cloud-connectors/all/configuration/132470-workday-cloud-connector.html"
+  ingestion_methods:
+    - value: "REST API (Privacy API) – Workday’s REST endpoints (under the “privacy” API namespace) provide JSON-formatted User Activity log data. This requires an API client (OAuth2) and allows pulling logs by time range."
+      reference: "https://www.getknit.dev/blog/workday-api-integration-in-depth"
+    - value: "Reports-as-a-Service (RaaS) – Workday custom reports can be exposed via web service URLs (XML/JSON). For example, a custom Signon report can be published and fetched periodically using its RaaS URL to export login events."
+      reference: "https://learn.microsoft.com/en-us/viva/learning/workday-create-raas-report"
+    - value: "SOAP API (Workday Web Services) – Workday’s older SOAP-based APIs (e.g., Get_Workday_Account or other web service operations) can retrieve audit information. Some SIEM connectors use Workday’s SOAP web service to pull sign-on events and audit records."
+      reference: "https://stackoverflow.com/questions/27132244/workday-soap-api-how-to-authenticate"
+  log_export_options:
+    tools_connectors:
+      value: "Workday supports log exports through partner-built connectors and tools. For example, the **Workday Add-on for Splunk** and the **Sentinel Workday data connector** use Workday APIs to continuously export audit logs to those platforms for analysis."
+      reference: "https://splunkbase.splunk.com/app/3783/"
+  documentation_links:
+    - "https://help.sumologic.com/docs/integrations/saas-cloud/workday/"
+    - "https://classic.splunkbase.splunk.com/app/3783/"
+    - "https://docs.datadoghq.com/integrations/workday/"
+    - "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azuresentinel.azure-sentinel-solution-workday"
+    - "https://docs.cyderes.cloud/integrations/workday/"
+    - "https://cloud.google.com/chronicle/docs/ingestion/default-parsers/workday-hcm"
+    - "https://blog.invisors.com/blog/a-tactical-guide-to-workday-security"
+incident_response:
+  suspend_user_management_api:
+    value: "Administrators can suspend a user’s Workday account by disabling it. In practice, this is done via the **Manage Workday Accounts** admin function or corresponding API, which locks or unlocks a specific user account (toggling an “account disabled” flag)."
+    reference: "https://www.reddit.com/r/workday/comments/md0e57/is_there_a_setting_in_workday_to_suspend_a_users/"
+  invalidate_sessions_api:
+    value: "There is no dedicated API call to forcibly log out a user in Workday. Instead, admins rely on session-management configurations or disabling the user’s account to invalidate sessions. (Workday allows setting session-timeout policies to limit how long inactive sessions persist.)"
+    reference: "https://www.reco.ai/hub/effective-session-management-policies-workday"
+  revoke_api_key_api:
+    value: "Workday API access is typically via OAuth tokens or integration user credentials rather than API keys. To revoke API access, an admin can deactivate or delete the integration system user or invalidate its OAuth refresh token (using the **Manage Refresh Token for Integrations** task in Workday, which effectively revokes the token)."
+    reference: "https://learn.microsoft.com/en-us/viva/learning/workday-generate-connection-parameters"
+  user_toggle_api:
+    value: "Workday’s APIs support toggling a user account’s active status. For example, using an integration or SCIM API call to update a user’s Workday Account (enable or disable login) achieves the same effect as checking/unchecking “Account Disabled” in the UI."
+    reference: "https://apidocs.workdayspend.com/services/scim/v2.html"
+  user_status_api:
+    value: "The status of a user’s Workday account (active/disabled/locked) can be queried programmatically. For instance, Workday’s web services (or SCIM API in Workday Strategic Sourcing) allow retrieval of a user’s account details, including whether the account is locked or disabled, given the appropriate permissions."
+    reference: "https://apidocs.workdayspend.com/services/scim/v2.html"
+  session_timeout_configuration:
+    value: "Workday allows configuration of session-timeout settings. Administrators can set a default session timeout for all users via **Maintain Password Rules** (with a default like 15 minutes for certain accounts, e.g. PCI accounts) and can adjust individual user session-timeout in **Edit Workday Account** for specific users."
+    reference: "https://www.reco.ai/hub/effective-session-management-policies-workday"
+  known_automation_tools:
+    - value: "Rapid7 InsightConnect – Offers a Workday plugin to automate incident-response actions (e.g., disabling a Workday user account or reacting to suspicious events) through Workday’s API integration."
+      reference: "https://docs.rapid7.com/insightconnect/workday/"
+    - value: "Axonius Enforcement Center – Provides a pre-built enforcement action \"Workday - Suspend User\" which can automatically disable a Workday user account when triggered by a policy or query (using Workday’s account-update API under the hood)."
+      reference: "https://docs.axonius.com/enforcements/docs/suspend-workday-user"
+    - value: "BetterCloud Workday Integration – SaaS-management platform that listens for Workday HR events (such as user status changes to inactive) and triggers automated offboarding or security workflows (e.g., deprovisioning user access in connected apps)."
+      reference: "https://www.bettercloud.com/monitor/bettercloud-workday-integration/"
+    - value: "Workday Orchestration (Extend) – Workday’s own integration toolkit can be configured to automate responses; for example, Workday Studio or Orchestration templates (from Workday’s Marketplace) exist to auto-disable accounts for users on leave or other conditions (native automation within Workday)."
+      reference: "https://marketplace.workday.com/en-US/apps/414059/disable-workday-account-during-leave/overview"
+  documentation_links:
+    - "https://docs.rapid7.com/insightconnect/workday/"
+    - "https://docs.axonius.com/enforcements/docs/suspend-workday-user"
+    - "https://www.bettercloud.com/monitor/product-tip-bettercloud-and-workday/"
+    - "https://www.reco.ai/hub/effective-session-management-policies-workday"
+    - "https://www.reddit.com/r/workday/comments/md0e57/is_there_a_setting_in_workday_to_suspend_a_users/"

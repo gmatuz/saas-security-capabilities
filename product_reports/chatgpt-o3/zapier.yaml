@@ -1,0 +1,149 @@
+user_management:
+  sso_support:
+    value: "Yes – supports SAML 2.0-based SSO (Security Assertion Markup Language). Zapier allows both service-provider-initiated and identity-provider-initiated SAML login flows, and it supports Just-in-Time user provisioning and Single Logout (SLO) as part of the SSO setup."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML"
+  sso_license_level_requirement:
+    value: "Available on Zapier’s Team and Enterprise plans. (SAML SSO is included for Team accounts and all higher tiers; it is not offered on Free or Starter/Professional plans without an enterprise upgrade.)"
+    reference: "https://help.zapier.com/hc/en-us/articles/33678718215309-Team-plan-updates-SSO-is-now-included-and-new-user-limits"
+  scim_support:
+    value: "yes"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  scim_licensing_level_requirement:
+    value: "Enterprise plan (Zapier for Enterprise) is required for SCIM user provisioning. (SCIM is an enterprise-grade feature not included in lower tiers.)"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496213575053-Get-started-with-Zapier-s-Enterprise-plan"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  scim_authentication_acquisition_steps: "An account Owner or Admin must enable SCIM provisioning in the Zapier admin settings and generate a SCIM API token from the **Provisioning** tab. This token (a long secret string) is then provided to your identity provider or used in API calls as a Bearer token for authorization. If needed, the token can be regenerated in the same settings page (which invalidates the old token)."
+  user_management_api_support:
+    value: "no"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  user_management_api_licensing_level:
+    value: "n/a"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496213575053-Get-started-with-Zapier-s-Enterprise-plan"
+  user_management_api_authentication_mechanisms:
+    value: "n/a"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  user_management_api_authentication_acquisition_steps: "N/A – There is no proprietary Zapier user-management API. All automated user lifecycle management is done via SCIM (see SCIM authentication above) or manual admin actions in the interface."
+  seat_costs:
+    - license_level: "Team"
+      active:
+        value: "yes"
+        reference: "https://help.zapier.com/hc/en-us/articles/33678718215309-Team-plan-updates-SSO-is-now-included-and-new-user-limits"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.zapier.com/hc/en-us/articles/8496307504909-Manage-your-Zapier-for-Teams-account"
+      archived:
+        value: "n/a"
+        reference: "https://help.zapier.com/hc/en-us/articles/8496307504909-Manage-your-Zapier-for-Teams-account"
+    - license_level: "Enterprise"
+      active:
+        value: "yes"
+        reference: "https://help.zapier.com/hc/en-us/articles/8496291989645-Manage-your-Enterprise-account"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+      archived:
+        value: "n/a"
+        reference: "https://help.zapier.com/hc/en-us/articles/8496291989645-Manage-your-Enterprise-account"
+  lifecycle_options:
+    - "Active"
+    - "Invited (pending acceptance of invitation)"
+    - "Deactivated (suspended via SCIM provisioning, user inactive but can be reactivated)"
+    - "Removed (user account removed from the team/enterprise)"
+  rbac_support:
+    value: "yes"
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291989645-Manage-your-Enterprise-account"
+  rbac_api_assignment:
+    value: "The SCIM API covers group management (provisioning of Teams as groups and assignment of users to those teams) but does not assign user roles like Admin or Owner. Role changes (e.g. promoting a Member to Admin) must be performed in the Zapier admin UI; SCIM-provisioned users are created with member-level access by default."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  documentation_links:
+    - "https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML"
+    - "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+    - "https://help.zapier.com/hc/en-us/articles/8496291989645-Manage-your-Enterprise-account"
+    - "https://help.zapier.com/hc/en-us/articles/33678718215309-Team-plan-updates-SSO-is-now-included-and-new-user-limits"
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Not currently captured. Zapier’s Audit Log focuses on Zap‑level actions and app‑connection events, but it does **not** record individual authentication or sign‑in attempts."
+      reference: "https://help.zapier.com/hc/en-us/articles/13295074298125-Use-the-audit-log-to-review-your-account-activity"
+    role_assignment:
+      value: "Member add/remove, ownership transfer and workspace role changes are logged in the Audit Log (e.g., *App connection ownership transferred*, *Zap ownership changed*)."
+      reference: "https://help.zapier.com/hc/en-us/articles/13295074298125-Use-the-audit-log-to-review-your-account-activity"
+    api_call:
+      value: "Zap run (workflow execution) metadata is retrievable via the Enterprise GET /Zap‑runs endpoint, enabling SIEM ingestion of every Zap execution record."
+      reference: "https://zapier.com/blog/zapier-enterprise-business-plan/"
+    data_export:
+      value: "Zap History export (CSV) allows bulk export of up to 5,000 runs per request from the UI for external retention/analysis."
+      reference: "https://help.zapier.com/hc/en-us/articles/8496294549005-Export-your-Zap-history"
+    configuration_change:
+      value: "Create, publish, turn‑on/off, restore, delete, and version‑changes of Zaps are recorded in the Audit Log."
+      reference: "https://help.zapier.com/hc/en-us/articles/13295074298125-Use-the-audit-log-to-review-your-account-activity"
+    user_account_creation:
+      value: "SCIM /Users POST events (new account provisioned) are visible through identity‑provider (IdP) logs; Zapier reflects the change immediately in team membership exports."
+      reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+    security_policy_change:
+      value: "Changes such as enabling Single Sign‑On (SAML) or adjusting Restricted Actions are not yet surfaced as discrete events; administrators must rely on manual review."
+      reference: "https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML"
+  event_logs_licensing_level:
+    value: "Team plan ➜ 6 months retention • Enterprise plan ➜ 12 months retention (Audit Log & GET Zap‑run endpoint). Audit Log UI is unavailable on Free/Starter tiers."
+    reference: "https://help.zapier.com/hc/en-us/articles/14082162325133-Gain-visibility-with-the-account-wide-audit-log"
+  monitoring_products:
+    - value: "Zapier Enterprise “Observability” GET /Zap‑runs endpoint (direct SIEM pull)"
+      reference: "https://zapier.com/blog/zapier-enterprise-business-plan/"
+    - value: "Octoboard Zapier Real‑Time connector (dashboard analytics)"
+      reference: "https://www.octoboard.com/es/software-de-informe-de-medios-de-anal%C3%ADtica-de-marketing/informes-automatizados-de-zapier"
+    - value: "Custom Splunk/Datadog ingestion via Webhooks or HTTP Event Collector"
+      reference: "https://docs.zapier.com/powered-by-zapier/built-in-workflows/code-native/retrieving-a-list-of-zaps"
+  ingestion_methods:
+    - value: "CSV export of Audit Log or Zap History (manual or scheduled via headless browser tooling)."
+      reference: "https://help.zapier.com/hc/en-us/articles/8496294549005-Export-your-Zap-history"
+    - value: "REST API GET /zaps, GET /zap‑runs (OAuth 2) for programmatic pull."
+      reference: "https://docs.zapier.com/powered-by-zapier/built-in-workflows/code-native/retrieving-a-list-of-zaps"
+    - value: "Real‑time Webhook steps inside Zaps to mirror events to an external log forwarder."
+      reference: "https://help.zapier.com/hc/en-us/articles/12899607716493-Create-an-API-Request-action"
+  log_export_options:
+    tools_connectors:
+      value: "Zap History CSV export (UI); Enterprise GET /zap‑runs endpoint; Webhook forwarders to Splunk HEC/DataDog HTTP; no native S3/GCS sink."
+      reference: "https://zapier.com/blog/zapier-enterprise-business-plan/"
+  documentation_links:
+    - "https://help.zapier.com/hc/en-us/articles/13295074298125-Use-the-audit-log-to-review-your-account-activity"
+    - "https://help.zapier.com/hc/en-us/articles/14082162325133-Gain-visibility-with-the-account-wide-audit-log"
+    - "https://help.zapier.com/hc/en-us/articles/8496291148685-View-and-manage-your-Zap-history"
+    - "https://help.zapier.com/hc/en-us/articles/8496294549005-Export-your-Zap-history"
+    - "https://zapier.com/blog/zapier-enterprise-business-plan/"
+incident_response:
+  suspend_user_management_api:
+    value: "PATCH /scim/v3/Users/{id} { \"active\": false } – suspends (de‑provisions) a user account."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  invalidate_sessions_api:
+    value: "Single Logout (SAML SLO) terminates the Zapier session when the IdP ends the session."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML"
+  revoke_api_key_api:
+    value: "Regenerate SCIM bearer‑token in *User Provisioning Settings*; previous token is immediately revoked."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  user_toggle_api:
+    value: "SCIM PATCH active→true/false toggles user activation status."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  user_status_api:
+    value: "SCIM GET /scim/v3/Users/{id} returns current `active` state for any member."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+  session_timeout_configuration:
+    value: "Default web session = 7 days; shorter timeout can be enforced by IdP policy and will override Zapier default."
+    reference: "https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML"
+  known_automation_tools:
+    - value: "Microsoft Entra automatic user provisioning (SCIM)."
+      reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+    - value: "Okta SCIM app/connector for Zapier."
+      reference: "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+    - value: "Terraform Zapier integration sample (terraform‑zapier)."
+      reference: "https://github.com/paultyng/terraform-zapier"
+    - value: "Zapier Platform CLI – build custom remediation Zaps."
+      reference: "https://github.com/zapier/zapier-platform"
+  documentation_links:
+    - "https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM"
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial"
+    - "https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML"
+    - "https://zapier.com/blog/zapier-enterprise-business-plan/"
+    - "https://github.com/paultyng/terraform-zapier"

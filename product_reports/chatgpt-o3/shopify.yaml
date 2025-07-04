@@ -1,0 +1,185 @@
+user_management:
+  sso_support:
+    value: "SAML 2.0 single sign-on (SAML SSO via external IdP integration)"
+    reference: "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/saml"
+  sso_licensing_level_requirement:
+    value: "Available only on the Shopify Plus plan (enterprise-tier)"
+    reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-plus-plan"
+  scim_support:
+    value: "yes"
+    reference: "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+  scim_licensing_level_requirement:
+    value: "Shopify Plus plan (organization account) required for SCIM"
+    reference: "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+  scim_authentication_acquisition_steps: "From the Shopify Plus admin, navigate to **Settings > Users > Security**, then click **Generate API token** under the SCIM integration section to obtain a SCIM API token:contentReference[oaicite:5]{index=5}:contentReference[oaicite:6]{index=6}. Copy this token and provide it to your identity provider (for example, paste it into Okta’s SCIM Bearer Token field or Azure AD’s Secret Token field) to authenticate SCIM provisioning requests."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://shopify.dev/docs/api/admin-graphql/latest/objects/staffmember"
+  user_management_api_licensing_level:
+    value: "Shopify Plus or Advanced plan (requires enabling the `read_users` API scope via Shopify Support)"
+    reference: "https://shopify.dev/docs/api/usage/access-scopes"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens/generate-app-access-tokens-admin"
+  user_management_api_authentication_acquisition_steps: "On a Shopify Plus (or Advanced) store, create and install a private/custom app with the **read_users** scope enabled (enabling this scope requires contacting Shopify Support):contentReference[oaicite:10]{index=10}. Installing the app generates an Admin API access token, which is used in the **X-Shopify-Access-Token** header for authorized API requests:contentReference[oaicite:11]{index=11}."
+  seat_costs:
+    - license_level: "Starter plan"
+      active:
+        value: "no"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-starter-plan"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-starter-plan"
+      archived:
+        value: "n/a"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-starter-plan"
+    - license_level: "Basic plan"
+      active:
+        value: "no"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/basic-shopify-plan"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/basic-shopify-plan"
+      archived:
+        value: "n/a"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/basic-shopify-plan"
+    - license_level: "Grow plan"
+      active:
+        value: "yes"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features"
+      archived:
+        value: "no"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features"
+    - license_level: "Advanced plan"
+      active:
+        value: "yes"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-advanced-plan"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-advanced-plan"
+      archived:
+        value: "no"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-advanced-plan"
+    - license_level: "Shopify Plus plan"
+      active:
+        value: "yes"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-plus-plan"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-plus-plan"
+      archived:
+        value: "n/a"
+        reference: "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features/shopify-plus-plan"
+  lifecycle_options:
+    - "Pending"
+    - "Active"
+    - "Suspended"
+    - "Removed"
+  rbac_support:
+    value: "yes"
+    reference: "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+  rbac_api_assignment:
+    value: "Role assignments can be automated via SCIM (identity provider provisioning supports assigning Shopify roles/groups during user creation)"
+    reference: "https://changelog.shopify.com/posts/role-provisioning-through-scim"
+  documentation_links:
+    - "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/saml"
+    - "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+    - "https://shopify.dev/docs/api/admin-graphql/latest/objects/staffmember"
+    - "https://shopify.dev/docs/api/usage/access-scopes"
+    - "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features"
+    - "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/plans-features"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Shopify tracks the most recent login sessions for each user account. Administrators can view the last five login events per user, including timestamp, IP address, ISP, location, and device information, via the Shopify admin UI."
+      reference: "https://help.shopify.com/es/manual/your-account/users/security/user-management-activity-log"
+    role_assignment:
+      value: "The user management activity log records changes to user accounts and roles. For example, it logs when a staff account is created, edited, deleted, or when a role is assigned to a user."
+      reference: "https://help.shopify.com/es/manual/your-account/users/security/user-management-activity-log"
+    api_call:
+      value: "Shopify does not provide a detailed log of every API call by apps or users. However, any store changes made via the API are captured in the store activity log, which records the app or user who performed the action."
+      reference: "https://help.shopify.com/en/manual/shopify-admin/activity-logs"
+    data_export:
+      value: "Shopify does not explicitly log when store data is exported by a user. Data export actions (such as exporting orders or customer lists) are not recorded in the store activity log and have no dedicated audit event."
+      reference: "https://help.shopify.com/en/manual/shopify-admin/activity-logs"
+    configuration_change:
+      value: "The store activity log captures configuration changes made in Shopify. For example, it will log when a setting is changed in the store's configuration."
+      reference: "https://help.shopify.com/en/manual/shopify-admin/activity-logs"
+    user_account_creation:
+      value: "Shopify logs user account creation events in the user management activity log. When a new staff member or user is added (invited) to a store or organization, an audit event is recorded for the creation of that account."
+      reference: "https://help.shopify.com/es/manual/your-account/users/security/user-management-activity-log"
+    security_policy_change:
+      value: "Key security-related setting changes are recorded in Shopify's activity logs. For instance, enabling or modifying certain security features (such as requiring two-step authentication for all users, available on Plus) would appear as configuration changes in the audit logs."
+      reference: "https://help.shopify.com/en/manual/shopify-admin/activity-logs"
+  event_logs_licensing_level:
+    value: "Basic activity logging (store activity log and user activity log) is included on all Shopify plans, but advanced log export capabilities are limited to Shopify Plus. For example, the log drains feature for exporting logs to external systems is only available on Plus stores."
+    reference: "https://shopify.dev/docs/storefronts/headless/hydrogen/logging"
+  monitoring_products:
+    - value: "Splunk Enterprise (supported via Shopify Plus log drains integration for real-time log streaming)."
+      reference: "https://shopify.dev/docs/storefronts/headless/hydrogen/logging"
+    - value: "Datadog (supported via Shopify Plus log drains integration for real-time log streaming)."
+      reference: "https://shopify.dev/docs/storefronts/headless/hydrogen/logging"
+    - value: "New Relic (supported via Shopify Plus log drains integration for real-time log streaming)."
+      reference: "https://shopify.dev/docs/storefronts/headless/hydrogen/logging"
+    - value: "Shopify Add-on for Splunk (a Splunkbase integration that leverages Shopify APIs to pull store logs and events into Splunk)."
+      reference: "https://splunkbase.splunk.com/app/7229"
+  ingestion_methods:
+    - value: "Admin REST API – an `/events.json` endpoint allows retrieval of various store events (e.g., resource creations, deletions) via API."
+      reference: "https://www.beehexa.com/devdocs/shopify-api-how-to-retrieve-a-list-of-events-using-postman/"
+    - value: "GraphQL Admin API – supports querying events (via the Event interface), although certain audit data (e.g., staff logins) are not exposed via GraphQL at this time."
+      reference: "https://community.shopify.dev/t/collect-audit-login-events/6822"
+    - value: "Shopify Plus Log Drains – no-code setup to automatically forward log output to external monitoring platforms (Splunk, Datadog, New Relic) in real time."
+      reference: "https://shopify.dev/docs/storefronts/headless/hydrogen/logging"
+    - value: "Third-party integrations – connectors like the official Datadog Shopify integration use the Shopify API to collect event, product, customer, and order logs into external SIEM/analytics systems."
+      reference: "https://docs.datadoghq.com/integrations/shopify/"
+  log_export_options:
+    tools_connectors:
+      value: "Shopify Plus merchants can configure log drains to export logs to supported SIEM/monitoring tools (Splunk, Datadog, New Relic) without custom code. Other stores can use third-party apps or scripts (for example, a Shopify Splunk Add-on) to pull logs via the API and send them to external destinations."
+      reference: "https://shopify.dev/docs/storefronts/headless/hydrogen/logging"
+  documentation_links:
+    - "https://help.shopify.com/en/manual/shopify-admin/activity-logs"
+    - "https://help.shopify.com/es/manual/your-account/users/security/user-management-activity-log"
+    - "https://shopify.dev/docs/storefronts/headless/hydrogen/logging"
+    - "https://splunkbase.splunk.com/app/7229"
+    - "https://docs.datadoghq.com/integrations/shopify/"
+    - "https://community.shopify.dev/t/collect-audit-login-events/6822"
+incident_response:
+  suspend_user_management_api:
+    value: "There is no public Shopify API to directly suspend or disable a user account. On Shopify Plus, user suspension is handled via SCIM provisioning through an identity provider – deactivating a user in the IdP will mark that user as suspended in Shopify."
+    reference: "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+  invalidate_sessions_api:
+    value: "Shopify does not provide an API to forcibly invalidate active user sessions. Session timeouts occur automatically (e.g., admin sessions expire after ~30 minutes of inactivity) and if a user's account is suspended or their credentials are reset, their session access will naturally be revoked."
+    reference: "https://community.shopify.com/c/shopify-discussions/shopify-logs-me-out-after-30-minutes-of-inactivity"
+  revoke_api_key_api:
+    value: "API credentials can be revoked by uninstalling or deleting the associated app integration. For instance, making a DELETE call to the API’s current access permissions endpoint will revoke an app’s access token (effectively invalidating its API key)."
+    reference: "https://shopify.dev/docs/apps/build/authentication-authorization/app-installation/uninstall-app-api-request"
+  user_toggle_api:
+    value: "There is no direct API to toggle (enable/disable) a staff account's status on standard Shopify. In Shopify Plus environments, automated user deactivation or activation can be achieved via SCIM by using an IdP to provision (or suspend) users accordingly."
+    reference: "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+  user_status_api:
+    value: "The Shopify Admin API offers read-only visibility into user status on Plus/Advanced plans. With the appropriate scope (`read_users`), the GraphQL Admin API’s StaffMember object can be queried to check if a user is active (or suspended) in the store."
+    reference: "https://shopify.dev/docs/api/admin-graphql/latest/objects/staffmember"
+  session_timeout_configuration:
+    value: "Administrators cannot customize the session timeout in Shopify. The platform enforces a fixed session expiration policy (for example, the admin dashboard logs out users after about 30 minutes of inactivity for security) and this setting is not configurable."
+    reference: "https://community.shopify.com/c/shopify-discussions/shopify-logs-me-out-after-30-minutes-of-inactivity"
+  known_automation_tools:
+    - value: "Okta (identity provider with Shopify Plus SCIM integration for automated user provisioning and deprovisioning)."
+      reference: "https://plugins.miniorange.com/okta-scim-provisioning-with-shopify"
+    - value: "OneLogin (identity provider supporting SCIM for Shopify Plus, allowing automatic user account creation and suspension via the IdP)."
+      reference: "https://changelog.shopify.com/posts/role-provisioning-through-scim"
+    - value: "Azure AD (Microsoft Entra ID) (supports SCIM user provisioning for Shopify Plus to sync user lifecycle events from Azure AD into Shopify)."
+      reference: "https://changelog.shopify.com/posts/role-provisioning-through-scim"
+    - value: "miniOrange Shopify User Sync (third-party service/tool that enables SCIM-based user management automation between Shopify and various IdPs like Okta and Azure)."
+      reference: "https://plugins.miniorange.com/automate-scim-provisioning-deprovisioning-in-shopify"
+  documentation_links:
+    - "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim"
+    - "https://shopify.dev/docs/apps/build/authentication-authorization/app-installation/uninstall-app-api-request"
+    - "https://shopify.dev/docs/api/admin-graphql/latest/objects/staffmember"
+    - "https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features"
+    - "https://changelog.shopify.com/posts/role-provisioning-through-scim"

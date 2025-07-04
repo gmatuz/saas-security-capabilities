@@ -1,0 +1,150 @@
+user_management:
+  sso_support:
+    value: "SAML 2.0 and OpenID Connect (OIDC) supported (via SAP Cloud Identity), plus traditional SAP SSO methods like SPNEGO and X.509:contentReference[oaicite:0]{index=0}"
+    reference: "https://xiting.com/en/secure-authentication-and-sso-for-sap/"
+  sso_licensing_level_requirement:
+    value: "No additional license required for SSO (included with SAP S/4HANA Cloud via Cloud Identity Services):contentReference[oaicite:1]{index=1}"
+    reference: "https://community.sap.com/t5/enterprise-resource-planning-q-a/costs-for-sso-in-s-4hana-cloud/qaq-p/12812140"
+  scim_support:
+    value: "yes"
+    reference: "https://documentation.sailpoint.com/connectors/identityiq8_3/sap/s4_hana/help/integrating_sap_s4_hana_cloud/upgrade_considerations.html"
+  scim_licensing_level_requirement:
+    value: "Included with S/4HANA Cloud subscription (Identity Provisioning service bundled from 1911 release):contentReference[oaicite:2]{index=2}"
+    reference: "https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/sap-identity-provisioning-ips-is-now-bundled-with-sap-s-4hana-cloud/ba-p/13423896"
+  scim_authentication_mechanisms:
+    value: "Basic Authentication"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-cloud-platform-identity-authentication-provisioning-tutorial"
+  scim_authentication_acquisition_steps: |
+    1. Log in to **SAP Cloud Identity Services** (Identity Authentication) admin console.
+    2. Navigate to *Users & Authorizations > Administrators* and add a new system user (type *System*).
+    3. Assign the *Manage Users* authorization to this system user and save.
+    4. Generate a secret for the system user to obtain a **Client ID** and **Client Secret**.
+    5. Use the Client ID and Client Secret as the username and password for the SCIM API credentials:contentReference[oaicite:3]{index=3}:contentReference[oaicite:4]{index=4}.
+  user_management_api_support:
+    value: "yes"
+    reference: "https://docs.oracle.com/en/cloud/paas/access-governance/cifoa/"
+  user_management_api_licensing_level:
+    value: "Standard S/4HANA Cloud (no special license; advanced role management via SAP Cloud IAG requires separate subscription):contentReference[oaicite:5]{index=5}"
+    reference: "https://userapps.support.sap.com/sap/support/knowledge/en/2830982"
+  user_management_api_authentication_mechanisms:
+    value: "Basic Authentication"
+    reference: "https://docs.oracle.com/en/cloud/paas/access-governance/cifoa/"
+  user_management_api_authentication_acquisition_steps: |
+    1. In SAP S/4HANA Cloud, create a **Communication User** (via Communication Management app) with a username and password:contentReference[oaicite:6]{index=6}.
+    2. Create a **Communication Arrangement** for scenario *SAP_COM_0093 (Identity Management Integration)* and assign the communication user for inbound communication:contentReference[oaicite:7]{index=7}.
+    3. Use the communication user's ID and password for Basic Authentication when calling the *QueryBusinessUserIn* or *ManageBusinessUserIn* SOAP API endpoints:contentReference[oaicite:8]{index=8}:contentReference[oaicite:9]{index=9}.
+  seat_costs:
+    - license_level: "Full User Equivalent (all user types)"
+      active:
+        value: "yes"
+        reference: "https://help.sap.com/docs/sap-cloud-for-customer/sap-cloud-for-customer-set-up-guide/determine-number-of-licenses-assigned-to-business-users"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://saplicensingexperts.com/sap-s-4hana-licensing-overview/"
+      archived:
+        value: "no"
+        reference: "https://saplicensingexperts.com/sap-s-4hana-licensing-overview/"
+  lifecycle_options:
+    - "Active"
+    - "Suspended (Locked)"
+    - "Inactive (Not Counted)"
+    - "Deleted (Archived)"
+  rbac_support:
+    value: "yes"
+    reference: "https://xiting.com/en/secure-authentication-and-sso-for-sap/"
+  rbac_api_assignment:
+    value: "No standard API for role assignment (roles must be assigned via S/4HANA Cloud UI; API available via SAP Cloud IAG add-on):contentReference[oaicite:10]{index=10}"
+    reference: "https://userapps.support.sap.com/sap/support/knowledge/en/2830982"
+  documentation_links:
+    - "https://userapps.support.sap.com/sap/support/knowledge/en/2830982"
+    - "https://community.sap.com/t5/enterprise-resource-planning-q-a/costs-for-sso-in-s-4hana-cloud/qaq-p/12812140"
+    - "https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/sap-identity-provisioning-ips-is-now-bundled-with-sap-s-4hana-cloud/ba-p/13423896"
+    - "https://api.sap.com/api/MANAGEBUSINESSUSERIN/overview"
+    - "https://docs.oracle.com/en/cloud/paas/access-governance/cifoa/"
+    - "https://xiting.com/en/secure-authentication-and-sso-for-sap/"
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-cloud-platform-identity-authentication-provisioning-tutorial"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "SAP Security Audit Log captures security-relevant events such as user login attempts (successful and failed), providing audit records of logons."
+      reference: "https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-us/c7/69bcb7f36611d3a6510000e835363f/frameset.htm" 
+    role_assignment:
+      value: "Changes to user roles/authorizations are recorded via SAP change documents (user-master change logs). S/4HANA logs role-assignment updates in change documents rather than raw audit events by default."
+      reference: "https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/f132c385e0234fe68ae9ff35b2da178c/674eba018abd431bb6d1e6907968bee3.html" 
+    api_call:
+      value: "API calls (e.g., OData or HTTP requests) are logged in the HTTP(S) access logs of the SAP Internet Communication Manager (ICM). S/4HANA’s ICM/ICF Web Dispatcher log is enabled by default to record incoming requests."
+      reference: "https://help.sap.com/docs/SAP_HANA_PLATFORM/b3ee5778bc2e4a089d3299b82ec762a7/9582d33c6c804a7e910096c637f8c837.html"
+    data_export:
+      value: "Sensitive-data access or export actions can be tracked using Read Access Logging (RAL) if configured. RAL provides a history of read/export events on designated sensitive-data fields."
+      reference: "https://help.sap.com/docs/SAP_S4HANA_CLOUD/55a7cb346519450cb9e6d21c1ecd6ec1/5688c3a63f4e400e841a4c7afc2bee8b.html"
+    configuration_change:
+      value: "Configuration changes (e.g., table or system-parameter changes) are logged via ABAP Table Change Logging and Transport System logs. These logs record alterations to system settings and transportable configuration in S/4HANA."
+      reference: "https://help.sap.com/doc/saphelp_nw74/7.4.16/en-US/4d/b6d15036311dcee10000000a42189c/content.htm" 
+    user_account_creation:
+      value: "User-account creation, modification, or deletion events are captured as change documents in S/4HANA. The system generates change logs for business-user records, which serve as an audit trail for account creations."
+      reference: "https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/ff6d35a34fbe4bea99e4ac41b0d5db03/4e1f9fe1e95320cbe10000000a42189c.html" 
+    security_policy_change:
+      value: "Changes to security policies or system-security settings (for example, enabling/disabling secure features or profile-parameter changes) can be audited by activating the relevant Security Audit Log events (such as event code EU4)."
+      reference: "https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-us/c7/69bcb7f36611d3a6510000e835363f/frameset.htm" 
+  event_logs_licensing_level:
+    value: "Basic security-event logging (audit logs, change logs) is included with SAP S/4HANA out of the box. Advanced monitoring such as SAP Enterprise Threat Detection (which aggregates and analyses SAP logs) is a separately licensed add-on."
+    reference: "https://www.sap.com/products/financial-management/enterprise-threat-detection.html" 
+  monitoring_products:
+    - value: "SAP Enterprise Threat Detection (ETD) – SAP’s native SIEM that consumes S/4HANA logs for real-time threat detection."
+      reference: "https://www.sap.com/products/financial-management/enterprise-threat-detection.html" 
+    - value: "Splunk PowerConnect for SAP – an SAP-certified add-on that streams SAP logs to Splunk in real time."
+      reference: "https://splunkbase.splunk.com/app/3153" 
+    - value: "SecurityBridge for SAP – evaluates SAP logs and forwards relevant events to SIEM platforms."
+      reference: "https://securitybridge.com/products/threat-detection-for-sap/" 
+    - value: "SAP LogServ (RISE Private Edition) – managed log collection that forwards S/4HANA logs to SIEMs such as Microsoft Sentinel."
+      reference: "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/sap_jasondau.azure-sentinel-solution-saplogserv"
+    - value: "Skyhigh CASB for S/4HANA – cloud-access security broker that ingests audit/change logs and raises alerts on risky activity."
+      reference: "https://success.skyhighsecurity.com/Skyhigh_CASB/06_Skyhigh_CASB_Sanctioned_Applications/01_Skyhigh_CASB_Native_Sanctioned_Apps/Skyhigh_CASB_for_SAP_S%2F%2F4HANA/About_Skyhigh_CASB_for_SAP_S%2F%2F4HANA"
+  ingestion_methods:
+    - value: "Security Audit Log OData API – retrieve audit-log entries from S/4HANA Cloud Public Edition for SIEM ingestion."
+      reference: "https://api.sap.com/package/SecurityAuditLogODataService/odatav4" 
+    - value: "File-based export – on-prem or private-cloud systems can write SAL files that SIEM agents collect or forward via syslog/file transfer."
+      reference: "https://userapps.support.sap.com/sap/support/knowledge/en/3518217" 
+    - value: "SAP LogServ streaming – RISE private-cloud service that streams logs to targets like Azure Sentinel."
+      reference: "https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/announcing-limited-preview-of-sap-logserv-integration-with-microsoft/ba-p/13942180"
+    - value: "RFC/agent connectors – e.g., Microsoft Sentinel’s SAP connector deploys an agent to pull SAL and other logs."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/sap/preparing-sap" 
+  log_export_options:
+    tools_connectors:
+      value: "Official SIEM integration OData service plus third-party connectors such as Splunk PowerConnect and SAP LogServ simplify log export."
+      reference:
+        - "https://api.sap.com/package/SecurityAuditLogODataService/odatav4" 
+        - "https://splunkbase.splunk.com/app/3153" 
+        - "https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/announcing-limited-preview-of-sap-logserv-integration-with-microsoft/ba-p/13942180" 
+incident_response:
+  suspend_user_management_api:
+    value: "Use BAPI_USER_LOCK to programmatically lock users in ABAP-based systems; S/4HANA Cloud Public handles user locks via the central Identity service."
+    reference: "https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/4d/41bec4aa601c86e10000000a42189b/content.htm" 
+  invalidate_sessions_api:
+    value: "Invalidate active sessions in S/4HANA Cloud via SAP Cloud Identity Authentication Service’s token-revocation endpoint; ABAP admins can end sessions in SM04."
+    reference: "https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/call-identity-authentication-revoke-token-endpoint" 
+  revoke_api_key_api:
+    value: "Revoke OAuth tokens or disable the integration user in SAP Cloud Identity Services to cut off API access."
+    reference: "https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/call-identity-authentication-revoke-token-endpoint"
+  user_toggle_api:
+    value: "Unlock users with BAPI_USER_UNLOCK in ABAP or mark accounts active/inactive via the cloud Identity provider."
+    reference: "https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/4d/41bec4aa601c86e10000000a42189b/content.htm" 
+  user_status_api:
+    value: "SCIM and IAM integrations expose an 'active' flag so SOAR playbooks can query whether a user is locked or enabled."
+    reference:
+      - "https://help.sap.com/docs/r/08a7929ad06d4680b4f18cb57bc1a1d3/2502/en-US/7cf5d969d59a4723bcfd01cc38322a00.html" 
+      - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-cloud-platform-identity-authentication-provisioning-tutorial" 
+  session_timeout_configuration:
+    value: "Fiori Launchpad parameter SESSION_TIMEOUT_INTERVAL_IN_MINUTES (and GUI profile rdisp/gui_auto_logout) enforces automatic logoff after inactivity."
+    reference: "https://www.saptechnicalguru.com/setting-fiori-gateway-time-out-and-time-out-warning/" 
+  known_automation_tools:
+    - value: "SAP Identity Management (IDM) – can auto-lock/unlock users via BAPI calls triggered by HR or service-desk events."
+      reference: "https://www.rackspace.com/blog/automation-tool-to-reset-sap-passwords-and-the-locking-unlocking-of-sap-users" 
+    - value: "SAP GRC Access Control – Emergency Access Management (Firefighter) workflows that rapidly revoke or adjust user access during incidents."
+      reference: "https://help.sap.com/doc/759acdedc98b4997bbba4f9fb15c9b1a/12.0.02/en-US/loio8354d295b56443c1aea86223a78565cf_en.pdf" 
+    - value: "Palo Alto Cortex XSOAR – SAP IAM integration lets playbooks disable or modify SAP users automatically."
+      reference: "https://xsoar.pan.dev/docs/reference/integrations/sap-iam" 
+    - value: "SecurityBridge Platform – can trigger automated SAP controls (e.g., user lockdown) based on detected threat indicators."
+      reference: "https://securitybridge.com/products/threat-detection-for-sap/" 
+    - value: "Azure AD (Entra ID) SCIM provisioning – automatically deactivates S/4HANA Cloud users when disabled in the corporate directory."
+      reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-cloud-platform-identity-authentication-provisioning-tutorial" 

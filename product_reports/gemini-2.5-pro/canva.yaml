@@ -1,0 +1,155 @@
+user_management:
+  sso_support:
+    value: 'yes'
+    reference: https://www.canva.com/help/sso-and-provisioning/
+  sso_licensing_level_requirement:
+    value: Enterprise
+    reference: https://www.canva.com/enterprise/
+  scim_support:
+    value: 'yes'
+    reference: https://www.canva.com/developers/docs/scim-api/
+  scim_licensing_level_requirement:
+    value: Enterprise and Canva for Education. [1]
+    reference: https://www.canva.com/developers/docs/scim-api/
+  scim_authentication_mechanisms:
+    value: Authentication token
+    reference: https://www.canva.com/developers/docs/scim-api/authentication/
+  scim_authentication_acquisition_steps: "1. Log in to your Canva account. 2. Click the gear
+    icon to go to your Account settings. 3. In the side menu, under your team's settings,
+    click SSO & provisioning. 4. Under SCIM, select Enable SCIM user provisioning.
+    5. Copy the access token. Each time the slider is toggled, the current access
+    token is revoked and a new token is created. [14]"
+  user_management_api_support:
+    value: 'yes'
+    reference: https://www.canva.com/developers/docs/connect-api/users/
+  user_management_api_licensing_level:
+    value: Enterprise plan for private integrations. Public integrations are available
+      to all users after review. [39]
+    reference: https://www.canva.com/developers/docs/connect-api/overview/
+  user_management_api_authentication_mechanisms:
+    value: Authentication token
+    reference: https://www.canva.com/developers/docs/connect-api/authentication/
+  user_management_api_authentication_acquisition_steps: The Canva Connect API uses
+    the OAuth 2.0 authorization framework. The specific steps depend on the grant
+    type being used (Authorization Code Grant or Client Credentials Grant). A detailed
+    guide can be found at https://www.canva.com/developers/docs/connect-api/authentication/.
+  seat_costs:
+  - license_level: Enterprise
+    active:
+      value: 'yes'
+      reference: https://www.canva.com/enterprise/
+    suspended_disabled:
+      value: uncertain
+      reference: Not found in documentation
+    archived:
+      value: 'no'
+      reference: Not found in documentation
+  lifecycle_options:
+  - create [17]
+  - update [20]
+  - deactivate/deprovision [20, 17]
+  - delete [1]
+  - suspend [31]
+  rbac_support:
+    value: 'yes'
+    reference: https://www.canva.com/help/team-roles-permissions/
+  rbac_api_assignment:
+    value: 'Yes, role assignments can be done via the SCIM API using the "role" attribute.
+      [17]'
+    reference: https://www.canva.com/developers/docs/scim-api/users/create-user/
+  documentation_links:
+  - https://www.canva.com/developers/docs/scim-api/
+  - https://www.canva.com/help/sso-and-provisioning/
+  - https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/canva-provisioning-tutorial
+  - https://support.okta.com/help/s/article/How-to-configure-SAML-2-0-for-Canva
+  - https://support.google.com/a/answer/9227528?hl=en
+  - https://www.canva.com/developers/docs/connect-api/
+  - https://jumpcloud.com/support/sso-with-canva
+  - https://www.drata.com/help/canva-connection
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Available. User activities, including logins, are captured in the Audit Logs."
+      reference: "https://www.canva.com/developers/docs/audit-logs/"
+    role_assignment:
+      value: "Available. Changes to user roles and permissions are captured in the Audit Logs. The SCIM API allows for assigning roles like 'Member' or 'Administrator' upon user creation, and changes would be logged."
+      reference: "https://www.canva.com/developers/docs/scim/reference/users/create-user/"
+    api_call:
+      value: "Partially Available. While direct logs of every API call are not explicitly mentioned, actions initiated via the API that result in auditable events (e.g., design export, user changes) are logged in the Audit Logs."
+      reference: "https://www.canva.com/developers/docs/audit-logs/"
+    data_export:
+      value: "Available. Exporting a design for download is explicitly mentioned as a logged event in the Audit Logs documentation."
+      reference: "https://www.canva.com/developers/docs/audit-logs/"
+    configuration_change:
+      value: "Available. User changing their account settings and updates to audit log settings themselves are captured in the Audit Logs."
+      reference: "https://www.canva.com/developers/docs/audit-logs/reference/actions/"
+    user_account_creation:
+      value: "Available. User provisioning and de-provisioning activities via SCIM are a primary feature for enterprise clients, and these events are captured in Audit Logs."
+      reference: "https://www.canva.com/developers/docs/scim/"
+    security_policy_change:
+      value: "Available. Changes related to security configurations, such as SSO settings modifications or audit log configuration changes, are captured in the Audit Logs."
+      reference: "https://www.canva.com/developers/docs/audit-logs/reference/actions/"
+  event_logs_licensing_level:
+    value: "Canva Enterprise"
+    reference: "https://www.canva.com/developers/docs/audit-logs/"
+  monitoring_products:
+    - value: "Splunk (via S3 data ingestion)"
+      reference: "https://www.canva.com/developers/docs/audit-logs/"
+    - value: "Microsoft Sentinel (via S3 data ingestion)"
+      reference: "https://www.canva.com/developers/docs/audit-logs/"
+    - value: "Elastic SIEM (Integration in development)"
+      reference: "https://github.com/elastic/integrations/issues/10441"
+    - value: "Generic SIEM/SOAR with S3 input support"
+      reference: "https://www.canva.com/developers/docs/audit-logs/"
+  ingestion_methods:
+    - value: "Log delivery to a customer-managed Amazon S3 bucket."
+      reference: "https://www.canva.com/developers/docs/audit-logs/"
+    - value: "Webhook-based automation (via platforms like Make.com or Pipedream)"
+      reference: "https://www.make.com/en/integrations/canva"
+  log_export_options:
+    tools_connectors:
+      value: "Logs are exported automatically every minute to a customer-owned Amazon S3 bucket as gzipped archives containing JSONL content. No specific pre-built connectors are offered by Canva; integration relies on the SIEM's ability to pull from S3."
+      reference: "https://github.com/elastic/integrations/issues/10441"
+  documentation_links:
+    - "https://www.canva.com/developers/docs/audit-logs/"
+    - "https://www.canva.com/developers/docs/audit-logs/reference/actions/"
+    - "https://www.canva.com/enterprise/"
+    - "https://www.canva.com/trust-center/security/"
+    - "https://github.com/elastic/integrations/issues/10441"
+    - "https://www.it-exchange.co.jp/products/canva/canva-teams-enterprise.html"
+incident_response:
+  suspend_user_management_api:
+    value: "Available. User de-provisioning (suspension) is supported via the SCIM API by sending a PATCH request to set the user's 'active' attribute to 'false'."
+    reference: "https://www.canva.com/developers/docs/scim/reference/users/update-user-attributes/"
+  invalidate_sessions_api:
+    value: "Not found in documentation. While there is a manual 'Sign Out from All Devices' feature, no API endpoint for global user session invalidation was found. Revoking a refresh token for a specific Connect API integration will invalidate that integration's access but not the user's main web session."
+    reference: "https://www.canva.com/developers/docs/connect/reference/authentication/revoke-token/"
+  revoke_api_key_api:
+    value: "Available. The Connect API (OAuth 2.0) provides an endpoint to revoke access and refresh tokens. For the SCIM API, the bearer token can be regenerated in the Canva admin UI, which invalidates the old one."
+    reference: "https://www.canva.com/developers/docs/connect/reference/authentication/revoke-token/"
+  user_toggle_api:
+    value: "Available. The SCIM API allows toggling a user's status between active and inactive via a PATCH request, which effectively enables or disables the user account."
+    reference: "https://www.canva.com/developers/docs/scim/reference/users/update-user-attributes/"
+  user_status_api:
+    value: "Available. The SCIM API 'Get a user' endpoint can be used to retrieve user details, including their 'active' status."
+    reference: "https://www.canva.com/developers/docs/scim/reference/users/get-user/"
+  session_timeout_configuration:
+    value: "Not found in documentation. There is no evidence in the official documentation of an administrator-configurable session timeout policy for user web sessions."
+    reference: "https://www.canva.com/ja_jp/help/sessions-and-devices/"
+  known_automation_tools:
+    - value: "Okta (for SCIM user provisioning and de-provisioning)"
+      reference: "https://www.canva.com/developers/docs/scim/"
+    - value: "Microsoft Entra ID / Azure AD (for SCIM user provisioning and de-provisioning)"
+      reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/canva-provisioning-tutorial"
+    - value: "Google Workspace (for SCIM user provisioning)"
+      reference: "https://support.google.com/a/answer/14539152?hl=en"
+    - value: "Canva Connect API Starter Kit (for building custom tools)"
+      reference: "https://github.com/canva-sdks/canva-connect-api-starter-kit"
+  documentation_links:
+    - "https://www.canva.com/developers/docs/scim/"
+    - "https://www.canva.com/developers/docs/connect/reference/"
+    - "https://www.canva.com/developers/docs/scim/reference/users/update-user-attributes/"
+    - "https://www.canva.com/developers/docs/connect/reference/authentication/revoke-token/"
+    - "https://www.canva.com/ja_jp/help/deactivate-or-delete-account/"
+    - "https://www.canva.com/enterprise/trust-and-security/"
+

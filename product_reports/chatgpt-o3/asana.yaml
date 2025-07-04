@@ -1,0 +1,199 @@
+user_management:
+  sso_support:
+    value: "Supports Single Sign-On via Google OAuth (Google accounts) and SAML 2.0"
+    reference: "https://help.asana.com/s/article/global-authentication-settings"
+  sso_licensing_level_requirement:
+    value: "Google SSO is available on paid plans (Starter/Advanced and higher); SAML SSO requires an Enterprise or Enterprise + subscription"
+    reference: "https://help.asana.com/s/article/authentication-and-access-management-options-for-paid-plans"
+  scim_support:
+    value: "yes"
+    reference: "https://developers.asana.com/docs/scim"
+  scim_licensing_level_requirement:
+    value: "Available only on Enterprise and Enterprise + plans"
+    reference: "https://help.asana.com/s/article/provisioning-and-deprovisioning-users-with-scim"
+  scim_authentication_mechanisms:
+    value: "Authentication token (Service-account token)"
+    reference: "https://developers.asana.com/docs/scim"
+  scim_authentication_acquisition_steps: |
+    1. **Create a Service Account (Enterprise only).**  
+       In the Admin Console, super-admins create a new service account under **Security → Service accounts**.  
+    2. **Generate the SCIM token.**  
+       When the service account is created, Asana issues a long-lived SCIM access token that appears once in the UI.  
+    3. **Copy and store the token securely.**  
+       The token is the credential for SCIM and is treated like a password.  
+    4. **Use the token.**  
+       Add `Authorization: Bearer <SCIM_TOKEN>` to calls against `https://app.asana.com/api/1.0/scim`.
+    reference: "https://help.asana.com/s/article/provisioning-and-deprovisioning-users-with-scim"
+  user_management_api_support:
+    value: "yes"
+    reference: "https://developers.asana.com/docs/overview"
+  user_management_api_licensing_level:
+    value: "Available on all tiers (free and paid); free domains have lower API rate limits"
+    reference: "https://developers.asana.com/docs/rate-limits"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token (Personal Access Token or OAuth)"
+    reference: "https://developers.asana.com/docs/quick-start"
+  user_management_api_authentication_acquisition_steps: |
+    1. Open **Developer Console → + Create new token**.  
+    2. Name the Personal Access Token (PAT) and click **Create token**.  
+    3. Copy the PAT (shown only once) and store it securely.  
+    4. Use `Authorization: Bearer <PAT>` in REST calls such as `GET /users/me`.
+    reference: "https://developers.asana.com/docs/quick-start"
+  seat_costs:
+    - license_level: "Personal (Free)"
+      active:
+        value: "yes"
+        reference: "https://asana.com/pricing"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://asana.com/pricing"
+      archived:
+        value: "no"
+        reference: "https://asana.com/pricing"
+    - license_level: "Starter"
+      active:
+        value: "yes"
+        reference: "https://asana.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://asana.com/pricing"
+      archived:
+        value: "no"
+        reference: "https://asana.com/pricing"
+    - license_level: "Advanced"
+      active:
+        value: "yes"
+        reference: "https://asana.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://asana.com/pricing"
+      archived:
+        value: "no"
+        reference: "https://asana.com/pricing"
+    - license_level: "Enterprise"
+      active:
+        value: "yes"
+        reference: "https://asana.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://asana.com/pricing"
+      archived:
+        value: "no"
+        reference: "https://asana.com/pricing"
+    - license_level: "Enterprise+"
+      active:
+        value: "yes"
+        reference: "https://asana.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://asana.com/pricing"
+      archived:
+        value: "no"
+        reference: "https://asana.com/pricing"
+  lifecycle_options:
+    options:
+      - "Active"
+      - "Deactivated (Suspended/Paused)"
+      - "Removed (Deprovisioned)"
+    reference: "https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user/202645"
+  rbac_support:
+    value: "yes"
+    reference: "https://developers.asana.com/reference/adduserforteam"
+  rbac_api_assignment:
+    value: "Basic role assignments (e.g., adding users to teams, workspaces, or projects) can be managed via REST API endpoints such as `POST /teams/{team_gid}/addUser`."
+    reference: "https://developers.asana.com/reference/adduserforteam"
+  documentation_links:
+    - "https://help.asana.com/s/article/global-authentication-settings"
+    - "https://help.asana.com/s/article/authentication-and-access-management-options-for-paid-plans"
+    - "https://developers.asana.com/docs/scim"
+    - "https://help.asana.com/s/article/provisioning-and-deprovisioning-users-with-scim"
+    - "https://developers.asana.com/docs/overview"
+    - "https://developers.asana.com/docs/quick-start"
+    - "https://developers.asana.com/docs/rate-limits"
+    - "https://developers.asana.com/reference/adduserforteam"
+    - "https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user/202645"
+    - "https://asana.com/pricing"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "User login events (user_login_succeeded, user_login_failed, user_logged_out)"
+      reference: "https://developers.asana.com/docs/audit-log-events"
+    role_assignment:
+      value: "Admin role-change events (workspace, team, division admin roles)"
+      reference: "https://developers.asana.com/docs/audit-log-events"
+    api_call:
+      value: "API / app-authorization events (personal-access-token authorized / revoked, service-account created / deleted)"
+      reference: "https://developers.asana.com/docs/audit-log-events"
+    data_export:
+      value: "Data-export events (workspace / project CSV exports started, attachment downloads, etc.)"
+      reference: "https://developers.asana.com/docs/audit-log-events"
+    configuration_change:
+      value: "Admin configuration changes (e.g., workspace default session duration changed)"
+      reference: "https://developers.asana.com/docs/audit-log-events"
+    user_account_creation:
+      value: "User-creation events (user_invited)"
+      reference: "https://developers.asana.com/docs/audit-log-events"
+    security_policy_change:
+      value: "Workspace security-policy changes (IP allow-list enabled / disabled)"
+      reference: "https://developers.asana.com/docs/audit-log-events"
+  event_logs_licensing_level:
+    value: "Asana Enterprise+ (or legacy Enterprise) required"
+    reference: "https://help.asana.com/s/article/audit-suite-api-and-integration-support?language=en_US"
+  monitoring_products:
+    - value: "Splunk (Asana for Splunk integration)"
+      reference: "https://asana.com/apps/splunk"
+    - value: "Sumo Logic (Asana Source integration)"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/asana-source/"
+    - value: "Panther (Asana SIEM integration)"
+      reference: "https://asana.com/apps/panther"
+  ingestion_methods:
+    - value: "Asana Audit Log API (REST workspace endpoint)"
+      reference: "https://developers.asana.com/reference/getauditlogevents"
+    - value: "Power Automate / Azure Logic Apps Asana connector"
+      reference: "https://learn.microsoft.com/en-us/connectors/asana/"
+  log_export_options:
+    tools_connectors:
+      value: "SIEM connectors (Asana App for Splunk, Sumo Logic Source, Panther integration, etc.)"
+      reference: "https://help.asana.com/s/article/audit-suite-api-and-integration-support?language=en_US"
+  documentation_links:
+    - "https://developers.asana.com/reference/getauditlogevents"
+    - "https://developers.asana.com/docs/audit-log-events"
+    - "https://asana.com/apps/splunk"
+    - "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/asana-source/"
+    - "https://asana.com/apps/panther"
+incident_response:
+  suspend_user_management_api:
+    value: "Asana SCIM API: PATCH /scim/Users/{id} with active=false to deactivate user"
+    reference: "https://developers.asana.com/docs/scim"
+  invalidate_sessions_api:
+    value: "No dedicated API; deactivating the user via SCIM effectively ends their sessions"
+    reference: "https://developers.asana.com/docs/scim"
+  revoke_api_key_api:
+    value: "No API to revoke personal-access tokens (only OAuth-token de-authorization via /oauth_revoke)"
+    reference: "https://forum.asana.com/t/endpoint-to-revoke-access-token/29791"
+  user_toggle_api:
+    value: "Asana SCIM API: set active=true/false via /scim/Users to enable / disable user"
+    reference: "https://developers.asana.com/docs/scim"
+  user_status_api:
+    value: "Asana SCIM API: GET /scim/Users returns user data including active status"
+    reference: "https://developers.asana.com/docs/scim"
+  session_timeout_configuration:
+    value: "SAML session timeout configurable in Admin Console (1 hour – 30 days)
+    reference: "https://help.asana.com/s/article/global-authentication-settings"
+  known_automation_tools:
+    - value: "asana-python (official Python client library)"
+      reference: "https://github.com/Asana/python-asana"
+    - value: "Asana CLI (thash/asana)"
+      reference: "https://github.com/thash/asana"
+    - value: "Terraform Asana Provider (community)"
+      reference: "https://github.com/davidji99/terraform-provider-asana"
+    - value: "Panther SIEM (for automated alerting on Asana events)"
+      reference: "https://asana.com/apps/panther"
+    - value: "Okta + Asana SCIM integration (automated user provisioning)"
+      reference: "https://asana.com/apps/okta"
+  documentation_links:
+    - "https://developers.asana.com/docs/scim"
+    - "https://developers.asana.com/docs/oauth"
+    - "https://asana.com/apps/okta"
+    - "https://forum.asana.com/t/endpoint-to-revoke-access-token/29791"
+    - "https://help.asana.com/s/article/provisioning-and-deprovisioning-users-with-scim"

@@ -1,0 +1,152 @@
+user_management:
+  sso_support:
+    value: "Yes – supports SAML 2.0 single sign-on for enterprise login"
+    reference: "https://www.semrush.com/kb/1012-profile-settings"
+  sso_license_level_requirement:
+    value: "Available on Guru and Business tier plans (not on lower tiers)"
+    reference: "https://www.semrush.com/kb/1012-profile-settings"
+  scim_support:
+    value: "no"
+    reference: "https://www.semrush.com/company/security/"
+  scim_licensing_level_requirement:
+    value: "n/a – no SCIM/user-provisioning functionality is provided"
+    reference: "https://www.semrush.com/company/security/"
+  scim_authentication_mechanisms:
+    value: "n/a"
+    reference: "https://www.semrush.com/company/security/"
+  scim_authentication_acquisition_steps:
+    value: "Not applicable – Semrush does not expose a SCIM API for automated user provisioning"
+    reference: "https://www.semrush.com/company/security/"
+  user_management_api_support:
+    value: "no"
+    reference: "https://developer.semrush.com/api/v4"
+  user_management_api_licensing_level:
+    value: "n/a – no dedicated user-management API is available"
+    reference: "https://developer.semrush.com/api/v4"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://developer.semrush.com/api/v4/basic-docs/"
+  user_management_api_authentication_acquisition_steps:
+    value: "To obtain API credentials, an admin must contact Semrush to receive an OAuth client_id and client_secret, then perform Semrush’s OAuth 2.0 authorization-code flow to generate a Bearer access token for API calls."
+    reference: "https://developer.semrush.com/api/v4/basic-docs/"
+  seat_costs:
+    - license_level: "Pro"
+      active:
+        value: "yes"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+      archived:
+        value: "n/a"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+    - license_level: "Guru"
+      active:
+        value: "yes"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+      archived:
+        value: "n/a"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+    - license_level: "Business"
+      active:
+        value: "yes"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+      archived:
+        value: "n/a"
+        reference: "https://www.semrush.com/kb/1409-user-management"
+  lifecycle_options:
+    - "Active (user is added to the account and has access)"
+    - "Invited/Pending (user has been invited but not yet joined)"
+    - "Removed (user deleted from the subscription to free the seat)"
+  rbac_support:
+    value: "yes"
+    reference: "https://www.semrush.com/kb/1409-user-management"
+  rbac_api_assignment:
+    value: "Roles are assigned in the Semrush web interface by account owners/admins; no public API for role assignment"
+    reference: "https://www.semrush.com/kb/1409-user-management"
+  documentation_links:
+    - "https://www.semrush.com/kb/1012-profile-settings"
+    - "https://www.semrush.com/kb/1409-user-management"
+    - "https://developer.semrush.com/api/v4"
+    - "https://www.okta.com/integrations/semrush/"
+    - "https://www.semrush.com/kb/5-api"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Semrush records user login events in the **Activity Log** for accounts with multiple users, allowing account owners/admins to see when users logged in:contentReference[oaicite:0]{index=0}. Single-user accounts do not provide a visible login history to the end-user, although Semrush does log authentication events internally:contentReference[oaicite:1]{index=1}."
+      reference: "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+    role_assignment:
+      value: "Changes in user roles (e.g., granting or revoking **Admin** privileges) are recorded in the Semrush **Activity Log**. The account owner or admin can see whenever a team member’s role is changed:contentReference[oaicite:2]{index=2}."
+      reference: "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+    api_call:
+      value: "All API calls made using a Semrush API key are logged. Users can view their API usage history in the **Query Log** (under the API Queries tab), which records each API request made:contentReference[oaicite:3]{index=3}."
+      reference: "https://www.semrush.com/kb/249-query-logs"
+    data_export:
+      value: "Semrush logs data export events (such as exported reports). These export actions are visible in the user’s **Query Log** alongside search queries and API calls:contentReference[oaicite:4]{index=4}."
+      reference: "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+    configuration_change:
+      value: "Administrative changes to the account configuration (for example, adjusting subscription unit limits or other team settings) are tracked in the **Activity Log**. Semrush logs events like changes to user limit allocations as part of corporate account activity:contentReference[oaicite:5]{index=5}."
+      reference: "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+    user_account_creation:
+      value: "When new users are added (invited) to a Semrush corporate account, the event is logged in the **Activity Log**. The Activity Log will show user invitations and when users join or leave the account:contentReference[oaicite:6]{index=6}."
+      reference: "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+    security_policy_change:
+      value: "Semrush does not expose a dedicated log for security settings changes (such as enabling two-factor authentication or SSO) to customers. Such actions are not recorded in the user-accessible logs (Query or Activity Log), though they may be logged internally for Semrush’s own security monitoring:contentReference[oaicite:7]{index=7}."
+      reference: "https://www.semrush.com/company/security/"
+  event_logs_licensing_level:
+    value: "All subscription tiers include the Query Log feature for tracking one’s own activity. The multi-user Activity Log is not tied to a specific tier; it becomes available once an account has multiple users (additional user seats can be added to Pro, Guru, or Business plans):contentReference[oaicite:8]{index=8}."
+    reference: "https://www.semrush.com/kb/1409-user-management"
+  monitoring_products:
+    - value: "Semrush **Query Log** (built-in interface for viewing a user’s search queries, API calls, and exports)."
+      reference: "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+    - value: "Semrush **Activity Log** (built-in interface for monitoring team account activities such as user logins, role changes, invitations, etc.)."
+      reference: "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+  ingestion_methods:
+    - value: "Manual CSV export via the Semrush web UI – users can export their Query Log data (e.g., API query history) as a CSV file for external analysis:contentReference[oaicite:9]{index=9}."
+      reference: "https://www.semrush.com/kb/249-query-logs"
+    - value: "No automated log ingestion API or streaming is provided – Semrush does not offer an external feed of audit logs. (Access to raw audit logs is restricted to Semrush’s internal systems):contentReference[oaicite:10]{index=10}."
+      reference: "https://www.semrush.com/company/security/"
+  log_export_options:
+    tools_connectors:
+      value: "Semrush provides no native SIEM/SOAR connectors for log export. All log data export is manual or custom – for example, downloading Query Log CSVs or using custom scripts. There are no out-of-the-box integrations to forward Semrush audit logs to external systems:contentReference[oaicite:11]{index=11}."
+      reference: "https://www.semrush.com/kb/249-query-logs"
+  documentation_links:
+    - "https://www.semrush.com/company/security/"
+    - "https://www.semrush.com/kb/249-query-logs"
+    - "https://www.semrush.com/kb/1411-secure-transparency-team-account"
+    - "https://www.semrush.com/kb/1409-user-management"
+    - "https://www.semrush.com/news/270968-semrush-corporate-plans-create-your-own-product/"
+incident_response:
+  suspend_user_management_api:
+    value: "There is no public API endpoint to suspend or deactivate a Semrush user account. Account administrators can remove a user’s access via the Semrush web UI (deleting the user from the corporate account), but this action is done manually in the interface:contentReference[oaicite:12]{index=12}."
+    reference: "https://www.semrush.com/kb/1409-user-management"
+  invalidate_sessions_api:
+    value: "Semrush does not provide an API to force-logout users or invalidate sessions. Users can log out from their account via the UI, and if an account owner removes a user from the team, that user’s access is revoked, but there is no dedicated session invalidation function exposed to admins or via API (sessions expire according to Semrush’s internal policies)."
+    reference: "https://www.semrush.com/company/security/"
+  revoke_api_key_api:
+    value: "There is no dedicated API call to revoke or rotate a Semrush API key. The API key is tied to the account’s subscription; to invalidate it, one would effectively need to discontinue or change the API access (e.g., cancel the API add-on or contact Semrush support). Semrush advises keeping the API key secret as exposure can lead to misuse:contentReference[oaicite:13]{index=13}."
+    reference: "https://www.semrush.com/kb/92-api-key"
+  user_toggle_api:
+    value: "Semrush does not offer an API to programmatically toggle (enable/disable) user accounts. All user management (adding or removing users, changing roles) must be performed through the Semrush interface by an admin or account owner:contentReference[oaicite:14]{index=14}:contentReference[oaicite:15]{index=15}."
+    reference: "https://www.semrush.com/kb/1409-user-management"
+  user_status_api:
+    value: "No public API is provided to query a user’s status. Account owners can view user status (active, invited, etc.) in the **User Management** dashboard and Activity Log, but this information isn’t available via an external API:contentReference[oaicite:16]{index=16}."
+    reference: "https://www.semrush.com/news/270968-semrush-corporate-plans-create-your-own-product/"
+  session_timeout_configuration:
+    value: "Session timeout is not configurable by users in Semrush. The platform manages session security internally (for instance, only one concurrent login per user credential on basic plans, and support for two-factor authentication and SSO on higher plans):contentReference[oaicite:17]{index=17}:contentReference[oaicite:18]{index=18}. There is no admin setting to adjust how long user sessions remain active; sessions expire according to Semrush’s standard security practices."
+    reference: "https://www.semrush.com/company/security/"
+  known_automation_tools:
+    - value: "No specialized incident response automation tools are known for Semrush. Semrush’s integrations (e.g., Zapier connectors) focus on SEO data tasks rather than security actions. In practice, incident response (like removing a user or changing credentials) is handled manually via the Semrush UI. Notably, Semrush itself may lock an account if it detects policy violations (e.g., multiple users sharing a single-user login):contentReference[oaicite:19]{index=19}."
+      reference: "https://www.reddit.com/r/SEO/comments/xkxypo/semrush_disabling_account_forcing_upgrade/"
+  documentation_links:
+    - "https://www.semrush.com/company/security/"
+    - "https://www.semrush.com/kb/1409-user-management"
+    - "https://www.semrush.com/kb/1012-profile-settings"
+    - "https://www.semrush.com/kb/92-api-key"
+    - "https://www.semrush.com/news/270968-semrush-corporate-plans-create-your-own-product/"

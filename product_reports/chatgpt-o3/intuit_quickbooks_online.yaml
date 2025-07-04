@@ -1,0 +1,184 @@
+user_management:
+  sso_support:
+    value: "No built-in SAML or corporate SSO support (QuickBooks Online relies on Intuit accounts; only social login via Google is available)"
+    reference: "https://quickbooks.intuit.com/learn-support/en-us/install/azure-saml-single-sign-on/00/962086"
+  sso_licensing_level_requirement:
+    value: "Not applicable (no QuickBooks Online plan currently offers SSO integration)"
+    reference: "https://quickbooks.intuit.com/learn-support/en-us/install/azure-saml-single-sign-on/00/962086"
+  scim_support:
+    value: "no"
+    reference: "https://www.okta.com/integrations/quickbooks/"
+  scim_licensing_level_requirement:
+    value: "Not applicable (SCIM provisioning is not supported on any plan)"
+    reference: "https://www.okta.com/integrations/quickbooks/"
+  scim_authentication_mechanisms:
+    value: "Authentication token (OAuth 2.0 bearer token)"
+    reference: "https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0"
+  scim_authentication_acquisition_steps: |
+    1. Sign up for an Intuit Developer account and create an app for QuickBooks Online.  
+    2. Configure OAuth 2.0 scopes for user-related data.  
+    3. Copy the Client ID and Client Secret from your app’s settings in the Intuit Developer Portal.  
+    4. Complete an OAuth 2.0 authorization flow to obtain an access token.  
+    5. Include the bearer token in the **Authorization** header of API requests.  
+    reference: "https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0"
+  user_management_api_support:
+    value: "no"
+    reference: "https://developer.intuit.com/app/developer/qbo/docs/develop"
+  user_management_api_licensing_level:
+    value: "Not applicable (no public user-management API available)"
+    reference: "https://developer.intuit.com/app/developer/qbo/docs/develop"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token (OAuth 2.0)"
+    reference: "https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0"
+  user_management_api_authentication_acquisition_steps: |
+    1. Create a QuickBooks Online app in the Intuit Developer Portal.  
+    2. Select the necessary API scopes (e.g., accounting data).  
+    3. Obtain the application's Client ID and Client Secret.  
+    4. Run the standard OAuth 2.0 authorization-code flow to get an access token.  
+    5. Use the bearer token in API calls (read-only user info only, via beta endpoints).  
+    reference: "https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0"
+  seat_costs:
+    - license_level: "Simple Start"
+      active:
+        value: "yes"
+        reference: "https://quickbooks.intuit.com/online/"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+      archived:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+    - license_level: "Essentials"
+      active:
+        value: "yes"
+        reference: "https://quickbooks.intuit.com/online/"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+      archived:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+    - license_level: "Plus"
+      active:
+        value: "yes"
+        reference: "https://quickbooks.intuit.com/online/"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+      archived:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+    - license_level: "Advanced"
+      active:
+        value: "yes"
+        reference: "https://quickbooks.intuit.com/online/"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+      archived:
+        value: "n/a"
+        reference: "https://quickbooks.intuit.com/online/"
+  lifecycle_options:
+    - "Invited (pending user invite acceptance):https://quickbooks.intuit.com/learn-support/en-sg/help-article/manage-users/add-manage-users-quickbooks-online/L1welhiJZ_SG_en_SG"
+    - "Active:https://quickbooks.intuit.com/learn-support/en-sg/help-article/manage-users/add-manage-users-quickbooks-online/L1welhiJZ_SG_en_SG"
+    - "Deleted (user removed, no access):https://quickbooks.intuit.com/learn-support/en-sg/help-article/manage-users/add-manage-users-quickbooks-online/L1welhiJZ_SG_en_SG"
+  rbac_support:
+    value: "yes"
+    reference: "https://quickbooks.intuit.com/learn-support/en-sg/help-article/manage-users/add-manage-users-quickbooks-online/L1welhiJZ_SG_en_SG"
+  rbac_api_assignment:
+    value: "No public API for role or group assignment (only read-only role info via beta endpoints)"
+    reference: "https://developer.intuit.com/app/developer/qbo/docs/develop"
+  documentation_links:
+    - "https://quickbooks.intuit.com/learn-support/en-us/install/azure-saml-single-sign-on/00/962086"
+    - "https://www.okta.com/integrations/quickbooks/"
+    - "https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0"
+    - "https://developer.intuit.com/app/developer/qbo/docs/develop"
+    - "https://quickbooks.intuit.com/learn-support/en-sg/help-article/manage-users/add-manage-users-quickbooks-online/L1welhiJZ_SG_en_SG"
+    - "https://quickbooks.intuit.com/online/"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Every user sign-in is recorded in QuickBooks Online’s built-in Audit Log (\"Always-On Activity Log\"). QuickBooks explicitly logs each login event with timestamp and user identity."
+      reference: "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA"
+    role_assignment:
+      value: "Changes to user access (e.g. adding or removing a user, or changing a user’s role) are tracked in the Audit Log. For example, if a user is deleted (access removed), their history of actions remains visible in the audit log for accountability."
+      reference: "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA"
+    api_call:
+      value: "Yes – any changes made via the QuickBooks Online API (such as a connected third-party app modifying data) are captured as events in the Audit Log. These appear under a system user (e.g. \"System Administration\" events) whenever an external app sends data or alters records."
+      reference: "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA,https://quickbooks.intuit.com/learn-support/en-us/reports-and-accounting/why-and-how-did-dozens-of-old-invoices-get-updated-within/00/1311783"
+    data_export:
+      value: "No specific audit events are generated for data exports or report downloads. The audit log focuses on tracking creation, modification, or deletion of records, not read-only access. QuickBooks Online’s audit trail monitors added, changed, or deleted transactions, but it does not log when a user exports data or runs reports."
+      reference: "https://fitsmallbusiness.com/quickbooks-audit-trail/"
+    configuration_change:
+      value: "Yes – changes to company configuration or settings in QuickBooks Online are logged. The audit log records admin actions such as updates to QuickBooks settings (which can include security-relevant preferences) along with the user and time of change."
+      reference: "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA"
+    user_account_creation:
+      value: "Yes – adding a new user (inviting a user to the QuickBooks Online company) and other user management events are reflected in the Audit Log. QuickBooks’ always-on activity tracking means new user invites and activations are logged for auditing (just as deletions are)."
+      reference: "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA"
+    security_policy_change:
+      value: "Yes – any security-related policy or preference changes at the application level are captured. For example, modifications to QuickBooks Online’s settings (in the Advanced/Company settings, such as auto-logout timing or other security options) would generate an entry in the Audit Log for traceability."
+      reference: "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA"
+  event_logs_licensing_level:
+    value: "The Audit Log is available on all QuickBooks Online subscription tiers (Simple Start, Essentials, Plus, Advanced). It is an always-on feature that cannot be disabled by any user or tier."
+    reference: "https://quickbooks.intuit.com/learn-support/en-sg/help-article/purchase-orders/reports-included-quickbooks-online-subscription/L0s4KrGgr_SG_en_SG"
+  monitoring_products:
+    - value: "Built-in Always-On Activity Log (Audit Trail) – QuickBooks Online’s internal audit logging feature that continuously records user activities and changes for the past two years."
+      reference: "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA"
+    - value: "Intuit Change Data Capture API – An official API endpoint (`ChangeDataCapture`) allows querying for any accounting objects that have changed since a given time, enabling external monitoring of data changes (though not direct audit log access)."
+      reference: "https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/change-data-capture"
+    - value: "Intuit Webhooks – QuickBooks Online supports webhook notifications to external apps for certain events (create/update/delete of records). This lets a SIEM or monitoring tool receive near real-time alerts when data in the QBO company changes."
+      reference: "https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks"
+    - value: "n8n / Workflow Automation – Workflow tools (e.g., n8n) can integrate with QuickBooks Online API and a SIEM (like Splunk) to periodically pull audit-relevant data or detect changes, automating monitoring without an official SIEM connector."
+      reference: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.quickbooks/"
+    - value: "QuickBooks Online Advanced “Backup & Restore” (ChronoBooks) – QBO Advanced includes a backup system that captures snapshots of data changes. While intended for backup, it provides a secondary record of all changes (though it doesn’t expose the audit log itself) and can help in monitoring data integrity."
+      reference: "https://www.firmofthefuture.com/bookkeeping/copy-your-quickbooks-online-data-into-a-new-company-with-chronobooks/"
+  ingestion_methods:
+    - value: "Manual or automated CSV export – Administrators can export the Audit Log via the QuickBooks Online UI (download as CSV). This CSV can then be ingested into SIEM tools."
+      reference: "https://fitsmallbusiness.com/quickbooks-audit-trail/"
+    - value: "Webhook-driven ingestion – By registering for QBO Webhooks, an external system can receive JSON notifications whenever specific objects change, allowing real-time log ingestion."
+      reference: "https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks"
+    - value: "REST API polling (Change Data Capture) – A SIEM can regularly call the QBO accounting API (ChangeDataCapture) to fetch a list of entities changed since the last poll."
+      reference: "https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/change-data-capture"
+    - value: "Third-party integration middleware – Tools like Zapier or Pabbly Connect can be configured to query QuickBooks data on a schedule and forward events to another system."
+      reference: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.quickbooks/"
+  log_export_options:
+    tools_connectors:
+      value: "No native SIEM connector is provided by Intuit for QuickBooks Online. Logs can be extracted via the UI or API workarounds. For example, a community-built Chrome extension exists to export the Audit Log table to CSV for external analysis."
+      reference: "https://github.com/minimul/qbo-audit-log-to-csv"
+  documentation_links:
+    - "https://quickbooks.intuit.com/learn-support/en-za/help-article/audit-log/use-audit-log-quickbooks-online/L2WoVnW6I_ZA_en_ZA"
+    - "https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/change-data-capture"
+    - "https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks"
+    - "https://www.firmofthefuture.com/bookkeeping/copy-your-quickbooks-online-data-into-a-new-company-with-chronobooks/"
+    - "https://fitsmallbusiness.com/quickbooks-audit-trail/"
+    - "https://quickbooks.intuit.com/learn-support/en-sg/help-article/purchase-orders/reports-included-quickbooks-online-subscription/L0s4KrGgr_SG_en_SG"
+incident_response:
+  suspend_user_management_api:
+    value: "No – QuickBooks Online does not offer any public API to suspend, deactivate, or delete user accounts. User management can only be performed through the QuickBooks Online web interface by an admin."
+    reference: "https://quickbooks.intuit.com/learn-support/en-sg/help-article/manage-users/add-manage-users-quickbooks-online/L1welhiJZ_SG_en_SG"
+  invalidate_sessions_api:
+    value: "No – There is no API or admin console feature to explicitly invalidate a user’s active sessions. Sessions are automatically terminated after the configured inactivity timeout or when the user is removed."
+    reference: "https://www.liveflow.com/learn/how-to-stop-your-quickbooks-online-account-from-deactivating-after-inactivity"
+  revoke_api_key_api:
+    value: "Yes (via UI) – Administrators can revoke a third-party application’s access by disconnecting the app under **Manage Integrations**. Once an app is disconnected, its API tokens are invalidated."
+    reference: "https://quickbooks.intuit.com/learn-support/global/manage-integrations/transfer-app-ownership-or-disconnect-apps/00/393498"
+  user_toggle_api:
+    value: "No – There is no programmatic way to toggle a user’s active/inactive status via API. All user enabling or disabling must be handled interactively through the Manage Users page."
+    reference: "https://quickbooks.intuit.com/learn-support/en-sg/help-article/manage-users/add-manage-users-quickbooks-online/L1welhiJZ_SG_en_SG"
+  user_status_api:
+    value: "No – QuickBooks Online’s API does not provide endpoints to query user account status or list company users; this must be checked in the UI."
+    reference: "https://help.developer.intuit.com/s/question/0TO0f0000004ryoGAA/company-users"
+  session_timeout_configuration:
+    value: "Yes – QuickBooks Online allows configuration of the inactivity timeout for user sessions. Each user can set “Sign me out if inactive for” to 1, 2, or 3 hours."
+    reference: "https://www.liveflow.com/learn/how-to-stop-your-quickbooks-online-account-from-deactivating-after-inactivity"
+  known_automation_tools:
+    - value: "Okta Identity Management (Aquera SCIM Connector) – Okta, via an integration provided by Aquera, supports lifecycle management for QBO."
+      reference: "https://www.okta.com/integrations/quickbooks-online-by-aquera/"
+    - value: "Workflow Automation Platforms (e.g., n8n) – Tools like n8n or Zapier can be used in security workflows involving QuickBooks Online."
+      reference: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.quickbooks/"
+    - value: "Manual administrative scripts/RPA – Some organizations use headless browser scripts or RPA bots to automate UI actions in QuickBooks Online."
+      reference: "https://github.com/minimul/qbo-audit-log-to-csv"
+    - value: "BetterCloud SaaS Management – BetterCloud offers a QuickBooks Online integration for spend monitoring, though security actions still require manual steps."
+      reference: "https://help.bettercloud.com/en/articles/1013-quickbooks-online"
+    - value: "OneLogin SSO (Password Vault Integration) – OneLogin can be configured as a password-vault SSO front-end for QuickBooks Online."
+      reference: "https://www.onelogin.com/connector/quickbooks%20qbo"

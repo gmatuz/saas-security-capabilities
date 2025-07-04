@@ -1,0 +1,177 @@
+user_management:
+  sso_support:
+    value: "Yes – supports single sign-on. Google Workspace allows SSO logins via SAML 2.0 (as a service provider accepting third-party IdP authentication) and also supports SSO as an identity provider (SAML and limited OIDC)."
+    reference: "https://support.google.com/a/answer/60224?hl=en"
+  sso_licensing_level_requirement:
+    value: "Available on all Google Workspace editions (including Business Starter) and even Cloud Identity Free, as long as the domain is verified (no special license upgrade required)."
+    reference: "https://support.google.com/a/answer/6043385?hl=en"
+  scim_support:
+    value: "no"
+    reference: "https://support.google.com/a/answer/7681608?hl=en"
+  scim_licensing_level_requirement:
+    value: "n/a – SCIM user provisioning is not provided as a public feature in Google Workspace (only pre-integrated apps are supported)."
+    reference: "https://support.google.com/a/answer/7681608?hl=en"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://support.google.com/a/answer/7681608?hl=en"
+  scim_authentication_acquisition_steps: "Not applicable – Google does not offer a SCIM endpoint for Gmail/Workspace. Instead, administrators must use Google’s Admin SDK or a supported IdP integration. In practice, this means enabling API access and authorizing a provisioning client (e.g. via OAuth 2.0 consent or service-account delegation) to manage Google accounts."
+  user_management_api_support:
+    value: "yes – Google Workspace provides a comprehensive Admin SDK Directory API for user lifecycle management (create, update, delete users, etc.)."
+    reference: "https://developers.google.com/workspace/admin/directory/v1/guides/manage-users"
+  user_management_api_licensing_level:
+    value: "No special licensing – accessible with any Google Workspace or Cloud Identity edition (any admin account can use the Directory API for user management)."
+    reference: "https://developers.google.com/workspace/admin/directory/v1/guides/manage-users"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://developers.google.com/workspace/admin/directory/v1/guides/manage-users"
+  user_management_api_authentication_acquisition_steps: |
+    1. **Enable API & Service Account:** Create a Google Cloud project and enable the Admin SDK Directory API. Create a service account and download its JSON key.
+    2. **Grant Domain-Wide Delegation:** In the Google Admin console (Security > API controls > Domain-wide Delegation), authorize the service account’s Client ID for the OAuth scope `https://www.googleapis.com/auth/admin.directory.user`.
+    3. **Obtain OAuth Token:** Use the service-account credentials to impersonate an admin user and obtain an OAuth 2.0 access token (JWT flow). This access token is then used to call the Directory API endpoints to manage users.
+  seat_costs:
+    - license_level: "Business Starter"
+      active:
+        value: "yes"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://support.google.com/a/answer/33312?hl=en"
+      archived:
+        value: "no"
+        reference: "https://support.google.com/a/answer/9048836?hl=en"
+    - license_level: "Business Standard"
+      active:
+        value: "yes"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://support.google.com/a/answer/33312?hl=en"
+      archived:
+        value: "no"
+        reference: "https://support.google.com/a/answer/9048836?hl=en"
+    - license_level: "Business Plus"
+      active:
+        value: "yes"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://support.google.com/a/answer/33312?hl=en"
+      archived:
+        value: "no"
+        reference: "https://support.google.com/a/answer/9048836?hl=en"
+    - license_level: "Enterprise Standard"
+      active:
+        value: "yes"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://support.google.com/a/answer/33312?hl=en"
+      archived:
+        value: "no"
+        reference: "https://support.google.com/a/answer/9048836?hl=en"
+    - license_level: "Enterprise Plus"
+      active:
+        value: "yes"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://support.google.com/a/answer/33312?hl=en"
+      archived:
+        value: "no"
+        reference: "https://support.google.com/a/answer/9048836?hl=en"
+  lifecycle_options:
+    - Active
+    - Suspended
+    - Archived
+    - Deleted
+  rbac_support:
+    value: "yes – supports granular administrative roles and group-based access control."
+    reference: "https://support.google.com/a/answer/2405986?hl=en"
+  rbac_api_assignment:
+    value: "Administrators can manage role assignments via API (the Admin SDK’s Roles API allows programmatic creation and assignment of admin roles)."
+    reference: "https://gsuite-developers.googleblog.com/2015/10/google-apps-admin-sdk-introducing-roles.html"
+  documentation_links:
+    - "https://support.google.com/a/answer/60224?hl=en"
+    - "https://support.google.com/a/answer/7681608?hl=en"
+    - "https://support.google.com/a/answer/179832?hl=en"
+    - "https://support.google.com/a/answer/9125226?hl=en"
+    - "https://support.google.com/a/answer/9048836?hl=en"
+    - "https://developers.google.com/workspace/admin/directory/v1/guides/manage-users"
+    - "https://gsuite-developersgoogleblog.com/2015/10/google-apps-admin-sdk-introducing-roles.html"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Gmail (as part of Google Workspace) records user-sign-in events in Login audit logs. These include successful logins, failed attempts, and \"Suspicious login\" events for atypical programmatic access. Admins can review them in the Admin console or pull them with the Reports API (`applicationName=login`)."
+      reference: "https://developers.google.com/workspace/admin/reports/v1/appendix/activity/login"
+    role_assignment:
+      value: "Administrator-role changes are audited. When an admin grants or removes a role, the Delegated Admin Settings audit log records an `ASSIGN_ROLE` event with the role name and target user."
+      reference: "https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-delegated-admin-settings"
+    api_call:
+      value: "API-based access is surfaced through OAuth Token audit logs, which capture third-party app authorisations, and through suspicious programmatic-login events in the Login audit."
+      reference: "https://support.google.com/a/answer/6124308, https://developers.google.com/workspace/admin/reports/v1/appendix/activity/login"
+    data_export:
+      value: "When an admin launches a Workspace data-export, the Admin audit log records the action and other super-admins are notified, ensuring traceability of Gmail and other data exports."
+      reference: "https://support.google.com/a/answer/14339894"
+    configuration_change:
+      value: "Changes to Gmail configuration—including security settings—generate Admin audit events such as `CHANGE_GMAIL_SETTING`, which appear in the Email Settings audit log."
+      reference: "https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-gmail-settings"
+    user_account_creation:
+      value: "Provisioning a new Workspace user (and thus a Gmail mailbox) is logged as a `CREATE_USER` event in the Admin audit log, showing the new account’s primary address."
+      reference: "https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-user-settings"
+    security_policy_change:
+      value: "Updates to Workspace security policies—including Gmail safety rules—are captured in Admin audit `SECURITY_SETTINGS` events, providing a detailed trail of policy changes."
+      reference: "https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-security-settings"
+  event_logs_licensing_level:
+    value: "Basic audit logs are available in all editions, but advanced Gmail log sources (for example, the Gmail message log in the Security investigation tool) require Enterprise Plus, Education Standard/Plus, or similar top-tier editions."
+    reference: "https://support.google.com/a/answer/6263562"
+  monitoring_products:
+    - value: "Google Workspace Security Center (Investigation Tool) lets Enterprise Plus admins search Gmail log events and take remediation actions."
+      reference: "https://support.google.com/a/answer/7575955"
+    - value: "Google Cloud Logging / Chronicle can ingest Workspace audit logs when log-sharing is enabled, allowing Gmail events to stream into Chronicle SIEM."
+      reference: "https://support.google.com/a/answer/9079223"
+    - value: "Splunk – the Splunk Add-on for Google Workspace uses Google APIs to pull Admin, Login, OAuth and other audit logs into Splunk for SIEM analytics."
+      reference: "https://docs.splunk.com/Documentation/AddOns/released/GoogleWorkspace/About"
+    - value: "Microsoft Sentinel – the Google Workspace (Gmail) data connector ingests audit events into Sentinel for centralised monitoring."
+      reference: "https://learn.microsoft.com/azure/sentinel/data-connectors/google-workspace-g-suite"
+  ingestion_methods:
+    - value: "Admin SDK Reports API (`activities.list`) can programmatically pull audit events for applications like login, admin or gmail."
+      reference: "https://developers.google.com/workspace/admin/reports/reference/rest/v1/activities/list"
+    - value: "BigQuery daily export – Enterprise customers can enable automatic export of Workspace audit logs (including Gmail) to BigQuery."
+      reference: "https://support.google.com/a/answer/9079365"
+    - value: "Google Cloud Logging / Pub-Sub – enabling data-sharing streams audit logs to Cloud Logging, where export sinks (for example Pub/Sub) can forward events in near real-time."
+      reference: "https://support.google.com/a/answer/9079223"
+  log_export_options:
+    tools_connectors:
+      value: "Native connectors let admins route Workspace audit logs to Google Cloud Logging or BigQuery, from which they can be forwarded to SIEMs or queried directly."
+      reference: "https://support.google.com/a/answer/9079223, https://support.google.com/a/answer/9079365"
+  documentation_links:
+    - "https://developers.google.com/workspace/admin/reports/v1/appendix/activity/login"
+    - "https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-delegated-admin-settings"
+    - "https://support.google.com/a/answer/6124308"
+    - "https://support.google.com/a/answer/7575955"
+    - "https://support.google.com/a/answer/9079223"
+    - "https://learn.microsoft.com/azure/sentinel/data-connectors/google-workspace-g-suite"
+incident_response:
+  suspend_user_management_api:
+    value: "Using the Admin SDK Directory API, set a user’s `suspended` property to `true` with `users.update` (or PATCH) to suspend Gmail access immediately."
+    reference: "https://developers.google.com/workspace/admin/directory/reference/rest/v1/users/update"
+  invalidate_sessions_api:
+    value: "The Directory API `users.signOut` method signs a user out of all active web and device sessions, forcing re-authentication across Gmail and other services."
+    reference: "https://developers.google.com/workspace/admin/directory/reference/rest/v1/users/signOut"
+  revoke_api_key_api:
+    value: "Admins can revoke a third-party app’s OAuth access with the Directory API `tokens.delete`, invalidating all existing OAuth 2.0 tokens for that app."
+    reference: "https://developers.google.com/workspace/admin/directory/reference/rest/v1/tokens/delete"
+  user_toggle_api:
+    value: "Re-enable a suspended Gmail user by setting `suspended` to `false` via the same Directory API `users.update` endpoint."
+    reference: "https://developers.google.com/workspace/admin/directory/reference/rest/v1/users/update"
+  user_status_api:
+    value: "Check whether an account is active or suspended with the Directory API `users.get`, which returns the `suspended` boolean."
+    reference: "https://developers.google.com/workspace/admin/directory/reference/rest/v1/users/get"
+  session_timeout_configuration:
+    value: "Admins can enforce web-session duration (for example, 8 h, 24 h) under Admin console ▶ Security ▶ Access & data control ▶ Google Cloud session control."
+    reference: "https://support.google.com/a/answer/9368756"
+  known_automation_tools:
+    - value: "GAM (Google Apps Manager) is an open-source CLI that leverages Google Workspace APIs to automate tasks like bulk suspensions, sign-outs, and token revocation."
+      reference: "https://github.com/GAM-team/GAM"
+  documentation_links:
+    - "https://developers.google.com/workspace/admin/directory/reference/rest/v1/users/update"
+    - "https://developers.google.com/workspace/admin/directory/reference/rest/v1/users/signOut"
+    - "https://developers.google.com/workspace/admin/directory/reference/rest/v1/tokens/delete"
+    - "https://developers.google.com/workspace/admin/directory/reference/rest/v1/users/get"
+    - "https://support.google.com/a/answer/9368756"
+    - "https://github.com/GAM-team/GAM"

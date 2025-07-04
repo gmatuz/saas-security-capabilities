@@ -1,0 +1,170 @@
+user_management:
+  sso_support:
+    value: "Yes - SAML single sign-on (GitHub Enterprise Cloud)"
+    reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise"
+  sso_licensing_level_requirement:
+    value: "GitHub Team or Enterprise Cloud"
+    reference: "https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations"
+  scim_support:
+    value: "yes"
+    reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users"
+  scim_licensing_level_requirement:
+    value: "GitHub Enterprise Cloud (Enterprise Managed Users)"
+    reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/getting-started-with-enterprise-managed-users"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/getting-started-with-enterprise-managed-users"
+  scim_authentication_acquisition_steps: "Sign in as the enterprise setup user, then create a personal access token (classic) with the 'scim:enterprise' scope (no expiration):contentReference[oaicite:0]{index=0}."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://docs.github.com/en/rest/orgs/members#create-an-organization-invitation"
+  user_management_api_licensing_level:
+    value: "No special license (organization owners can manage members)"
+    reference: "https://docs.github.com/en/rest/orgs/members#create-an-organization-invitation"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://docs.github.com/en/rest/orgs/members#create-an-organization-invitation"
+  user_management_api_authentication_acquisition_steps: "Generate a personal access token (PAT) with appropriate scopes (e.g., admin:org) from your user profile."
+  seat_costs:
+    - license_level: "GitHub Team (Cloud)"
+      active:
+        value: "yes"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing"
+      archived:
+        value: "n/a"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users"
+    - license_level: "GitHub Enterprise Cloud"
+      active:
+        value: "yes"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing"
+      archived:
+        value: "n/a"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users"
+    - license_level: "GitHub Enterprise Server"
+      active:
+        value: "yes"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing"
+      archived:
+        value: "n/a"
+        reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users"
+  lifecycle_options:
+    - "Active"
+    - "Suspended"
+    - "Disabled (SCIM deactivated)"
+  rbac_support:
+    value: "yes"
+    reference: "https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations"
+  rbac_api_assignment:
+    value: "Yes (via REST API endpoints for organization roles and team membership)"
+    reference: "https://docs.github.com/en/rest/teams/members#add-or-update-team-membership-for-a-user"
+  documentation_links:
+    - "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise"
+    - "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users"
+    - "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/getting-started-with-enterprise-managed-users"
+    - "https://docs.github.com/en/rest/orgs/members#create-an-organization-invitation"
+    - "https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations"
+    - "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-with-okta"
+    - "https://docs.github.com/en/enterprise-server@3.14/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-with-okta"
+    - "https://github.blog/changelog/2024-09-26-bring-your-own-identity-provider-to-enterprise-managed-users"
+    - "https://docs.github.com/en/rest/teams/members#add-or-update-team-membership-for-a-user"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "user.session.start"
+      reference: "https://developer.okta.com/docs/reference/api/event-types/#user-session-start"
+    role_assignment:
+      value: "iam.resourceset.bindings.add"
+      reference: "https://developer.okta.com/docs/reference/api/event-types/#iam-resourceset-bindings-add"
+    api_call:
+      value: "app.oauth2.as.token.grant.access_token"
+      reference: "https://developer.okta.com/docs/reference/api/event-types/#app-oauth2-as-token-grant-access-token"
+    data_export:
+      value: "analytics.reports.export.download"
+      reference: "https://developer.okta.com/docs/reference/api/event-types/#analytics-reports-export-download"
+    configuration_change:
+      value: "iam.policy.configuration.update"
+      reference: "https://developer.okta.com/docs/reference/api/event-types/#iam-policy-configuration-update"
+    user_account_creation:
+      value: "user.lifecycle.create"
+      reference: "https://developer.okta.com/docs/reference/api/event-types/#user-lifecycle-create"
+    security_policy_change:
+      value: "iam.policy.configuration.update"
+      reference: "https://developer.okta.com/docs/reference/api/event-types/#iam-policy-configuration-update"
+  event_logs_licensing_level:
+    value: "System Log (all editions ‒ 90-day retention)"
+    reference: "https://blog.scanner.dev/monitoring-okta-logs-for-threat-detection-step-by-step-guide/#what-are-okta-system-logs"
+  monitoring_products:
+    - value: "Splunk Add-on for Okta Identity Cloud"
+      reference: "https://splunk.github.io/splunk-add-on-for-okta-identity-cloud/"
+    - value: "Elastic Okta Integration (Elastic Agent)"
+      reference: "https://www.elastic.co/docs/reference/integrations/okta"
+    - value: "IBM QRadar DSM – Okta REST API"
+      reference: "https://www.ibm.com/docs/en/dsm?topic=configuration-protocol-options#okta-rest"
+    - value: "Sumo Logic Okta Source"
+      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/okta-source/"
+    - value: "AWS CloudTrail Lake via EventBridge pipeline"
+      reference: "https://aws.amazon.com/blogs/mt/get-visibility-into-the-activity-logs-for-your-workforce-and-customer-identities/"
+  ingestion_methods:
+    - value: "System Log REST API GET /api/v1/logs"
+      reference: "https://developer.okta.com/docs/reference/api/system-log/"
+    - value: "Log Streaming → AWS EventBridge"
+      reference: "https://help.okta.com/en-us/content/topics/reports/log-streaming/add-aws-eb-log-stream.htm"
+    - value: "Log Streaming → Splunk Cloud"
+      reference: "https://help.okta.com/en-us/content/topics/reports/log-streaming/about-log-streams.htm"
+    - value: "Elastic Agent pull via Okta API"
+      reference: "https://www.elastic.co/docs/reference/integrations/okta"
+    - value: "Sumo Logic Cloud-to-Cloud Okta Collector"
+      reference: "https://help.sumologic.com/docs/cse/ingestion/ingestion-sources-for-cloud-siem/okta/"
+  log_export_options:
+    tools_connectors:
+      value: "Grove – HashiCorp open-source Okta log collector"
+      reference: "https://github.com/hashicorp-forge/grove"
+  documentation_links:
+    - "https://developer.okta.com/docs/reference/api/system-log/"
+    - "https://developer.okta.com/docs/reference/api/event-types/"
+    - "https://help.okta.com/en-us/content/topics/reports/log-streaming/about-log-streams.htm"
+    - "https://help.okta.com/en-us/content/topics/reports/log-streaming/add-aws-eb-log-stream.htm"
+    - "https://splunk.github.io/splunk-add-on-for-okta-identity-cloud/"
+    - "https://www.elastic.co/docs/reference/integrations/okta"
+incident_response:
+  suspend_user_management_api:
+    value: "POST /api/v1/users/{id}/lifecycle/suspend"
+    reference: "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/#suspend-a-user"
+  invalidate_sessions_api:
+    value: "DELETE /api/v1/users/{id}/sessions"
+    reference: "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserSessions/#revoke-all-user-sessions"
+  revoke_api_key_api:
+    value: "DELETE /api/v1/api-tokens/{apiTokenId}"
+    reference: "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApiToken/#revoke-an-api-token"
+  user_toggle_api:
+    value: "POST /api/v1/users/{id}/lifecycle/deactivate / reactivate"
+    reference: "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/#deactivate-a-user"
+  user_status_api:
+    value: "GET /api/v1/users/{id}"
+    reference: "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#get-user"
+  session_timeout_configuration:
+    value: "Global Session Policy – max session lifetime & idle timeout"
+    reference: "https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/add-okta-sign-on-policy-rule.htm"
+  known_automation_tools:
+    - value: "Okta Workflows (Suspend User action)"
+      reference: "https://help.okta.com/wf/en-us/content/topics/workflows/connector-reference/okta/actions/suspenduser.htm"
+    - value: "Terraform Okta Provider"
+      reference: "https://registry.terraform.io/providers/okta/okta/latest/docs"
+    - value: "Okta SDK for Python"
+      reference: "https://github.com/okta/okta-sdk-python"
+  documentation_links:
+    - "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/"
+    - "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserSessions/"
+    - "https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApiToken/"
+    - "https://developer.okta.com/docs/api/openapi/okta-oauth/oauth/tag/GlobalTokenRevocation/"
+    - "https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/add-okta-sign-on-policy-rule.htm"
+    - "https://help.okta.com/wf/en-us/content/topics/workflows/connector-reference/okta/actions/suspenduser.htm"

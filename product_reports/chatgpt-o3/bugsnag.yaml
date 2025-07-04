@@ -1,0 +1,184 @@
+user_management:
+  sso_support:
+    value: "SAML 2.0 single sign-on (Okta, OneLogin, Auth0 and any generic SAML IdP)"
+    reference: "https://docs.bugsnag.com/product/single-sign-on/"
+  sso_licensing_level_requirement:
+    value: "Available on **Preferred** and **Enterprise** plans"
+    reference: "https://www.bugsnag.com/pricing/#plan-comparison"
+  scim_support:
+    value: "yes"
+    reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+  scim_licensing_level_requirement:
+    value: "Enterprise plan"
+    reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+  scim_authentication_acquisition_steps: |
+    1. Sign in to Bugsnag as an **Organization Admin**.  
+    2. Open **Personal auth tokens** (shortcut `g u`) and click **Generate new token**.  
+    3. Copy the generated token and store it securely – this is the bearer you must send in the `Authorization: token {token}` header when a SCIM IdP calls Bugsnag.  
+    4. Copy the **SCIM Base URL** from **Organization Settings → Single sign-on** and paste both the URL and token into your IdP’s SCIM provisioning fields.
+  user_management_api_support:
+    value: "yes"
+    reference: "https://docs.bugsnag.com/api/data-access/"
+  user_management_api_licensing_level:
+    value: "Data Export API is included from **Select/Team** tier upward"
+    reference: "https://www.bugsnag.com/pricing/#plan-comparison"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://docs.bugsnag.com/api/data-access/examples/#getting-started"
+  user_management_api_authentication_acquisition_steps: |
+    1. In Bugsnag, go to **Personal auth tokens** (`g u`).  
+    2. Click **Generate new token**; copy the 40-character token.  
+    3. Use the token in the `Authorization: token <token>` HTTP header for all Data Access API requests.
+  seat_costs:
+    - license_level: "Select"
+      active:
+        value: "yes"
+        reference: "https://www.bugsnag.com/pricing/#plan-comparison"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+      archived:
+        value: "uncertain"
+        reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+    - license_level: "Preferred"
+      active:
+        value: "yes"
+        reference: "https://www.bugsnag.com/pricing/#plan-comparison"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+      archived:
+        value: "uncertain"
+        reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+    - license_level: "Enterprise"
+      active:
+        value: "yes"
+        reference: "https://www.bugsnag.com/pricing/#plan-comparison"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+      archived:
+        value: "no"
+        reference: "https://docs.bugsnag.com/product/single-sign-on/other/#setup-provisioning-and-deprovisioning-scim"
+  lifecycle_options:
+    - active
+    - deactivated
+    - pending_invite
+  rbac_support:
+    value: "yes"
+    reference: "https://docs.bugsnag.com/product/roles-and-permissions/"
+  rbac_api_assignment:
+    value: "Collaborator role assignments can be managed programmatically via the Data Access API (e.g., create/invite collaborator endpoint)"
+    reference: "https://bugsnagapiv2.docs.apiary.io/#reference/collaborators/collaborators-collection/create-a-collaborator"
+  documentation_links:
+    - "https://docs.bugsnag.com/product/single-sign-on/"
+    - "https://docs.bugsnag.com/product/single-sign-on/okta-scim-setup/"
+    - "https://docs.bugsnag.com/product/single-sign-on/other/"
+    - "https://docs.bugsnag.com/product/roles-and-permissions/"
+    - "https://docs.bugsnag.com/api/data-access/"
+    - "https://docs.bugsnag.com/api/data-access/examples/"
+    - "https://github.com/bugsnag/bugsnag-api-ruby"
+    - "https://www.bugsnag.com/pricing/#plan-comparison"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Not available – current Audit Logs do **not** record individual collaborator sign‑in events."
+      reference: "https://docs.bugsnag.com/product/account-and-security/"
+    role_assignment:
+      value: "Audit Logs capture collaborator role and permission changes within an organization or project."
+      reference: "https://docs.bugsnag.com/product/account-and-security/"
+    api_call:
+      value: "No separate API‑call or query‑log stream is exposed; the Data Access API is read‑only and does not log requests."
+      reference: "https://docs.bugsnag.com/api/data-access/"
+    data_export:
+      value: "Audit Logs include ‘Integration changes’, e.g., enabling/disabling data‑forwarding connectors such as Splunk or SQS."
+      reference: "https://docs.bugsnag.com/product/account-and-security/"
+    configuration_change:
+      value: "Audit Logs record creation/deletion of orgs/projects and all organization & project setting changes."
+      reference: "https://docs.bugsnag.com/product/account-and-security/"
+    user_account_creation:
+      value: "Audit Logs track collaborator creation and invitation events."
+      reference: "https://docs.bugsnag.com/product/account-and-security/"
+    security_policy_change:
+      value: "Changes to authentication or integration security settings are captured in Audit Logs under ‘authentication settings changes’. "
+      reference: "https://docs.bugsnag.com/product/account-and-security/"
+  event_logs_licensing_level:
+    value: "Enterprise plan (Audit Logs feature)"
+    reference: "https://docs.bugsnag.com/product/account-and-security/"
+  monitoring_products:
+    - value: "Splunk HEC data‑forwarding integration"
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/"
+    - value: "Amazon SQS forwarder (with optional S3 off‑loading)"
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/sqs/"
+    - value: "Generic Webhook forwarder"
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/"
+    - value: "Datadog integration (events stream)"
+      reference: "https://docs.datadoghq.com/integrations/bugsnag/"
+    - value: "Splunk On‑Call / VictorOps incident feed"
+      reference: "https://docs.splunk.com/observability/en/sp-oncall/spoc-integrations/bugsnag-integration.html"
+  ingestion_methods:
+    - value: "Data Access API v2 – REST (JSON) at https://api.bugsnag.com"
+      reference: "https://docs.bugsnag.com/api/data-access/"
+    - value: "Splunk HEC push (JSON over HTTPS)"
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/"
+    - value: "Amazon SQS messages (JSON) with optional large‑payload upload to S3"
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/sqs/"
+    - value: "Outbound Webhook (JSON POST to arbitrary URL)"
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/"
+    - value: "Batch Event‑Data‑Request endpoint (GDPR/CCPA bulk export)"
+      reference: "https://docs.bugsnag.com/api/data-access/examples/"
+  log_export_options:
+    tools_connectors:
+      value: |
+        • Native connectors: Splunk HEC, Amazon SQS (+ S3), Webhook  
+        • Programmatic: Data Access API v2 (REST/JSON)  
+        • Community CLIs: `bugsnag-exporter` (Go), `bugsnag-event-csv` (Node) for CSV/JSON dumps
+      reference: "https://docs.bugsnag.com/product/integrations/data-forwarding/"
+  documentation_links:
+    - "https://docs.bugsnag.com/product/account-and-security/"
+    - "https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/"
+    - "https://docs.bugsnag.com/product/integrations/data-forwarding/sqs/"
+    - "https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/"
+    - "https://docs.bugsnag.com/api/data-access/"
+    - "https://docs.bugsnag.com/product/integrations/data-forwarding/"
+    - "https://bugsnagapiv2.docs.apiary.io/"
+incident_response:
+  suspend_user_management_api:
+    value: "DELETE /organizations/{org_id}/collaborators/{user_id} – removes a collaborator, effectively suspending their access."
+    reference: "https://bugsnagapiv2.docs.apiary.io/"
+  invalidate_sessions_api:
+    value: "Not provided; session revocation is handled by the IdP. BugSnag honors the SAML `SessionNotOnOrAfter` attribute for forced expiry."
+    reference: "https://docs.bugsnag.com/product/single-sign-on/other/#session-timeout"
+  revoke_api_key_api:
+    value: "Personal Auth Tokens can be generated and manually revoked in **My Account → Personal auth tokens** (dashboard only – no public endpoint)."
+    reference: "https://docs.bugsnag.com/product/account-and-security/"
+  user_toggle_api:
+    value: "PATCH /organizations/{org_id}/collaborators/{user_id} – `update_collaborator_permissions` to enable/disable admin rights."
+    reference: "https://github.com/bugsnag/bugsnag-api-ruby"
+  user_status_api:
+    value: "GET /organizations/{org_id}/collaborators – returns list with user IDs, roles, and active status."
+    reference: "https://bugsnagapiv2.docs.apiary.io/"
+  session_timeout_configuration:
+    value: "`SessionNotOnOrAfter` in the SAML assertion sets BugSnag session lifetime; configurable in the IdP."
+    reference: "https://docs.bugsnag.com/product/single-sign-on/other/#session-timeout"
+  known_automation_tools:
+    - value: "`bugsnag-api-ruby` – official Ruby SDK for the Data Access API"
+      reference: "https://github.com/bugsnag/bugsnag-api-ruby"
+    - value: "`bugsnag-exporter` – Go CLI to dump events to CSV/JSON"
+      reference: "https://github.com/xljones/bugsnag-exporter"
+    - value: "`bugsnag-event-csv` – Node CLI for CSV export"
+      reference: "https://github.com/adriankeenan/bugsnag-event-csv"
+    - value: "Pipedream connectors (Bugsnag ↔ Splunk) for no‑code workflows"
+      reference: "https://pipedream.com/apps/bugsnag/integrations/splunk"
+    - value: "ClickUp ‘Bugsnag Automations’ (error‑to‑task workflow)"
+      reference: "https://help.clickup.com/hc/en-us/articles/6305547604759-Bugsnag-Automations"
+  documentation_links:
+    - "https://bugsnagapiv2.docs.apiary.io/"
+    - "https://docs.bugsnag.com/product/single-sign-on/other/#session-timeout"
+    - "https://github.com/bugsnag/bugsnag-api-ruby"
+    - "https://docs.bugsnag.com/product/account-and-security/"
+    - "https://docs.bugsnag.com/product/single-sign-on/onelogin/"
+    - "https://docs.opslevel.com/docs/bugsnag"

@@ -1,0 +1,147 @@
+user_management:
+  sso_support:
+    value: "Salesforce supports single sign-on via SAML 2.0 and OpenID Connect (OAuth 2.0) standards."
+    reference: "https://help.salesforce.com/s/articleView?id=sf.sso_about.htm"
+  sso_licensing_level_requirement:
+    value: "Federated SSO (SAML) is available in all Salesforce editions. Delegated Authentication and Authentication Providers (for OpenID Connect and social logins) require at least Professional, Enterprise, Performance, Unlimited, or Developer Edition."
+    reference: "https://help.salesforce.com/s/articleView?id=sf.sso_tips.htm"
+  scim_support:
+    value: "yes"
+    reference: "https://help.salesforce.com/s/articleView?id=sf.identity_scim_overview.htm"
+  scim_licensing_level_requirement:
+    value: "Available in all Salesforce editions (no special license or add-on required)."
+    reference: "https://help.salesforce.com/s/articleView?id=sf.identity_scim_overview.htm"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.salesforce.com/s/articleView?id=sf.identity_scim_rest_api.htm"
+  scim_authentication_acquisition_steps: |-
+    1. **Enable SCIM:** In Salesforce Setup, create a **Connected App** for SCIM provisioning. Enable OAuth settings (add a callback URL and select scopes such as **Full access** and **Refresh token (offline_access)**). Under **User Provisioning Settings**, check **Enable User Provisioning** and save the Connected App.  
+    2. **Obtain Credentials:** From the Connected App details, copy the **Consumer Key** and **Consumer Secret**. Ensure you have a Salesforce admin user for provisioning.  
+    3. **Get Access Token:** Call `https://<your-domain>.my.salesforce.com/services/oauth2/token` with either the **JWT Bearer** flow or the **Username-Password** grant (admin username, password + security token) to obtain an OAuth access token.  
+    4. **Authorize SCIM Calls:** Use the returned access token in `Authorization: Bearer <token>` for SCIM requests (for example, `GET /services/scim/v2/Users`).  
+  user_management_api_support:
+    value: "yes"
+    reference: "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_user.htm"
+  user_management_api_licensing_level:
+    value: "API access is enabled by default in Enterprise, Performance, Unlimited, and Developer Editions (Professional Edition requires the API add-on)."
+    reference: "https://help.salesforce.com/s/articleView?id=000385436&type=1"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/quickstart_oauth.htm"
+  user_management_api_authentication_acquisition_steps: |-
+    1. **Enable API Access:** Confirm your org edition supports API (Enterprise, Unlimited, Performance, Developer, or Professional + API add-on) and the integration user has **API Enabled** permission.  
+    2. **Create Integration User:** Set up or designate a Salesforce administrator account for API calls.  
+    3. **Generate Security Token:** Reset the user’s **Security Token** (emailed to the user) and append it to the password for Username-Password OAuth flow.  
+    4. **Authenticate:** POST to `https://login.salesforce.com/services/oauth2/token` (or your My Domain) with `grant_type=password`, `client_id`, `client_secret`, username, and password + security token to receive an **access token/session ID**.  
+    5. **Call User APIs:** Supply `Authorization: Bearer <token>` with REST or SOAP calls to create, update, freeze, or deactivate **User** records and assign **RoleId** or **PermissionSetAssignment** records.  
+  seat_costs:
+    - license_level: "Standard Salesforce User License"
+      active:
+        value: "yes"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.salesforce.com/s/articleView?id=platform.users_deactivate_considerations.htm"
+      archived:
+        value: "n/a"
+  lifecycle_options:
+    - "Active (user can log in; consumes a license seat)"
+    - "Frozen (login temporarily disabled; license still consumed)"
+    - "Deactivated/Inactive (user access revoked; license seat freed)"
+    - "Archived (not applicable – Salesforce users cannot be fully deleted or archived)"
+  rbac_support:
+    value: "yes"
+    reference: "https://help.salesforce.com/s/articleView?id=sf.admin_roles.htm"
+  rbac_api_assignment:
+    value: "Administrators can manage roles and permissions via API (for example, set a user’s RoleId or insert PermissionSetAssignment records)."
+    reference: "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_permissionsetassignment.htm"
+  documentation_links:
+    - "https://help.salesforce.com/s/articleView?id=sf.sso_about.htm"
+    - "https://help.salesforce.com/s/articleView?id=sf.identity_scim_overview.htm"
+    - "https://help.salesforce.com/s/articleView?id=platform.users_deactivate_considerations.htm"
+    - "https://help.salesforce.com/s/articleView?id=000385436&type=1"
+    - "https://www.salesforceben.com/salesforce-user-provisioning-ways-to-add-and-update-users/"
+    - "https://saml-doc.okta.com/Provisioning_Docs/Salesforce_Provisioning.html"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Salesforce records user login attempts (including API logins) …"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.users_login_history.htm"
+    role_assignment:
+      value: "Changes to user roles/permissions are captured …"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.admin_monitorsetup.htm"
+    api_call:
+      value: "Salesforce logs API usage events …"
+      reference: "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventlogfile.htm"
+    data_export:
+      value: "Unusually large data exports or report downloads can be monitored …"
+      reference: "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventlogfile_reportexport.htm"
+    configuration_change:
+      value: "Configuration changes in Salesforce are logged for auditing …"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.admin_monitorsetup.htm"
+    user_account_creation:
+      value: "User account provisioning and deactivation events are logged …"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.admin_monitorsetup.htm"
+    security_policy_change:
+      value: "Changes to security configurations … are tracked …"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.security_overview_auditing.htm"
+  event_logs_licensing_level:
+    value: "Comprehensive event logging is an add-on feature …"
+    reference: "https://help.salesforce.com/s/articleView?id=salesforce_shield.htm"
+  monitoring_products:
+    - value: "Salesforce **Shield Event Monitoring** – …"
+      reference: "https://www.salesforce.com/platform/shield/"
+    - value: "**Splunk Add-on for Salesforce** – …"
+      reference: "https://splunkbase.splunk.com/app/3549"
+    - value: "**Microsoft Sentinel Salesforce Connector** – …"
+      reference: "https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/Salesforce%20Service%20Cloud"
+    - value: "**ConnectWise SIEM (Perch) Integration** – …"
+      reference: "https://docs.connectwise.com/siem"
+    - value: "**Sumo Logic Salesforce App** – …"
+      reference: "https://help.sumologic.com/docs/integrations/saas-cloud/salesforce/"
+    - value: "**Panther SIEM Integration** – …"
+      reference: "https://panther.com/integrations/salesforce"
+  ingestion_methods:
+    - value: "**REST API (Event Log Files)** – …"
+      reference: "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventlogfile.htm"
+    - value: "**SOQL Queries (API access)** – …"
+      reference: "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_loginhistory.htm"
+    - value: "**UI Export/Download** – …"
+      reference: "https://help.salesforce.com/s/articleView?id=000386493"
+    - value: "**Streaming/Real-Time Events** – …"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.real_time_event_monitoring_streaming.htm"
+    - value: "**ETL/Batch Export (AppFlow)** – …"
+      reference: "https://docs.aws.amazon.com/appflow/latest/userguide/salesforce.html"
+  log_export_options:
+    tools_connectors:
+      value: "Salesforce supports various connectors and tools for exporting logs …"
+      reference: "https://splunkbase.splunk.com/app/3549"
+incident_response:
+  suspend_user_management_api:
+    value: "Salesforce does not have a single “suspend user” API call …"
+    reference: "https://help.salesforce.com/s/articleView?id=000387522"
+  invalidate_sessions_api:
+    value: "To forcibly log out active sessions …"
+    reference: "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_invalidatesessions.htm"
+  revoke_api_key_api:
+    value: "Salesforce uses OAuth tokens instead of static API keys …"
+    reference: "https://help.salesforce.com/s/articleView?id=sf.remoteaccess_revoke_token.htm"
+  user_toggle_api:
+    value: "User accounts can be toggled active/inactive via the standard User object API …"
+    reference: "https://help.salesforce.com/s/articleView?id=platform.how_to_deactivate_users.htm"
+  user_status_api:
+    value: "The status of a user (active, frozen, or locked out) can be queried via API …"
+    reference: "https://help.salesforce.com/s/articleView?id=000386556"
+  session_timeout_configuration:
+    value: "Session timeout is configurable in Salesforce’s security settings …"
+    reference: "https://help.salesforce.com/s/articleView?id=sf.security_overview_sessions.htm"
+  known_automation_tools:
+    - value: "Salesforce **SCIM API** – …"
+      reference: "https://help.salesforce.com/s/articleView?id=sf.identity_scim_overview.htm"
+    - value: "**Identity Provider Integration (Okta, Azure AD)** – …"
+      reference: "https://help.okta.com/en-us/content/topics/users-groups-profiles/usgp-deactivate-user-account.htm"
+    - value: "**Bulk/Scripted User Management** – …"
+      reference: "https://help.salesforce.com/s/articleView?id=000387522"
+    - value: "Salesforce **Transaction Security Policies** – …"
+      reference: "https://help.salesforce.com/s/articleView?id=release-notes.rn_security_permissions_monitoring.htm"
+    - value: "Salesforce **Flow/Process Automation** – …"
+      reference: "https://admin.salesforce.com/blog/2023/how-to-automatically-deactivate-users-who-havent-logged-on-in-90-days"

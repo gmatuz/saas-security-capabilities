@@ -1,0 +1,187 @@
+user_management:
+  sso_support:
+    value: "Yes (SAML 2.0 and OIDC supported)"
+    reference: "https://help.openai.com/en/articles/11489188-sso-for-chatgpt-team-faq"
+  sso_licensing_level_requirement:
+    value: "Available on ChatGPT Team, Enterprise, and Education"
+    reference: "https://help.openai.com/en/articles/11489188-sso-for-chatgpt-team-faq"
+  scim_support:
+    value: "yes"
+    reference: "https://help.openai.com/en/articles/9627404-openai-chatgpt-scim-integration-faq"
+  scim_licensing_level_requirement:
+    value: "Only available for Enterprise and Education"
+    reference: "https://help.openai.com/en/articles/9627404-openai-chatgpt-scim-integration-faq"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.openai.com/en/articles/9672121-getting-started-with-identity-and-provisioning-in-chatgpt-enterprise"
+  scim_authentication_acquisition_steps: |
+    1. Login to ChatGPT Enterprise as a Workspace Owner.
+    2. Go to “Identity & Provisioning” settings.
+    3. Under SCIM provisioning, click “Set up” to be redirected to WorkOS configuration.
+    4. Copy the provided SCIM Base URL and Bearer Token.
+    5. Paste into your IdP (e.g. Okta, Azure AD).
+  user_management_api_support:
+    value: "no"
+    reference: "https://help.openai.com/en/articles/10479654-understanding-your-ideal-user-management-setup"
+  user_management_api_licensing_level:
+    value: "n/a"
+    reference: "https://help.openai.com/en/articles/10479654-understanding-your-ideal-user-management-setup"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://platform.openai.com/docs/guides/api-reference/authentication"
+  user_management_api_authentication_acquisition_steps: |
+    - Login to https://platform.openai.com.
+    - Click on your name in the top-right and go to “API keys”.
+    - Generate a new API key.
+    - Copy and securely store the token.
+  seat_costs:
+    - license_level: "Free"
+      active:
+        value: "yes"
+        reference: "https://openai.com/chatgpt"
+      suspended_disabled:
+        value: "no"
+        reference: "https://openai.com/chatgpt"
+      archived:
+        value: "no"
+        reference: "https://openai.com/chatgpt"
+    - license_level: "ChatGPT Plus"
+      active:
+        value: "yes"
+        reference: "https://openai.com/chatgpt"
+      suspended_disabled:
+        value: "no"
+        reference: "https://openai.com/chatgpt"
+      archived:
+        value: "no"
+        reference: "https://openai.com/chatgpt"
+    - license_level: "ChatGPT Team"
+      active:
+        value: "yes"
+        reference: "https://help.openai.com/en/articles/11489188-sso-for-chatgpt-team-faq"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.openai.com/en/articles/11489188-sso-for-chatgpt-team-faq"
+      archived:
+        value: "no"
+        reference: "https://help.openai.com/en/articles/11489188-sso-for-chatgpt-team-faq"
+    - license_level: "ChatGPT Enterprise"
+      active:
+        value: "yes"
+        reference: "https://help.openai.com/en/articles/8266401-how-do-i-add-change-or-remove-chatgpt-enterprise-members"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.openai.com/en/articles/8266401-how-do-i-add-change-or-remove-chatgpt-enterprise-members"
+      archived:
+        value: "no"
+        reference: "https://help.openai.com/en/articles/8266401-how-do-i-add-change-or-remove-chatgpt-enterprise-members"
+  lifecycle_options:
+    - "Pending Invite"
+    - "Active"
+    - "Removed"
+  rbac_support:
+    value: "yes"
+    reference: "https://help.openai.com/en/articles/8266431-what-is-the-difference-between-different-roles-on-my-chatgpt-enterprise-workspace"
+  rbac_api_assignment:
+    value: "RBAC roles (Owner, Admin, Member) can be assigned in the admin UI; SCIM cannot assign roles"
+    reference: "https://help.openai.com/en/articles/8266431-what-is-the-difference-between-different-roles-on-my-chatgpt-enterprise-workspace"
+  documentation_links:
+    - "https://help.openai.com/en/articles/11489188-sso-for-chatgpt-team-faq"
+    - "https://help.openai.com/en/articles/10479654-understanding-your-ideal-user-management-setup"
+    - "https://help.openai.com/en/articles/8266401-how-do-i-add-change-or-remove-chatgpt-enterprise-members"
+    - "https://help.openai.com/en/articles/9627404-openai-chatgpt-scim-integration-faq"
+    - "https://help.openai.com/en/articles/9672121-getting-started-with-identity-and-provisioning-in-chatgpt-enterprise"
+    - "https://help.openai.com/en/articles/10468051-sso-overview"
+    - "https://help.openai.com/en/articles/8266431-what-is-the-difference-between-different-roles-on-my-chatgpt-enterprise-workspace"
+    - "https://platform.openai.com/docs/guides/api-reference/authentication"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Yes – ChatGPT Enterprise provides audit logs capturing user authentication events. Login and logout attempts (including failures) are recorded with timestamps and user details."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    role_assignment:
+      value: "Yes – Changes to user roles are logged. The audit logs include events for role assignments or modifications (e.g., when a user is granted admin privileges or roles are changed)."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    api_call:
+      value: "Partial – Individual API requests are not in audit logs, but the Compliance API provides a record of all user interactions (prompts and responses) with timestamps for compliance auditing."
+      reference: "https://help.openai.com/en/articles/9261474-compliance-api-for-enterprise-customers"
+    data_export:
+      value: "No specific audit event – The documented audit-tracked events do not list a data-export action; administrators rely on Compliance API logs to monitor data handling."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    configuration_change:
+      value: "Yes – Administrative configuration updates (e.g., enabling SSO, toggling data-retention or audit-logging settings) are captured in audit logs."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    user_account_creation:
+      value: "Yes – User-lifecycle events are recorded. Audit logs track invitations, account creation (invite acceptance), updates and deletions."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    security_policy_change:
+      value: "Yes – Security-relevant policy changes generate configuration-update events in the audit logs."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+  event_logs_licensing_level:
+    value: "Audit Logs API is available to organization-tier API Platform accounts, while the enhanced Compliance API export is exclusive to ChatGPT Enterprise workspaces."
+    reference: "https://help.openai.com/en/articles/9261474-compliance-api-for-enterprise-customers"
+  monitoring_products:
+    - value: "OpenAI ChatGPT Enterprise Compliance API – Programmatic access to conversation and usage logs for SIEM, DLP and eDiscovery tools."
+      reference: "https://help.openai.com/en/articles/9261474-compliance-api-for-enterprise-customers"
+    - value: "OpenAI Audit Log API (Admin API) – Retrieves immutable audit events covering user management, key changes and configuration updates."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    - value: "Microsoft Purview Connector – Ingests ChatGPT Enterprise interactions into Microsoft Purview audit logs and DLP workflows."
+      reference: "https://techcommunity.microsoft.com/blog/microsoft-security-blog/microsoft-purview-integrates-with-chatgpt-enterprise-compliance-api-to-support-c/4192868"
+    - value: "Palo Alto Networks AI Access Security – CASB solution that integrates with the Compliance API to monitor usage and detect sensitive-data exposure in near real-time."
+      reference: "https://www.paloaltonetworks.com/blog/2024/07/announcing-openai-chatgpt-enterprise-compliance-integration/"
+    - value: "Google Chronicle (via Cyderes) – Chronicle SIEM can parse ChatGPT Enterprise audit-log JSON via the Cyderes integration for threat monitoring."
+      reference: "https://docs.cyderes.cloud/parser-knowledge-base/chatgpt_audit_logs/"
+  ingestion_methods:
+    - value: "REST API – Audit Log API endpoint (`GET /v1/organization/audit_logs`) allows polling of audit events with an Admin API key (`sk-admin-*`)."
+      reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    - value: "REST API – Compliance API endpoint (Enterprise only) supports bulk export of conversation logs and metadata for external analysis."
+      reference: "https://help.openai.com/en/articles/9261474-compliance-api-for-enterprise-customers"
+    - value: "Third-party connectors – Tools like Tarsal fetch ChatGPT Enterprise audit logs via the OpenAI REST APIs and forward them to destinations (e.g., S3, SIEMs)."
+      reference: "https://docs.tarsal.cloud/docs/source-openai-chatgpt-enterprise"
+    - value: "Syslog streaming – Integrations such as Cyderes convert OpenAI audit events to syslog for real-time forwarding to SIEM platforms."
+      reference: "https://docs.cyderes.cloud/parser-knowledge-base/chatgpt_audit_logs/"
+  log_export_options:
+    tools_connectors:
+      value: "OpenAI supports exporting logs via its APIs and partners with vendors like Forcepoint, Netskope, Smarsh and others for turnkey connectors that automatically move ChatGPT logs to external systems."
+      reference: "https://openai.com/index/new-tools-for-chatgpt-enterprise/"
+  documentation_links:
+    - "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+    - "https://help.openai.com/en/articles/9261474-compliance-api-for-enterprise-customers"
+    - "https://openai.com/index/new-tools-for-chatgpt-enterprise/"
+    - "https://docs.tarsal.cloud/docs/source-openai-chatgpt-enterprise"
+    - "https://www.paloaltonetworks.com/blog/2024/07/announcing-openai-chatgpt-enterprise-compliance-integration/"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes – The Admin API lets organization owners programmatically remove users (`DELETE /v1/org/users/{user_id}`), effectively deprovisioning compromised accounts."
+    reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+  invalidate_sessions_api:
+    value: "No – There is no documented API to force-log-out a user. End-users can use “Log out all sessions” in their own settings, but admins cannot invalidate sessions via API."
+    reference: "https://help.openai.com/en/articles/8266401-how-do-i-add-change-or-remove-chatgpt-enterprise-members"
+  revoke_api_key_api:
+    value: "Yes – Admin API endpoints support listing and deleting project API keys, immediately revoking credentials."
+    reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+  user_toggle_api:
+    value: "No direct toggle – Admins can delete a user to revoke access; there is no API to disable/enable an account without removal."
+    reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+  user_status_api:
+    value: "Limited – Admins can query the user list or retrieve user objects to see active/pending status, but there is no dedicated “status” endpoint."
+    reference: "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform"
+  session_timeout_configuration:
+    value: "No – Administrators cannot configure session timeout; sessions expire automatically after roughly 15–30 minutes of inactivity."
+    reference: "https://www.byteplus.com/en/topic/555707"
+  known_automation_tools:
+    - value: "SCIM Provisioning Integration – Removing a user in the IdP automatically deprovisions ChatGPT Enterprise access."
+      reference: "https://help.openai.com/en/articles/9672121-getting-started-with-identity-and-provisioning-in-chatgpt-enterprise"
+    - value: "Forcepoint One GenAI Security – Integrates with the Compliance API to detect and remediate sensitive-data exposure in ChatGPT prompts."
+      reference: "https://www.forcepoint.com/blog/insights/forcepoint-openai-chatgpt-enterprise-compliance-api"
+    - value: "Netskope CASB for ChatGPT – Provides visibility and DLP controls around ChatGPT Enterprise usage via Compliance API."
+      reference: "https://www.netskope.com/blog/streamline-compliance-and-strengthen-data-protection-using-netskopes-integration-with-the-chatgpt-enterprise-compliance-api"
+    - value: "Palo Alto Networks AI Access Security – Real-time monitoring and policy enforcement for ChatGPT Enterprise via Compliance API integration."
+      reference: "https://www.paloaltonetworks.com/blog/2024/07/announcing-openai-chatgpt-enterprise-compliance-integration/"
+    - value: "Smarsh Archiving for ChatGPT – Captures and stores ChatGPT Enterprise conversations for supervision and regulatory compliance."
+      reference: "https://www.smarsh.com/blog/thought-leadership/smarsh-launches-integration-with-openai-chatgpt-enterprise-compliance-api"
+  documentation_links:
+    - "https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform#audit-logging-capabilities"
+    - "https://help.openai.com/en/articles/8266401-how-do-i-add-change-or-remove-chatgpt-enterprise-members"
+    - "https://openai.com/index/new-tools-for-chatgpt-enterprise#programmatic-control-over-workspace-data"
+    - "https://help.openai.com/en/articles/9672121-getting-started-with-identity-and-provisioning-in-chatgpt-enterprise"

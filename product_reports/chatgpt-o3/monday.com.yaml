@@ -1,0 +1,176 @@
+user_management:
+  sso_support:
+    value: "Yes (supports SAML 2.0 via Okta, Entra ID/Azure AD, OneLogin, or custom SAML; and supports Google SSO)"
+    reference: "https://support.monday.com/hc/en-us/articles/360000460605-SAML-Single-Sign-on"
+  sso_license_level_requirement:
+    value: "SAML SSO (Enterprise plan only); Google SSO (Pro and Enterprise plans)"
+    reference: "https://support.monday.com/hc/en-us/articles/360000460605-SAML-Single-Sign-on"
+  scim_support:
+    value: "yes"
+    reference: "https://support.monday.com/hc/en-us/articles/360021893619-SCIM-Provisioning-API"
+  scim_licensing_level_requirement:
+    value: "Enterprise plan only"
+    reference: "https://support.monday.com/hc/en-us/articles/360021893619-SCIM-Provisioning-API"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://support.monday.com/hc/en-us/articles/360021893619-SCIM-Provisioning-API"
+  scim_authentication_acquisition_steps: "Generate a SCIM provisioning token from Monday.com → Admin > Security > SCIM, then use it as a Bearer token (Authorization header) for SCIM API calls (https://support.monday.com/hc/en-us/articles/360021893619-SCIM-Provisioning-API)."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://support.monday.com/hc/en-us/articles/360005144659-Does-monday-com-have-an-API"
+  user_management_api_licensing_level:
+    value: "Available on all plans (API access is free across all plans)"
+    reference: "https://support.monday.com/hc/en-us/articles/360005144659-Does-monday-com-have-an-API"
+  user_management_api_authentication_mechanisms:
+    value: "API key"
+    reference: "https://support.monday.com/hc/en-us/articles/360005144659-Does-monday-com-have-an-API"
+  user_management_api_authentication_acquisition_steps: "Obtain a personal API token from your Monday.com account (Admins: Profile > Administration > Connections > API; Non-admins: Profile > Developers > My Access Tokens) (https://support.monday.com/hc/en-us/articles/360005144659-Does-monday-com-have-an-API, https://support.monday.com/hc/en-us/articles/115005321509-The-Administration-section-on-monday-com)."
+  seat_costs:
+    - license_level: "Individual (Free)"
+      active:
+        value: "yes"
+        reference: "https://support.monday.com/hc/en-us/articles/115005320209-Available-plan-types-on-Work-Management"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+      archived:
+        value: "n/a"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - license_level: "Basic"
+      active:
+        value: "yes"
+        reference: "https://support.monday.com/hc/en-us/articles/115005320209-Available-plan-types-on-Work-Management"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+      archived:
+        value: "n/a"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - license_level: "Standard"
+      active:
+        value: "yes"
+        reference: "https://support.monday.com/hc/en-us/articles/115005320209-Available-plan-types-on-Work-Management"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+      archived:
+        value: "n/a"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - license_level: "Pro"
+      active:
+        value: "yes"
+        reference: "https://support.monday.com/hc/en-us/articles/115005320209-Available-plan-types-on-Work-Management"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+      archived:
+        value: "n/a"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - license_level: "Enterprise"
+      active:
+        value: "yes"
+        reference: "https://support.monday.com/hc/en-us/articles/115005320209-Available-plan-types-on-Work-Management"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+      archived:
+        value: "n/a"
+        reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+  lifecycle_options:
+    - "Active:https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - "Pending (Invited):https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - "Deactivated (Inactive):https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - "Deleted (Removed):https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+  rbac_support:
+    value: "yes"
+    reference: "https://support.monday.com/hc/en-us/articles/8292728458386-Custom-roles-for-account-permissions"
+  rbac_api_assignment:
+    value: "Yes, user roles and team memberships can be managed via API; e.g., GraphQL mutations for role update and team assignment"
+    reference: "https://developer.monday.com/api-reference/reference/users"
+  documentation_links:
+    - "https://support.monday.com/hc/en-us/articles/360000460605-SAML-Single-Sign-on"
+    - "https://support.monday.com/hc/en-us/articles/360021893619-SCIM-Provisioning-API"
+    - "https://support.monday.com/hc/en-us/articles/360015819239-SCIM-Provisioning-of-Users-and-Teams-with-OKTA"
+    - "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+    - "https://support.monday.com/hc/en-us/articles/360005144659-Does-monday-com-have-an-API"
+    - "https://developer.monday.com/api-reference/reference/users"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Monday.com provides an **Audit Log** that records user login events (including successful logins and logouts with timestamps, device, and IP address) to help admins monitor account access."
+      reference: "https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log"
+    role_assignment:
+      value: "Yes – changes to user accounts such as role updates or deactivations are captured. For example, when an admin deactivates a user, a `user-deactivated` event is logged with the timestamp of that change."
+      reference: "https://developer.monday.com/api-reference/reference/audit-logs"
+    api_call:
+      value: "There is no dedicated audit event for every API call. However, any security-relevant action performed via the API is logged like other events. Audit-log entries include client details (IP, user-agent), so actions triggered through API tokens or integrations (e.g., data exports via API) will appear with those details in the audit log."
+      reference: "https://support.monday.com/hc/en-us/articles/4406042650002-Audit-Log-API"
+    data_export:
+      value: "Yes – the audit log tracks data-export events. For instance, exporting board data to Excel or downloading file attachments are logged as security events, allowing admins to see when data is exported out of the system and to where."
+      reference: "https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log"
+    configuration_change:
+      value: "Yes – important configuration changes are recorded. The audit log encompasses account-level security changes; for example, adjustments to security settings or account configurations (such as enabling SSO, 2FA policies, etc.) are logged as security-related activities for the admins’ review."
+      reference: "https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log"
+    user_account_creation:
+      value: "Yes – user-provisioning events are logged. Actions like inviting a new user, a user accepting an invite, or an account being created appear in the audit logs (since these are security-related account activities)."
+      reference: "https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log"
+    security_policy_change:
+      value: "Yes – changes to security policies (for example, modifications to password policies, authentication settings, IP restrictions, or other security configurations) generate audit-log events. All such security-related administrative actions are tracked for Enterprise admins in the audit logs."
+      reference: "https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log"
+  event_logs_licensing_level:
+    value: "Audit-log access is **Enterprise-only**. The security-audit-logging feature (and its API) is available to account admins on the Enterprise plan exclusively."
+    reference: "https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log"
+  monitoring_products:
+    - value: "**Splunk SIEM** – A community-supported Splunk Add-on for Monday.com exists to ingest audit-log data into Splunk for security monitoring."
+      reference: "https://splunkbase.splunk.com/app/6483"
+    - value: "**External SIEM via API** – Monday.com supports exporting audit logs to third-party security platforms. For example, admins can use the Audit Log API to transfer events into a SIEM or log-management system for further analysis."
+      reference: "https://support.monday.com/hc/en-us/articles/4406042650002-Audit-Log-API"
+  ingestion_methods:
+    - value: "**Audit-log REST API** – Monday provides a RESTful Audit-log API endpoint (Enterprise admins generate a token and use GET requests) to retrieve audit events in JSON. This API can be polled to pull security events (rate-limit ~50 req/min)."
+      reference: "https://support.monday.com/hc/en-us/articles/4406042650002-Audit-Log-API"
+    - value: "**GraphQL API** – In newer API versions, Enterprise accounts can query `audit_logs` via the GraphQL API to fetch audit-log entries (with filters by user, event types, time range, etc.) programmatically."
+      reference: "https://developer.monday.com/api-reference/reference/audit-logs"
+  log_export_options:
+    tools_connectors:
+      value: "**Splunk Add-on** – The Monday.com Add-on for Splunk (available on Splunkbase) allows connecting to Monday’s Audit-log API and importing audit events into Splunk for monitoring and alerting."
+      reference: "https://splunkbase.splunk.com/app/6483"
+  documentation_links:
+    - "https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log | https://support.monday.com/hc/en-us/articles/4406042650002-Audit-Log-API"
+    - "https://developer.monday.com/api-reference/reference/audit-logs | https://developer.monday.com/api-reference/changelog"
+    - "https://developer.monday.com/api-reference/reference/audit-logs"
+    - "https://support.monday.com/hc/en-us/articles/115005321509-The-Administration-section-on-monday-com"
+    - "https://support.monday.com/hc/en-us/articles/4410500266514-How-to-set-a-session-duration-on-your-account"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes – Monday.com’s API allows programmatic user suspension. Specifically, admins on Enterprise can use a GraphQL mutation `deactivate_users` to deactivate (suspend) one or multiple user accounts (up to 200 at a time, admin-only operation)."
+    reference: "https://developer.monday.com/api-reference/changelog?page=5"
+  invalidate_sessions_api:
+    value: "No public API is provided to invalidate or kill user sessions. Instead, session management is handled via the admin UI. Enterprise admins can manually sign out users from the **Sessions** log, and also have an option to \"Log out all account users\" to immediately terminate all active sessions if needed."
+    reference: "https://support.monday.com/hc/en-us/articles/115005321509-The-Administration-section-on-monday-com"
+  revoke_api_key_api:
+    value: "There is no direct API call to revoke a user's API token. Personal API tokens on Monday.com remain valid until the user regenerates the token or the user account is deactivated. (Deactivating a user will invalidate that user’s API token)."
+    reference: "https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account"
+  user_toggle_api:
+    value: "Yes – The API supports toggling user-activation status. In addition to deactivation, there is a GraphQL mutation `activate_users` that admins can use to re-activate previously deactivated user accounts (also supports bulk up to 200 users)."
+    reference: "https://developer.monday.com/api-reference/changelog?page=5"
+  user_status_api:
+    value: "Yes – User status can be queried via API. The `users` query in Monday’s GraphQL API returns an `enabled` field for each user, which is `true` if the user is active (enabled) or `false` if the user is deactivated."
+    reference: "https://developer.monday.com/api-reference/reference/users"
+  session_timeout_configuration:
+    value: "Yes – On Enterprise, admins can configure session-timeout policies. The **Session Duration** settings allow automatic logout of inactive users after a chosen period (e.g., 5, 10, or 15 days of no activity), or a forced logout of all users after a set interval. In addition, an admin can instantly log out all users via the Security > Sessions panel for emergency response."
+    reference: "https://support.monday.com/hc/en-us/articles/4410500266514-How-to-set-a-session-duration-on-your-account"
+  known_automation_tools:
+    - value: "**SCIM Integrations (Okta / Azure AD / OneLogin)** – Monday.com supports SCIM 2.0 for user provisioning. Enterprise admins can integrate with Okta, Microsoft Entra ID (Azure AD), or OneLogin to automatically de-provision (deactivate) users and manage accounts when employees offboard."
+      reference: "https://support.monday.com/hc/en-us/articles/360015819239-SCIM-Provisioning-of-Users-and-Teams-with-OKTA"
+    - value: "**BetterCloud** – BetterCloud (a SaaS-management platform) offers integration with Monday.com (Enterprise) to automate user-lifecycle actions. It can utilize Monday’s SCIM API to provision and deprovision users (e.g., auto-suspend users as part of offboarding workflows)."
+      reference: "https://support.bettercloud.com/s/article/Integrating-Monday-Enterprise-with-BetterCloud"
+    - value: "**n8n Automation** – n8n.io (an open-source workflow-automation tool) has nodes for Monday.com’s API. This can be used to build custom incident-response workflows (for example, detecting an incident and automatically calling Monday’s API to disable a user or create an incident ticket)."
+      reference: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.mondaycom/"
+    - value: "**Monday API SDKs / Scripts** – Developers can use Monday.com’s API libraries (e.g., the official Monday.com Python SDK) or custom scripts in SOAR platforms to perform response actions like suspending users or revoking tokens programmatically in incidents."
+      reference: "https://github.com/mondaycom/monday-api-python-sdk"
+  documentation_links:
+    - "https://support.monday.com/hc/en-us/articles/360015819239-SCIM-Provisioning-of-Users-and-Teams-with-OKTA | https://support.monday.com/hc/en-us/articles/360018360819-SCIM-Provisioning-of-Users-and-Teams-with-Entra-ID-previously-known-as-Azure-AD"
+    - "https://support.monday.com/hc/en-us/articles/360016333360-SCIM-Provisioning-of-Users-and-Teams-with-OneLogin | https://support.monday.com/hc/en-us/articles/360021861660-SCIM-Provisioning-Custom-Setup"
+    - "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.mondaycom/ | https://n8n.io/integrations/mondaycom/"
+    - "https://github.com/mondaycom/monday-api-python-sdk | https://support.monday.com/hc/en-us/articles/360013483119-API-Quickstart-Tutorial-Python"
+    - "https://splunkbase.splunk.com/app/6483"

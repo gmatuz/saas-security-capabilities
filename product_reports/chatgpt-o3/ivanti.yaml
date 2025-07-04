@@ -1,0 +1,143 @@
+user_management:
+  sso_support:
+    value: "External Authentication supports SAML 2.0 and OIDC with Entra ID (Azure AD), Google, Okta, PingOne and OneLogin for single-sign-on to the Ivanti Neurons Platform."
+    reference: "https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/external-authentication-SSO.htm"
+  sso_licensing_level_requirement:
+    value: "Included with any active Ivanti Neurons tenant; no separate SSO add-on is documented."
+    reference: "https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/external-authentication-SSO.htm"
+  scim_support:
+    value: "yes"
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/104/all/en-us/User%20Provisioning%20with%20SCIM.htm"
+  scim_licensing_level_requirement:
+    value: "Appears to be included in the standard Ivanti Neurons for MDM subscription (no dedicated SCIM SKU documented)."
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/104/all/en-us/User%20Provisioning%20with%20SCIM.htm"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/104/all/en-us/User%20Provisioning%20with%20SCIM.htm"
+  scim_authentication_acquisition_steps: "In the Neurons for MDM admin portal go to **Admin ▷ Identity ▷ User Provisioning**, choose your IdP, and click **Generate** to receive a SCIM bearer token and the target SCIM URL, then copy the token for use in the Authorization header."
+  user_management_api_support:
+    value: "yes"
+    reference: "https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/User%20API%20Calls.htm"
+  user_management_api_licensing_level:
+    value: "Secure UEM or Secure UEM Premium user licence (standard for Neurons for MDM tenants)."
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/User_Licenses.htm"
+  user_management_api_authentication_mechanisms:
+    value: "Basic Authentication"
+    reference: "https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/MobileIron%20Cloud%20API%20Basics.htm"
+  user_management_api_authentication_acquisition_steps: "Create (or use) a tenant-admin account, then base-64-encode **username:password** and send it in the `Authorization: Basic <base64>` HTTP header with every REST call."
+  seat_costs:
+    - license_level: "Secure UEM / Secure UEM Premium"
+      active:
+        value: "yes"
+        reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/User_Licenses.htm"
+      suspended_disabled:
+        value: "uncertain"
+        reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/User_Licenses.htm"
+      archived:
+        value: "uncertain"
+        reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/User_Licenses.htm"
+  lifecycle_options:
+    - "enabled"
+    - "disabled"
+    - "locked"
+    - "trash"
+  rbac_support:
+    value: "yes"
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/Assigning_Roles.htm"
+  rbac_api_assignment:
+    value: "User-to-group assignments can be automated via the Group API (e.g. POST /​api/v1/group operations); role assignment itself is handled in the UI only."
+    reference: "https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/Group%20API%20Calls.htm"
+  documentation_links:
+    - "https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/external-authentication-SSO.htm"
+    - "https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/auth-entra-id-SAML.htm"
+    - "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/104/all/en-us/User%20Provisioning%20with%20SCIM.htm"
+    - "https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/User%20API%20Calls.htm"
+    - "https://help.ivanti.com/mi/help_en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/MobileIron%20Cloud%20API%20Basics.htm"
+    - "https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/Group%20API%20Calls.htm"
+    - "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/Assigning_Roles.htm"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Audit‑trail record with actionType **admin_portal_sign_in** captures each administrator login to Ivanti Neurons / EPMM."
+      reference: "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+    role_assignment:
+      value: "Role or privilege grants are logged with actionType **assign_device_space_admin** (and related role‑assignment actions) in the Audit Log."
+      reference: "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+    api_call:
+      value: "All inbound REST API errors/events surface in the Logs workspace (filter *APP‑ODA*) allowing analysts to trace API activity."
+      reference: "https://forums.ivanti.com/Community/s/question/0D5UL00000WeZyI0AV/where-can-i-find-logs-for-incoming-api-requests"
+    data_export:
+      value: "Data‑export operations themselves are written to the audit log when the administrator invokes **GET /api/v2/logs/audit_logs_export** or **...audit_logs_csv**."
+      reference: "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+    configuration_change:
+      value: "Configuration and policy edits (before/after values) are captured in the Audit Log’s *Configuration* and *Policy* categories."
+      reference: "https://help.ivanti.com/mi/help/en_US/CORE/11.x/dmgi/DMGfiles/About_logs_AuditLogInfo.htm"
+    user_account_creation:
+      value: "New local or synced users trigger actionType **ADD_USER** entries with full metadata in the audit trail."
+      reference: "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+    security_policy_change:
+      value: "Security/compliance‑policy modifications generate Policy‑category audit entries, enabling SIEM correlation."
+      reference: "https://help.ivanti.com/mi/help/en_US/CORE/11.x/dmgi/DMGfiles/About_logs_AuditLogInfo.htm"
+  event_logs_licensing_level:
+    value: "Available in every Ivanti Neurons for MDM / EPMM SaaS tenant; access requires any administrator with the **Logs and Events Management** or **System Read Only** role (no extra license)."
+    reference: "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+  monitoring_products:
+    - value: "Ivanti Neurons for MDM Splunk Cloud/Enterprise App (v2.x)"
+      reference: "https://help.ivanti.com/mi/help/en_us/SPLNKCLD/vnow/gd/SplunkAppForMobileIronCloud/SplunkCloudSetup.htm"
+    - value: "Ivanti Service Manager Add‑On for Splunk (TA‑Ivanti‑ISM)"
+      reference: "https://splunkbase.splunk.com/app/4653"
+    - value: "Microsoft Sentinel – Ivanti Unified Endpoint Management (UEM) data connector"
+      reference: "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azuresentinel.azure-sentinel-solution-ivantiuem"
+    - value: "Sumo Logic Ivanti Neurons ITSM integration (App Central)"
+      reference: "https://help.sumologic.com/docs/platform-services/automation-service/app-central/integrations/neurons-itsm/"
+  ingestion_methods:
+    - value: "REST API search **GET /api/v2/logs/audit_logs** (JSON, paginated, 0‑200 rows per call)."
+      reference: "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+    - value: "Direct CSV export via **POST /api/v2/logs/audit_logs_csv** followed by ZIP download."
+      reference: "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+    - value: "Syslog (AMA) forwarding installed automatically when the Microsoft Sentinel Ivanti UEM connector is deployed."
+      reference: "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azuresentinel.azure-sentinel-solution-ivantiuem"
+    - value: "Splunk Cloud App — Data Inputs fetch audit‑trail (**micloudaudittrails**) and device (**miclouddevices**) feeds over REST."
+      reference: "https://help.ivanti.com/mi/help/en_us/SPLNKCLD/vnow/gd/SplunkAppForMobileIronCloud/SplunkCloudSetup.htm"
+  log_export_options:
+    tools_connectors:
+      value: "Built‑in CSV export API, Splunk Cloud App (mobileiron_cloud_for_splunk_cloud‑*.tar.gz) and Microsoft Sentinel Ivanti UEM Syslog connector provide turnkey log off‑loading."
+      reference: "https://help.ivanti.com/mi/help/en_us/SPLNKCLD/vnow/gd/SplunkAppForMobileIronCloud/SplunkCloudSetup.htm"
+  documentation_links:
+    - "https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/APIv2AuditLogs.htm"
+    - "https://help.ivanti.com/mi/help/en_US/CORE/11.x/dmgi/DMGfiles/About_logs_AuditLogInfo.htm"
+    - "https://help.ivanti.com/mi/help/en_us/SPLNKCLD/vnow/gd/SplunkAppForMobileIronCloud/SplunkCloudSetup.htm"
+    - "https://splunkbase.splunk.com/app/4653"
+    - "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azuresentinel.azure-sentinel-solution-ivantiuem"
+incident_response:
+  suspend_user_management_api:
+    value: "Set field **enabled=false** for the target account via **PUT /api/v1/account/{id}** or through the Enabling/Disabling Users UI."
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/Enabling_and_Disabling_Users.htm"
+  invalidate_sessions_api:
+    value: "Ivanti Access session‑revocation engine terminates all active OAuth/OIDC tokens when triggered by policy; configurable under **Profile > Session Revocation**."
+    reference: "https://help.ivanti.com/mi/help/en_US/ACC/5x/gd/AccessGuide/About_session_revocation.htm"
+  revoke_api_key_api:
+    value: "Admins can deactivate or delete API keys via **Security Controls > API Keys** workspace or programmatically through the Web‑Services API."
+    reference: "https://help.ivanti.com/ht/help/en_US/ISM/2022/admin/Content/Configure/API/Web-Services-API.htm"
+  user_toggle_api:
+    value: "PATCH /​api/v1/account/{id} with body `{enabled:true|false}` instantly enables or disables a user (Tenant Admin credentials required)."
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/76/api/Content/MobileIronCloudCustomerIntegrationAPIGuide/User%20API%20Calls.htm"
+  user_status_api:
+    value: "GET /​api/v1/account?id={id} returns JSON with **enabled**, **locked**, **loginFailureCount**, etc., enabling SIEM enrichment."
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/76/api/Content/MobileIronCloudCustomerIntegrationAPIGuide/User%20API%20Calls.htm"
+  session_timeout_configuration:
+    value: "Portal inactivity timeout adjustable (5‑15 min default, max 24 h) under **Users > User Settings > Password Policies** or **Admin > Authentication > Session Timeout**."
+    reference: "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/91/all/en-us/Timeout_Information.htm"
+  known_automation_tools:
+    - value: "Azure Sentinel Solution – automates ingestion and playbook‑driven response for Ivanti UEM alerts."
+      reference: "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azuresentinel.azure-sentinel-solution-ivantiuem"
+    - value: "Splunk TA *Ivanti Service Manager* provides alert‑action scripts to open/close ISM incidents programmatically."
+      reference: "https://splunkbase.splunk.com/app/4653"
+    - value: "GitHub project **IvantiRestApi** (C#/RestSharp) demonstrates token retrieval and scripted remediation via Ivanti APIs."
+      reference: "https://github.com/ButtiBBQ/IvantiRestApi"
+  documentation_links:
+    - "https://help.ivanti.com/mi/help/en_US/ACC/5x/gd/AccessGuide/About_session_revocation.htm"
+    - "https://help.ivanti.com/mi/help/en_us/cld/76/api/Content/MobileIronCloudCustomerIntegrationAPIGuide/User%20API%20Calls.htm"
+    - "https://help.ivanti.com/ht/help/en_US/ISM/2022/admin/Content/Configure/API/Web-Services-API.htm"
+    - "https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/91/all/en-us/Timeout_Information.htm"
+    - "https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azuresentinel.azure-sentinel-solution-ivantiuem"

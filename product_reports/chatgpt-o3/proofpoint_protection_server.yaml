@@ -1,0 +1,144 @@
+user_management:
+  sso_support:
+    value: "SAML 2.0 and OpenID Connect (OIDC) supported"
+    reference: "https://www.okta.com/integrations/proofpoint-protection-server/"
+  sso_licensing_level_requirement:
+    value: "Included with Proofpoint Protection Server subscription (no separate SSO license documented)"
+    reference: "https://www.okta.com/integrations/proofpoint-protection-server/"
+  scim_support:
+    value: "no"
+    reference: "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+  scim_licensing_level_requirement:
+    value: "n/a"
+    reference: "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+  scim_authentication_mechanisms:
+    value: "Basic Authentication"
+    reference: "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+  scim_authentication_acquisition_steps: >-
+    SCIM provisioning is not supported for Proofpoint Protection Server, therefore no authentication steps apply.
+  user_management_api_support:
+    value: "yes"
+    reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  user_management_api_licensing_level:
+    value: "Included with standard Proofpoint Protection Server deployment"
+    reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  user_management_api_authentication_mechanisms:
+    value: "Basic Authentication"
+    reference: "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+  user_management_api_authentication_acquisition_steps: >-
+    1. On-premise: edit `filter.cfg` and set `com.proofpoint.admin.apigui.enable=t`.
+    2. In the PPS UI, create a role of type *API* and enable the `pss` and `Quarantine` modules.
+    3. Assign a user to that role; this username/password pair is used for HTTP Basic Auth to the REST API
+       (default port 10000). For PoD instances, open a support ticket to have an API role assigned.
+  seat_costs:
+    - license_level: "Proofpoint Protection Server"
+      active:
+        value: "yes"
+      suspended_disabled:
+        value: "uncertain"
+      archived:
+        value: "no"
+  lifecycle_options:
+    - "Active"
+    - "Disabled"
+    - "Suspended"
+    - "Archived"
+  rbac_support:
+    value: "yes"
+    reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  rbac_api_assignment:
+    value: "Role creation and assignment available only via PPS UI; not exposed through public API"
+    reference: "https://github.com/demisto/content/blob/master/Packs/ProofpointServerProtection/Integrations/ProofpointProtectionServerV2/README.md"
+  documentation_links:
+    - "https://www.okta.com/integrations/proofpoint-protection-server/"
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/proofpoint-ondemand-tutorial"
+    - "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+    - "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+    - "https://github.com/demisto/content/blob/master/Packs/ProofpointServerProtection/Integrations/ProofpointProtectionServerV2/README.md"
+    - "https://documentation.securonix.com/bundle/securonix-cloud-user-guide/page/content/active-deployment-guides/proofpoint-email-api-syslog-json.htm"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Administrator and console user sign-in events are captured in the PPS Audit Log."
+      reference: "https://www.reddit.com/r/proofpoint/comments/1d3w32d/proofpoint_email_security_audit_log/"
+    role_assignment:
+      value: "Changes to admin roles/privileges are written to the Configuration view of the Audit Log."
+      reference: "https://www.reddit.com/r/proofpoint/comments/1d3w32d/proofpoint_email_security_audit_log/"
+    api_call:
+      value: "PPS does not expose a dedicated API-call audit stream; API activity is normally monitored by forwarding standard filter logs over syslog."
+      reference: "https://splunkbase.splunk.com/app/3080"
+    data_export:
+      value: "Remote Syslog Forwarding Service streams all PPS log data (filter, MTA, audit) to external SIEM via UDP/TCP 514."
+      reference: "https://www.shi.com/product/32101812/Proofpoint-Remote-Syslog-Forwarding-Service"
+    configuration_change:
+      value: "Every configuration change (policy edits, system settings) is recorded in the ‘Configuration Log’ section of the PPS Audit Log."
+      reference: "https://www.reddit.com/r/proofpoint/comments/1d3w32d/proofpoint_email_security_audit_log/"
+    user_account_creation:
+      value: "Creation or deletion of console user accounts is logged in the Audit Log."
+      reference: "https://www.reddit.com/r/proofpoint/comments/1d3w32d/proofpoint_email_security_audit_log/"
+    security_policy_change:
+      value: "Spam, DLP, and AV policy modifications are captured in PPS filter logs, which can be exported over syslog for SIEM correlation."
+      reference: "https://splunkbase.splunk.com/app/3080"
+  event_logs_licensing_level:
+    value: "Exporting logs off-box requires the optional *Remote Syslog Forwarding Service* add-on license."
+    reference: "https://www.shi.com/product/32101812/Proofpoint-Remote-Syslog-Forwarding-Service"
+  monitoring_products:
+    - value: "Splunk (Proofpoint Email Security Add-On using Remote Syslog)"
+      reference: "https://splunkbase.splunk.com/app/3080"
+    - value: "Palo Alto Cortex XSOAR pack *Proofpoint Protection Server v2*"
+      reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+    - value: "IBM QRadar DSM for Proofpoint Enterprise Protection"
+      reference: "https://www.ibm.com/docs/en/dsm?topic=configuration-proofpoint-enterprise-protection-enterprise-privacy"
+    - value: "Blink SecOps integration for Proofpoint Protection Server"
+      reference: "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+    - value: "Cortex Marketplace connector *ProofpointServerProtection*"
+      reference: "https://cortex.marketplace.pan.dev/marketplace/details/ProofpointServerProtection/"
+  ingestion_methods:
+    - value: "Syslog (UDP/TCP) — enable via *Remote Log Options* in the PPS console."
+      reference: "https://splunkbase.splunk.com/app/3080"
+    - value: "REST API (port 10000) — used by XSOAR/Blink integrations for direct event retrieval."
+      reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  log_export_options:
+    tools_connectors:
+      value: "Proofpoint *Remote Syslog Forwarding Service* pushes PPS logs to any SIEM accepting syslog."
+      reference: "https://www.shi.com/product/32101812/Proofpoint-Remote-Syslog-Forwarding-Service"
+  documentation_links:
+    - "https://splunkbase.splunk.com/app/3080"
+    - "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+    - "https://www.ibm.com/docs/en/dsm?topic=configuration-proofpoint-enterprise-protection-enterprise-privacy"
+    - "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+    - "https://www.shi.com/product/32101812/Proofpoint-Remote-Syslog-Forwarding-Service"
+incident_response:
+  suspend_user_management_api:
+    value: "`proofpoint-pps-modify-user` command (set `enabled=false` to suspend an end-user)."
+    reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  invalidate_sessions_api:
+    value: "No direct endpoint; rely on Web-Console *Session Timeout* to expire active admin sessions."
+    reference: "https://prod.docs.oit.proofpoint.com/configuration_guide/configuring_system_settings.htm"
+  revoke_api_key_api:
+    value: "Not applicable — PPS authenticates via username/password; it does not issue long-lived API keys."
+    reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  user_toggle_api:
+    value: "`proofpoint-pps-modify-user` allows enabling (`enabled=true`) or disabling a user."
+    reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  user_status_api:
+    value: "`proofpoint-pps-get-user` returns account information, including last-login and status fields."
+    reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+  session_timeout_configuration:
+    value: "System  Settings *Web Console session timeout* — default 60 minutes; adjustable by admin."
+    reference: "https://prod.docs.oit.proofpoint.com/configuration_guide/configuring_system_settings.htm"
+  known_automation_tools:
+    - value: "Cortex XSOAR Proofpoint Protection Server pack (playbooks for quarantine and user management)."
+      reference: "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+    - value: "Blink Ops integration for PPS (workflow automation for search, quarantine, and user actions)."
+      reference: "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+    - value: "Splunk Technology Add-On (can trigger adaptive responses via Splunk SOAR)."
+      reference: "https://splunkbase.splunk.com/app/3080"
+    - value: "IBM QRadar rules with EPS-side actions for PPS syslog events."
+      reference: "https://www.ibm.com/docs/en/dsm?topic=configuration-proofpoint-enterprise-protection-enterprise-privacy"
+  documentation_links:
+    - "https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2"
+    - "https://cortex.marketplace.pan.dev/marketplace/details/ProofpointServerProtection/"
+    - "https://docs.blinkops.com/docs/integrations/proofpoint-protection-server"
+    - "https://prod.docs.oit.proofpoint.com/configuration_guide/configuring_system_settings.htm"
+    - "https://splunkbase.splunk.com/app/3080"

@@ -1,0 +1,189 @@
+user_management:
+  sso_support:
+    value: "yes"
+    reference: "https://support.pipedrive.com/en/article/single-sign-on"
+  sso_licensing_level_requirement:
+    value: "All Pipedrive plans"
+    reference: "https://support.pipedrive.com/en/article/single-sign-on"
+  scim_support:
+    value: "no"
+    reference: "https://www.okta.com/integrations/pipedrive/"
+  scim_licensing_level_requirement:
+    value: "N/A"
+    reference: "https://www.okta.com/integrations/pipedrive/"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://support.pipedrive.com/en/article/how-can-i-find-my-personal-api-key"
+  scim_authentication_acquisition_steps: |
+    Log in to Pipedrive, navigate to **Company settings → Personal preferences → API**, and copy the `api_token` shown there (https://pipedrive.readme.io/docs/how-to-find-the-api-token).
+  user_management_api_support:
+    value: "yes"
+    reference: "https://developers.pipedrive.com/docs/api/v1/Users"
+  user_management_api_licensing_level:
+    value: "All Pipedrive plans (free API access)"
+    reference: "https://support.pipedrive.com/en/article/how-can-i-find-my-personal-api-key"
+  user_management_api_authentication_mechanisms:
+    value: "API token"
+    reference: "https://pipedrive.readme.io/docs/how-to-find-the-api-token"
+  user_management_api_authentication_acquisition_steps: |
+    In the Pipedrive web app, go to **Company settings → Personal preferences → API** and copy the displayed `api_token` (https://pipedrive.readme.io/docs/how-to-find-the-api-token).
+  seat_costs:
+    - license_level: "Essential"
+      active:
+        value: "yes"
+        reference: "https://support.pipedrive.com/en/article/what-is-the-difference-between-a-user-and-a-seat"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.pipedrive.com/en/article/how-can-i-deactivate-or-reactivate-a-user"
+      archived:
+        value: "n/a"
+        reference: "https://support.pipedrive.com/en/article/data-deleted-deactivated-user"
+    - license_level: "Advanced"
+      active:
+        value: "yes"
+        reference: "https://support.pipedrive.com/en/article/what-is-the-difference-between-a-user-and-a-seat"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.pipedrive.com/en/article/how-can-i-deactivate-or-reactivate-a-user"
+      archived:
+        value: "n/a"
+        reference: "https://support.pipedrive.com/en/article/data-deleted-deactivated-user"
+    - license_level: "Professional"
+      active:
+        value: "yes"
+        reference: "https://support.pipedrive.com/en/article/what-is-the-difference-between-a-user-and-a-seat"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.pipedrive.com/en/article/how-can-i-deactivate-or-reactivate-a-user"
+      archived:
+        value: "n/a"
+        reference: "https://support.pipedrive.com/en/article/data-deleted-deactivated-user"
+    - license_level: "Power"
+      active:
+        value: "yes"
+        reference: "https://support.pipedrive.com/en/article/what-is-the-difference-between-a-user-and-a-seat"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.pipedrive.com/en/article/how-can-i-deactivate-or-reactivate-a-user"
+      archived:
+        value: "n/a"
+        reference: "https://support.pipedrive.com/en/article/data-deleted-deactivated-user"
+    - license_level: "Enterprise"
+      active:
+        value: "yes"
+        reference: "https://support.pipedrive.com/en/article/what-is-the-difference-between-a-user-and-a-seat"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.pipedrive.com/en/article/how-can-i-deactivate-or-reactivate-a-user"
+      archived:
+        value: "n/a"
+        reference: "https://support.pipedrive.com/en/article/data-deleted-deactivated-user"
+  lifecycle_options:
+    - "Active"
+    - "Deactivated"
+    - "Deleted"
+  rbac_support:
+    value: "yes"
+    reference: "https://support.pipedrive.com/en/article/permission-sets"
+  rbac_api_assignment:
+    value: "Roles (permission sets) can be assigned via the API (e.g., include a `permission_set_id` when creating or updating a user)."
+    reference: "https://developers.pipedrive.com/docs/api/v1/Users"
+  documentation_links:
+    - "https://support.pipedrive.com/en/article/single-sign-on"
+    - "https://support.pipedrive.com/en/article/pipedrive-single-sign-on-okta"
+    - "https://support.pipedrive.com/en/article/pipedrive-single-sign-on-entra-id"
+    - "https://developers.pipedrive.com/docs/api/v1/Users"
+    - "https://developers.pipedrive.com/docs/api/v1/PermissionSets"
+    - "https://pipedrive.readme.io/docs/how-to-find-the-api-token"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Yes – Pipedrive records user login activities. **Enterprise plan** users have an **Active devices** and **Device history** log showing who logged in, from which device/IP, and when they logged in/out. Login events (especially from new devices or locations) are also tracked as **security events/alerts**."
+      reference: "https://support.pipedrive.com/en/article/security-dashboard"
+    role_assignment:
+      value: "Yes – Changes to user roles or permissions are logged as security events. Pipedrive’s **audit log** (Enterprise) captures “security-related changes” including permission-set modifications or admin role changes. For example, granting or revoking account-settings access would appear in the security-event log."
+      reference: "https://support.pipedrive.com/en/article/security-features-in-pipedrive"
+    api_call:
+      value: "Limited – **API usage** is not listed in the audit-log UI; however, Pipedrive provides **API tokens per user** and logs authentication events. Failed API login attempts (e.g. >3 failed logins) trigger security alerts. The platform itself does not expose a detailed API-call audit log to admins (beyond rate-limit responses), so organizations rely on **integration logs** (e.g., in ETL tools or custom monitoring) to track API consumption."
+      reference: "https://support.pipedrive.com/en/article/security-alerts"
+    data_export:
+      value: "Yes – **Data-export events** are tracked. Pipedrive triggers a security alert whenever a user **downloads an export** of deals, contacts, activities, or notes. These export actions are logged in the audit log’s **Alerts** tab and can send email notifications for data-leakage prevention. Bulk deletions of data (a form of data loss) are similarly captured as security events."
+      reference: "https://support.pipedrive.com/en/article/security-alerts"
+    configuration_change:
+      value: "Yes – **Configuration changes** that impact security are logged. The audit log records “security-related changes” in the account. This includes changes to security settings (like enabling SSO or 2FA enforcement), adjustments to security rules, permission-set changes, or visibility-group configurations. Such admin actions appear in the security-event log for audit."
+      reference: "https://support.pipedrive.com/en/article/security-dashboard"
+    user_account_creation:
+      value: "Yes – **User invitations** and account creations are logged. Pipedrive raises a security event when a **new user is invited** to the company. This event can trigger an immediate admin-alert email (account-access alert) and will be recorded in the audit log. User deletions or deactivations are likewise tracked as user-management events."
+      reference: "https://support.pipedrive.com/en/article/security-alerts"
+    security_policy_change:
+      value: "Yes – **Security-policy changes** (e.g. enabling 2FA requirement, password-policy updates, IP-allowlist rules) are captured. On Enterprise plan, admins can set **Security Rules** (2FA enforcement, password rules, IP/time access) and any changes there are considered security events. Such configuration updates generate audit-log entries (as “security-related changes”) to ensure administrators’ actions are auditable."
+      reference: "https://support.pipedrive.com/en/article/security-features-in-pipedrive"
+  event_logs_licensing_level:
+    value: "Full security-event logging is restricted to higher tiers. **Enterprise plan** provides the Security Dashboard with Audit Log, Active Devices, and device history (2-month retention). **Professional plan** also logs security events internally and supports security alerts, but lacks the full audit-log UI. Essential/Advanced plans only get a limited dashboard (past-week summary). In summary, Professional & Enterprise have security-event logs (Pipedrive notes “57 different” security events are logged on those tiers)."
+    reference: "https://support.pipedrive.com/en/article/security-dashboard"
+  monitoring_products:
+    - value: "**Pipedrive Security Dashboard** – Built-in UI (Enterprise) for monitoring logins, new devices, locations, and recent security events. It provides real-time visibility into user access and alerts for suspicious activities."
+      reference: "https://support.pipedrive.com/en/article/security-dashboard"
+    - value: "**Email Alerts to SIEM** – Pipedrive’s security alerts can be sent via email (instantly or daily/weekly) to admins. Organizations often ingest these alert emails into a SIEM or SOAR system by parsing notifications for events like new-device logins or data exports."
+      reference: "https://support.pipedrive.com/en/article/security-alerts"
+    - value: "**Workato/Azure Sentinel Integrations** – Third-party integration platforms (e.g. Workato) offer connectors to stream Pipedrive events to SIEM solutions like Microsoft Sentinel. These enable automated workflows to send security-relevant Pipedrive data (such as audit entries or user changes) into monitoring tools."
+      reference: "https://www.workato.com"
+    - value: "**BetterCloud SaaS Management** – BetterCloud’s integration for Pipedrive focuses on user-lifecycle and access monitoring. It can pull Pipedrive user data (roles, last-login) and automate security policies, giving IT visibility into accounts and allowing trigger-based deprovisioning."
+      reference: "https://www.bettercloud.com/integration/use-cases/least-privilege-access/"
+    - value: "**Custom API Scripts** – Many companies build custom collectors using the Pipedrive API to fetch security data. For example, scripts can periodically call the **Users API** to retrieve `last_login` timestamps and `active_flag` status for all users, or use webhooks for data changes, then feed this information into logging systems for anomaly detection."
+      reference: "https://developers.pipedrive.com/docs/api/v1/Users"
+  ingestion_methods:
+    - value: "**Audit Log Export (UI)** – Admins can manually export audit-log entries from the Security Dashboard. The “…” menu in the Audit Log or Device History allows exporting filtered results to a spreadsheet (CSV). This provides an offline copy of security events for analysis."
+      reference: "https://support.pipedrive.com/en/article/security-dashboard"
+    - value: "**Users/Activities API** – Pipedrive’s REST API enables pulling certain security-relevant data. The **Users API** returns each user’s `last_login` time, `active_flag` (active/deactivated) and role info. By polling this API, one can detect dormant accounts or recently active users. (Note: There is no dedicated “audit-log API”, so API usage focuses on user/resource states.)"
+      reference: "https://pipedrive.readme.io/docs/marketplace-getting-user-data"
+    - value: "**Security-Alert Emails** – When enabled, security alerts (new-device login, failed logins, exports, etc.) are emailed to admins. These emails can be ingested by email-to-SIEM pipelines or email-parsing tools to get near-real-time security-event data without API calls."
+      reference: "https://support.pipedrive.com/en/article/security-alerts"
+    - value: "**Third-Party ETL Connectors** – Data-integration tools like Qlik or Stitch can replicate Pipedrive data (including the Users table with `last_login` and user info) to a database or data lake. This approach isn’t real-time audit logging, but it centralizes Pipedrive’s user and activity data for security analytics or combining with other log sources."
+      reference: "https://help.qlik.com/en-US/cloud-services/Subsystems/Hub/Content/Sense_Hub/DataIntegration/WebApplications/Connecting-Pipedrive.htm"
+  log_export_options:
+    tools_connectors:
+      value: "Pipedrive does not offer a native automated log-export feed (e.g., no built-in syslog/S3 export). However, admins on Enterprise can **export audit logs via CSV** from the UI. Additionally, several integrations can extract logs: for example, **Oomnitza’s Pipedrive connector** can pull last-login info and deactivate users via API, and ETL services (Qlik, Stitch) can sync Pipedrive data including user activity to external storage. Custom scripts using the API or marketplace apps (Zapier, Workato) are common methods to export and forward security events to other systems."
+      reference: "https://oomnitza.zendesk.com/hc/en-us/articles/360050968894-Creating-workflows-for-Pipedrive-users"
+  documentation_links:
+    - "https://support.pipedrive.com/en/article/security-dashboard"
+    - "https://support.pipedrive.com/en/article/security-alerts"
+    - "https://support.pipedrive.com/en/article/security-features-in-pipedrive"
+    - "https://www.pipedrive.com/en/trust-center"
+    - "https://developers.pipedrive.com/docs/api/v1/Users"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes – Administrators can **suspend (deactivate) a Pipedrive user account via API**. Using the **Update User** endpoint, setting the user’s `active_flag` to `false` will deactivate that user’s access. (This requires an admin API-token with account-settings access.) Deactivating a user immediately revokes their login access while preserving their data in the account."
+    reference: "https://developers.pipedrive.com/docs/api/v1/Users#updateUser"
+  invalidate_sessions_api:
+    value: "No dedicated API for session revocation. Pipedrive does **not provide a “logout” API endpoint** to programmatically invalidate a user’s web sessions or OAuth tokens. In practice, forcing a user logout is achieved indirectly by deactivating the user (which ends their access) or instructing the user to log out. Admins on Enterprise can also manually **force-logoff** active sessions via the Security Dashboard UI."
+    reference: "https://devcommunity.pipedrive.com/t/logout-endpoint/2054"
+  revoke_api_key_api:
+    value: "Partially – There is no single API call to revoke a user’s API token, but admins can **invalidate API keys** through policy. Personal API tokens can be regenerated or disabled. For example, an admin can **remove a user’s API access** by editing their permission set: un-checking “Access their own API token” immediately revokes that user’s API-key access. Also, if a user **regenerates their API token**, the old token becomes invalid (all integrations using it will fail). Thus, API-key revocation is accomplished via permission changes or token resets rather than a direct API endpoint."
+    reference: "https://support.pipedrive.com/en/article/can-all-users-access-the-pipedrive-api"
+  user_toggle_api:
+    value: "Yes – Administrators can programmatically **toggle a user’s active status**. The same Users API that deactivates a user (`active_flag=false`) can be used to **reactivate** them (`active_flag=true`). This acts as an on/off toggle for user access. Additionally, admins can change a user’s role or permissions via API (e.g., designate or remove admin rights) using the role-assignments endpoints if needed. These allow dynamic adjustment of a user’s access level in incident-response scenarios."
+    reference: "https://developers.pipedrive.com/docs/api/v1/Users#updateUser"
+  user_status_api:
+    value: "Yes – The **status of a user (active vs deactivated)** is exposed via the API. The GET Users endpoints return an `active_flag` field for each user, indicating if the account is active (`true`) or not. This allows scripts to check if a suspicious account has already been disabled. The user object also includes `is_admin` and last-login info, useful for status checks. In the UI, Enterprise admins can see a list of deactivated users under “Manage Users > Deactivated” for status tracking."
+    reference: "https://developers.pipedrive.com/docs/api/v1/Users#getUsers"
+  session_timeout_configuration:
+    value: "Limited – **Session timeouts are fixed by Pipedrive**. By default, if a user does not select “Remember me,” their session expires after **12 hours** of inactivity; with “Remember me,” the session lasts **30 days** before requiring login. Admins cannot manually configure custom session-timeout durations in Pipedrive. However, Enterprise admins can enforce **session security** indirectly through SSO or IP restrictions. Pipedrive’s Security Dashboard shows the timeout status (12 h vs 30 d) next to each active session. For additional control, companies often rely on SSO policies or the manual “Log out all devices” action to shorten sessions if needed."
+    reference: "https://support.pipedrive.com/en/article/security-dashboard"
+  known_automation_tools:
+    - value: "**Oomnitza SaaS Management** – Can automatically retrieve Pipedrive user data (roles, last login) and perform offboarding actions. Oomnitza’s integration can **deactivate Pipedrive users** who are no longer in an HR system, using Pipedrive API calls behind the scenes. It helps automate incident-response by ensuring unused accounts are promptly suspended."
+      reference: "https://oomnitza.zendesk.com/hc/en-us/articles/360050968894-Creating-workflows-for-Pipedrive-users"
+    - value: "**BetterCloud** – A SaaS-operations platform that offers Pipedrive integration. BetterCloud allows workflows like detecting a departing employee and then **deactivating the user in Pipedrive** and revoking their API-token access. It provides a no-code way to orchestrate incident response across apps, including user lockdown in Pipedrive."
+      reference: "https://www.bettercloud.com/integration/use-cases/least-privilege-access/"
+    - value: "**Zapier & n8n** – General-purpose automation tools that can leverage the Pipedrive API. For example, a Zapier workflow could be triggered by an alert (from email or webhook) and then call the Pipedrive API to suspend a user or delete an API token. Similarly, n8n (open source) can use an HTTP node to hit Pipedrive’s endpoints (e.g., set `active_flag=false`) in response to security triggers. These tools let you craft custom remediation playbooks without manual coding."
+      reference: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.pipedrive/"
+    - value: "**Microsoft Entra (Azure AD) integration** – If using SSO with Entra ID/Azure AD, disabling a user or forcing credential reset in Azure AD will effectively cut off Pipedrive access for that user (since SSO login will fail). This is an indirect but commonly used incident-response tactic: leveraging the central IAM to revoke SaaS access. Pipedrive supports SAML SSO, so central IdP actions propagate to Pipedrive session access."
+      reference: "https://support.pipedrive.com/en/article/using-pipedrive-single-sign-on-with-microsoft-entra-id"
+    - value: "**Custom Scripts/Bots** – Security teams often create scripts (Python, PowerShell, etc.) that call Pipedrive’s API for incident response. For instance, a script could listen for an alert (e.g., from a SIEM) about a compromised account, then automatically **call Pipedrive’s `/users/{id}` API to deactivate that user**. Similarly, custom bots can revoke API tokens by toggling the permission flag. These bespoke tools fill gaps where no off-the-shelf integration exists."
+      reference: "https://developers.pipedrive.com/docs/api/v1/Users#UsersAPI"
+  documentation_links:
+    - "https://support.pipedrive.com/en/article/how-can-i-deactivate-or-reactivate-a-user"
+    - "https://support.pipedrive.com/en/article/can-all-users-access-the-pipedrive-api"
+    - "https://devcommunity.pipedrive.com/t/logout-endpoint/2054"
+    - "https://oomnitza.zendesk.com/hc/en-us/articles/360050968894-Creating-workflows-for-Pipedrive-users"
+    - "https://developers.pipedrive.com/docs/api/v1/Users"

@@ -1,0 +1,153 @@
+user_management:
+  sso_support:
+    value: "Yes – Docker supports single sign-on via external identity providers (SAML 2.0 IdPs and Azure AD OIDC)."
+    reference: "https://docs.docker.com/security/for-admins/single-sign-on/"
+  sso_licensing_level_requirement:
+    value: "Docker Business subscription (only Docker Business includes SSO capability)."
+    reference: "https://docs.docker.com/security/for-admins/single-sign-on/"
+  scim_support:
+    value: "yes"
+    reference: "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  scim_licensing_level_requirement:
+    value: "Docker Business subscription"
+    reference: "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  scim_authentication_acquisition_steps:
+    value: "In Docker Hub’s Admin Console, go to your organization’s **SSO & SCIM** settings and select **Setup SCIM**. Copy the provided **SCIM Base URL** and **API Token**. In your IdP’s SCIM configuration, use the Base URL and set the API Token as the bearer authentication token for SCIM requests."
+    reference: "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  user_management_api_support:
+    value: "yes"
+    reference: "https://docs.docker.com/reference/api/hub/latest/"
+  user_management_api_licensing_level:
+    value: "Requires a Docker Team or Business plan (any plan that supports organizations)."
+    reference: "https://docs.docker.com/reference/api/hub/latest/"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://docs.docker.com/reference/api/hub/latest/"
+  user_management_api_authentication_acquisition_steps:
+    value: "Create a Personal Access Token (PAT) from your Docker Hub account settings. Then obtain a JWT auth token by sending a POST request to `https://hub.docker.com/v2/users/login/` with your Docker Hub username and the PAT as the password. Use the returned JWT token in an `Authorization: JWT <token>` header for subsequent Hub API requests."
+    reference: "https://docs.docker.com/reference/api/hub/latest/"
+  seat_costs:
+    - license_level: "Team"
+      active:
+        value: "yes"
+        reference: "https://docs.docker.com/admin/organization/members/"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://docs.docker.com/admin/organization/members/"
+      archived:
+        value: "no"
+        reference: "https://docs.docker.com/admin/organization/members/"
+    - license_level: "Business"
+      active:
+        value: "yes"
+        reference: "https://docs.docker.com/admin/organization/members/"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://docs.docker.com/admin/organization/members/"
+      archived:
+        value: "no"
+        reference: "https://docs.docker.com/admin/organization/members/"
+  lifecycle_options:
+    - "Invited (pending acceptance)"
+    - "Active"
+    - "Disabled (deactivated)"
+    - "Removed (deprovisioned from org)"
+  rbac_support:
+    value: "yes"
+    reference: "https://docs.docker.com/security/for-admins/roles-and-permissions/"
+  rbac_api_assignment:
+    value: "Yes – roles and group (team) assignments can be managed via API (for example, setting a user’s `dockerRole` attribute and team membership through the SCIM provisioning API)."
+    reference: "https://docs.docker.com/security/for-admins/roles-and-permissions/, https://docs.docker.com/security/for-admins/provisioning/scim/"
+documentation_links:
+  - "https://docs.docker.com/security/for-admins/single-sign-on/"
+  - "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  - "https://docs.docker.com/admin/organization/members/"
+  - "https://docs.docker.com/security/faqs/single-sign-on/users-faqs/"
+  - "https://www.docker.com/blog/new-scim-capabilities-for-docker-business/"
+  - "https://docs.docker.com/security/for-admins/roles-and-permissions/"
+  - "https://docs.docker.com/reference/api/hub/latest/"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Docker Hub does not log user login events in its audit logs (no event type exists for logins)."
+      reference: "https://docs.docker.com/admin/organization/activity-logs/#event-definitions"
+    role_assignment:
+      value: "Yes – changes to user roles are recorded. Docker Hub’s audit logs include a 'Member Role Changed' event whenever an organization member’s role is modified."
+      reference: "https://docs.docker.com/admin/organization/activity-logs/#event-definitions"
+    api_call:
+      value: "Not explicitly. Docker Hub audit logs focus on high-level actions, not individual API calls. (In Docker Enterprise/UCP, all REST API requests – including endpoints, verbs, user, and source IP – are captured in the audit log for compliance)."
+      reference: "https://docs.mirantis.com/mke/3.5/single/#mke-audit-logging"
+    data_export:
+      value: "Limited – Docker Hub does not provide per-download or data-export audit events. For example, image pull/download events are **not** tracked in the audit log (only aggregate download counts are shown)."
+      reference: "https://docs.docker.com/admin/organization/activity-logs/#event-definitions"
+    configuration_change:
+      value: "Yes – configuration and settings changes are audited. Events like 'Organization Settings Updated' and repository privacy setting changes (e.g., 'Privacy Changed') appear in the audit logs."
+      reference: "https://docs.docker.com/admin/organization/activity-logs/#event-definitions"
+    user_account_creation:
+      value: "Yes – user and team additions are logged. Audit events exist for new accounts or invites, such as 'Team Member Invited', 'Organization Member Added', new-team creation, etc., recording when users are added to organizations."
+      reference: "https://docs.docker.com/admin/organization/activity-logs/#event-definitions"
+    security_policy_change:
+      value: "Yes – changes to security policies and access settings are captured. For instance, enabling/disabling SSO or SCIM, adding/removing SSO domains, creation/update of security policies, and token management events (PAT/OAT created/updated/deleted) are all recorded in Docker Hub’s audit logs."
+      reference: "https://docs.docker.com/admin/organization/activity-logs/#event-definitions"
+  event_logs_licensing_level:
+    value: "Audit logs are only available with paid Docker subscriptions (Team and Business tiers). Free/Pro accounts do **not** include this feature."
+    reference: "https://www.docker.com/blog/new-docker-reporting-provides-teams-with-tools-for-higher-efficiency-and-better-collaboration/"
+  monitoring_products:
+    - value: "ELK/Elastic Stack – Docker Enterprise’s audit logs can be forwarded to an ELK stack for search and monitoring."
+      reference: "https://docs.mirantis.com/mke/3.5/single/#mke-audit-logging"
+    - value: "Azure/Microsoft Sentinel – No native connector yet, but companies pull Docker Hub audit logs via API and send them to Sentinel for centralized SIEM monitoring."
+      reference: "https://github.com/docker/roadmap/issues/411"
+    - value: "Splunk (container logs) – Docker Engine supports a Splunk logging driver that streams container runtime logs to Splunk for analysis."
+      reference: "https://docs.docker.com/engine/logging/drivers/splunk/"
+  ingestion_methods:
+    - value: "Docker Hub Audit Logs API – REST endpoints allow querying and retrieving audit event records for a given organization namespace."
+      reference: "https://docs.docker.com/reference/api/hub/latest/#tag/audit-logs"
+    - value: "Docker Enterprise (UCP) CLI – Audit logs can be accessed via `docker logs` on the UCP controller or forwarded with logging drivers (e.g., to syslog/ELK)."
+      reference: "https://docs.mirantis.com/mke/3.5/single/#access-audit-logs-using-the-docker-cli"
+    - value: "Docker logging drivers – Docker Engine can directly stream container logs to external systems (e.g., syslog servers, Splunk, etc.) by configuring built-in logging drivers."
+      reference: "https://docs.docker.com/engine/logging/drivers/"
+  log_export_options:
+    tools_connectors:
+      value: "No out-of-the-box SIEM connectors. Administrators must export logs via the Docker Hub Audit Logs API for integration. For example, organizations script API calls to fetch audit events and ship them to SIEM solutions (as noted for Sentinel integration)."
+      reference: "https://docs.docker.com/reference/api/hub/latest/#tag/audit-logs"
+  documentation_links:
+    - "https://docs.docker.com/admin/organization/activity-logs/"
+    - "https://docs.docker.com/reference/api/hub/latest/#tag/audit-logs"
+    - "https://docs.mirantis.com/mke/3.5/single/#mke-audit-logging"
+    - "https://docs.docker.com/engine/logging/drivers/splunk/"
+    - "https://www.docker.com/blog/new-docker-reporting-provides-teams-with-tools-for-higher-efficiency-and-better-collaboration/"
+incident_response:
+  suspend_user_management_api:
+    value: "Docker Hub does **not** offer a direct “suspend user” API. To cut off a compromised user, an organization owner must remove that user’s access (e.g., delete the user from the org). The Docker Hub API supports removing a member from an org (DELETE endpoint) to achieve this access revocation."
+    reference: "https://docs.docker.com/admin/organization/members/"
+  invalidate_sessions_api:
+    value: "No dedicated API to invalidate active login sessions. Session management is handled internally; admins cannot force-log-out a user. In practice, incident response relies on revoking credentials (tokens) or removing user access."
+    reference: "https://docs.docker.com/security/faqs/general/#how-are-sessions-managed-and-do-they-expire"
+  revoke_api_key_api:
+    value: "Yes – Personal Access Tokens (and Organization Access Tokens) can be programmatically revoked by deletion. Docker Hub allows disabling or deleting tokens at any time, which immediately invalidates them."
+    reference: "https://docs.docker.com/security/for-developers/access-tokens/"
+  user_toggle_api:
+    value: "No general user enable/disable API. Docker Hub accounts cannot be toggled active/inactive via API by admins. In Docker Business, SCIM automation with an IdP can deactivate users – setting a user’s `active` flag to false in the IdP will remove/deactivate them in Docker."
+    reference: "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  user_status_api:
+    value: "Limited. The Docker Hub API can list organization members, but provides no endpoint for last-login time or account-lock status. Docker does not expose user “last active” info. In Business tier, SCIM user objects include an `active` attribute to reflect if a user is enabled/disabled."
+    reference: "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  session_timeout_configuration:
+    value: "Not configurable by customers. Docker Hub does not provide settings to adjust web-session timeout or token lifespan. Session duration and expiration are managed by Docker’s backend."
+    reference: "https://docs.docker.com/security/faqs/general/#how-are-sessions-managed-and-do-they-expire"
+  known_automation_tools:
+    - value: "Docker Terraform Provider – Official Terraform provider for Docker Hub allows automation of user and team management as code (e.g., create/remove org members, manage teams and permissions programmatically)."
+      reference: "https://www.docker.com/blog/docker-terraform-provider/"
+    - value: "Docker Hub API Clients/CLI – Various client libraries and command-line tools (e.g., Python Docker Hub API library) enable scripting actions like user invites, removals, and token management using Docker Hub’s API."
+      reference: "https://docs.docker.com/reference/api/hub/latest/"
+    - value: "SCIM Provisioning (Business tier) – Integration with an Identity Provider automatically adds or de-provisions Docker Hub users. When users are removed in the IdP, SCIM triggers their removal from Docker Hub."
+      reference: "https://docs.docker.com/security/for-admins/provisioning/scim/"
+  documentation_links:
+    - "https://docs.docker.com/admin/organization/members/"
+    - "https://docs.docker.com/security/for-admins/provisioning/scim/"
+    - "https://docs.docker.com/security/for-developers/access-tokens/"
+    - "https://www.docker.com/blog/docker-terraform-provider/"
+    - "https://docs.docker.com/reference/api/hub/latest/"

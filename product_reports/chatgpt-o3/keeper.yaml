@@ -1,0 +1,168 @@
+user_management:
+  sso_support:
+    value: "SAML 2.0 (via Keeper SSO Connect Cloud or On-Prem)"
+    reference: "https://docs.keeper.io/en/enterprise-guide/sso-saml-integration"
+  sso_licensing_level_requirement:
+    value: "Enterprise plan – Keeper SSO Connect is bundled with Keeper Enterprise"
+    reference: "https://docs.keeper.io/en/sso-connect-cloud#idp-compatibility"
+  scim_support:
+    value: "yes"
+    reference: "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim"
+  scim_licensing_level_requirement:
+    value: "Enterprise plan (advanced provisioning – AD, SSO, Azure AD, SCIM)"
+    reference: "https://docs.keeper.io/en/enterprise-guide/keeper-msp/fundamentals#licence-allocation--consumption-billing"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim#security"
+  scim_authentication_acquisition_steps: |
+    1. In the **Keeper Admin Console** open **Provisioning > Add Method > SCIM**.  
+    2. Keeper displays a **SCIM Base URL** and a **Provisioning Token** – click **Generate** if none exists.  
+    3. **Copy the token**, then click **Save**.  
+    4. Use the token as a **Bearer** value in the `Authorization` HTTP header when calling any `https://keepersecurity.com/api/rest/scim/v2/<node_id>/...` endpoint.
+  user_management_api_support:
+    value: "yes (Keeper Commander CLI / SDK; Account-Management APIs)"
+    reference: "https://docs.keeper.io/en/enterprise-guide/commander-cli"
+  user_management_api_licensing_level:
+    value: "Enterprise"
+    reference: "https://docs.keeper.io/en/enterprise-guide/commander-cli#use-cases"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://github.com/Keeper-Security/Commander#advanced-configuration-file"
+  user_management_api_authentication_acquisition_steps: |
+    1. Install **Keeper Commander** (`pip install keepercommander`) or download the binary.  
+    2. Run `keeper shell` and execute `login <admin_email>` – approve the new device (email or push) and enter your **Master Password**.  
+    3. Commander stores a long-lived **device / session token** in `~/.keeper/config.json`; subsequent scripted calls reuse this token with no further MFA.  
+    4. Use enterprise commands such as `enterprise-user --add`, `enterprise-user --lock`, `team --add-user`, etc.
+  seat_costs:
+    - license_level: "Business"
+      active:
+        value: "yes"
+        reference: "https://www.keepersecurity.com/pricing/business-and-enterprise.html"
+      suspended_disabled:
+        value: "uncertain"
+        reference: "https://docs.keeper.io/en/enterprise-guide/user-management-and-lifecycle#user-status"
+      archived:
+        value: "no"
+        reference: "https://docs.keeper.io/en/enterprise-guide/user-management-and-lifecycle#delete-user"
+    - license_level: "Enterprise"
+      active:
+        value: "yes"
+        reference: "https://www.keepersecurity.com/pricing/business-and-enterprise.html"
+      suspended_disabled:
+        value: "uncertain"
+        reference: "https://docs.keeper.io/en/enterprise-guide/user-management-and-lifecycle#lock-account"
+      archived:
+        value: "no"
+        reference: "https://docs.keeper.io/en/enterprise-guide/user-management-and-lifecycle#delete-user"
+  lifecycle_options:
+    - Invited
+    - Active
+    - Locked
+    - Locked by IdP
+  rbac_support:
+    value: "yes"
+    reference: "https://docs.keeper.io/en/enterprise-guide/roles"
+  rbac_api_assignment:
+    value: "Roles / teams can be assigned through SCIM (`Groups/PATCH`) or Commander CLI (`enterprise-user --assign-role`)."
+    reference: "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim#userspatch"
+  documentation_links:
+    - "https://docs.keeper.io/en/enterprise-guide/sso-saml-integration"
+    - "https://docs.keeper.io/en/sso-connect-cloud"
+    - "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim"
+    - "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim/using-scim-api-provisioning"
+    - "https://docs.keeper.io/en/enterprise-guide/commander-cli"
+    - "https://github.com/Keeper-Security/Commander"
+    - "https://docs.keeper.io/en/enterprise-guide/user-management-and-lifecycle"
+    - "https://docs.keeper.io/en/enterprise-guide/roles"
+    - "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/okta-integration-with-saml-and-scim"
+    - "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/azure-ad-provisioning-scim"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Audit event code **login** – captures every successful Keeper vault sign-in (all clients, SSO or master-password)."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+    role_assignment:
+      value: "Events **team_user_add / team_user_remove** record when an admin adds or removes a user (role/team assignment change)."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+    api_call:
+      value: "Event family **api_request** (e.g., *api_throttling*, *api_rate_limit*) logs backend API usage by Keeper clients."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+    data_export:
+      value: "Event **report_export** indicates any CSV, JSON, or Syslog export run from Reporting & Alerts or Commander."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+    configuration_change:
+      value: "Event **policy_update** captures changes to role enforcement, SSO, security settings, BreachWatch, etc."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+    user_account_creation:
+      value: "Event **user_invite** (pending) and **user_accept** (activated) log new enterprise user onboarding."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+    security_policy_change:
+      value: "Event **role_policy_change** records any alteration of enforcement policies (e.g., Logout Timer, 2 FA requirements)."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+  event_logs_licensing_level:
+    value: "16 core events are available in all Business & Enterprise plans; the **Advanced Reporting & Alerts Module (ARAM)** add-on unlocks 100 + granular events and SIEM streaming."
+    reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting"
+  monitoring_products:
+    - value: "Advanced Reporting & Alerts Module (web Admin Console dashboard)."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting"
+    - value: "Risk Management Dashboard (continuous posture & usage monitoring)."
+      reference: "https://docs.keeper.io/en/enterprise-guide/risk-management-dashboard"
+    - value: "Keeper Commander CLI / SDK (*audit-report*, *risk-management* commands)."
+      reference: "https://docs.keeper.io/en/keeperpam/commander-cli/command-reference/reporting-commands"
+  ingestion_methods:
+    - value: "Native **Splunk** HTTP Event Collector push."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/splunk"
+    - value: "Native **Sumo Logic** HEC push."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting#external-siem-logging"
+    - value: "**Syslog Push** (TCP/SSL) direct from Keeper cloud."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting#external-siem-logging"
+    - value: "**Azure Sentinel / Log Analytics** connector."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting#external-siem-logging"
+    - value: "**AWS S3** bucket export (JSON objects)."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting#external-siem-logging"
+  log_export_options:
+    tools_connectors:
+      value: "CLI **audit-log** command exports to Splunk, Sumo, Syslog, Azure-LA or JSON; **On-site Commander Push** supports air-gapped SIEM targets."
+      reference: "https://docs.keeper.io/en/keeperpam/commander-cli/command-reference/reporting-commands"
+  documentation_links:
+    - "https://docs.keeper.io/en/enterprise-guide/event-reporting"
+    - "https://docs.keeper.io/en/enterprise-guide/event-reporting/event-descriptions"
+    - "https://docs.keeper.io/en/enterprise-guide/event-reporting/splunk"
+    - "https://docs.keeper.io/en/keeperpam/commander-cli/command-reference/reporting-commands"
+    - "https://docs.keeper.io/en/enterprise-guide/risk-management-dashboard"
+    - "https://docs.keeper.io/en/enterprise-guide/event-reporting/commander-push"
+incident_response:
+  suspend_user_management_api:
+    value: "SCIM **Users/PATCH** `{ \"active\": false }` or **Users/DELETE** locks (suspends) an enterprise user immediately."
+    reference: "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim"
+  invalidate_sessions_api:
+    value: "Admins enforce immediate token revocation via **Logout Timer** policy; CLI **logout** command also expires the current session."
+    reference: "https://docs.keeper.io/en/sso-connect-cloud/device-approvals/commander-cli"
+  revoke_api_key_api:
+    value: "Commander **Service Mode REST API** allows DELETE of granular API tokens defined in `service_config.yaml` (self-hosted middleware)."
+    reference: "https://docs.keeper.io/en/keeperpam/commander-cli/service-mode-rest-api"
+  user_toggle_api:
+    value: "SCIM **Users/PATCH** supports `active true/false` to unlock or lock accounts programmatically."
+    reference: "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim"
+  user_status_api:
+    value: "SCIM **Users/GET** returns current state (`active`, `locked`, `pending`) for every enterprise user."
+    reference: "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim"
+  session_timeout_configuration:
+    value: "Role Enforcement Policy **Logout Timer** sets maximum inactivity duration per platform (Web, Desktop, Mobile)."
+    reference: "https://docs.keeper.io/en/enterprise-guide/roles/enforcement-policies#logout-timer"
+  known_automation_tools:
+    - value: "Open-source **Keeper Commander** CLI / Python SDK."
+      reference: "https://github.com/Keeper-Security/Commander"
+    - value: "**Splunk Add-on for Keeper Security** (HEC input & CIM-compliant sourcetype)."
+      reference: "https://splunkbase.splunk.com/app/6866"
+    - value: "**Cortex XSOAR Keeper Security integration** (fetches audit logs as XSIAM events)."
+      reference: "https://xsoar.pan.dev/docs/reference/integrations/keeper-security"
+    - value: "**On-site Commander Push** utility for environments where Keeper cloud cannot reach the SIEM directly."
+      reference: "https://docs.keeper.io/en/enterprise-guide/event-reporting/commander-push"
+  documentation_links:
+    - "https://docs.keeper.io/en/enterprise-guide/user-and-team-provisioning/automated-provisioning-with-scim"
+    - "https://docs.keeper.io/en/keeperpam/commander-cli/service-mode-rest-api"
+    - "https://docs.keeper.io/en/enterprise-guide/roles/enforcement-policies#logout-timer"
+    - "https://github.com/Keeper-Security/Commander"
+    - "https://xsoar.pan.dev/docs/reference/integrations/keeper-security"
+    - "https://splunkbase.splunk.com/app/6866"

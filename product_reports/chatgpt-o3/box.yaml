@@ -1,0 +1,170 @@
+user_management:
+  sso_support:
+    value: "SAML 2.0-based Service-Provider (SP-initiated or IdP-initiated) single-sign-on"
+    reference: "https://support.box.com/hc/en-us/articles/360043696514-Setting-Up-Single-Sign-On-SSO-for-Your-Organization"
+  sso_licensing_level_requirement:
+    value: "Business and Enterprise accounts (Business, Business Plus, Enterprise, Enterprise Plus)"
+    reference: "https://support.box.com/hc/en-us/articles/360043696514-Setting-Up-Single-Sign-On-SSO-for-Your-Organization"
+  scim_support:
+    value: "uncertain"
+    reference: "https://community.box.com/topic/show?fid=47&tid=15762"
+  scim_licensing_level_requirement:
+    value: "n/a"
+    reference: "https://community.box.com/topic/show?fid=47&tid=15762"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/box-userprovisioning-tutorial"
+  scim_authentication_acquisition_steps: |
+    Box does not publish a dedicated SCIM endpoint.  IdP connectors (Azure AD, Okta) obtain an OAuth 2.0 Bearer access-token during an **Admin Credentials / Authorize** flow:
+    1. In the IdP’s Box provisioning wizard, choose **Authorize**.  
+    2. A Box login window appears.  Sign in with a Box **Team Admin** account.  
+    3. Approve the consent screen (**Grant access to Box**).  
+    4. The IdP receives and stores a long-lived OAuth 2.0 token that it includes as `Authorization: Bearer <token>` in all provisioning calls.  
+    5. No API keys or basic‐auth credentials are used.
+  user_management_api_support:
+    value: "yes"
+    reference: "https://developer.box.com/reference/post-users/"
+  user_management_api_licensing_level:
+    value: "Enterprise (or Business-level) tenant with Admin or Co-Admin rights"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/box-userprovisioning-tutorial"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://developer.box.com/reference/post-users/#request"
+  user_management_api_authentication_acquisition_steps: |
+    Recommended: JWT-based server authentication
+    1. In **developer.box.com → My Apps → Create New App → Custom App (Server Authentication – JWT)**.  
+    2. Download the JSON keypair.  
+    3. In **Admin Console → Apps → Custom Apps**, approve the app for the enterprise.  
+    4. Use the JSON file with an SDK (or directly) to exchange the JWT for an **Enterprise access-token** (`POST https://api.box.com/oauth2/token`).  
+    5. Send API calls with `Authorization: Bearer <access_token>`.  Tokens last 60 min; refresh as needed.
+  seat_costs:
+    - license_level: "Business / Business Plus"
+      active:
+        value: "yes"
+        reference: "https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees"
+      archived:
+        value: "uncertain"
+        reference: "https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees"
+    - license_level: "Enterprise / Enterprise Plus"
+      active:
+        value: "yes"
+        reference: "https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees"
+      archived:
+        value: "uncertain"
+        reference: "https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees"
+  lifecycle_options:
+    - "active"
+    - "inactive"
+    - "cannot_delete_or_edit"
+    - "cannot_delete_edit_upload"
+    - "deleted"
+  rbac_support:
+    value: "yes"
+    reference: "https://developer.box.com/reference/get-users-id-memberships/"
+  rbac_api_assignment:
+    value: "Roles and group memberships (add/remove user to group, set user role = `user`|`coadmin`) are fully automatable via the Users and Group Memberships endpoints."
+    reference: "https://developer.box.com/reference/get-users-id-memberships/"
+  documentation_links:
+    - "https://support.box.com/hc/en-us/articles/360043696514-Setting-Up-Single-Sign-On-SSO-for-Your-Organization"
+    - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/box-userprovisioning-tutorial"
+    - "https://developer.box.com/reference/post-users/"
+    - "https://developer.box.com/reference/get-users-id-memberships/"
+    - "https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees"
+    - "https://saml-doc.okta.com/Provisioning_Docs/Box_Provisioning.html"
+    - "https://support.google.com/a/answer/7290452"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Enterprise Events API event type “LOGIN” records every user sign‑in (success and failure)."
+      reference: "https://developer.box.com/reference/resources/event/ :contentReference[oaicite:0]{index=0}"
+    role_assignment:
+      value: "Event type “CHANGE_ADMIN_ROLE” captures when a user’s admin or co‑admin role is granted or revoked."
+      reference: "https://developer.box.com/reference/resources/event/ :contentReference[oaicite:1]{index=1}"
+    api_call:
+      value: "Event type “USER_AUTHENTICATE_OAUTH2_ACCESS_TOKEN_CREATE” logs creation of OAuth 2.0 access tokens that back Box API calls."
+      reference: "https://developer.box.com/reference/resources/event/ :contentReference[oaicite:2]{index=2}"
+    data_export:
+      value: "Event types “DOWNLOAD” and “FILE_WATERMARKED_DOWNLOAD” represent data‑export operations from Box."
+      reference: "https://developer.box.com/reference/resources/event/ :contentReference[oaicite:3]{index=3}"
+    configuration_change:
+      value: "Security Logs report (Admin Console) tracks configuration and policy changes across the tenant."
+      reference: "https://support.box.com/hc/en-us/articles/4415103894803-Security-Logs-Report :contentReference[oaicite:4]{index=4}"
+    user_account_creation:
+      value: "Event type “NEW_USER” logs the provisioning of every managed user account."
+      reference: "https://developer.box.com/reference/resources/event/ :contentReference[oaicite:5]{index=5}"
+    security_policy_change:
+      value: "Shield alert events such as “SHIELD_SHARED_LINK_STATUS_RESTRICTED_ON_UPDATE” record enforcement or changes to enterprise security policies (requires Box Shield add‑on)."
+      reference: "https://developer.box.com/guides/events/event-triggers/shield-alert-events/ :contentReference[oaicite:6]{index=6}"
+  event_logs_licensing_level:
+    value: "Enterprise Events feed (admin_logs/admin_logs_streaming) and Shield alerts require a Business Plus or Enterprise plan; caller must be an Admin/Co‑Admin with “Run new reports” permission and the app needs the “manage_enterprise_properties” OAuth scope."
+    reference: "https://developer.box.com/reference/get-events/ :contentReference[oaicite:7]{index=7}"
+  monitoring_products:
+    - value: "Splunk Add‑on for Box (near‑real‑time event collection)."
+      reference: "https://docs.splunk.com/Documentation/AddOns/released/Box/About :contentReference[oaicite:8]{index=8}"
+    - value: "Microsoft Sentinel Box data connector (Azure Functions ingestion)."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/box :contentReference[oaicite:9]{index=9}"
+    - value: "Exabeam Box Cloud Connector for Advanced Analytics."
+      reference: "https://docs.exabeam.com/en/cloud-connectors/all/configuration/123241-box-cloud-connector.html :contentReference[oaicite:10]{index=10}"
+    - value: "box-python-sdk streaming script usable with Elastic Stack or custom SIEM pipelines."
+      reference: "https://github.com/box/box-python-sdk/blob/main/docs/usage/events.md :contentReference[oaicite:11]{index=11}"
+  ingestion_methods:
+    - value: "Enterprise Events API – REST/JSON; stream_type=admin_logs or admin_logs_streaming."
+      reference: "https://developer.box.com/guides/events/enterprise-events/for-enterprise/ :contentReference[oaicite:12]{index=12}"
+    - value: "User Events API – per‑user feed for app or managed users."
+      reference: "https://developer.box.com/guides/events/user-events/for-user/ :contentReference[oaicite:13]{index=13}"
+    - value: "Webhooks v2 – push notifications on selected item and security events."
+      reference: "https://developer.box.com/guides/webhooks/ :contentReference[oaicite:14]{index=14}"
+    - value: "Admin Console on‑demand or scheduled CSV reports (User‑Activity, Security‑Logs)."
+      reference: "https://support.box.com/hc/en-us/articles/360043696594-Tracking-User-Activity-on-Files :contentReference[oaicite:15]{index=15}"
+  log_export_options:
+    tools_connectors:
+      value: "Official and partner connectors: Splunk Add‑on for Box, Microsoft Sentinel Box connector, Exabeam Box Cloud Connector – all rely on the Enterprise Events API and handle pagination & Box rate limits (~1 000 calls/min per user)."
+      reference: "https://docs.splunk.com/Documentation/AddOns/released/Box/Setup :contentReference[oaicite:16]{index=16}"
+  documentation_links:
+    - "https://developer.box.com/guides/events/enterprise-events/for-enterprise/ :contentReference[oaicite:17]{index=17}"
+    - "https://developer.box.com/reference/get-events/ :contentReference[oaicite:18]{index=18}"
+    - "https://docs.splunk.com/Documentation/AddOns/released/Box/About :contentReference[oaicite:19]{index=19}"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/box :contentReference[oaicite:20]{index=20}"
+    - "https://developer.box.com/guides/webhooks/triggers/ :contentReference[oaicite:21]{index=21}"
+    - "https://docs.exabeam.com/en/cloud-connectors/all/configuration/123241-box-cloud-connector.html :contentReference[oaicite:22]{index=22}"
+incident_response:
+  suspend_user_management_api:
+    value: "PUT /users/{user_id} with body {\"status\":\"inactive\"} (or \"is_disable_login\":true) suspends a managed user."
+    reference: "https://developer.box.com/reference/put-users-id/ :contentReference[oaicite:23]{index=23}"
+  invalidate_sessions_api:
+    value: "POST /users/terminate_sessions terminates all active sessions (web, mobile, Box Drive) for one or more users."
+    reference: "https://developer.box.com/reference/post-users-terminate-sessions/ :contentReference[oaicite:24]{index=24}"
+  revoke_api_key_api:
+    value: "POST /oauth2/revoke revokes an access or refresh token, immediately invalidating the associated API key/session."
+    reference: "https://developer.box.com/guides/authentication/tokens/revoke/ :contentReference[oaicite:25]{index=25}"
+  user_toggle_api:
+    value: "Same PUT /users/{id} endpoint toggles \"is_disable_login\" true/false to enable or re‑enable a user."
+    reference: "https://developer.box.com/reference/put-users-id/ :contentReference[oaicite:26]{index=26}"
+  user_status_api:
+    value: "GET /users/{user_id} returns current status, login, and role for a specific user."
+    reference: "https://developer.box.com/reference/get-users-id/ :contentReference[oaicite:27]{index=27}"
+  session_timeout_configuration:
+    value: "Admins set enterprise‑wide web‑session duration in Admin Console → Enterprise Settings → Security (“Session Duration for All Users”)."
+    reference: "https://support.box.com/hc/en-us/articles/1500012917741-Changing-Default-Session-Timeout :contentReference[oaicite:28]{index=28}"
+  known_automation_tools:
+    - value: "Splunk SOAR Box App – pre‑built playbook actions (disable user, pull file, etc.)."
+      reference: "https://splunkbase.splunk.com/app/6255 :contentReference[oaicite:29]{index=29}"
+    - value: "Rapid7 InsightConnect Box plugin – workflow steps for user and file management."
+      reference: "https://extensions.rapid7.com/extension/box :contentReference[oaicite:30]{index=30}"
+    - value: "Microsoft Sentinel Logic‑App playbooks using Box REST API."
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/box :contentReference[oaicite:31]{index=31}"
+    - value: "Box CLI bulk commands – scriptable remediation (e.g., box users:update --bulk-file-path)."
+      reference: "https://github.com/box/boxcli :contentReference[oaicite:32]{index=32}"
+  documentation_links:
+    - "https://developer.box.com/reference/put-users-id/ :contentReference[oaicite:33]{index=33}"
+    - "https://developer.box.com/reference/post-users-terminate-sessions/ :contentReference[oaicite:34]{index=34}"
+    - "https://developer.box.com/guides/authentication/tokens/revoke/ :contentReference[oaicite:35]{index=35}"
+    - "https://support.box.com/hc/en-us/articles/1500012917741-Changing-Default-Session-Timeout :contentReference[oaicite:36]{index=36}"
+    - "https://splunkbase.splunk.com/app/6255 :contentReference[oaicite:37]{index=37}"
+    - "https://extensions.rapid7.com/extension/box :contentReference[oaicite:38]{index=38}"

@@ -1,0 +1,105 @@
+user_management:
+  sso_support:
+    value: "SAML 2.0 single sign-on (via identity providers such as Okta, Azure AD, OneLogin, etc.)"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/sections/360010341231-SAML-Single-Sign-On"
+      - "https://support.grammarly.com/hc/en-us/articles/360048683092-Set-up-SAML-single-sign-on"
+  sso_licensing_level_requirement:
+    value: "Included in Grammarly Pro, Business, Enterprise, and Education plans"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/360048683092-Set-up-SAML-single-sign-on"
+  scim_support:
+    value: "yes"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning"
+  scim_licensing_level_requirement:
+    value: "Available on Grammarly Enterprise plans (and Grammarly for Education)"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/360058725831-Configure-SCIM-provisioning-with-Okta"
+  scim_authentication_acquisition_steps:
+    value: |
+      An admin generates a SCIM API token from Grammarly's admin panel under **Provisioning**. For example, clicking **Activate SCIM** and **Create token** will produce a token that serves as a bearer token for SCIM requests. In some cases (such as certain integrations), you may need to request this token from Grammarly support. Provide the resulting SCIM token to your identity provider (e.g. paste it into the **Bearer Token** field in the IdP's SCIM configuration) to authenticate SCIM calls.
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/360058725831-Configure-SCIM-provisioning-with-Okta"
+  user_management_api_support:
+    value: "yes (License Management API for user listing and de-provisioning)"
+    reference:
+      - "https://developer.grammarly.com/license-management-api.html"
+  user_management_api_licensing_level:
+    value: "Grammarly Enterprise and Grammarly for Education (admin users only)"
+    reference:
+      - "https://developer.grammarly.com/license-management-api.html"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference:
+      - "https://developer.grammarly.com/your-first-api-request.html"
+  user_management_api_authentication_acquisition_steps:
+    value: |
+      Administrators must create OAuth 2.0 credentials in the Grammarly admin panel (under **Organization** → **OAuth 2.0 credentials**). After obtaining a Client ID and Secret, they can request an OAuth access token using the client-credentials grant via Grammarly’s OAuth token endpoint. The returned access token is then used as a Bearer token in authorized API requests.
+    reference:
+      - "https://developer.grammarly.com/your-first-api-request.html"
+  seat_costs:
+    - license_level: "Grammarly Pro (Team Plan)"
+      active:
+        value: "yes"
+        reference:
+          - "https://support.grammarly.com/hc/en-us/articles/115000090011-How-much-does-Grammarly-Pro-cost"
+      suspended_disabled:
+        value: "yes"
+        reference:
+          - "https://support.grammarly.com/hc/en-us/articles/4415389035405-I-can-t-provision-a-user-There-are-no-available-seats-in-the-organization"
+      archived:
+        value: "n/a"
+        reference: []
+    - license_level: "Grammarly Enterprise"
+      active:
+        value: "yes"
+        reference:
+          - "https://support.grammarly.com/hc/en-us/articles/360040793112-Manage-the-admin-s-seat"
+      suspended_disabled:
+        value: "yes"
+        reference:
+          - "https://support.grammarly.com/hc/en-us/articles/4415389035405-I-can-t-provision-a-user-There-are-no-available-seats-in-the-organization"
+      archived:
+        value: "n/a"
+        reference: []
+    - license_level: "Grammarly for Education"
+      active:
+        value: "yes"
+        reference:
+          - "https://support.grammarly.com/hc/en-us/articles/360040793112-Manage-the-admin-s-seat"
+      suspended_disabled:
+        value: "yes"
+        reference:
+          - "https://support.grammarly.com/hc/en-us/articles/4415389035405-I-can-t-provision-a-user-There-are-no-available-seats-in-the-organization"
+      archived:
+        value: "n/a"
+        reference: []
+  lifecycle_options:
+    value:
+      - "Invited (pending invitation not yet accepted)"
+      - "Active (user is a member of the organization’s Grammarly subscription)"
+      - "Inactive (deactivated/suspended – user access revoked but account retained up to 30 days)"
+      - "Deleted (user account permanently deleted after 30-day deactivation period)"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/360058725831-Configure-SCIM-provisioning-with-Okta"
+  rbac_support:
+    value: "yes"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/360059662992-Manage-team-member-roles"
+  rbac_api_assignment:
+    value: "Roles and groups are not directly assignable via public API. (Role assignments are handled through the admin interface or SSO role mapping, and SCIM provisioning supports group sync for Enterprise on request.)"
+    reference:
+      - "https://support.grammarly.com/hc/en-us/articles/360059662992-Manage-team-member-roles"
+      - "https://support.grammarly.com/hc/en-us/articles/4415031489037-Organize-team-members-into-groups"
+  documentation_links:
+    - "https://support.grammarly.com/hc/en-us/articles/360048683092-Set-up-SAML-single-sign-on"
+    - "https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning"
+    - "https://support.grammarly.com/hc/en-us/articles/360058725831-Configure-SCIM-provisioning-with-Okta"
+    - "https://developer.grammarly.com/license-management-api.html"
+    - "https://developer.grammarly.com/your-first-api-request.html"
+    - "https://support.grammarly.com/hc/en-us/articles/360059662992-Manage-team-member-roles"

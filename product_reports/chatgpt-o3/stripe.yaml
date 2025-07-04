@@ -1,0 +1,147 @@
+user_management:
+  sso_support:
+    value: "Yes – supports SAML 2.0 for SSO (including IdP-initiated and SP-initiated login)"
+    reference: "https://docs.stripe.com/get-started/account/sso https://docs.stripe.com/get-started/account/orgs/sso"
+  sso_license_level_requirement:
+    value: "SSO is available as an invite-only enterprise feature (requires contacting Stripe for access)"
+    reference: "https://support.stripe.com/questions/does-the-dashboard-support-login-via-sso-(single-sign-on)-or-saml"
+  scim_support:
+    value: "beta"
+    reference: "https://docs.stripe.com/get-started/account/sso/scim"
+  scim_licensing_level_requirement:
+    value: "Available in private preview only (must have SSO enabled; likely limited to enterprise/organization accounts)"
+    reference: "https://docs.stripe.com/get-started/account/sso/scim https://docs.stripe.com/get-started/account/sso"
+  scim_authentication_mechanisms:
+    value: "API key"
+    reference: "https://docs.stripe.com/get-started/account/sso/scim"
+  scim_authentication_acquisition_steps: >
+    In the Stripe Dashboard, navigate to **Settings > Team and Security > SCIM provisioning**, click **Enable**, and then copy the **SCIM endpoint URL** and **SCIM API key**.  
+    Use this SCIM API key as a Bearer token (in an HTTP Authorization header) when configuring your Identity Provider for SCIM provisioning.  
+    https://docs.stripe.com/get-started/account/sso/scim
+  user_management_api_support:
+    value: "no"
+    reference: "https://docs.stripe.com/get-started/account/sso/scim"
+  user_management_api_licensing_level:
+    value: "N/A (no separate user-management API is offered beyond SCIM preview)"
+    reference: "https://docs.stripe.com/get-started/account/sso/scim"
+  user_management_api_authentication_mechanisms:
+    value: "API key"
+    reference: "https://docs.stripe.com/get-started/account/sso/scim"
+  user_management_api_authentication_acquisition_steps: >
+    Not applicable – Stripe does not provide a dedicated user-management API outside of SCIM.  
+    Team users are managed via the Stripe Dashboard UI or through SCIM provisioning (see SCIM steps above).  
+    https://docs.stripe.com/get-started/account/sso/scim
+  seat_costs:
+    - license_level: "Standard Stripe Account"
+      active:
+        value: "yes"
+        reference: "https://docs.stripe.com/get-started/account/teams"
+      suspended_disabled:
+        value: "no"
+        reference: "https://docs.stripe.com/get-started/account/teams"
+      archived:
+        value: "no"
+        reference: "https://docs.stripe.com/get-started/account/teams"
+  lifecycle_options:
+    - "Invited (pending acceptance) https://docs.stripe.com/get-started/account/teams"
+    - "Active (accepted team member) https://docs.stripe.com/get-started/account/teams"
+    - "Removed (deprovisioned/deleted) https://docs.stripe.com/get-started/account/sso/scim"
+  rbac_support:
+    value: "yes"
+    reference: "https://docs.stripe.com/get-started/account/teams/roles"
+  rbac_api_assignment:
+    value: "Roles are assigned via SAML SSO attributes or through the Stripe Dashboard; no API/SCIM support for role assignments"
+    reference: "https://docs.stripe.com/get-started/account/orgs/sso"
+  documentation_links:
+    - "https://docs.stripe.com/get-started/account/sso"
+    - "https://docs.stripe.com/get-started/account/sso/scim"
+    - "https://docs.stripe.com/get-started/account/orgs/sso"
+    - "https://support.stripe.com/questions/does-the-dashboard-support-login-via-sso-(single-sign-on)-or-saml"
+    - "https://www.okta.com/integrations/stripe/"
+    - "https://docs.stripe.com/get-started/account/teams/roles"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Yes – Stripe records user dashboard sign-in events (successful & failed) in its **Security History** audit logs, with device and IP-address details."
+      reference: "https://docs.stripe.com/get-started/account/orgs/team#view-your-security-history"
+    role_assignment:
+      value: "Yes – Changes to team-member roles or invitations are logged in the Security History under the “Team” category."
+      reference: "https://docs.stripe.com/get-started/account/orgs/team#view-your-security-history"
+    api_call:
+      value: "Yes – Every API request is logged; the Dashboard’s **API request log** lists them for troubleshooting and security review."
+      reference: "https://docs.stripe.com/development/dashboard/request-logs"
+    data_export:
+      value: "Yes – Bulk exports (payments, customers, etc.) are tracked and appear in Security History; you can also export the log as CSV."
+      reference: "https://docs.stripe.com/get-started/account/orgs/team#view-your-security-history"
+    configuration_change:
+      value: "Yes – Sensitive configuration changes (bank-account updates, settings changes) are included in the Security History audit logs."
+      reference: "https://docs.stripe.com/security#access-restriction-and-auditing"
+    user_account_creation:
+      value: "Yes – New team-member invites and acceptances are logged; 180 days of history are retained."
+      reference: "https://docs.stripe.com/get-started/account/teams#security-history"
+    security_policy_change:
+      value: "Yes – Policy updates (for example, enabling mandatory 2FA or updating SSO) are captured in the “User security” category."
+      reference: "https://docs.stripe.com/security#access-restriction-and-auditing"
+  event_logs_licensing_level:
+    value: "Audit logging (Security History) is included for all Stripe accounts and retained for 180 days by default."
+    reference: "https://docs.stripe.com/get-started/account/teams#security-history"
+  monitoring_products:
+    - value: "**Security History** – Built-in audit-log viewer in the Stripe Dashboard."
+      reference: "https://docs.stripe.com/get-started/account/orgs/team#view-your-security-history"
+    - value: "**Stripe Data Pipeline** – Continuously exports Stripe data to Snowflake or Redshift."
+      reference: "https://docs.stripe.com/stripe-data/access-data-in-warehouse"
+    - value: "**Datadog Stripe Integration** – Sends Stripe events to Datadog as logs."
+      reference: "https://docs.datadoghq.com/integrations/stripe/"
+    - value: "**Stripe Radar** – Machine-learning fraud-detection and alerting service."
+      reference: "https://stripe.com/radar"
+  ingestion_methods:
+    - value: "**Webhooks / EventBridge** – Register HTTPS endpoints or use AWS EventBridge to receive real-time Stripe events."
+      reference: "https://docs.stripe.com/webhooks"
+    - value: "**Stripe API** – List recent Event objects (≈30 days) over REST for external analysis."
+      reference: "https://docs.stripe.com/api/events/list"
+    - value: "**CSV Export** – Export Security History or other reports from the Dashboard."
+      reference: "https://docs.stripe.com/get-started/account/orgs/team#view-your-security-history"
+  log_export_options:
+    tools_connectors:
+      value: "Export options include **Stripe Data Pipeline**, AWS EventBridge event destinations, or the open-source `stripe-pipeline` script for Redshift."
+      reference: "https://docs.stripe.com/event-destinations/eventbridge"
+  documentation_links:
+    - "https://docs.stripe.com/security"
+    - "https://docs.stripe.com/get-started/account/orgs/team#view-your-security-history"
+    - "https://docs.stripe.com/get-started/account/teams#security-history"
+    - "https://docs.stripe.com/webhooks"
+    - "https://docs.datadoghq.com/integrations/stripe/"
+incident_response:
+  suspend_user_management_api:
+    value: "No – Stripe exposes no API to suspend or delete a team user; access must be removed in the Dashboard."
+    reference: "https://docs.stripe.com/get-started/account/orgs/team#remove-a-team-member"
+  invalidate_sessions_api:
+    value: "No dedicated endpoint; deleting the team user in the Dashboard immediately revokes active sessions."
+    reference: "https://docs.stripe.com/get-started/account/orgs/team#remove-a-team-member"
+  revoke_api_key_api:
+    value: "No programmatic revoke endpoint; admins rotate or delete keys in the Dashboard’s **API keys** page."
+    reference: "https://docs.stripe.com/keys#rotate-key"
+  user_toggle_api:
+    value: "No – Stripe doesn’t provide an enable/disable API; you must remove and later re-invite the user."
+    reference: "https://docs.stripe.com/get-started/account/orgs/team"
+  user_status_api:
+    value: "No public endpoint to list team users; SCIM provisioning isn’t supported."
+    reference: "https://docs.stripe.com/get-started/account/sso/troubleshooting#sso-limitations"
+  session_timeout_configuration:
+    value: "Session length is fixed at 12 hours for SSO and isn’t configurable."
+    reference: "https://docs.stripe.com/get-started/account/sso/troubleshooting#sso-limitations"
+  known_automation_tools:
+    - value: "**GitGuardian** – Detects leaked Stripe secrets and guides key rotation."
+      reference: "https://www.gitguardian.com/remediation/stripe-secret-key"
+    - value: "**Truffle Security / HowToRotate** – Step-by-step playbook for rotating leaked Stripe API keys."
+      reference: "https://howtorotate.com/docs/tutorials/stripe/"
+    - value: "**Stripe Workflows** – No-code automation builder triggered by Stripe events."
+      reference: "https://docs.stripe.com/workflows"
+    - value: "**n8n Automation** – Open-source workflow platform with built-in Stripe nodes."
+      reference: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.stripe/"
+  documentation_links:
+    - "https://docs.stripe.com/get-started/account/sso/troubleshooting#sso-limitations"
+    - "https://docs.stripe.com/keys#rotate-key"
+    - "https://docs.stripe.com/security"
+    - "https://howtorotate.com/docs/tutorials/stripe/"
+    - "https://docs.stripe.com/get-started/account/orgs/team#remove-a-team-member"

@@ -1,0 +1,182 @@
+user_management:
+  sso_support:
+    value: "Yes – supports SSO via Google (OAuth), Microsoft (Azure AD), Okta (SAML 2.0), and custom SAML 2.0 identity providers."
+    reference: "https://help.clickup.com/hc/en-us/articles/6305043992343-Intro-to-single-sign-on-SSO"
+  sso_license_level_requirement:
+    value: "Google SSO is available on the Business Plan and above; SAML-based SSO (including Microsoft and Okta integrations) requires the Enterprise Plan."
+    reference: "https://help.clickup.com/hc/en-us/articles/28428003934743-Bypass-single-sign-on-SSO-for-individual-users"
+  scim_support:
+    value: "yes"
+    reference: "https://help.clickup.com/hc/en-us/articles/6305052795287-Okta-SCIM-ClickUp-configuration-guide"
+  scim_licensing_level_requirement:
+    value: "Enterprise Plan (SCIM user provisioning is available only after SSO is enabled, which is an Enterprise feature)."
+    reference: "https://help.clickup.com/hc/en-us/articles/23249507200791-Microsoft-Entra-ID-SCIM-configuration-guide"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.clickup.com/hc/en-us/articles/6305052795287-Okta-SCIM-ClickUp-configuration-guide"
+  scim_authentication_acquisition_steps: |
+    Enable SAML SSO for the ClickUp Workspace (Enterprise plan). Once SSO is set up, navigate to the Workspace **Security & Permissions** settings. ClickUp will display a **SCIM Base URL** and a **SCIM API Token** (bearer token) for provisioning. Copy the SCIM API Token and provide it (as a Bearer token in the Authorization header) along with the Base URL in your identity provider's SCIM configuration.
+  user_management_api_support:
+    value: "yes"
+    reference: "https://help.clickup.com/hc/en-us/articles/6303426241687-Use-the-ClickUp-API"
+  user_management_api_licensing_level:
+    value: "Enterprise Plan (user-provisioning API endpoints are available only for Enterprise workspaces)."
+    reference: "https://developer.clickup.com/reference/edituseronworkspace"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.clickup.com/hc/en-us/articles/6303426241687-Use-the-ClickUp-API"
+  user_management_api_authentication_acquisition_steps: |
+    For a personal API key: In ClickUp, click your profile avatar → **Settings** → **Apps**. Click **Generate** to create a new API token, then click **Copy** to obtain it. Use this token in the `Authorization` header (as `Bearer <token>`) for API calls.  
+    For multi-user integrations, create an OAuth2 app in **Apps** to get a client ID and secret, perform an OAuth flow, and use the returned access token as the bearer token for API requests.
+  seat_costs:
+    - license_level: "Free Forever"
+      active:
+        value: "yes"
+        reference: "https://clickup.com/pricing"
+      suspended_disabled:
+        value: "n/a"
+        reference: "https://clickup.com/pricing"
+      archived:
+        value: "n/a"
+    - license_level: "Unlimited"
+      active:
+        value: "yes"
+        reference: "https://clickup.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace"
+      archived:
+        value: "n/a"
+    - license_level: "Business"
+      active:
+        value: "yes"
+        reference: "https://clickup.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace"
+      archived:
+        value: "n/a"
+    - license_level: "Business Plus"
+      active:
+        value: "yes"
+        reference: "https://clickup.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace"
+      archived:
+        value: "n/a"
+    - license_level: "Enterprise"
+      active:
+        value: "yes"
+        reference: "https://clickup.com/pricing"
+      suspended_disabled:
+        value: "no"
+        reference: "https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace"
+      archived:
+        value: "n/a"
+  lifecycle_options:
+    - "Active"
+    - "Pending (Invited)"
+    - "Inactive (Deactivated)"
+  rbac_support:
+    value: "yes"
+    reference: "https://help.clickup.com/hc/en-us/articles/6309195687959-Manage-Custom-Role-permissions"
+  rbac_api_assignment:
+    value: "Roles and team (group) memberships can be managed via API. For example, you can update a user's role programmatically and create or modify user groups (Teams) via API."
+    reference: "https://developer.clickup.com/reference/edituseronworkspace, https://developer.clickup.com/reference/createusergroup"
+  documentation_links:
+    - "https://help.clickup.com/hc/en-us/articles/6305043992343-Intro-to-single-sign-on-SSO"
+    - "https://help.clickup.com/hc/en-us/articles/6305052795287-Okta-SCIM-ClickUp-configuration-guide"
+    - "https://help.clickup.com/hc/en-us/articles/6305027039767-Configure-custom-SAML-single-sign-on"
+    - "https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace"
+    - "https://help.clickup.com/hc/en-us/articles/6303426241687-Use-the-ClickUp-API"
+    - "https://developer.clickup.com/reference/inviteusertoworkspace"
+    - "https://www.upsys-consulting.com/en/blog-en/how-to-make-use-of-the-clickup-api-features-examples"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "ClickUp logs user sign-in events. \"User Login\" events (including 2FA logins) are captured in the audit logs' User log."
+      reference: "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    role_assignment:
+      value: "Yes – Changes to user roles or permissions are audited. For example, events like \"User Role Changed\" (admin changed a user's role) and \"Role Permission Changed\" are recorded."
+      reference: "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    api_call:
+      value: "No – There is no specific audit event for arbitrary API calls. Actions performed via API are logged as normal user events (e.g., task changes attributed to the API user), but ClickUp’s audit logs do not list a distinct \"API call\" event."
+      reference: "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    data_export:
+      value: "No – ClickUp’s audit logs do not appear to track data export actions. There is no documented event type for exporting or downloading data from the workspace."
+      reference: "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    configuration_change:
+      value: "Yes – Administrative configuration changes are logged. For instance, changes to security settings (enabling 2FA requirement, updating advanced permissions) or similar workspace settings are recorded in the audit log."
+      reference: "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    user_account_creation:
+      value: "Yes – User onboarding events are captured. Events such as inviting a new user and a user joining the workspace (accepting invite) are logged (e.g., \"User Invited to Workspace\" and \"User Joined Workspace\")."
+      reference: "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    security_policy_change:
+      value: "Yes – Changes to security policies are audited. For example, enabling or changing the 2FA policy, toggling SSO settings (like bypass SSO), or updating SSO configuration all generate audit log events."
+      reference: "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+  event_logs_licensing_level:
+    value: "Audit Logs are an Enterprise-plan feature. Only Enterprise workspaces have audit logging, and by default only the Workspace owner can access them (admins can be granted access via custom permission)."
+    reference: "https://help.clickup.com/hc/en-us/articles/25324213764119-Audit-Logs-feature-availability-and-limits"
+  monitoring_products:
+    - value: "Splunk (ClickUp Add-on for Splunk) – A community-supported Splunk integration that uses ClickUp’s API to pull data (tasks, etc.) into Splunk for monitoring."
+      reference: "https://splunkbase.splunk.com/app/7247"
+    - value: "Coefficient (Google Sheets) – A Google Sheets add-on that connects to ClickUp’s API to import audit-log data for analysis of user activity and compliance monitoring."
+      reference: "https://coefficient.io/connect-clickup-to-google-sheets"
+    - value: "IBM QRadar (via n8n workflows) – Open-source automation like n8n can bridge ClickUp with SIEM tools such as QRadar, allowing security-event data to be extracted from ClickUp and sent to QRadar for monitoring."
+      reference: "https://n8n.io/integrations/clickup/and/qradar/"
+    - value: "Tray.io – A commercial integration platform that provides connectors for ClickUp and Splunk, enabling automated data flow from ClickUp to Splunk (or other systems) for monitoring purposes."
+      reference: "https://tray.ai/connectors/clickup-splunk-integrations"
+  ingestion_methods:
+    - value: "Audit Log API – ClickUp offers a REST API endpoint for retrieving audit logs, which can be used to export events to external systems or storage."
+      reference: "https://developer.clickup.com/reference/createworkspaceauditlog"
+    - value: "Webhooks – ClickUp supports webhooks for real-time event notifications. Administrators can subscribe to 30+ event types (e.g., task changes, goal updates) and receive POST callbacks whenever those events occur."
+      reference: "https://developer.clickup.com/reference/createwebhook"
+  log_export_options:
+    tools_connectors:
+      value: "Export via API or connectors – Logs can be exported using the Audit Log API (Enterprise). Third-party connectors exist to facilitate this (e.g., the Splunk Add-on or Google Sheets integration leverage the API to pull audit-log data)."
+      reference: "https://splunkbase.splunk.com/app/7247"
+  documentation_links:
+    - "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    - "https://help.clickup.com/hc/en-us/articles/25324213764119-Audit-Logs-feature-availability-and-limits"
+    - "https://developer.clickup.com/reference/createworkspaceauditlog"
+    - "https://developer.clickup.com/reference/createwebhook"
+    - "https://splunkbase.splunk.com/app/7247"
+    - "https://coefficient.io/connect-clickup-to-google-sheets"
+    - "https://n8n.io/integrations/clickup/and/qradar/"
+    - "https://tray.ai/connectors/clickup-splunk-integrations"
+incident_response:
+  suspend_user_management_api:
+    value: "Yes – You can programmatically suspend/remove a user. ClickUp’s API (Enterprise token with admin rights) provides an endpoint to remove a user from a Workspace (effectively deactivating that user)."
+    reference: "https://developer.clickup.com/reference/removeuserfromworkspace"
+  invalidate_sessions_api:
+    value: "No single-user logout endpoint. Admins can enforce logouts by changing session settings (switching from \"Never Expires\" forces all users to sign in again). Additionally, removing a user immediately terminates their access and any active sessions."
+    reference: "https://help.clickup.com/hc/en-us/articles/21797055143575-Default-security-settings"
+  revoke_api_key_api:
+    value: "No direct API for revoking another user’s API token. Personal API tokens in ClickUp never expire on their own. A user must regenerate their token (invalidating the old one), or an admin must remove the user account entirely to revoke associated tokens."
+    reference: "https://developer.clickup.com/docs/authentication"
+  user_toggle_api:
+    value: "No – ClickUp does not support a temporary disable/enable toggle for user accounts. The only way to \"disable\" a user is to remove them from the Workspace (and re-invite later if needed). There is no API to directly toggle user active status without removal."
+    reference: "https://developer.clickup.com/reference/removeuserfromworkspace"
+  user_status_api:
+    value: "Yes – Administrators can query user status via API. For example, the API can list workspace members and their details (including last-active timestamp and whether they are pending, etc.). A user that has been removed will no longer appear in these lists."
+    reference: "https://developer.clickup.com/reference/getuser"
+  session_timeout_configuration:
+    value: "Yes – Session duration and idle timeout can be configured (Enterprise plan). Owners/admins can set sessions to expire after a chosen period and define idle-timeout intervals. Changing these settings applies to all users and can force logouts when thresholds are reached."
+    reference: "https://help.clickup.com/hc/en-us/articles/21797055143575-Default-security-settings"
+  known_automation_tools:
+    - value: "SCIM Provisioning (Azure AD / Okta) – For Enterprise, ClickUp supports SCIM to automate user provisioning and deprovisioning. This allows external identity providers to automatically deactivate (or create) users in ClickUp when needed."
+      reference: "https://help.clickup.com/hc/en-us/articles/23249507200791-Microsoft-Entra-ID-SCIM-configuration-guide"
+    - value: "n8n (Open-source Automation) – Can orchestrate incident-response actions by connecting ClickUp’s API with other systems. For example, n8n workflows can remove a user or export logs from ClickUp and send alerts to SIEM solutions like QRadar."
+      reference: "https://n8n.io/integrations/clickup/and/qradar/"
+    - value: "Tray.io – Enables complex automation with ClickUp. Security teams could use Tray to build workflows (e.g., when a high-risk event is detected in ClickUp, automatically create a task or deactivate a user, etc.) by integrating ClickUp with ITSM/SIEM tools."
+      reference: "https://tray.ai/connectors/clickup-splunk-integrations"
+    - value: "Custom Scripts / SOAR – ClickUp’s API allows integration into Security-orchestration tools (e.g., custom Python scripts or platforms like Splunk SOAR/Phantom) to perform actions such as disabling users or pulling audit logs as part of an automated playbook."
+      reference: "https://developer.clickup.com/reference/removeuserfromworkspace"
+  documentation_links:
+    - "https://developer.clickup.com/reference/removeuserfromworkspace"
+    - "https://developer.clickup.com/reference/getuser"
+    - "https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs"
+    - "https://help.clickup.com/hc/en-us/articles/21797055143575-Default-security-settings"
+    - "https://developer.clickup.com/reference/createworkspaceauditlog"
+    - "https://developer.clickup.com/reference/createwebhook"

@@ -1,0 +1,169 @@
+user_management:
+  sso_support:
+    value: "Yes (SAML 2.0 SSO; Zoom acts as the SAML Service Provider)"
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060673"
+  sso_licensing_level_requirement:
+    value: "Business, Education, or Enterprise Zoom plan required"
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060673"
+  scim_support:
+    value: "yes"
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0070135"
+  scim_licensing_level_requirement:
+    value: "Business or Education account with approved vanity URL required"
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0070135"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://developers.zoom.us/docs/api/scim2/"
+  scim_authentication_acquisition_steps: >
+    Register a Zoom OAuth or Server-to-Server OAuth app in the Zoom App Marketplace
+    with the **SCIM2** scope enabled, then use its Client ID and Client Secret to request
+    an OAuth 2.0 access token for SCIM calls at `https://zoom.us/oauth/token`.
+  user_management_api_support:
+    value: "yes (Zoom User Management API available)"
+    reference: "https://developers.zoom.us/docs/api/users/"
+  user_management_api_licensing_level:
+    value: "Pro or higher Zoom account required"
+    reference: "https://developers.zoom.us/docs/api/accounts/"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://developers.zoom.us/docs/integrations/oauth/"
+  user_management_api_authentication_acquisition_steps: >
+    Create a **Server-to-Server OAuth** app on the Zoom Marketplace, enable the
+    required `user:read` and `user:write` scopes, then exchange the app’s
+    Client ID and Client Secret for a bearer token via the
+    `https://zoom.us/oauth/token` endpoint.
+  seat_costs:
+    - license_level: "Basic (free account)"
+      active:
+        value: "no"
+        reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0066997"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0066997"
+      archived:
+        value: "no"
+        reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0066997"
+    - license_level: "Licensed (Pro/Business/Education)"
+      active:
+        value: "yes"
+        reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061789"
+      suspended_disabled:
+        value: "no"
+        reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0066997"
+      archived:
+        value: "no"
+        reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0066997"
+  lifecycle_options:
+    - "Active"
+    - "Pending"
+    - "Deactivated"
+    - "Deleted"
+    - "Unlinked"
+  rbac_support:
+    value: "yes (supports custom roles and group admins)"
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064983"
+  rbac_api_assignment:
+    value: "yes (via Zoom Account API /roles endpoints)"
+    reference: "https://www.postman.com/zoom-developer/zoom-public-workspace/request/10tijet/list-roles"
+  documentation_links:
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060673"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061789"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0066997"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064983"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064121"
+    - "https://learn.microsoft.com/entra/identity/saas-apps/zoom-provisioning-tutorial"
+    - "https://documentation.sailpoint.com/connectors/zoom/help/integrating_zoom/intro.html"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "Sign In/Sign Out activity logs (Report API)"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060623"
+    role_assignment:
+      value: "Admin Activity Logs – role and license assignment events"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251"
+    api_call:
+      value: "Marketplace API Dashboard – per-endpoint API-call logs"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0010258"
+    data_export:
+      value: "Admin Activity Logs – data-export actions (CSV, recordings, etc.)"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251"
+    configuration_change:
+      value: "Admin Activity Logs – account and configuration changes"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251"
+    user_account_creation:
+      value: "Admin Activity Logs – user-creation/deletion events"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251"
+    security_policy_change:
+      value: "Admin Activity Logs – SSO and security-policy updates"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251"
+  event_logs_licensing_level:
+    value: "Pro, Business, Education, or Enterprise plan"
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060623"
+  monitoring_products:
+    - value: "Datadog – Zoom Activity Logs integration"
+      reference: "https://docs.datadoghq.com/integrations/zoom_activity_logs/"
+    - value: "Panther – Zoom log source"
+      reference: "https://docs.panther.com/data-onboarding/supported-logs/zoom"
+    - value: "Splunk Connect for Zoom"
+      reference: "https://splunkbase.splunk.com/app/4961"
+    - value: "Elastic Zoom Webhook integration"
+      reference: "https://www.elastic.co/docs/reference/integrations/zoom"
+    - value: "Azure Sentinel custom connector (Zoom monitoring)"
+      reference: "https://techcommunity.microsoft.com/blog/microsoftsentinelblog/monitoring-zoom-with-azure-sentinel/1341516"
+  ingestion_methods:
+    - value: "Zoom Webhooks (Webhook-only or OAuth app)"
+      reference: "https://developers.zoom.us/docs/api/webhooks/"
+    - value: "Operation Logs REST API (GET /report/operationlogs)"
+      reference: "https://developers.zoom.us/docs/api/rest/reference/report/reportoperationlogs"
+    - value: "Sign In/Sign Out Activity API (GET /report/activities)"
+      reference: "https://developers.zoom.us/docs/api/rest/reference/report/reportgetsigninoutactivity"
+    - value: "Admin portal – export CSV from Activity Logs UI"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251"
+  log_export_options:
+    tools_connectors:
+      value: "Splunk Connect for Zoom – webhook collector and dashboards"
+      reference: "https://splunkbase.splunk.com/app/4961"
+  documentation_links:
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060623"
+    - "https://docs.datadoghq.com/integrations/zoom_activity_logs/"
+    - "https://docs.panther.com/data-onboarding/supported-logs/zoom"
+    - "https://www.elastic.co/docs/reference/integrations/zoom"
+    - "https://splunkbase.splunk.com/app/4961"
+    - "https://techcommunity.microsoft.com/blog/microsoftsentinelblog/monitoring-zoom-with-azure-sentinel/1341516"
+incident_response:
+  suspend_user_management_api:
+    value: "PUT /users/{userId}/status – suspend or activate users"
+    reference: "https://zoom.github.io/api/#users-update-status"
+  invalidate_sessions_api:
+    value: "N/A (no documented endpoint to force-logout all user sessions)"
+    reference: "https://devforum.zoom.us/t/cannot-log-in-to-same-oauth-account-from-2-devices-using-same-client-id/6985"
+  revoke_api_key_api:
+    value: "Regenerate or revoke app API key/secret via App Marketplace"
+    reference: "https://developers.zoom.us/docs/internal-apps/jwt/"
+  user_toggle_api:
+    value: "PUT /users/{userId}/status – toggle active/deactivated"
+    reference: "https://zoom.github.io/api/#users-update-status"
+  user_status_api:
+    value: "GET /users/{userId} – retrieve user status and details"
+    reference: "https://zoom.github.io/api/#users"
+  session_timeout_configuration:
+    value: "Web-portal setting: “Users need to sign in again after inactivity” (5–120 min)"
+    reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064901"
+  known_automation_tools:
+    - value: "Zoom Workflow Automation (native)"
+      reference: "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0076048"
+    - value: "Splunk SOAR Zoom App"
+      reference: "https://splunkbase.splunk.com/app/5979"
+    - value: "Azure Logic Apps custom connector pattern"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/create-custom-connector"
+    - value: "n8n Zoom node"
+      reference: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.zoom/"
+    - value: "Workato Zoom connector"
+      reference: "https://docs.workato.com/connectors/zoom.html"
+  documentation_links:
+    - "https://zoom.github.io/api/#users-update-status"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064901"
+    - "https://developers.zoom.us/docs/internal-apps/jwt/"
+    - "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.zoom/"
+    - "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0076048"

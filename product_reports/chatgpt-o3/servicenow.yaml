@@ -1,0 +1,150 @@
+user_management:
+  sso_support:
+    value: "Yes – supports SAML 2.0 and OpenID Connect (OIDC) SSO via the Multi‑Provider SSO plugin (allows multiple external IdPs and local login):contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}"
+    reference: "https://www.manageengine.com/identity-360/integrations/servicenow-sso.html"
+  sso_licensing_level_requirement:
+    value: "No special license required (SSO available on all ServiceNow editions; the Multi‑Provider SSO plugin is activated on request without extra cost):contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}"
+    reference: "https://www.servicenow.com/community/developer-forum/multi-provider-sso-plugin-how-do-you-get-it-for-a-developer/m-p/1612622"
+  scim_support:
+    value: "yes"
+    reference: "https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734"
+  scim_licensing_level_requirement:
+    value: "Available with platform admin access (requires activating the **SCIM v2** plugin; no separate license mentioned):contentReference[oaicite:4]{index=4}:contentReference[oaicite:5]{index=5}"
+    reference: "https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734#M42"
+  scim_authentication_acquisition_steps: >
+    1. **Activate SCIM and OAuth:** Install the "SCIM v2" plugin and locate the pre-created **SCIM API** OAuth application (via *System OAuth → Application Registry*):contentReference[oaicite:6]{index=6}.  
+    2. **Create Credentials:** Note the SCIM API OAuth **Client ID** and set a new **Client Secret**:contentReference[oaicite:7]{index=7}. Ensure an admin **service account** user is created for provisioning and has the **admin** role:contentReference[oaicite:8]{index=8}.  
+    3. **Authorize and Get Token:** Using the service account, perform an OAuth authorization code grant for the SCIM API app (e.g. visit the **oauth_auth.do** URL in a browser to get a code, then exchange it via a POST to **oauth_token.do**):contentReference[oaicite:9]{index=9}:contentReference[oaicite:10]{index=10}.  
+    4. **Use Bearer Token:** Copy the returned **access_token** value (Bearer token) and provide it as the “Secret Token” in your IdP’s SCIM provisioning configuration:contentReference[oaicite:11]{index=11}. The IdP will use this token to authenticate SCIM calls to ServiceNow’s SCIM endpoint (`<instance>.service-now.com/api/now/scim`).
+  user_management_api_support:
+    value: "yes"
+    reference: "https://www.servicenow.com/community/service-management-forum/does-user-with-quot-rest-service-quot-role-have-access-to-all/m-p/408184#M2576"
+  user_management_api_licensing_level:
+    value: "Included in base platform (all ServiceNow instances support REST and SOAP APIs for user management by default):contentReference[oaicite:12]{index=12}"
+    reference: "https://www.servicenow.com/community/service-management-forum/does-user-with-quot-rest-service-quot-role-have-access-to-all/m-p/408184#M2576"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://zuplo.com/blog/2025/04/03/servicenow-api"
+  user_management_api_authentication_acquisition_steps: >
+    **Option 1: OAuth 2.0 Bearer Token (Recommended):** Register an OAuth application in ServiceNow (*System OAuth → Application Registry*) and grant it an access token using an admin or integration user. Use the token in API calls (`Authorization: Bearer <token>`). This provides secure, scoped access:contentReference[oaicite:13]{index=13}.  
+    **Option 2: Basic Auth:** Create a dedicated integration user account (with appropriate roles, e.g. **user_admin** for user management) and use its username and password for Basic Authentication (`Authorization: Basic <encoded credentials>`). ServiceNow’s REST API will honor the user’s permissions per ACL rules:contentReference[oaicite:14]{index=14}:contentReference[oaicite:15]{index=15}. *(Basic Auth is simpler but not recommended for production if OAuth can be used.)*
+  seat_costs:
+    - license_level: "Fulfiller (Licensed user role)"
+      active:
+        value: "yes"
+        reference: "https://www.servicenow.com/community/developer-forum/will-role-consumed-inactive-user-count-as-licensed-user/m-p/1500100#M44091"
+      suspended_disabled:
+        value: "no"
+        reference: "https://www.servicenow.com/community/developer-forum/will-role-consumed-inactive-user-count-as-licensed-user/m-p/1500100#M44091"
+      archived:
+        value: "n/a"
+        reference: "https://www.reddit.com/r/servicenow/comments/1eo8lhg/best_practices_on_the_cleanest_way_to_purge_stale/"
+  lifecycle_options:
+    - "Active – user account enabled (counts toward license if user has a licensed role):contentReference[oaicite:16]{index=16}"
+    - "Inactive/Disabled – user marked inactive (login disabled; does **not** consume a license seat):contentReference[oaicite:17]{index=17}"
+    - "Locked Out – user temporarily locked after too many failed logins (automatically cleared or admin reset; user remains Active status):contentReference[oaicite:18]{index=18}:contentReference[oaicite:19]{index=19}"
+    - "Deleted/Archived – user record removed or archived (not typically done; best practice is to deactivate instead to preserve references):contentReference[oaicite:20]{index=20}"
+  rbac_support:
+    value: "yes"
+    reference: "https://docs.servicenow.com/bundle/yokohama-platform-administration/page/administer/roles/concept/user.html#related-records"
+  rbac_api_assignment:
+    value: "Yes – roles and group memberships can be managed via API (e.g., via REST calls on the **User Roles** table to assign roles):contentReference[oaicite:21]{index=21}:contentReference[oaicite:22]{index=22}"
+    reference: "https://docs.servicenow.com/bundle/yokohama-platform-administration/page/administer/roles/concept/user.html"
+  documentation_links:
+    - "https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/ba-p/2984734"
+    - "https://www.manageengine.com/identity-360/integrations/servicenow-sso.html"
+    - "https://www.servicenow.com/community/service-management-forum/does-user-with-quot-rest-service-quot-role-have-access-to-all/m-p/408184"
+    - "https://www.servicenow.com/community/developer-forum/will-role-consumed-inactive-user-count-as-licensed-user/m-p/1500100"
+    - "https://docs.servicenow.com/bundle/yokohama-platform-administration/page/administer/roles/concept/user.html"
+    - "https://www.reddit.com/r/servicenow/comments/1eo8lhg/best_practices_on_the_cleanest_way_to_purge_stale/"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "All user login events (successful and failed) are captured in ServiceNow’s **Event Log**. Successful logins generate an event with Name **‘login’**, and failed logins generate **‘login.failed’** events, including details like timestamp, source IP, and username."
+      reference: "https://community.servicenow.com/thread/262640"
+    role_assignment:
+      value: "Changes to user role assignments are tracked in the **Audit Roles** table (`sys_audit_role`). This audit log captures any additions or removals of roles for a user account."
+      reference: "https://docs.servicenow.com/bundle/yokohama-platform-administration/page/administer/roles/task/audit-user-roles.html"
+    api_call:
+      value: "ServiceNow records incoming API calls in the **Transaction Log**. In System Logs > Transactions, REST API invocations appear with type **‘REST’** (and SOAP calls as **‘SOAP’**), showing the endpoint (URL) and details of each request."
+      reference: "https://community.servicenow.com/thread/1792035"
+    data_export:
+      value: "When users export data (e.g., list to Excel/CSV), ServiceNow generates records in the background (in tables like `sys_poll` and `sys_attachment`) to hold the export file. These records include who performed the export, but by default they are **cleaned up on user logout** by a scheduled cleanup job. (Admins can implement a workaround to retain these for auditing purposes.)"
+      reference: "https://www.linkedin.com/posts/sanjivmeher_track-the-users-who-have-exported-the-records-activity-7148105394517590016-Y1Bx"
+    configuration_change:
+      value: "ServiceNow’s **Audit History** captures configuration changes on tables that have auditing enabled. The **Sys Audit** (`sys_audit`) table logs inserts/updates/deletes to records (fields changed, old and new values, who made the change) for audited tables. By default, many core tables (Incident, Change, Problem, etc.) are audited, and administrators can enable auditing on other tables to track configuration or security setting changes."
+      reference: "https://docs.servicenow.com/bundle/yokohama-platform-security/page/administer/security/concept/c_UnderstandingTheSysAuditTable.html"
+    user_account_creation:
+      value: "New user accounts are recorded in the **User [sys_user]** table. Out-of-the-box, user creation is not specifically logged as an event, but the record’s creation timestamp and creator are captured. To audit user creations/updates, an admin can **enable auditing on the sys_user table**, causing inserts (new users) to be logged in the audit history."
+      reference: "https://community.servicenow.com/thread/2430460"
+    security_policy_change:
+      value: "Changes to security-related configurations (e.g., password policies, account lockout settings, ACL rules) are recorded as normal record updates. If those configuration tables or system properties are audited, the modifications will appear in the audit logs. For example, updates to Password Policy records or security properties can be traced via audit history. ServiceNow also offers an **Identity and Access Audit** feature to report on changes to users, groups, roles, etc., highlighting who made what change and when."
+      reference: "https://docs.servicenow.com/bundle/xanadu-platform-security/page/integrate/identity/concept/explore-identity-audit.html"
+  event_logs_licensing_level:
+    value: "Access to standard system logs (events, transactions, audits) is included with the base ServiceNow platform (available on all instances with admin access). No special licensing is required to view or export these logs. However, the **Log Export Service (LES)**—which streams logs to external SIEMs—is a separately licensed feature (part of ServiceNow **Vault**). LES provides a free allowance (e.g., first 500 GB/month at no cost) and then requires a subscription for higher volumes."
+    reference: "https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/resource-center/data-sheet/ds-log-export-services.pdf"
+  monitoring_products:
+    - value: " **ServiceNow Log Export Service (LES)** – An official ServiceNow solution for streaming system and application logs to external analytics platforms in near-real-time. LES uses an Apache Kafka-based messaging service (called Hermes) to continuously export logs, via either a dedicated MID Server or direct Kafka consumer integration. *Licensing:* Requires ServiceNow Vault or separate purchase."
+      reference: "https://docs.servicenow.com/bundle/xanadu-platform-security/page/administer/log-export-service/concept/les-landing-page.html"
+    - value: " **Splunk Add-on for ServiceNow** – A certified integration on Splunkbase that uses ServiceNow’s REST APIs to pull various data including incidents, changes, and key logs. Recent versions ship with default inputs for **syslog**, **syslog_transaction**, and **sys_audit** tables, enabling collection of login activity, transaction records, and audit history into Splunk for monitoring."
+      reference: "https://splunk.github.io/splunk-add-on-for-servicenow/"
+    - value: " **Microsoft Sentinel Integration** – While ServiceNow doesn’t have a native Sentinel data connector for raw logs, the **ServiceNow ITSM Sentinel Solution** (available via the Azure Marketplace) focuses on syncing incidents. For log integration, ServiceNow recommends using LES (e.g., via a Kafka connector or MID Server) to forward logs into Sentinel (Azure Log Analytics). This approach streams syslogs and audit logs from ServiceNow into Sentinel’s SIEM for analysis."
+      reference: "https://community.servicenow.com/thread/2835514"
+    - value: "**Third-Party SIEM Integrations** – Many SIEM and monitoring vendors provide connectors or guides for ServiceNow. For example, **IBM QRadar** can ingest ServiceNow logs using the LES Kafka feed (via QRadar’s Kafka consumer). Similarly, tools like Sumo Logic and Elastic Stack can retrieve ServiceNow logs either by REST API or via the LES stream. In absence of LES, custom scripts or IntegrationHub flows can be configured to periodically export logs to external monitoring systems."
+      reference: "https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/resource-center/data-sheet/ds-log-export-services.pdf"
+  ingestion_methods:
+    - value: "**REST API (Table API)** – All logs in ServiceNow are accessible via REST endpoints. For example, an integration can GET `/api/now/table/syslog_transaction` or `/syslog` for system logs, and `/sys_audit` for audit records. Using the Table API with appropriate queries and credentials allows SIEM tools or scripts to pull log records periodically."
+      reference: "https://splunk.github.io/splunk-add-on-for-servicenow/"
+    - value: "**Log Export Service – Kafka Stream** – LES provides a **near-real-time push** of logs. After enabling LES and configuring a Kafka endpoint, ServiceNow publishes log events (authentication events, transactions, etc.) to an internal Kafka stream (Hermes). Consumers can subscribe via a **Kafka connector** in the SIEM (Splunk, QRadar, etc.) or via a ServiceNow-provided MID Server that relays to the SIEM."
+      reference: "https://community.servicenow.com/thread/3098067"
+    - value: "**Scheduled Export/Integration** – Administrators can also set up scheduled jobs to export logs. For instance, using **Export Sets** or CSV export on `syslog` tables, possibly automated via a **MID Server (FTP/S3)** or email. ServiceNow best practice suggests using **Scheduled Data Exports** (or IntegrationHub flows) to regularly transfer log data out, reducing the need for custom scripts."
+      reference: "https://www.ikconsulting.com/post/how-to-analyze-scheduled-job-logs-in-servicenow-troubleshooting-and-best-practices"
+  log_export_options:
+    tools_connectors:
+      value: "ServiceNow’s primary log export mechanism is **Log Export Service (LES)**, which supports multiple integration options. Administrators can choose to use a **dedicated MID Server** that continuously pulls logs from ServiceNow’s Hermes queue and pushes them to an external endpoint via REST, or leverage a **Kafka consumer/connector** provided by their SIEM (e.g., Splunk, IBM QRadar) to connect directly to the Hermes stream and ingest logs. Direct Kafka integration (using native Kafka protocol) is also supported for systems that can act as Kafka consumers."
+      reference: "https://community.servicenow.com/thread/3098067"
+  documentation_links:
+    - "https://docs.servicenow.com/bundle/vancouver-platform-security/page/administer/login/reference/r_AuditLogging.html"
+    - "https://docs.servicenow.com/bundle/xanadu-platform-security/page/administer/time/reference/r_TransactionLogs.html"
+    - "https://www.servicenow.com/content/dam/servicenow-assets/public/en-us/doc-type/resource-center/data-sheet/ds-log-export-services.pdf"
+    - "https://splunkbase.splunk.com/app/1914/ (Splunk Add-on for ServiceNow documentation)"
+    - "https://www.linkedin.com/pulse/lock-down-power-up-secure-servicenow-yair-vergara (ServiceNow security best practices – monitoring & logs)"
+incident_response:
+  suspend_user_management_api:
+    value: "ServiceNow does not have a single “suspend user” API call, but an admin can programmatically **disable a user account** by setting the user’s **`active` flag to false** via the REST Table API or other methods. This effectively suspends the user’s access (the account becomes inactive). For example, using a PATCH to `/api/now/table/sys_user/<sys_id>` with `{ \"active\": false }` will disable that user. (Note: When a user’s `active` is set to false, ServiceNow also marks them `locked_out = true` by default, preventing login until manually unlocked.)"
+    reference: "https://community.servicenow.com/thread/2430460"
+  invalidate_sessions_api:
+    value: "There is no out-of-the-box public REST endpoint to forcibly end a user’s active sessions. However, this can be achieved with a server-side script. ServiceNow provides a **GlideSessions API** for this purpose. For example, a Scripted REST API could call `GlideSessions.lockOutSessionsInAllNodes('<username>')` to immediately terminate all active sessions of a given user across all node clusters. Admins can also manually end sessions via the UI (User Administration > Logged-in Users), though the UI only shows sessions on the same node as the admin."
+    reference: "https://community.servicenow.com/thread/484211"
+  revoke_api_key_api:
+    value: "ServiceNow uses OAuth tokens or basic auth for API access rather than long-lived API keys. To revoke OAuth credentials, ServiceNow provides an **OAuth revocation endpoint**. An admin can call: `https://<instance>.service-now.com/oauth_revoke_token.do?token=<access_or_refresh_token>` to invalidate a token immediately. Additionally, OAuth tokens and application credentials can be revoked in the UI (via **Authorized OAuth Apps** or **Active Tokens** lists). For basic auth integrations, “revocation” is typically done by disabling the integration user or changing their password."
+    reference: "https://docs.servicenow.com/bundle/yokohama-platform-security/page/administer/security/task/t_RevokeOAuthToken.html"
+  user_toggle_api:
+    value: "Toggling a user’s active status can be done through the standard REST API for user records. There is no specific “toggle” endpoint, but one can use the Table API to update the **`active` field**. For example, performing a PUT/PATCH on the user record (`sys_user`) with `active=false` will deactivate the user; conversely, `active=true` reactivates. This is the same mechanism ServiceNow’s UI uses to activate or deactivate accounts. (Ensure to also clear `locked_out` if reactivating a previously inactive user, since the system may leave them locked_out on reactivation.)"
+    reference: "https://community.servicenow.com/thread/2430460"
+  user_status_api:
+    value: "A user account’s status (active/disabled or locked/unlocked) can be checked by retrieving the user record. The `sys_user` table has an **`active`** flag (true if enabled) and a **`locked_out`** flag. `locked_out=true` indicates the user is currently locked (either manually or due to too many failed logins). For example, using GET `/api/now/table/sys_user?user_name=...` will return these fields. An account that is inactive will also show `active=false` (and in ServiceNow, inactive users are generally locked out by the system until reactivated)."
+    reference: "https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0853044"
+  session_timeout_configuration:
+    value: "Session timeouts in ServiceNow are controlled by system properties. The primary setting **`glide.ui.session_timeout`** (in minutes) defines the inactivity timeout for user web sessions. By default, if a user is idle beyond this period, the session expires and they must log in again. Separately, **integration (API) sessions** have their own timeout: by default, an OAuth or session-based API call will timeout after 1 minute of inactivity and has a max session length, configurable via properties or the **Integration Session** settings. Administrators should adjust these properties according to security requirements (e.g., shorter timeouts for sensitive environments)."
+    reference: "https://docs.servicenow.com/bundle/vancouver-platform-security/page/administer/security/reference/session-activity-timeout.html"
+  known_automation_tools:
+    - value: "**PySnow (Python Library)** – An open-source Python client for ServiceNow’s REST API. PySnow enables automation scripts to manage users and records easily. For example, a security script can use PySnow to find a user and set them inactive or reset passwords in response to an incident."
+      reference: "https://community.servicenow.com/thread/1777081"
+    - value: "**Ansible Modules for ServiceNow** – The `servicenow.itsm` Ansible collection provides modules to interact with ServiceNow, including creating, updating, or deleting records via playbooks. This can be used in SOAR workflows – e.g., an Ansible playbook triggered by an alert could call ServiceNow’s API to disable a user account or update an incident."
+      reference: "https://github.com/ansible-collections/servicenow.itsm#readme"
+    - value: "**Cortex XSOAR (Demisto) – ServiceNow IAM Pack** – Palo Alto’s Cortex XSOAR platform offers a ServiceNow integration for Identity and Access Management. This pack includes actions to **disable or enable ServiceNow users** programmatically as part of incident playbooks. For example, if XSOAR detects a compromised credential, it can automatically send a command to ServiceNow to deactivate that user."
+      reference: "https://github.com/demisto/content/blob/master/Packs/ServiceNow/Integrations/ServiceNow_IAM/README.md"
+    - value: "**ServiceNow Workflows (Flow Designer)** – Within ServiceNow, admins can build automated flows that respond to certain events. For instance, using Flow Designer (or legacy Workflow), one could create a flow that triggers on a security incident and uses a built-in action or script to deactivate a user, wipe their sessions (via script), or send them a password reset. ServiceNow’s Security Incident Response module (if licensed) also allows orchestration; playbooks can include steps like disabling users or quarantining accounts via integrations."
+      reference: "https://docs.servicenow.com/bundle/tokyo-now-platform/page/administer/flow-designer/task/create-security-incident-response-flow.html"
+    - value: "**PowerShell/Scripted Automation** – Many organizations leverage custom scripts to interact with ServiceNow’s API. For example, a PowerShell script (using `Invoke-RestMethod`) can call ServiceNow to perform incident response actions. Microsoft’s automation tools (Logic Apps or Power Automate) can similarly be configured: e.g., a Logic App could be triggered by Sentinel to call ServiceNow’s API and disable a user. These bespoke tools utilize the same REST endpoints under the hood to automate response actions."
+      reference: "https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-servicenow-connector"
+  documentation_links:
+    - "https://docs.servicenow.com/bundle/yokohama-platform-administration/page/administer/security/concept/c_ManageUserSessions.html"
+    - "https://docs.servicenow.com/bundle/vancouver-platform-security/page/administer/security/reference/session-activity-timeout.html"
+    - "https://docs.servicenow.com/bundle/yokohama-platform-security/page/administer/security/task/t_RevokeOAuthToken.html"
+    - "https://community.servicenow.com/thread/484211 (Community Q&A: Ending a user session via API)"
+    - "https://www.linkedin.com/pulse/lock-down-power-up-secure-servicenow-yair-vergara (Section on Monitoring & Auditing System Activity for security incidents)"

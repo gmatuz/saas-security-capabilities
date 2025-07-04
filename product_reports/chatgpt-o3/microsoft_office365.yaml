@@ -1,0 +1,183 @@
+user_management:
+  sso_support:
+    value: "yes – supports enterprise SSO (e.g. SAML via Azure AD federation)"
+    reference: "https://www.onelogin.com/connector/excel_o365_shortcut"
+  sso_license_level_requirement:
+    value: "Included with all Microsoft 365 subscriptions (Azure AD Free allows unlimited SSO)"
+    reference: "https://learn.microsoft.com/en-us/answers/questions/762286/requirements-citrix-cloud-with-azure-mfa-saml"
+  scim_support:
+    value: "no – user provisioning is handled via Microsoft Graph API instead of a SCIM 2.0 endpoint"
+    reference: "https://help.okta.com/en-us/content/topics/apps/office365-deployment/provision-users.htm"
+  scim_licensing_level_requirement:
+    value: "n/a (no SCIM functionality is available for Excel/Microsoft 365 users)"
+    reference: "https://help.okta.com/en-us/content/topics/apps/office365-deployment/provision-users.htm"
+  scim_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://help.okta.com/en-us/content/topics/apps/office365-deployment/provision-users.htm"
+  scim_authentication_acquisition_steps: |
+    1. In your identity provider or integration tool (e.g. Okta), enable the Microsoft 365 provisioning integration.
+    2. Initiate the OAuth consent flow by clicking “Authenticate with Microsoft Office 365” (or a similar option). 
+    3. Sign in as a Global Administrator for the Microsoft 365 tenant when prompted.
+    4. Grant consent to the requested Graph API permissions (such as Directory.ReadWrite.All for user provisioning).
+    5. Upon consent, the system obtains an OAuth 2.0 bearer token for Microsoft Graph, which will be used for SCIM-like provisioning operations.
+    reference: "https://help.okta.com/en-us/content/topics/apps/office365-deployment/provision-users.htm"
+  user_management_api_support:
+    value: "yes – Microsoft Graph REST API provides full user management (create, update, delete users, etc.)"
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0"
+  user_management_api_licensing_level:
+    value: "Included with Microsoft 365/Azure AD (no additional license required for Graph API usage)"
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0"
+  user_management_api_authentication_mechanisms:
+    value: "Authentication token"
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0"
+  user_management_api_authentication_acquisition_steps: |
+    1. Register an Azure AD application or use an admin account with appropriate Graph API permissions (e.g. User.ReadWrite.All).
+    2. For application access: obtain the OAuth 2.0 client ID and client secret for the registered app.
+    3. Grant admin consent for the app’s required permissions in the Azure AD tenant.
+    4. Use OAuth 2.0 to fetch an access token (e.g. via client-credentials or authorization-code flow) for Microsoft Graph.
+    5. Include the obtained bearer token in the `Authorization: Bearer {token}` header of Microsoft Graph API requests to manage users.
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0"
+  seat_costs:
+    - license_level: "Microsoft 365 Business Standard"
+      active:
+        value: "yes"
+        reference: "https://www.microsoft.com/en-us/microsoft-365/business/microsoft-365-business-standard"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://learn.microsoft.com/en-us/partner-center/customers/subscription-lifecycle"
+      archived:
+        value: "no"
+        reference: "https://learn.microsoft.com/en-us/partner-center/customers/subscription-lifecycle"
+    - license_level: "Microsoft 365 E3"
+      active:
+        value: "yes"
+        reference: "https://www.microsoft.com/en-us/microsoft-365/enterprise/microsoft365-plans-and-pricing"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://learn.microsoft.com/en-us/partner-center/customers/subscription-lifecycle"
+      archived:
+        value: "no"
+        reference: "https://learn.microsoft.com/en-us/partner-center/customers/subscription-lifecycle"
+    - license_level: "Microsoft 365 E5"
+      active:
+        value: "yes"
+        reference: "https://www.microsoft.com/en-us/microsoft-365/enterprise/microsoft365-plans-and-pricing"
+      suspended_disabled:
+        value: "yes"
+        reference: "https://learn.microsoft.com/en-us/partner-center/customers/subscription-lifecycle"
+      archived:
+        value: "no"
+        reference: "https://learn.microsoft.com/en-us/partner-center/customers/subscription-lifecycle"
+  lifecycle_options:
+    - "Active"
+    - "Disabled (sign-in blocked)"
+    - "Deleted (soft-deleted, 30-day recovery)"
+  rbac_support:
+    value: "yes – granular admin roles are supported (e.g. Office Apps Administrator role for Excel/Office apps management)"
+    reference: "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference"
+  rbac_api_assignment:
+    value: "Yes – role assignments can be managed via API (Microsoft Graph directoryRoles endpoints)"
+    reference: "https://learn.microsoft.com/en-us/graph/api/directoryrole-post-members?view=graph-rest-1.0"
+  documentation_links:
+    - "https://www.onelogin.com/connector/excel_o365_shortcut"
+    - "https://help.okta.com/en-us/content/topics/apps/office365-deployment/provision-users.htm"
+    - "https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0"
+    - "https://learn.microsoft.com/en-us/microsoft-365/admin/add-users/remove-former-employee-step-1"
+    - "https://learn.microsoft.com/en-us/microsoft-365/admin/add-users/restore-user"
+    - "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference"
+    - "https://learn.microsoft.com/en-us/graph/api/directoryrole-post-members?view=graph-rest-1.0"
+security_monitoring:
+  event_logs:
+    user_login:
+      value: "UserLoggedIn – records each successful sign‑in to a Microsoft 365 (Excel for the web) account"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    role_assignment:
+      value: "AddMemberToRole – an administrator or service added a user to a Microsoft 365 admin role"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    api_call:
+      value: "Microsoft Graph activity log – captures every HTTP request (including Excel REST API calls) made through Microsoft Graph"
+      reference: "https://learn.microsoft.com/en-us/graph/microsoft-graph-activity-logs-overview"
+    data_export:
+      value: "FileDownloaded – a user exported or downloaded an Excel workbook from OneDrive or SharePoint"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    configuration_change:
+      value: "SetPasswordPolicy – an administrator changed tenant‑wide password or authentication policy that applies to Excel online users"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    user_account_creation:
+      value: "AddUser – creation of a new Microsoft 365 user who can access Excel online"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    security_policy_change:
+      value: "SetDomainAuthentication – modification of domain‑level authentication settings for the tenant"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+  event_logs_licensing_level:
+    value: "Purview Audit (Standard) is included in all Microsoft 365/Office 365 plans (180‑day retention); Purview Audit (Premium) requires Microsoft 365 E5 or separate add‑on for extended retention and high‑value events."
+    reference: "https://learn.microsoft.com/en-us/purview/audit-solutions-overview"
+  monitoring_products:
+    - value: "Splunk Add‑on for Microsoft Office 365 – pulls Excel‑related audit data via the Office 365 Management Activity API"
+      reference: "https://splunk.github.io/splunk-add-on-for-microsoft-office-365/"
+    - value: "Elastic Security Office 365 integration – ingests Office 365 audit and activity logs (Excel included)"
+      reference: "https://www.elastic.co/docs/integrations/o365"
+    - value: "Azure Monitor diagnostic settings – streams Microsoft Graph activity logs to Log Analytics or Event Hubs"
+      reference: "https://learn.microsoft.com/en-us/graph/microsoft-graph-activity-logs-overview"
+    - value: "Microsoft Sentinel Office 365 connector – native SIEM connector that collects audit data for Excel online"
+      reference: "https://learn.microsoft.com/en-us/azure/sentinel/connect-office-365"
+  ingestion_methods:
+    - value: "Office 365 Management Activity API – REST interface to pull content blobs containing audit records"
+      reference: "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference"
+    - value: "Microsoft Graph Audit Search API – programmatic search/export of audit events"
+      reference: "https://learn.microsoft.com/en-us/purview/audit-solutions-overview#search-the-audit-log-with-microsoft-graph"
+    - value: "Search‑UnifiedAuditLog PowerShell cmdlet – returns audit events and saves to CSV"
+      reference: "https://learn.microsoft.com/en-us/purview/search-the-audit-log-in-security-and-compliance"
+    - value: "Azure Monitor diagnostic pipeline – send Microsoft Graph activity logs to SIEM or storage"
+      reference: "https://learn.microsoft.com/en-us/graph/microsoft-graph-activity-logs-overview"
+  log_export_options:
+    tools_connectors:
+      value: "Office 365 Management Activity API is the canonical export mechanism and underpins most third‑party connectors (Splunk, Elastic, Sentinel, etc.)."
+      reference: "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference"
+  documentation_links:
+    - "https://learn.microsoft.com/en-us/graph/microsoft-graph-activity-logs-overview"
+    - "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+    - "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference"
+    - "https://splunk.github.io/splunk-add-on-for-microsoft-office-365/"
+    - "https://www.elastic.co/docs/integrations/o365"
+    - "https://learn.microsoft.com/en-us/azure/sentinel/connect-office-365"
+    - "https://learn.microsoft.com/en-us/purview/audit-solutions-overview"
+incident_response:
+  suspend_user_management_api:
+    value: "PATCH /users/{id} (accountEnabled=false) via Microsoft Graph disables an Excel online user account immediately."
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-update"
+  invalidate_sessions_api:
+    value: "POST /users/{id}/revokeSignInSessions invalidates refresh tokens so the user must re‑authenticate in Excel for the web."
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions"
+  revoke_api_key_api:
+    value: "DELETE or PATCH on /oauth2PermissionGrants/{id} revokes previously granted delegated permissions (effectively invalidating Excel REST API tokens)."
+    reference: "https://learn.microsoft.com/en-us/graph/permissions-grant-via-msgraph"
+  user_toggle_api:
+    value: "PATCH /users/{id} toggling accountEnabled=true|false enables or disables the user."
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-update"
+  user_status_api:
+    value: "GET /users/{id} returns the current accountEnabled status (true/false)."
+    reference: "https://learn.microsoft.com/en-us/graph/api/user-get"
+  session_timeout_configuration:
+    value: "Conditional Access ‘sign‑in frequency’ policy controls session lifetime and can force periodic re‑authentication for Excel online."
+    reference: "https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-session-lifetime"
+  known_automation_tools:
+    - value: "Microsoft Graph PowerShell – Update‑MgUser, Revoke‑MgUserSignInSessions cmdlets automate disable and token revocation."
+      reference: "https://learn.microsoft.com/en-us/graph/powershell"
+    - value: "Azure CLI – az ad user update --account-enabled false to disable a user."
+      reference: "https://learn.microsoft.com/en-us/cli/azure/ad/user"
+    - value: "Azure AD PowerShell – Set‑AzureADUser -AccountEnabled $false (legacy module)."
+      reference: "https://learn.microsoft.com/en-us/powershell/module/azuread/set-azureaduser"
+    - value: "MSOnline PowerShell – Set‑MsolUser -BlockCredential $true (legacy)."
+      reference: "https://learn.microsoft.com/en-us/powershell/module/msonline/set-msoluser"
+    - value: "GitHub: Sentinel‑Automation‑SOAR runbooks – examples of disabling users via Graph in incident response."
+      reference: "https://github.com/Azure/Azure-Sentinel/tree/master/Playbooks"
+  documentation_links:
+    - "https://learn.microsoft.com/en-us/graph/api/user-update"
+    - "https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions"
+    - "https://learn.microsoft.com/en-us/graph/permissions-grant-via-msgraph"
+    - "https://learn.microsoft.com/en-us/cli/azure/ad/user"
+    - "https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-session-lifetime"
+    - "https://learn.microsoft.com/en-us/graph/powershell"
+    - "https://github.com/Azure/Azure-Sentinel/tree/master/Playbooks"
+    - "https://github.com/Azure/Azure-Sentinel/tree/master/Playbooks"
