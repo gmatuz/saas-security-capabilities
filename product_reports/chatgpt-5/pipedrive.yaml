@@ -1,0 +1,285 @@
+identity_and_access:
+  sso_support:
+    value: yes – SAML 2.0 SSO supported with major IdPs (Microsoft Entra ID/Azure
+      AD, Okta); configure in Pipedrive SSO settings.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/pipedrive-tutorial
+  sso_license_level_requirement:
+    value: uncertain – current docs state a 'Pipedrive SSO-enabled subscription' is
+      required; exact plan tiers not specified after 2025 plan changes.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/pipedrive-tutorial
+  scim_support:
+    value: unclear – no official SCIM v2 provisioning documentation found; Okta/Entra
+      materials show SSO only.
+    reference: https://www.okta.com/integrations/pipedrive/
+  scim_licensing_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_mechanisms:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_acquisition_steps:
+    value: uncertain
+    reference: no evidence
+  user_management_api_support:
+    value: yes – bespoke REST API supports lifecycle operations (e.g., POST /v1/users
+      to add, PUT /v1/users/{id} to update active_flag).
+    reference: https://developers.pipedrive.com/docs/api/v1/Users
+  user_management_api_licensing_level:
+    value: Available to all users by default; admins can restrict access via permission
+      sets.
+    reference: https://support.pipedrive.com/en/article/can-all-users-access-the-pipedrive-api
+  user_management_api_authentication_mechanisms:
+    value: API token via x-api-token header; OAuth 2.0 Bearer token also supported.
+    reference: https://pipedrive.readme.io/docs/core-api-concepts-authentication
+  user_management_api_authentication_acquisition_steps:
+    value: 'API token: 1) In Pipedrive web app, open Account menu > Company settings
+      > Personal preferences > API; 2) Copy the API token (note: one active token
+      per user/company); 3) If API tab is missing, request admin to enable ''Access
+      their own API token'' in permission sets.'
+    reference: https://pipedrive.readme.io/docs/how-to-find-the-api-token
+  seat_costs:
+  - license_level: Lite
+    active:
+      value: US$14 per seat/month (billed annually).
+      reference: https://blog.pipedrive.com/en/pricing
+    suspended_disabled:
+      value: Seat remains billable unless you remove the unused seat; changes take
+        effect next billing cycle; no proration.
+      reference: https://support.pipedrive.com/en/article/what-happens-to-my-billing-when-i-deactivate-a-user-in-pipedrive
+    archived:
+      value: uncertain – no 'archived user' state documented; deactivation is the
+        supported state.
+      reference: no evidence
+  - license_level: Growth
+    active:
+      value: US$39 per seat/month (billed annually).
+      reference: https://blog.pipedrive.com/en/pricing
+    suspended_disabled:
+      value: Seat remains billable unless you remove the unused seat; changes take
+        effect next billing cycle; no proration.
+      reference: https://support.pipedrive.com/en/article/what-happens-to-my-billing-when-i-deactivate-a-user-in-pipedrive
+    archived:
+      value: uncertain – no 'archived user' state documented; deactivation is the
+        supported state.
+      reference: no evidence
+  - license_level: Premium
+    active:
+      value: US$49 per seat/month (billed annually).
+      reference: https://blog.pipedrive.com/en/pricing
+    suspended_disabled:
+      value: Seat remains billable unless you remove the unused seat; changes take
+        effect next billing cycle; no proration.
+      reference: https://support.pipedrive.com/en/article/what-happens-to-my-billing-when-i-deactivate-a-user-in-pipedrive
+    archived:
+      value: uncertain – no 'archived user' state documented; deactivation is the
+        supported state.
+      reference: no evidence
+  - license_level: Ultimate
+    active:
+      value: US$79 per seat/month (billed annually).
+      reference: https://blog.pipedrive.com/en/pricing
+    suspended_disabled:
+      value: Seat remains billable unless you remove the unused seat; changes take
+        effect next billing cycle; no proration.
+      reference: https://support.pipedrive.com/en/article/what-happens-to-my-billing-when-i-deactivate-a-user-in-pipedrive
+    archived:
+      value: uncertain – no 'archived user' state documented; deactivation is the
+        supported state.
+      reference: no evidence
+  lifecycle_options:
+  - invited (pending) – visible in Manage users > Invited.
+  - active – user has access.
+  - deactivated – access removed; data remains; seats may be removed separately.
+  - deleted – personal data removed; items remain assigned to 'deleted user'.
+  rbac_support:
+    value: yes – roles, permission sets and visibility groups; plan-based limits on
+      custom sets/groups.
+    reference: https://support.pipedrive.com/en/article/how-to-change-the-visibility-of-items
+  rbac_api_assignment:
+    value: yes – API endpoints to manage roles and assignments (e.g., POST /v1/roles/{id}/assignments;
+      GET/POST role settings; permission set endpoints).
+    reference: https://developers.pipedrive.com/docs/api/v1/Roles
+  documentation_links:
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/pipedrive-tutorial
+  - https://support.pipedrive.com/en/article/pipedrive-single-sign-on-okta
+  - https://support.pipedrive.com/en/article/pipedrive-single-sign-on-entra-id
+  - https://developers.pipedrive.com/docs/api/v1/Users
+  - https://developers.pipedrive.com/docs/api/v1/Roles
+  - https://developers.pipedrive.com/docs/api/v1/PermissionSets
+  - https://pipedrive.readme.io/docs/core-api-concepts-authentication
+  - https://pipedrive.readme.io/docs/how-to-find-the-api-token
+  - https://pipedrive.readme.io/docs/enabling-api-for-company-users
+  - https://support.pipedrive.com/en/article/how-can-i-add-a-user
+  - https://support.pipedrive.com/en/article/users
+  - https://support.pipedrive.com/en/article/what-happens-when-a-user-gets-deactivated
+  - https://support.pipedrive.com/en/article/what-happens-to-my-billing-when-i-deactivate-a-user-in-pipedrive
+  - https://support.pipedrive.com/en/article/how-can-i-remove-seats
+  - https://support.pipedrive.com/en/article/security-dashboard
+  - https://support.pipedrive.com/en/article/usage-limits-in-pipedrive
+  - https://support.pipedrive.com/en/article/how-to-change-the-visibility-of-items
+  - https://www.okta.com/integrations/pipedrive/
+  - https://github.com/pipedrive/client-nodejs
+  - https://pypi.org/project/pipedrivepy/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Pipedrive records user session/device activity (device, location/IP,
+        login method, login and logout timestamps) in the Security dashboard. Admins
+        can review the “Active devices” and “Device history” views and export results
+        to CSV/XLSX; retention shown is the past two months for device history.
+      reference: https://support.pipedrive.com/en/article/how-can-i-see-which-devices-i-have-used-to-access-pipedrive
+    role_assignment:
+      value: Role/permission changes can be monitored via webhooks on the user object.
+        The “updated.user” webhook payload includes fields like role_id, enabling
+        detection of role assignment changes when persisted to a log store.
+      reference: https://devcommunity.pipedrive.com/t/user-creation-events-solved/1706
+    api_call:
+      value: No documented per-request audit trail of API calls was found. Pipedrive
+        provides an “API usage dashboard” in Company Settings that shows counts of
+        requests by app and by user for the last 30 days, but not request/response
+        detail.
+      reference: https://community.pipedrive.com/discussion/16733/new-api-usage-dashboard
+    data_export:
+      value: Pipedrive supports manual data exports to CSV/XLSX (including a Users
+        and access export that contains last login time). Documentation does not state
+        that export actions themselves are logged as audit events; status is uncertain.
+      reference: https://support.pipedrive.com/en/article/exporting-data-from-pipedrive
+    configuration_change:
+      value: The Security dashboard contains an Audit log listing “security-related
+        changes” with fields (User, Event, Type, Time) and export to spreadsheet.
+        Public docs do not enumerate exact configuration change event types; coverage
+        specifics are uncertain.
+      reference: https://support.pipedrive.com/en/article/security-dashboard
+    user_account_creation:
+      value: Account creation/deletion/changes for company users can be streamed via
+        webhooks (e.g., create/change/delete on the user object), which can be ingested
+        by external logging/SIEM pipelines.
+      reference: https://pipedrive.readme.io/docs/list-of-webhooks-v2
+    security_policy_change:
+      value: Pipedrive Enterprise offers Security rules (e.g., 2FA enforcement, password
+        policy, IP/time-based access). While the Audit log reports “security-related
+        changes,” documentation does not explicitly confirm policy-change event entries;
+        uncertain.
+      reference: https://support.pipedrive.com/en/article/security-rules-access-restrictions
+  event_logs_licensing_level:
+    value: The Security dashboard exists across plans but key logging features (Active
+      devices, Device history, Audit log) are Enterprise features. “Last 7 days” summary
+      and Security assessment are available on all plans.
+    reference: https://support.pipedrive.com/en/article/security-dashboard
+  monitoring_products:
+  - value: Official Webhooks for streaming Pipedrive events (including user create/update/delete)
+      to external endpoints for monitoring/SIEM ingestion.
+    reference: https://pipedrive.readme.io/docs/guide-for-webhooks-v2
+  - value: n8n workflow integration offering a Pipedrive node and Splunk node to forward
+      Pipedrive events/data to Splunk.
+    reference: https://n8n.io/integrations/pipedrive/and/splunk/
+  - value: Tray.io iPaaS provides connectors/HTTP capabilities to integrate Pipedrive
+      with Splunk for automated forwarding.
+    reference: https://tray.ai/connectors/pipedrive-splunk-integrations
+  - value: Official Node.js SDK to programmatically access Users, Webhooks and other
+      endpoints for building custom collectors.
+    reference: https://github.com/pipedrive/client-nodejs
+  - value: Open-source webhook listener example for Pipedrive to receive and process
+      events externally (extendable to forward to SIEM).
+    reference: https://github.com/opsmill/pipedrive-webhook-listener
+  ingestion_methods:
+  - value: Webhooks push JSON to your endpoint (HTTP POST) for selected objects/actions
+      (including user create/change/delete). Can be persisted or forwarded to SIEMs.
+    reference: https://pipedrive.readme.io/docs/guide-for-webhooks-v2
+  - value: Manual export of Device history and Audit log from the Security dashboard
+      to CSV/XLSX for batch ingestion.
+    reference: https://support.pipedrive.com/en/article/security-dashboard
+  - value: “Users and access” export (CSV/XLSX) includes user list with last login
+      time, permission sets and visibility groups for ingestion.
+    reference: https://support.pipedrive.com/en/article/exporting-data-from-pipedrive
+  - value: General REST API (SDKs available) to pull admin/user metadata (e.g., users,
+      roles). No dedicated audit-log API documented.
+    reference: https://developers.pipedrive.com/docs/api/v1
+  log_export_options:
+    tools_connectors:
+      value: Exports available via UI as CSV/XLSX (including Users and access). Streaming
+        via Webhooks to any HTTP endpoint. No native SIEM connector documented; third-party
+        iPaaS (e.g., n8n, Tray.io) or custom HEC/webhook receivers are typical patterns.
+      reference: https://support.pipedrive.com/en/article/exporting-data-from-pipedrive
+  documentation_links:
+  - https://support.pipedrive.com/en/article/security-dashboard
+  - https://support.pipedrive.com/en/article/how-can-i-see-which-devices-i-have-used-to-access-pipedrive
+  - https://support.pipedrive.com/en/article/exporting-data-from-pipedrive
+  - https://support.pipedrive.com/en/article/security-rules-access-restrictions
+  - https://pipedrive.readme.io/docs/guide-for-webhooks-v2
+  - https://pipedrive.readme.io/docs/list-of-webhooks-v2
+  - https://community.pipedrive.com/discussion/16733/new-api-usage-dashboard
+  - https://devcommunity.pipedrive.com/t/log-history-of-api-requests/2174
+  - https://devcommunity.pipedrive.com/t/user-creation-events-solved/1706
+  - https://developers.pipedrive.com/docs/api/v1
+  - https://developers.pipedrive.com/docs/api/v1/CallLogs
+  - https://n8n.io/integrations/pipedrive/and/splunk/
+  - https://tray.ai/connectors/pipedrive-splunk-integrations
+incident_response:
+  suspend_user_api:
+    value: uncertain — No dedicated 'deactivate/suspend user' API is documented. The
+      Users API only allows updating active_flag via PUT /v1/users/{id}; docs describe
+      it as 'false = Not activated, true = Activated' (activation state), not an explicit
+      suspension/deactivation control.
+    reference: https://developers.pipedrive.com/docs/api/v1/Users
+  invalidate_sessions_api:
+    value: No public API to log out users or invalidate sessions; Pipedrive staff
+      confirmed 'No, we don’t offer any logout endpoint' for programmatic logout.
+    reference: https://devcommunity.pipedrive.com/t/logout-endpoint/2054
+  revoke_api_key_api:
+    value: uncertain — No evidence of a public API to revoke or rotate personal API
+      tokens programmatically. For OAuth-based marketplace apps, tokens can be revoked
+      via POST https://oauth.pipedrive.com/oauth/revoke (RFC 7009) to invalidate access/refresh
+      tokens.
+    reference: https://pipedrive.readme.io/docs/app-uninstallation
+  user_toggle_api:
+    value: uncertain — Only active_flag is updatable via PUT /v1/users/{id}; docs
+      define it as activation status ('Not activated' vs 'Activated'). No documentation
+      confirms this toggles an already-active user to a suspended/disabled state or
+      its effect on sessions.
+    reference: https://developers.pipedrive.com/docs/api/v1/Users
+  user_status_api:
+    value: Yes — Users API supports GET /v1/users and GET /v1/users/{id} returning
+      fields including active_flag and (in responses) is_deleted, allowing programmatic
+      checks of user state.
+    reference: https://developers.pipedrive.com/docs/api/v1/Users
+  session_timeout_configuration:
+    value: Login sessions last 30 days when 'Remember me'/Google/SSO is used; otherwise
+      12 hours. Each user can be logged in on at most three devices. Forced device
+      logout is done via UI (Security Center/Devices), not via API.
+    reference: https://support.pipedrive.com/es/article/why-does-pipedrive-log-me-out
+  known_automation_tools:
+  - value: Pipedrive Webhooks — Create and manage webhooks via API (POST /v1/webhooks)
+      to push user/deal/person/etc. change events to external endpoints (e.g., SIEM/SOAR)
+      with retry and delivery semantics.
+    reference: https://pipedrive.readme.io/docs/guide-for-webhooks
+  - value: Official Node.js SDK (pipedrive/client-nodejs) — Client library supporting
+      OAuth2 and API token auth to automate Users (GET/PUT), PermissionSets, and other
+      endpoints for response workflows.
+    reference: https://github.com/pipedrive/client-nodejs
+  - value: pipedrivepy (PyPI) — Python client for the Pipedrive API (sync/async) suitable
+      for scripting investigation/response actions (e.g., user lookups, permission
+      queries).
+    reference: https://pypi.org/project/pipedrivepy/
+  - value: n8n Pipedrive + Splunk — Workflow/iPaaS integration showing automation
+      paths to forward Pipedrive events to Splunk for monitoring/response.
+    reference: https://n8n.io/integrations/pipedrive/and/splunk/
+  - value: Webhook listener example (opsmill/pipedrive-webhook-listener) — Open-source
+      Flask listener illustrating how to receive Pipedrive webhooks (v2) and perform
+      automated actions; can be adapted for IR pipelines.
+    reference: https://github.com/opsmill/pipedrive-webhook-listener
+  - value: PermissionSets API — Programmatically list permission sets and assignments
+      to audit/adjust access during an incident (supports /v1/permissionSets and related
+      endpoints).
+    reference: https://developers.pipedrive.com/docs/api/v1/PermissionSets
+  documentation_links:
+  - https://developers.pipedrive.com/docs/api/v1/Users
+  - https://pipedrive.readme.io/docs/guide-for-webhooks
+  - https://support.pipedrive.com/en/article/security-dashboard
+  - https://devcommunity.pipedrive.com/t/logout-endpoint/2054
+  - https://pipedrive.readme.io/docs/app-uninstallation
+  - https://support.pipedrive.com/en/article/can-all-users-access-the-pipedrive-api
+  - https://pipedrive.readme.io/docs/how-to-find-the-api-token
+  - https://support.pipedrive.com/en/article/viewing-and-reassigning-the-data-of-a-deactivated-user
+  - https://support.pipedrive.com/en/article/security-locked-out-of-account-after-failed-login-attempts
+  - https://support.pipedrive.com/en/article/webhooks

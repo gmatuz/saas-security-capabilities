@@ -1,176 +1,299 @@
-user_management:
-  sso_support:
-    value: Twilio supports SAML 2.0 for Single Sign-On, allowing both SP-initiated
-      and IdP-initiated flows. It integrates with major identity providers like Okta
-      and Microsoft Entra ID.
-    reference: https://www.twilio.com/docs/iam/sso/introduction
-  sso_licensing_level_requirement:
-    value: SSO for Twilio SendGrid is available on Marketing Campaigns' Advanced plans
-      and Email API's Pro, Premier, and Custom plans. For the core Twilio platform,
-      SSO requires an Organization account, which is typically associated with higher-usage
-      or enterprise customers.
-    reference: https://sendgrid.com/blog/single-sign-on-sso-is-now-generally-available-with-enhancements/
-  scim_support:
-    value: no
-    reference: The search results indicate that while Twilio products like Segment
-      support SCIM, the core Twilio platform and Twilio SendGrid do not offer native
-      SCIM support for user provisioning. Instead, they support Just-In-Time (JIT)
-      provisioning with SSO.
-  scim_licensing_level_requirement:
-    value: n/a
-    reference: https://www.twilio.com/docs/iam/sso/introduction
-  scim_authentication_mechanisms:
-    value: n/a
-    reference: ''
-  scim_authentication_acquisition_steps: n/a
-  user_management_api_support:
-    value: 'no'
-    reference: https://stackoverflow.com/questions/57657989/rest-apis-to-manage-my-twilio-account-users
-  user_management_api_licensing_level:
-    value: n/a
-    reference: https://stackoverflow.com/questions/57657989/rest-apis-to-manage-my-twilio-account-users
-  user_management_api_authentication_mechanisms:
-    value: n/a
-    reference: ''
-  user_management_api_authentication_acquisition_steps: Twilio does not provide a
-    dedicated User Management API for console users. User lifecycle is managed manually
-    through the Twilio Admin Center for Organization accounts or via JIT provisioning
-    with SSO. While there are REST APIs to manage subaccounts and API keys, these
-    do not manage the user identities that log into the console.
-  seat_costs:
-  - license_level: Twilio Flex per-hour
-    active:
-      value: 'yes'
-      reference: https://www.twilio.com/flex/pricing
-    suspended_disabled:
-      value: 'no'
-      reference: ''
-    archived:
-      value: 'no'
-      reference: ''
-  - license_level: Twilio Flex per-user
-    active:
-      value: 'yes'
-      reference: https://www.twilio.com/flex/pricing
-    suspended_disabled:
-      value: 'no'
-      reference: ''
-    archived:
-      value: 'no'
-      reference: ''
-  lifecycle_options:
-  - created
-  - active
-  - suspended
-  - removed
-  rbac_support:
-    value: 'yes'
-    reference: https://support.twilio.com/hc/en-us/articles/360053913093-What-is-the-difference-between-user-roles-Owner-Administrator-Developer-Billing-Manager-and-Support
-  rbac_api_assignment:
-    value: The Twilio Conversations API has endpoints for creating, reading, and assigning
-      roles at the service and conversation level. However, there is no public API
-      for managing the main console user roles (Owner, Administrator, etc.).
-    reference: https://www.twilio.com/docs/conversations/api/role-resource
+identity_and_access:
   documentation_links:
-  - https://www.twilio.com/docs/iam/sso/introduction
-  - https://www.twilio.com/docs/iam/sso/configure-okta
-  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/twilio-sendgrid-tutorial
-  - https://www.twilio.com/docs/iam/organizations/users
-  - https://support.twilio.com/hc/en-us/articles/360053913093-What-is-the-difference-between-user-roles-Owner-Administrator-Developer-Billing-Manager-and-Support
-  - https://www.twilio.com/docs/iam/api/key
-  - https://stackoverflow.com/questions/57657989/rest-apis-to-manage-my-twilio-account-users
-  - https://sendgrid.com/blog/single-sign-on-sso-is-now-generally-available-with-enhancements/
+  - https://www.twilio.com/docs/iam/api
+  - https://www.twilio.com/docs/api
+  - https://www.twilio.com/pricing
   - https://www.twilio.com/flex/pricing
-  - https://www.twilio.com/docs/conversations/api/role-resource
+  - https://www.twilio.com/docs/usage
+  - https://www.twilio.com/docs/iam
+  lifecycle_options:
+  - Managed Users (owned and overseen by an Organization, full control over lifecycle
+    and settings)
+  - Independent Users (exist outside an Organization but have access to one or more
+    of the Organization's managed accounts)
+  - Invited (user created or existing user invited to join an Organization/Account)
+  - Active (user logged in and engaging in activity)
+  - Suspended/Disabled (implicitly managed through the ability of an Organization
+    Owner or Administrator to manage a user's lifecycle, including password resets
+    and requiring 2FA)
+  - Deleted (Organization Owner or Administrator can delete users)
+  - Onboarding (creating new users, providing accounts and privileges)
+  - Ongoing management (updating access as responsibilities evolve, e.g., role changes,
+    temporary suspension for leave)
+  - Offboarding (revoking access when users depart)
+  rbac_api_assignment:
+    reference: hallucinated link doublecheck content
+    value: no - While user roles can be assigned through the Twilio Console/Admin
+      Center UI, there is no publicly documented API for assigning roles and rights
+      for Twilio Console users directly. The SCIM support for provisioning and deprovisioning
+      is in private beta and its capabilities regarding role assignment via API are
+      not fully detailed publicly.
+  rbac_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Supports role-based access control for users. Roles include Organization
+      Owner, Organization Administrator, Standard User (Account Creation), Account
+      Administrator, Billing Manager, and Developer. Users can be assigned multiple
+      roles, but Administrator role covers all other roles.
+  scim_authentication_acquisition_steps:
+    reference: hallucinated link doublecheck content
+    value: uncertain - As SCIM support is in Private Beta, detailed acquisition steps
+      are not publicly available. Users are advised to reach out to their account
+      executive or Twilio Support.
+  scim_authentication_mechanisms:
+    reference: hallucinated link doublecheck content
+    value: uncertain - No specific authentication mechanisms for SCIM endpoint are
+      detailed in available public documentation, beyond mentioning SCIM support is
+      in private beta.
+  scim_licensing_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: uncertain - Access to the SCIM Public Beta requires reaching out to your
+      account executive or Twilio Support.
+  scim_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SCIM-based provisioning and deprovisioning for users is available
+      through Twilio Organizations Public API with SCIM support in Private Beta. Not
+      generally available (GA) at this time.
+  seat_costs:
+  - archived:
+      reference: https://www.twilio.com/flex/pricing
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Twilio Flex - Per-hour pricing
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: no - Only charged for active user hours (time users spend in any activity
+        aside from logout). Not charged for users who have not logged into Flex.
+  - archived:
+      reference: https://www.twilio.com/flex/pricing
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Twilio Flex - Per-user (named user) pricing
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: yes - Charged for the maximum number of named users on the account for
+        a given month. No prorating for additions or deletions mid-month, with one
+        exception for transition from starter to named seat model.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Twilio Conversations API
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: Starts at $0.05 per active user per month. Implies no charge for inactive
+        users.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Twilio Segment (Connections Free Plan)
+    suspended_disabled:
+      reference: https://segment.com/legal/connections-pricing/ [3, 11, 13, 17]
+      value: Free for 1,000 users monthly.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Twilio Segment (Connections Team Plan)
+    suspended_disabled:
+      reference: https://segment.com/legal/connections-pricing/ [3, 13, 17]
+      value: Expands to 10,000 visitors, implying costs are based on active visitors.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Twilio Segment (Connections Business Plan)
+    suspended_disabled:
+      reference: https://segment.com/legal/connections-pricing/ [13, 17]
+      value: Custom volume pricing. Implies cost based on active usage or volume.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Twilio Frontline
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: 'Team: $20 per user per month. Enterprise: Custom pricing. Cost is per
+        user per month, implying active users.'
+  - archived:
+      reference: https://www.twilio.com/salesforce
+      value: uncertain - No specific information found on costs for archived users.
+    license_level: Salesforce CRM integration
+    suspended_disabled:
+      reference: https://www.twilio.com/salesforce [2, 20, 25, 29]
+      value: $15 per seat per month after a 30-day free trial.
+  sso_license_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: Requires a supported Twilio Editions Package, details found on Order Form,
+      contract, or Console usage page. Contact sales or Account Executive for more
+      information.
+  sso_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SAML 2.0 (SP-initiated and IdP-initiated flows). Supports IDPs like
+      Azure Active Directory, Okta, OneLogin, and AWS SSO.
+  user_management_api_authentication_acquisition_steps:
+    reference: hallucinated link doublecheck content
+    value: API keys can be created in the Twilio Console or using the API. Account
+      SID and Auth Token can be found in the Twilio Console.
+  user_management_api_authentication_mechanisms:
+    reference: hallucinated link doublecheck content
+    value: API Key (username) and API Key Secret (password) for production apps. Account
+      SID (username) and Auth Token (password) for local testing. Uses HTTP Basic
+      authentication.
+  user_management_api_licensing_level:
+    reference: hallucinated link doublecheck content
+    value: uncertain - No general user management API is available for Twilio Console
+      users; therefore, licensing information is not applicable.
+  user_management_api_support:
+    reference: hallucinated link doublecheck content
+    value: no - There is no general user management API for Twilio Console users.
+      The Twilio REST API primarily focuses on account metadata, phone numbers, calls,
+      and messages, not direct user lifecycle management of Console users.
 security_monitoring:
+  documentation_links:
+  - https://www.twilio.com/docs/events
+  - https://www.twilio.com/docs/usage/monitor-events
+  - https://www.dropcowboy.com/blog/twilio-logs-how-to-access-and-analyze-them-effectively/
+  - https://github.com/himynamesdave/splunk-twilio-app
+  - https://www.twilio.com/docs/serverless/api/resource/logs
+  - https://www.twilio.com/en-us/changelog/new-audit-events-for-voice-recordings-and-transcriptions-to-log-media-access
   event_logs:
-    user_login:
-      value: "Login events are available as part of the 'Audit Events' feature, which is accessible to customers on specific paid plans. The event type 'account.login-success' and 'account.login-failure' are examples. For standard accounts, this may not be explicitly logged as a distinct event type."
-      reference: "https://www.twilio.com/docs/usage/monitor-events#new-audit-events-view-and-new-event-types-for-editions-customers-to-view-console-users"
-    role_assignment:
-      value: "Changes to user roles and permissions are logged in Monitor Events. The event data will contain details of the resource properties that were changed, such as the user's role. An example event type would be 'account.user.updated'."
-      reference: "https://www.twilio.com/docs/flex/admin/manage-users#modify-a-console-users-role"
     api_call:
-      value: "All API requests made to Twilio are logged. These logs can be viewed in the Twilio Console or accessed via the API. While not a specific 'api_call' event type in Monitor Events, API activity is implicitly logged and can be correlated with other events."
-      reference: "https://www.twilio.com/docs/usage/api"
-    data_export:
-      value: "Twilio provides the ability to export logs, such as message and call logs, either manually from the console or programmatically via the Bulk Export API. The action of exporting data itself would be logged as an API call or a console user action."
-      reference: "https://support.twilio.com/hc/en-us/articles/360016335334-Exporting-SMS-and-Call-Logs"
+      reference: https://www.twilio.com/docs/usage/monitor-events
+      value: Twilio's Event Streams REST API provides access to a unified stream of
+        every interaction sent or received on Twilio, including API Request Logs.
+        [1, 3] The Monitor Event Resource logs virtually every action taken within
+        Twilio, regardless of whether that action was taken through the API, by a
+        user in the Twilio Console, or by a Twilio employee. Each event captures the
+        type of event, the resource it relates to, the actor that caused it, the originating
+        source including IP address, and related event data. [15]
     configuration_change:
-      value: "Configuration changes to account settings, phone numbers, applications, and other resources are logged in Monitor Events. Event types are typically in the format 'resource_type.action', for example, 'phone-number.updated'."
-      reference: "https://www.twilio.com/docs/monitor/events-api"
-    user_account_creation:
-      value: "User creation is logged in Monitor Events. When a new user is invited to an account, an 'account.user.created' event is generated. This is managed through the Twilio Console."
-      reference: "https://www.twilio.com/docs/flex/admin/manage-users#add-a-twilio-console-user"
+      reference: https://www.twilio.com/docs/usage/monitor-events
+      value: Events are logged when you change your account's security settings and
+        record virtually every action taken within Twilio. [4, 15]
+    data_export:
+      reference: https://www.twilio.com/en-us/changelog/new-audit-events-for-voice-recordings-and-transcriptions-to-log-media-access
+      value: Twilio Console allows exporting logs as CSV files for deeper analysis.
+        [3, 11] The Bulk Export API can be used to access message records older than
+        13 months, which are not deleted by default. [6] New Monitor Events 'recording.accessed'
+        and 'transcription.accessed' track media access and download from API and
+        Twilio Console. [10]
+    role_assignment:
+      reference: https://www.twilio.com/docs/usage/monitor-events
+      value: Uncertain. While 'user' as an actor type is logged in audit events, explicit
+        mention of role assignment logging and its schema was not found. [15]
     security_policy_change:
-      value: "Changes to security settings, such as enabling or disabling 2FA, are logged in Monitor Events. For example, an event is logged when you change your account's security settings."
-      reference: "https://www.twilio.com/docs/monitor/events-api"
+      reference: https://www.twilio.com/docs/usage/monitor-events
+      value: Uncertain. While general configuration changes are logged, specific details
+        about logs for security policy changes were not explicitly found beyond 'change
+        your account's security settings'. [4, 15]
+    user_account_creation:
+      reference: https://marketplace.uipath.com/listings/twilio6996
+      value: Uncertain. While general 'account created' events exist within the UiPath
+        Twilio Activity Package, explicit details on logging administrative user account
+        creation within Twilio's own audit logs or Event Streams API were not found.
+        [34]
+    user_login:
+      reference: https://www.twilio.com/docs/usage/monitor-events
+      value: Twilio's Audit Events Log records user logins and logouts, providing
+        detailed information about activities in the account. This can be viewed in
+        the Twilio Console and accessed via the Audit Event/Monitor Event API. [12]
   event_logs_licensing_level:
-    value: "Advanced security logging features, including detailed audit events like console logins, are available with Twilio's paid 'Editions' plans (Security, Administration, or Enterprise). Basic event logging is available on standard plans, but with less detail."
-    reference: "https://www.twilio.com/editions"
-  monitoring_products:
-    - value: "Splunk"
-      reference: "https://splunkbase.splunk.com/app/3888"
-    - value: "Datadog"
-      reference: "https://docs.datadoghq.com/integrations/twilio/"
-    - value: "Sumo Logic"
-      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/http-source/logs-metrics/twilio-app/"
-    - value: "Google Security Operations (formerly Chronicle)"
-      reference: "https://cloud.google.com/security-operations/docs/supported-log-types-and-parsers"
-    - value: "Panther"
-      reference: "https://panther.com/docs/panther-log-analysis-engine/log-sources/twilio/"
+    reference: https://www.twilio.com/docs/events
+    value: Uncertain. No specific licensing levels were found to be required for accessing
+      security audit logs or Event Streams API. The Event Streams API is described
+      as providing access to a unified stream of interactions. [1]
   ingestion_methods:
-    - value: "Twilio Event Streams (to AWS Kinesis, Segment, or Webhooks)"
-      reference: "https://www.twilio.com/docs/events/event-streams"
-    - value: "Monitor Events REST API"
-      reference: "https://www.twilio.com/docs/monitor/events-api"
-    - value: "Bulk Export API"
-      reference: "https://support.twilio.com/hc/en-us/articles/360016335334-Exporting-SMS-and-Call-Logs"
+  - reference: https://www.twilio.com/docs/events
+    value: Twilio's Event Streams REST API supports streaming events to multiple sinks
+      (destinations) like Amazon Kinesis, Segment, or webhooks. [1]
+  - reference: https://www.twilio.com/docs/usage/monitor-events
+    value: The Monitor Event Resource provides an API to retrieve the event log, which
+      can then be pushed into a log aggregation or SIEM solution. [15]
+  - reference: https://www.twilio.com/docs/serverless/api/resource/logs
+    value: Twilio offers webhooks to trigger on errors and warnings. [9]
+  - reference: https://github.com/himynamesdave/splunk-twilio-app
+    value: For Splunk integration, logs can be downloaded as CSV files from the Twilio
+      web interface and then uploaded to Splunk. Splunk can also be configured to
+      monitor a directory for new log files. [13]
+  - reference: https://www.twilio.com/docs/voice/api/media-streams
+    value: Twilio Media Streams use the websocket API to live stream audio from phone
+      calls to an application. [37]
+  - reference: https://medium.com/realm/realm-logs-alert-logging-system-with-twilio-d1191b7b14cd
+    value: A Medium article describes creating a monitoring system that uses a schedule
+      trigger to monitor logs through the Admin API and send SMS alerts via Twilio
+      for new errors. [26]
   log_export_options:
     tools_connectors:
-      value: "Connectors for popular SIEMs like Splunk and Datadog are available. Additionally, Event Streams allows for direct integration with AWS Kinesis and Segment, which can then forward logs to various other security tools. Manual CSV exports are also possible from the console."
-      reference: "https://www.twilio.com/docs/events/event-streams#available-sinks"
-  documentation_links:
-    - "https://www.twilio.com/docs/monitor/events-api"
-    - "https://www.twilio.com/docs/events/event-streams"
-    - "https://www.twilio.com/editions"
-    - "https://support.twilio.com/hc/en-us/articles/360016335334-Exporting-SMS-and-Call-Logs"
-    - "https://www.twilio.com/docs/usage/monitor-events#new-audit-events-view-and-new-event-types-for-editions-customers-to-view-console-users"
-    - "https://docs.datadoghq.com/integrations/twilio/"
-    - "https://panther.com/docs/panther-log-analysis-engine/log-sources/twilio/"
+      reference: https://www.dropcowboy.com/blog/twilio-logs-how-to-access-and-analyze-them-effectively/
+      value: Twilio Console provides a user-friendly interface to view and export
+        logs as CSV files. [3, 11] The Event Streams REST API allows streaming events
+        to various destinations. [1] The Monitor Event Resource offers an API to retrieve
+        event logs. [15] Message records older than 13 months can be accessed through
+        the Bulk Export API or from the Twilio Console under Programmable Messaging
+        / Settings / Archives. [6] UiPath's Twilio Activity Package includes activities
+        to 'Get Record', 'List All Records', 'Insert Record', 'Delete Record', and
+        'Replace Record'. [34]
+  monitoring_products:
+  - reference: https://docs.datadoghq.com/integrations/twilio/
+    value: Datadog's Twilio integration collects various logs for performance analysis
+      and threat detection. It monitors Twilio Event Resources for comprehensive event
+      logging and change tracking. [4]
+  - reference: https://splunkbase.splunk.com/app/5673
+    value: Splunk offers a Twilio Add-on for Splunk that ingests Twilio message, monitor
+      event, and call APIs to provide insights into Twilio account usage. [5, 7, 13]
+  - reference: https://n8n.io/integrations/splunk/and/twilio/
+    value: n8n.io can connect Splunk with Twilio, allowing users to create workflows
+      for automating tasks and transferring data between the two platforms. [8]
+  - reference: https://slashdot.org/software/siem/for-twilio/
+    value: Gurucul's Unified Security and Risk Analytics platform is mentioned as
+      a SIEM solution capable of integrating data from various sources, including
+      SIEMs, for comprehensive threat analysis. [32]
+  - reference: https://www.filecloud.com/
+    value: FileCloud integrates with SIEM tools to streamline monitoring of alerts
+      and audit events. Twilio is mentioned in the context of two-factor authentication
+      for FileCloud. [25]
+  - reference: https://amplitude.com/templates/twilio-segment-user-activity-dashboard
+    value: Amplitude uses Twilio Segment-powered templates for user activity dashboards
+      to analyze user engagement. [31]
+  - reference: https://vertexaisearch.cloud.com/grounding-api-redirect/AUZIYQFPLYm_Y6ajP5GcJmd-TAWZQBT05IED0DFaiVRAXrzQaD4zhWLmnaZmRCbZQRoohSvlXEXl8Y-LnBSyFqF-zSsHHFE9_XmZn-w3SM4ePoGCmuXyRZTZfmQ0_X2pxWbwpxQWHLb6pZ-QFxK4uJKd
+    value: UiPath offers a Twilio Activity Package that automates processes and includes
+      activities like 'Account Created', 'Account Updated', 'Record Created', 'Record
+      Updated', and 'Record Deleted'. [34]
 incident_response:
-  suspend_user_management_api:
-    value: "There is no direct API to suspend a main account user's access to the Twilio Console. This must be done manually by an administrator through the 'Manage Users' page. However, it is possible to suspend a subaccount via the API by setting its status to 'suspended'."
-    reference: "https://support.twilio.com/hc/en-us/articles/360044591254-Close-a-Twilio-Subaccount"
   invalidate_sessions_api:
-    value: "A direct API to invalidate a specific user's console session is not publicly documented. For Twilio Flex, there is a 'Logout' action that can be triggered programmatically to log a user out of the Flex UI."
-    reference: "https://www.twilio.com/docs/flex/developer/ui/actions#logout"
-  revoke_api_key_api:
-    value: "API keys can be deleted (revoked) using the Twilio REST API. A DELETE request to the /v1/Keys/{Sid} endpoint will revoke the specified API key."
-    reference: "https://www.twilio.com/docs/iam/keys/api"
-  user_toggle_api:
-    value: "There is no general API to programmatically enable or disable a user for the main Twilio account. User management, including removing users, is performed through the Twilio Console."
-    reference: "https://www.twilio.com/docs/flex/admin/manage-users#remove-a-console-user"
-  user_status_api:
-    value: "For Twilio Conversations, the online status of a user can be tracked via the SDK and REST API if 'Reachability' is enabled. There is no general API to check the console login status of a main account user."
-    reference: "https://www.twilio.com/docs/conversations/reachability"
-  session_timeout_configuration:
-    value: "For Twilio Flex, automatic logout for disconnected users can be configured in the Flex settings in the Twilio Console. This helps ensure that sessions for inactive or disconnected agents are terminated. There is no documented global session timeout configuration for the main Twilio Console."
-    reference: "https://www.twilio.com/docs/flex/admin/manage-flex-logout-settings"
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHJ4KT3qA-pI9DqxxijQi6zNYG24pCixrB9cAObQhq-jqZ_x8UkqwQNzJ9JXH21EqvSNusFKnXwrTM4FAZ03Z2hd3MYMHXJZu2BfqZWW0WbXXK4JMLbRparrF-P7rsZgHe25GLmv1saV-p7Vy5kp2h7GTk6UncUQZJuos6gJodsGFsBwn_qHznObHYg0DJ-ru1EwNysUOBvc6lRMXV8WBmah4Hqyd7LbC-GdFuxDtaMxQVGxcG1X6Lr9vyJSZJrIyUv7wkKbuIm_xPm_Z4mjw==
+    value: Uncertain. No specific API was found for programmatically invalidating
+      all or specific sessions for a user on a Twilio account.
   known_automation_tools:
-    - value: "Prismatic"
-      reference: "https://prismatic.io/docs/components/twilio/"
-    - value: "Doppler"
-      reference: "https://docs.doppler.com/docs/twilio"
-    - value: "Blink"
-      reference: "https://www.blink.ops/integrations/twilio"
-    - value: "UiPath"
-      reference: "https://docs.uipath.com/marketplace/activities/twilio-scope"
-  documentation_links:
-    - "https://www.twilio.com/docs/iam/keys/api"
-    - "https://www.twilio.com/docs/flex/admin/manage-users"
-    - "https://support.twilio.com/hc/en-us/articles/223136207-How-can-I-add-or-remove-users-on-my-Twilio-project"
-    - "https://www.twilio.com/docs/flex/admin/manage-flex-logout-settings"
-    - "https://www.twilio.com/docs/conversations/reachability"
-    - "https://www.twilio.com/docs/flex/developer/ui/actions#logout"
-    - "https://support.twilio.com/hc/en-us/articles/360044591254-Close-a-Twilio-Subaccount"
+  - reference: https://marketplace.crowdstrike.com/listings/twilio-soar-actions/
+    value: CrowdStrike Falcon Fusion SOAR integrates with Twilio for automating messaging,
+      voice, and notification services based on triggers, enhancing communication
+      during critical events.
+  - reference: https://docs.fortinet.com/document/fortisoar/2.0.0/twilio/587/twilio-v2-0-0
+    value: FortiSOAR provides a Twilio connector to automate actions like sending
+      SMS and making calls using playbooks.
+  - value: Google Security Operations (Chronicle SOAR) can be configured with Twilio
+      for actions such as Ping, Send SMS, and Send SMS and Wait.
+  revoke_api_key_api:
+    reference: https://help.twilio.com/articles/9318455807771-API-Keys-and-How-to-Change-Them
+    value: It is possible to programmatically revoke API keys using Twilio's CLI,
+      SDK, and API. API keys are a flexible way to manage access to Twilio resources,
+      and they can be revoked at discretion. This includes Main, Standard, and Restricted
+      API keys. When a new API key is promoted to primary, the old one is automatically
+      revoked.
+  session_timeout_configuration:
+    reference: https://www.twilio.com/docs/verify/api/rate-limits-and-timeouts
+    value: Uncertain. There is no specific documentation found regarding the configuration
+      of session timeouts for Twilio user accounts.
+  suspend_user_api:
+    reference: https://www.twilio.com/docs/api/errors/21606
+    value: Uncertain. While direct APIs for suspending users for a general Twilio
+      account are not explicitly documented, for SendGrid accounts (a Twilio company),
+      support can temporarily deactivate or suspend an account in case of compromise.
+  user_status_api:
+    reference: https://www.twilio.com/docs/conversations/user-reachability-indicator
+    value: Yes, Twilio's Conversations SDKs include a "Reachability Indicator" feature
+      that provides a read-only API to check a Chat (SDK) User's online or offline
+      status and if they are notifiable via push notifications. Updates to these statuses
+      are communicated via SDK events.
+  user_toggle_api:
+    reference: https://www.twilio.com/docs/conversations/user-reachability-indicator
+    value: Uncertain. While there isn't a general API to toggle user status (active/suspended)
+      that would disable active sessions, Twilio's Conversations SDKs offer a "Reachability
+      Indicator" feature. This feature can be enabled via REST API to check a Chat
+      (SDK) User's online/offline status, but it is read-only and does not imply session
+      invalidation across all services.

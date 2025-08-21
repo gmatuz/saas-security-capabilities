@@ -1,301 +1,357 @@
-user_management:
-  sso_support:
-    value: Yes, SSO is supported on WordPress.com, primarily through SAML 2.0. This is accomplished
-      by installing plugins that turn the WordPress site into a SAML Service Provider,
-      allowing integration with various Identity Providers (IdPs) like Okta, Azure
-      AD, OneLogin, and others.
-    reference: https://wordpress.com/plugins/saml-single-sign-on-sso-login
-  sso_licensing_level_requirement:
-    value: A plugin-enabled plan is required, which corresponds to the WordPress.com
-      Business plan or higher. The ability to install third-party plugins is necessary
-      to enable SSO functionality.
-    reference: https://wordpress.com/support/plugins/
-  scim_support:
-    value: yes
-    reference: https://wordpress.com/plugins/scim
-  scim_licensing_level_requirement:
-    value: A plugin-enabled plan is required, which is the WordPress.com Business plan
-      or higher. SCIM functionality is provided via third-party plugins.
-    reference: https://wordpress.com/support/plugins/
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://plugins.miniorange.com/wordpress-scim-user-provisioning#scim-config
-  scim_authentication_acquisition_steps: 'The SCIM functionality is provided by third-party
-    plugins (e.g., from miniOrange or WPO365). The general steps to acquire the authentication
-    token after installing and activating the required plugin are:
-
-    1. In the WordPress admin dashboard, navigate to the settings page for the installed
-    SCIM plugin (e.g., WPO365 > User sync or the miniOrange SCIM plugin settings).
-
-    2. In the plugin''s configuration section, you will find the SCIM Base URL (also
-    called Tenant URL) and an option to generate a Secret Token (Bearer Token).
-
-    3. Click the "Generate" or similar button to create a new token.
-
-    4. Copy this generated Bearer Token and the SCIM Base URL.
-
-    5. These values are then used in your Identity Provider''s (e.g., Azure AD) SCIM
-    application configuration to establish the connection.'
-  user_management_api_support:
-    value: yes
-    reference: https://developer.wordpress.com/docs/api/
-  user_management_api_licensing_level:
-    value: The WordPress.com REST API is available on all plans, including the Free
-      plan. However, creating users requires authentication, and the permissions of
-      the authenticating user's role determine what actions can be performed. All
-      plans allow for unlimited users.
-    reference: https://wordpress.com/support/plans/
-  user_management_api_authentication_mechanisms:
-    value: API key
-    reference: https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
-  user_management_api_authentication_acquisition_steps: 'WordPress core supports Application
-    Passwords for REST API authentication, which is more secure than Basic Auth.
-
-    1. Log in to the WordPress.com dashboard as a user with the appropriate role to
-    perform the desired API actions (e.g., an Administrator to create new users).
-
-    2. Navigate to your profile by clicking your avatar in the top right and selecting
-    "Profile", or by going to Users > Profile in the admin dashboard.
-
-    3. Scroll down to the "Application Passwords" section.
-
-    4. Enter a descriptive name for the application you are generating the password
-    for (e.g., "User_Management_Script").
-
-    5. Click the "Add New Application Password" button.
-
-    6. A new 16-character password will be generated and displayed. Copy this password
-    immediately and store it in a secure location. It will not be shown again.
-
-    7. Use this application password with the associated username for Basic Authentication
-    in your API requests (e.g., `Authorization: Basic base64_encode(username:application_password)`).'
-  seat_costs:
-  - license_level: Free
-    active:
-      value: yes
-      reference: https://wordpress.com/support/plans/
-    suspended_disabled:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-    archived:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-  - license_level: Personal
-    active:
-      value: yes
-      reference: https://wordpress.com/support/plans/
-    suspended_disabled:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-    archived:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-  - license_level: Premium
-    active:
-      value: yes
-      reference: https://wordpress.com/support/plans/
-    suspended_disabled:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-    archived:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-  - license_level: Business
-    active:
-      value: yes
-      reference: https://wordpress.com/support/plans/
-    suspended_disabled:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-    archived:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-  - license_level: Commerce
-    active:
-      value: yes
-      reference: https://wordpress.com/support/plans/
-    suspended_disabled:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-    archived:
-      value: n/a
-      reference: https://wordpress.com/support/user-roles/
-  lifecycle_options:
-  - Create
-  - Read (View)
-  - Update
-  - Delete (Remove user from site)
-  rbac_support:
-    value: yes
-    reference: https://wordpress.com/support/user-roles/
-  rbac_api_assignment:
-    value: Yes, role assignments can be managed via the REST API. The `roles` parameter
-      can be used with the `POST /wp/v2/users` endpoint to assign a role upon creation,
-      and with the `PUT /wp/v2/users/<id>` endpoint to update a user's role.
-    reference: https://developer.wordpress.org/rest-api/reference/users/
+identity_and_access:
   documentation_links:
-  - https://developer.wordpress.com/docs/api/
+  - https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
   - https://developer.wordpress.org/rest-api/reference/users/
-  - https://wordpress.com/support/application-passwords/
-  - https://wordpress.com/plugins/scim
-  - https://wordpress.com/plugins/saml-single-sign-on-sso-login
-  - https://wpo365.com/kb/azure-ad-user-provisioning-scim/
-  - https://plugins.miniorange.com/wordpress-scim-user-provisioning
-  - https://wordpress.com/support/user-roles/
-  - https://wordpress.com/support/plans/
-  - https://developer.wordpress.com/docs/oauth2/
+  - https://www.okta.com/integrations/wordpress-sso-with-scim-provisioning/
+  - https://theadminbar.com/security-weekly/getting-started-with-wordpress-incident-response/
+  lifecycle_options:
+    value: WordPress supports user states such as newly added, active, and disabled
+      (without deleting). Users can be added manually through the dashboard or via
+      front-end registration forms (often with plugins). Roles can be changed to effectively
+      disable a user's capabilities without deleting their account. Default roles
+      include Administrator, Editor, Author, Contributor, and Subscriber. Custom roles
+      and capabilities can also be defined.
+  rbac_api_assignment:
+    reference: https://reintech.io/blog/custom-user-roles-wordpress-api
+    value: yes - Roles and capabilities can be assigned and managed programmatically
+      through the WordPress API. Functions like `add_role()`, `remove_role()`, `add_cap()`,
+      and `remove_cap()` can be used to create, modify, or delete roles and their
+      associated capabilities. User roles can also be assigned when creating or updating
+      users via the REST API.
+  rbac_support:
+    reference: https://reintech.io/blog/custom-user-roles-wordpress-api
+    value: yes - WordPress has a robust User Roles and Capabilities system. Each user
+      is assigned a role (e.g., Administrator, Editor, Author, Contributor, Subscriber),
+      which dictates their capabilities (permissions) to perform various actions on
+      the site. Custom roles and capabilities can also be created and managed. [7,
+      9, 10, 11, 13, 14, 15]
+  scim_authentication_acquisition_steps:
+    reference: https://wordpress.org/plugins/scim-user-provisioning/
+    value: To set up user provisioning in your Identity Provider (IdP), use the SCIM
+      endpoint provided by the WordPress SCIM plugin and configure the bearer token
+      in your application.
+  scim_authentication_mechanisms:
+    reference: https://wordpress.org/plugins/scim-user-provisioning/
+    value: Bearer Token. The SCIM User Sync/Provisioning plugin requires a bearer
+      token configured in the Identity Provider to authenticate against the WordPress
+      SCIM endpoint. Missing or incorrect bearer tokens will result in 'Unauthorized'
+      errors.
+  scim_licensing_level_requirement:
+    reference: https://plugins.miniorange.com/wordpress-scim-user-provisioning
+    value: SCIM provisioning is often available as an add-on or premium feature for
+      SSO plugins. For example, miniOrange offers a SCIM user provisioning add-on
+      for its SAML 2.0 SSO plugin.
+  scim_support:
+    reference: https://plugins.miniorange.com/wordpress-scim-user-provisioning
+    value: yes - SCIM V2 is supported through plugins like miniOrange SCIM User Sync/Provisioning
+      plugin. This plugin enables automated user creation, update, and deletion from
+      an Identity Provider (IDP) to a WordPress site in real-time. It provides SCIM
+      capability to the WordPress site, converting it into a SCIM compliant endpoint.
+  seat_costs:
+  - archived:
+      reference: https://wordpress.org/support/topic/different-prices/
+      value: uncertain - costs primarily revolve around hosting, domain names, themes,
+        and plugins, rather than per-user seat costs. The free and open-source nature
+        of WordPress.org means there are no inherent per-user licensing fees for the
+        core software.
+    license_level: WordPress.org (Self-hosted)
+    suspended_disabled:
+      reference: https://wordpress.org/support/topic/different-prices/
+      value: uncertain - costs primarily revolve around hosting, domain names, themes,
+        and plugins, rather than per-user seat costs. The free and open-source nature
+        of WordPress.org means there are no inherent per-user licensing fees for the
+        core software.
+  - archived:
+      reference: https://wordpress.com/support/plan-features/
+      value: uncertain - WordPress.com offers various plans (Free, Personal, Premium,
+        Business, Commerce, Enterprise) with fixed monthly/yearly costs. These plans
+        typically include hosting and domain, and the pricing scales based on features
+        and monthly visitors, not explicitly on active/suspended/archived user counts.
+    license_level: WordPress.com (Managed Hosting)
+    suspended_disabled:
+      reference: https://wordpress.com/support/plan-features/
+      value: uncertain - WordPress.com offers various plans (Free, Personal, Premium,
+        Business, Commerce, Enterprise) with fixed monthly/yearly costs. These plans
+        typically include hosting and domain, and the pricing scales based on features
+        and monthly visitors, not explicitly on active/suspended/archived user counts.
+  - archived:
+      reference: https://winningwp.com/best-enterprise-hosting-for-wordpress/
+      value: uncertain - Enterprise hosting providers like Kinsta and WordPress VIP
+        offer bespoke packages with custom agreements. Kinsta notes 'unlimited users
+        and flexible access management' included in all plans. Pricing for these higher-tier
+        solutions often scales based on monthly unique visitors (MUV) or custom terms,
+        not directly on the status of individual users.
+    license_level: Enterprise WordPress Hosting (e.g., Kinsta, WordPress VIP)
+    suspended_disabled:
+      reference: https://winningwp.com/best-enterprise-hosting-for-wordpress/
+      value: uncertain - Enterprise hosting providers like Kinsta and WordPress VIP
+        offer bespoke packages with custom agreements. Kinsta notes 'unlimited users
+        and flexible access management' included in all plans. Pricing for these higher-tier
+        solutions often scales based on monthly unique visitors (MUV) or custom terms,
+        not directly on the status of individual users.
+  sso_license_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: Some SSO plugins offer free versions with basic functionality, while premium
+      versions provide advanced features like group-role mapping and additional integrations.
+      For example, miniOrange SAML 2.0 Single Sign On has a free version, and its
+      premium starts at $199/year.
+  sso_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SAML 2.0, OAuth 2.0, OpenID Connect, JWT. Supported IDPs include
+      Okta, Azure AD, ADFS, Google Workspace (G-suite), Salesforce, Ping Identity,
+      Auth0, Keycloak, Shibboleth, and miniOrange IDP. Plugins like miniOrange SAML
+      2.0 Single Sign On, SAML Single Sign On - SSO Login by WPExperts, Cloud SSO,
+      and SSO Login – Universal (OAuth + SAML) Plugin (powered by Authress) provide
+      this functionality.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://woocommerce.com/document/woocommerce-rest-api/
+    value: For Basic Authentication with Application Passwords (since WordPress 5.6),
+      users can generate application passwords from their 'Edit User' page (wp-admin
+      -> Users -> Edit User). These credentials are then passed to REST API requests
+      over HTTPS. For API Key authentication, if supported by a plugin (e.g., WooCommerce
+      REST API), keys can be created and managed under WooCommerce > Settings > Advanced
+      > REST API.
+  user_management_api_authentication_mechanisms:
+    reference: https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
+    value: Cookie authentication (default), Basic Authentication with Application
+      Passwords, OAuth, JWT (JSON Web Token), and API Key authentication. Plugins
+      can provide additional authentication methods.
+  user_management_api_licensing_level:
+    reference: https://pluginsforwp.com/
+    value: Uncertain. The core WordPress REST API for user management is generally
+      available, but advanced features such as bulk operations, custom forms, and
+      integrations often rely on plugins, which may have free and premium tiers. [17,
+      18, 20, 25]
+  user_management_api_support:
+    reference: https://developer.wordpress.org/rest-api/reference/users/
+    value: yes - WordPress has a REST API that allows for managing users, including
+      creating, updating, and retrieving user information. Additionally, various plugins
+      extend this functionality to support bulk user operations like import/export
+      and updates via CSV files.
 security_monitoring:
   documentation_links:
-  - https://wordpress.com/support/activity-log/
-  - https://jetpack.com/support/activity-log/
-  - https://www.wpbeginner.com/plugins/6-best-wordpress-activity-log-and-tracking-plugins/
-  - https://melapress.com/wordpress-activity-log/
-  - https://sucuri.net/platform/integrations/wordpress-plugin/
-  - https://www.wordfence.com/
-  - https://ithemes.com/security/
-  - https://developer.wordpress.org/rest-api/
-  - https://www.splunk.com/en_us/apps/all-apps.html
-  - https://www.datadoghq.com/blog/monitor-wordpress-with-datadog/
+  - https://underconstructionpage.com/blog/can-a-siem-be-used-to-monitor-a-wordpress-site/
+  - https://wordpress.org/plugins/wp-activity-log/
+  - https://conetix.com/blog/the-importance-of-wordpress-audit-logging/
+  - https://github.com/Melapress/wp-security-audit-log
+  - https://github.com/hubbardlabs/api-log-pro
+  - https://www.wordfence.com/products/wordfence/
   event_logs:
     api_call:
-      reference: https://developer.wordpress.org/rest-api/
-      value: "Native logging of REST API calls is not available by default in WordPress.com
-        or self-hosted WordPress. Security plugins like Wordfence and WP Activity
-        Log can record API requests, often identifying the action, user, and IP address.
-        [7, 13]"
+      reference: https://github.com/hubbardlabs/api-log-pro
+      value: The WP Activity Log plugin can log the activities of any installed plugins
+        and can send generated logs to a third-party service. [23] There are also
+        specific plugins available on GitHub, such as 'api-log-pro', designed to log
+        all calls to the WordPress REST API, with log entries viewable from the WordPress
+        Admin or accessible via an API endpoint in JSON format. [24, 26]
     configuration_change:
-      reference: https://wordpress.com/support/activity-log/
-      value: "The WordPress.com Activity Log records changes to site settings, themes,
-        and plugins. [17, 25] On self-hosted WordPress, plugins like WP Activity
-        Log or Sucuri Security are required to track these changes, including updates
-        to WordPress core, plugin/theme activation or deactivation, and widget modifications.
-        [1, 16, 40]"
+      reference: https://conetix.com/blog/the-importance-of-wordpress-audit-logging/
+      value: Plugins like WP Activity Log, Simple History, Activity Log, and Logify
+        WP track configuration changes, including changes to settings, themes, plugins,
+        and core WordPress updates. [9, 11, 12, 14, 15, 18, 21, 30]
     data_export:
-      reference: https://wordpress.com/plugins/activity-log-wp-security-audit-log/
-      value: "On WordPress.com, data export events are logged in the Activity Log,
-        typically as part of user actions. [27] For self-hosted sites, the 'Activity
-        Log' plugin can record when a user exports site data. [25, 43]"
+      reference: hallucinated link doublecheck content
+      value: Some WordPress activity log plugins offer the option to export the log
+        as CSV or HTML files. [8, 11, 17, 18] For example, WP Activity Log allows
+        exporting all data through its Reports module in CSV or HTML format. [17]
+        WP Cerber Security also has a feature to export personal data from logs, which
+        are generated as ZIP archives containing JSON formatted entries. [13]
     role_assignment:
-      reference: https://wordpress.com/support/activity-log/
-      value: "Changes to user roles are a standard event captured by the WordPress.com
-        Activity Log. [17] For self-hosted instances, this requires a dedicated activity
-        log plugin like WP Activity Log, which records when a user's role is modified,
-        detailing the old and new roles. [39]"
+      reference: https://conetix.com/blog/the-importance-of-wordpress-audit-logging/
+      value: Changes to user profiles, including role changes, are tracked by plugins
+        like WP Activity Log. [9, 15, 21]
     security_policy_change:
-      reference: https://www.wordfence.com/help/firewall/
-      value: "This is not a native WordPress concept. Security policy changes are
-        logged by the specific security tool in use. For example, Wordfence logs changes
-        to its firewall rules, and iThemes Security logs modifications to its security
-        settings. [11]"
+      reference: hallucinated link doublecheck content
+      value: Changes to security settings and policies can be monitored through comprehensive
+        activity logs provided by security plugins. For instance, WP Activity Log
+        helps identify changes to settings, user account privileges, or plugin configurations
+        that might indicate a security issue. [14, 21]
     user_account_creation:
-      reference: https://wordpress.com/support/activity-log/
-      value: "User registration and creation are standard events logged in the WordPress.com
-        Activity Log. [31, 17] On self-hosted WordPress, plugins like WP Activity
-        Log or Sucuri Security are needed to capture these events. [39, 1]"
+      reference: https://conetix.com/blog/the-importance-of-wordpress-audit-logging/
+      value: User modifications, including creation, password updates, profile updates,
+        addition, and deletion, are tracked by WordPress audit log plugins. [9, 15,
+        21]
     user_login:
-      reference: https://wordpress.com/support/activity-log/
-      value: "User login events, including successful and failed attempts, are recorded
-        in the Activity Log on WordPress.com paid plans. [26, 31, 17] For self-hosted
-        WordPress, this functionality is provided by security plugins such as Wordfence,
-        Sucuri Security, or WP Activity Log, which also log the user's IP address.
-        [1, 29, 30]"
+      reference: https://underconstructionpage.com/blog/can-a-siem-be-used-to-monitor-a-wordpress-site/
+      value: WordPress itself does not have built-in SIEM integration, but security
+        plugins like WP Activity Log and Wordfence can track user logins and logouts,
+        as well as failed login attempts. [1, 8, 9, 10, 12, 14, 21, 30, 31, 33] These
+        logs typically include the date and time, the user, their role, and the IP
+        address. [15]
   event_logs_licensing_level:
-    reference: https://wordpress.com/support/activity-log/
-    value: "On WordPress.com, full Activity Log access with extended retention is available
-      on paid plans (Personal, Premium, Business, Commerce). Free plans have very
-      limited visibility (e.g., the last 20 events). [31] For self-hosted WordPress,
-      logging capabilities depend on free or premium versions of security plugins.
-      [11, 29]"
+    reference: hallucinated link doublecheck content
+    value: While basic activity logging is available in free versions of plugins like
+      WP Activity Log and Wordfence, advanced features such as external database integration,
+      mirroring logs to SIEM solutions, advanced search filters, and automated reports
+      often require a premium license. [8, 16, 18, 19, 20, 34]
   ingestion_methods:
-  - reference: https://melapress.com/wordpress-activity-log/integrations/
-    value: "WP Activity Log plugin (for self-hosted WordPress) offers real-time mirroring
-      of activity logs to external services like Syslog, Papertrail, AWS CloudWatch,
-      Loggly, and Slack. [12, 33]"
-  - reference: https://www.wordfence.com/help/central/
-    value: "Wordfence Central allows for centralized viewing of security events from
-      multiple self-hosted WordPress sites, though direct SIEM export is not a primary
-      feature."
-  - reference: https://sucuri.net/platform/integrations/wordpress-plugin/
-    value: "The Sucuri Security plugin provides email alerts for security events, which
-      can be parsed by a SIEM. It does not offer direct Syslog or API-based log streaming.
-      [5, 8]"
+  - reference: https://underconstructionpage.com/blog/can-a-siem-be-used-to-monitor-a-wordpress-site/
+    value: WordPress logs can be aggregated and sent to a SIEM using log collection
+      agents such as Filebeat or NXLog, or through Syslog forwarding for server logs.
+      [1]
+  - reference: https://underconstructionpage.com/blog/can-a-siem-be-used-to-monitor-a-wordpress-site/
+    value: Several security plugins for WordPress, such as Wordfence and Sucuri, offer
+      log export features that facilitate SIEM integration. [1]
+  - reference: https://wordpress.org/plugins/wp-activity-log/
+    value: Many SIEM platforms support log collection through syslog, APIs, and direct
+      connections, and WordPress websites can be configured to send logs in a compatible
+      format. [4]
   log_export_options:
     tools_connectors:
-      reference: https://melapress.com/wordpress-activity-log/features/reports-and-exports/
-      value: "For self-hosted WordPress, the primary method for exporting logs is via
-        plugins. 'WP Activity Log' can export logs to CSV and has connectors for various
-        third-party services. [12, 45] The 'Activity Log' plugin also supports CSV
-        export. [27, 40]"
+      reference: hallucinated link doublecheck content
+      value: Logs can be exported as CSV or HTML files using plugins like WP Activity
+        Log and Activity Log. [8, 11, 17, 18] WP Cerber Security allows exporting
+        personal data from logs as ZIP archives containing JSON data. [13] Some plugins,
+        like WP Activity Log, offer mirroring capabilities to SIEM solutions and external
+        databases. [8, 16] Specific plugins for logging REST API requests may provide
+        API endpoints to access log entries via JSON. [24, 26]
   monitoring_products:
-  - reference: https://www.splunk.com/en_us/apps/all-apps.html
-    value: "Splunk (via WP Activity Log Connector for self-hosted sites)"
-  - reference: https://www.datadoghq.com/blog/monitor-wordpress-with-datadog/
-    value: Datadog (via custom log forwarding configurations)
-  - reference: https://logz.io/learn/wordpress-log-shipping/
-    value: Logz.io (via WP Activity Log Connector for self-hosted sites)
-  - reference: https://melapress.com/wordpress-activity-log/integrations/
-    value: "AWS CloudWatch (via WP Activity Log Connector for self-hosted sites) [12]"
-  - reference: https://www.loggly.com/docs/wordpress-activity-log-integration/
-    value: "Loggly (via WP Activity Log Connector for self-hosted sites) [33]"
-  - reference: https://melapress.com/wordpress-activity-log/integrations/slack-wordpress-integration/
-    value: "Slack (via WP Activity Log Connector for self-hosted sites)"
+  - reference: https://wordpress.org/plugins/wp-activity-log/
+    value: WP Activity Log is a comprehensive logging solution that tracks user and
+      system changes, helping with troubleshooting, compliance, user management, and
+      security. It offers detailed logs including user logins, failed attempts, user
+      activity, and changes to posts, pages, custom post types, tags, categories,
+      settings, plugins, themes, and core WordPress. [8, 9, 14, 15, 21, 28]
+  - reference: https://www.wordfence.com/products/wordfence/
+    value: Wordfence is a WordPress security plugin that includes a malware scanner,
+      firewall, and access to a security Audit Log. Premium versions offer real-time
+      updates to firewall rules and malware signatures, and access to the security
+      Audit Log to track events for each site. [10, 20]
+  - reference: https://underconstructionpage.com/blog/can-a-siem-be-used-to-monitor-a-wordpress-site/
+    value: Sucuri is a security plugin for WordPress that offers log export features
+      to facilitate SIEM integration. [1]
+  - reference: https://wordpress.org/plugins/defender-security/
+    value: Defender Security is a WordPress security plugin with malware scanner,
+      IP blocking, audit logs, antivirus scans, firewall, and 2FA. Its Pro version
+      offers automated and scheduled malware scans, audit logs, and blocklist monitoring.
+      [10]
+  - reference: https://wordpress.org/plugins/simple-history/
+    value: Simple History is a free WordPress activity log plugin that tracks user
+      activity, including menu changes, failed logins, and data export requests. It
+      can display logs on the dashboard or a separate page and supports WordPress
+      REST APIs for custom events. [11, 18, 28]
+  - reference: https://wordpress.org/plugins/activity-log-wp/
+    value: Activity Log is another free plugin for tracking user activity, recording
+      changes on essential WordPress elements from core updates to comments, and supporting
+      WooCommerce and bbPress. It allows exporting filtered results to CSV. [18]
+  - reference: https://wordpress.org/plugins/logify-wp/
+    value: Logify WP provides real-time, detailed activity logs and user audit logs,
+      tracking post edits, user login attempts, plugin updates, and media management.
+      It also features action notes for adding context to events and role-based access
+      control for log viewing. [30]
+  - reference: https://wpsiem.com/
+    value: WP SIEM offers enterprise-grade SIEM for WordPress, providing real-time
+      log collection (logins, changes, errors, plugin activity), advanced threat detection,
+      and seamless integration with leading SIEMs like Splunk, QRadar, ArcSight, and
+      LogRhythm. [5]
 incident_response:
   documentation_links:
-  - https://developer.wordpress.org/rest-api/reference/users/
-  - https://developer.wordpress.org/cli/commands/user/
-  - https://developer.wordpress.org/cli/commands/user/session/
-  - https://melapress.com/wordpress-activity-log/features/users-sessions-management/
-  - https://www.wordfence.com/help/central/
-  - https://sucuri.net/
-  - https://ithemes.com/security/
-  - https://github.com/WordPress/wordpress-develop
-  - https://wp-cli.org/
+  - https://developer.wordpress.com/docs/api/1.1/post/sites/%24site/users/%24user_ID/delete/
+  - https://developer.wordpress.org/rest-api/reference/users/#delete-a-user
+  - https://developer.wordpress.org/reference/functions/wp_logout/
+  - https://wordpress.stackexchange.com/questions/107079/preventing-session-timeout
+  - https://gsplugins.com/blog/siem-monitor-wordpress-site/
+  - https://codexpert.io/wordpress-automation-tools/
+  - https://www.wordfence.com/products/wordfence-care-response/
+  - https://developer.wordpress.org/rest-api/handbook/users/
+  - https://developer.wordpress.org/reference/functions/wp_destroy_other_sessions/
+  - https://wordpress.org/plugins/login-timeout-sessions/
+  - https://daext.com/how-to-programmatically-delete-a-user-with-wordpress/
+  - https://wordpress.org/plugins/smntcs-disable-rest-api-user-endpoints/
+  - https://hosting.com/support/disable-rest-api-user-endpoints-wordpress/
+  - https://rudrastyh.com/wordpress/disable-rest-api.html
+  - https://wordpress.org/plugins/disable-wp-rest-api/
+  - https://www.youtube.com/watch?v=0hWjK9eM800
+  - https://gist.github.com/justingreerbbi/768f1effcca69b4098c9d0f7731deba0
+  - https://wordpress.org/documentation/article/roles-and-capabilities/
+  - https://wordpress.org/support/article/roles-and-capabilities/
+  - https://www.sentinelone.com/blog/wordpress-security-audit/
+  - https://wordpress.org/support/topic/constantly-kicked-out-of-wp-admin/
   invalidate_sessions_api:
-    reference: https://developer.wordpress.org/cli/commands/user/session/destroy/
-    value: "For self-hosted WordPress, the WP-CLI command `wp user session destroy
-      <user_login> --all` can terminate all sessions for a specific user. [4, 15]
-      Programmatically, the `wp_destroy_all_sessions()` function can be called.
-      [10] Some security plugins, like WP Activity Log, provide a GUI-based option
-      to terminate user sessions. [9, 16]"
+    reference: https://wordpress.stackexchange.com/questions/107079/preventing-session-timeout
+    value: WordPress provides the `wp_logout()` function to programmatically log out
+      a user by destroying their session and associated data and cookies. [9, 25,
+      30] The `wp_redirect()` function can then be used to redirect the user to a
+      specified page after logout. There is also a `wp_destroy_other_sessions()` function
+      mentioned, which implies the ability to log out a user from all their other
+      active sessions.
   known_automation_tools:
-  - reference: https://wp-cli.org/
-    value: WP-CLI (WordPress Command Line Interface) for scripting administrative
-      and security tasks like user management and session termination. [14]
-  - reference: https://www.wordfence.com/help/central/
-    value: Wordfence Central for managing security across multiple WordPress sites,
-      including blocking IPs and viewing live traffic.
-  - reference: https://infinitewp.com/
-    value: InfiniteWP, a management tool for multiple WordPress sites that can automate
-      updates and backups, which are key parts of incident response.
+  - reference: https://www.wordfence.com/products/wordfence-care-response/
+    value: Wordfence Security is a well-known WordPress security plugin that offers
+      real-time threat detection, malware scanning and removal, firewall and intrusion
+      prevention, and login security features like two-factor authentication. It can
+      also function as an incident management tool by providing real-time alerts and
+      assisting in malware removal.
+  - reference: https://ithemes.com/security/
+    value: iThemes Security is another plugin that allows for setting up email notifications
+      for events like file changes, failed login attempts, and successful logins,
+      aiding in real-time awareness of potential security incidents.
+  - reference: https://gsplugins.com/blog/siem-monitor-wordpress-site/
+    value: WP Security Audit Log and WP Activity Log are logging plugins that record
+      all admin activities, plugin updates, or file changes, providing crucial information
+      for incident investigation and response.
+  - reference: https://sucuri.net/
+    value: Sucuri Security offers real-time scanning and malware removal and can be
+      used for incident management.
+  - reference: https://automatorwp.com/
+    value: Uncanny Automator and AutomatorWP are WordPress automation plugins that
+      allow users to create workflows and connect various WordPress plugins and third-party
+      applications without coding. They can be used to automate tasks related to incident
+      response, such as sending notifications or triggering actions based on specific
+      events.
+  - reference: https://atomicwork.com/
+    value: Atomicwork is an incident management software that integrates with WordPress.
+      It provides an AI-powered support assistant, automated workflows, real-time
+      alerts, and detailed reporting to streamline incident resolution.
+  - reference: https://orna.com/
+    value: Orna is an incident response software that integrates with WordPress. It
+      offers cyber incident and case management, continuous infrastructure monitoring
+      for attacks, categorization of anomalies, threat intelligence integration, and
+      AI capabilities to assess threats and identify impacted assets. It also provides
+      customizable notifications and can escalate alerts into incidents.
+  - reference: https://gsplugins.com/blog/siem-monitor-wordpress-site/
+    value: SIEM (Security Information and Event Management) systems like Elastic SIEM,
+      OSSIM (AlienVault), Splunk, Graylog, and LogRhythm can be integrated with WordPress
+      to monitor activities, collect logs from various sources (WordPress logs, server
+      logs, application logs), and provide real-time alerts for suspicious activity.
+      These systems can also be configured for automated responses, such as blocking
+      an IP address during brute-force attacks.
   revoke_api_key_api:
-    reference: https://developer.wordpress.org/rest-api/reference/application-passwords/
-    value: "WordPress uses 'Application Passwords' for API authentication. While the
-      core REST API doesn't have a direct endpoint to revoke them for another user,
-      an administrator can delete them through the user's profile page. A custom
-      REST endpoint or a WP-CLI script could be created to programmatically delete
-      these passwords from the database to achieve remote revocation."
+    reference: https://wordpress.org/support/topic/errors-deleting-products-and-api-keys/
+    value: WordPress itself doesn't have a concept of 'API keys' for users in the
+      same way a SaaS application might. User authentication typically relies on cookies
+      and session management. However, plugins might introduce their own API key mechanisms,
+      and their revocation would depend on the specific plugin's implementation. The
+      WordPress REST API uses authentication methods like cookie authentication for
+      logged-in users and application passwords. Revoking an application password
+      would be the closest equivalent to revoking a user-specific API key in a default
+      WordPress setup. No direct 'revoke all API keys' API for a user was found in
+      the core WordPress REST API documentation.
   session_timeout_configuration:
-    reference: https://wordpress.org/plugins/wp-activity-log/
-    value: "WordPress does not have a native, user-configurable session timeout setting.
-      This functionality is provided by plugins. WP Activity Log and iThemes Security
-      offer features to automatically log out idle users after a configurable period.
-      [9, 11]"
-  suspend_user_management_api:
-    reference: https://developer.wordpress.org/rest-api/reference/users/#update-a-user
-    value: "There is no native 'suspend' function. A common workaround is to use the
-      REST API's 'Update a User' endpoint (`POST /wp/v2/users/<id>`) to change the
-      user's role to 'no-role' or a custom-created role with no permissions, effectively
-      locking them out. Alternatively, a password reset can be forced by updating
-      the user's password to a random, unknown value."
+    reference: hallucinated link doublecheck content
+    value: By default, WordPress login sessions expire after 48 hours, or 14 days
+      if the 'Remember Me' box is checked. This duration can be customized by adding
+      a filter to the `auth_cookie_expiration` hook in the `functions.php` file, allowing
+      administrators to set a longer or shorter cookie expiry. Plugins like 'LoginPress
+      Session Expire' or 'Login Timeout Sessions' also offer UI options to configure
+      session expiration times, sometimes even per user capability.
+  suspend_user_api:
+    reference: https://developer.wordpress.org/rest-api/reference/users/#delete-a-user
+    value: WordPress does not have a native API to 'suspend' users. Instead, user
+      management typically involves changing user roles and capabilities, or deleting
+      the user. While the REST API allows for user deletion, it does not offer a direct
+      'suspend' functionality. However, some plugins might introduce this feature
+      through their own APIs or interfaces.
   user_status_api:
-    reference: https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user
-    value: "The REST API endpoint `GET /wp/v2/users/<id>` can be used to retrieve
-      a user's details, including their assigned role and other metadata, which can
-      be used to infer their status (e.g., active, suspended via role change). [32]"
+    reference: https://wordpress.stackexchange.com/questions/276082/what-the-user-status-column
+    value: While WordPress has an API for managing user roles and capabilities (`User
+      Roles API`), which defines what a user can or cannot do, there isn't a direct
+      API to check if a user is 'active' (can log in) versus 'suspended' or 'disabled'
+      in a general sense. User activity can be monitored through logging plugins.
   user_toggle_api:
-    reference: https://developer.wordpress.org/rest-api/reference/users/#update-a-user
-    value: "There is no native disable/enable toggle. This can be achieved by updating
-      the user's role via the REST API. An administrator could change a user's role
-      to one with no permissions to 'disable' them and then change it back to their
-      original role to 'enable' them. Security plugins like Wordfence also allow
-      for blocking users, which serves a similar purpose."
+    reference: https://developer.wordpress.org/reference/functions/wp_destroy_other_sessions/
+    value: WordPress does not have a direct API to 'toggle' user status between active
+      and suspended/disabled in a way that would automatically disable active sessions.
+      User deletion is possible via the REST API or `wp_delete_user()` function. [10,
+      11, 16] Changes to user roles and capabilities can restrict a user's access,
+      but this does not inherently invalidate existing sessions.

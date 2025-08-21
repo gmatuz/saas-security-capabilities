@@ -1,0 +1,278 @@
+identity_and_access:
+  sso_support:
+    value: 'yes - SSO options: Google (OAuth-based login), Microsoft (SAML via Azure
+      AD/Entra ID), Okta (SAML), and custom SAML 2.0; enabled per Workspace by owners/admins.'
+    reference: dubious claim, hallucinated reference
+  sso_license_level_requirement:
+    value: 'Google SSO: Business and above; Microsoft SSO, Okta SSO, and custom SAML:
+      Enterprise plan.'
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: 'yes - SCIM provisioning available when SSO is enabled: Okta SCIM ''full
+      automatic provisioning''; Microsoft Entra ID SCIM ''limited automatic provisioning
+      (user create/remove; cannot assign Roles/Custom Roles/Teams)''.'
+    reference: dubious claim, hallucinated reference
+  scim_licensing_level_requirement:
+    value: Enterprise plan required (Okta SSO/SCIM and Custom SAML are Enterprise-only;
+      SCIM Base URL and API Token appear after enabling SSO).
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: 'API token-based authentication to the SCIM Base URL (Okta: SCIM API Token;
+      Microsoft Entra: Secret Token).'
+    reference: dubious claim, hallucinated reference
+  scim_authentication_acquisition_steps:
+    value: '1) As owner/admin, enable SSO (Okta or custom SAML) in Settings > Security
+      & Permissions; 2) After successful SSO linking, Copy SCIM Base URL and SCIM
+      API Token shown in Security & Permissions; 3) In your IdP, configure provisioning:
+      set Tenant/Base URL to ClickUp SCIM Base URL and set Secret/API Token to the
+      SCIM API Token; 4) Test connection and enable provisioning.'
+    reference: dubious claim, hallucinated reference
+  user_management_api_support:
+    value: 'yes - Non‑SCIM user management via ClickUp Public API (Enterprise): endpoints
+      to invite member, edit member (role/custom role), and remove member; guest management
+      endpoints also available.'
+    reference: https://developer.clickup.com/reference/inviteusertoworkspace
+  user_management_api_licensing_level:
+    value: Enterprise plan required for user/guest provisioning endpoints (e.g., Invite
+      User to Workspace, Edit User on Workspace, Remove User).
+    reference: https://clickup.com/api/clickupreference/operation/EditUserOnWorkspace/
+  user_management_api_authentication_mechanisms:
+    value: Personal API token (HTTP Authorization header) and OAuth2 for apps/integrations.
+    reference: https://developer.clickup.com/docs/index
+  user_management_api_authentication_acquisition_steps:
+    value: 'Personal token: 1) Avatar > Settings > Apps; 2) Click Generate to create
+      personal API token; 3) Use token in Authorization header. OAuth2: 1) Create
+      app in developer portal; 2) Obtain Client ID/Secret; 3) Direct users through
+      OAuth flow; 4) Exchange code for access token via /oauth/token.'
+    reference: dubious claim, hallucinated reference
+  seat_costs:
+  - license_level: Seat billing model by role (Members/Admins/Limited members and
+      Permission-controlled guests are paid; View-only guests are free on paid plans).
+    active:
+      value: 'Active paid roles: Owners, Admins, Members, Limited members, and Permission-controlled
+        guests incur subscription fees; View-only guests are free on paid plans.'
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain - No suspend/disable user state; removal is permanent and leaves
+        the seat open until reassigned; if seat remains open until next billing cycle
+        it is removed. No documented 'suspended' billing state.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain - No evidence of an 'archived user' state affecting billing.
+      reference: no evidence
+  lifecycle_options:
+  - 'Invited/Pending (invite sent, not yet joined) — shown as ''Pending'' in Manage
+    people. Source: https://help.clickup.com/hc/en-us/articles/6310540689047-Manage-admins-members-and-guests'
+  - 'Active (user linked/logged-in via SSO or standard auth) — implied by presence
+    as member/guest and SSO link. Source: https://help.clickup.com/hc/en-us/articles/6305043992343-Intro-to-single-sign-on-SSO'
+  - 'Removed/Deactivated (user removed; tasks retain ''Deactivated'' label on historical
+    data) — removal keeps seat open until reassigned or next billing cycle. Source:
+    https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace'
+  - 'Role conversion (Guest ↔ Limited member ↔ Member) — convertible via People management
+    UI. Source: https://help.clickup.com/hc/en-us/articles/6310540689047-Manage-admins-members-and-guests'
+  rbac_support:
+    value: yes - Built‑in roles (Owner, Admin, Member, Limited member, Guest) with
+      granular permissions; Custom Roles on Business Plus/Enterprise; advanced permissions
+      on Enterprise.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: yes (Enterprise) - Assign roles via API by editing a user (admin flag,
+      custom_role_id); list custom roles via API; user/guest invite/remove endpoints.
+    reference: https://developer.clickup.com/reference/getcustomroles
+  documentation_links:
+  - https://help.clickup.com/hc/en-us/articles/6305043992343-Intro-to-single-sign-on-SSO
+  - https://help.clickup.com/hc/en-us/articles/6305105918615-Google-Single-Sign-On
+  - https://help.clickup.com/hc/en-us/articles/6305100485015-Microsoft-single-sign-on
+  - https://help.clickup.com/hc/en-us/articles/6305095991703-Enable-Okta-single-sign-on-integration
+  - https://help.clickup.com/hc/en-us/articles/6305027039767-Configure-custom-SAML-single-sign-on
+  - https://help.clickup.com/hc/en-us/articles/23249507200791-Microsoft-Entra-ID-SCIM-configuration-guide
+  - https://help.clickup.com/hc/en-us/articles/6305052795287-Okta-SCIM-ClickUp-configuration-guide
+  - https://developer.clickup.com/docs/index
+  - https://developer.clickup.com/reference/inviteusertoworkspace
+  - https://clickup.com/api/clickupreference/operation/EditUserOnWorkspace/
+  - https://developer.clickup.com/reference/getworkspaceseats
+  - https://developer.clickup.com/reference/getcustomroles
+  - https://help.clickup.com/hc/en-us/articles/6309195687959-Manage-user-permissions
+  - https://help.clickup.com/hc/en-us/articles/6310033667223-Intro-to-user-roles
+  - https://help.clickup.com/hc/en-us/articles/6310540689047-Manage-admins-members-and-guests
+  - https://help.clickup.com/hc/en-us/articles/6303244318999-Charges-for-guest-type-and-member-type-user-roles
+  - https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace
+  - https://help.clickup.com/hc/en-us/articles/25324213764119-Audit-Logs-feature-availability-and-limits
+  - https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs
+  - https://clickup.com/api/clickupreference/tag/Audit-Logs/paths/~1v3~1workspaces~1%7Bworkspace_id%7D~1auditlogs/post/
+  - https://feedback.clickup.com/feature-requests/p/suspend-team-members
+  - https://feedback.clickup.com/feature-requests/p/disable-user-accounts-without-deleting-them
+  - https://help.clickup.com/hc/en-us/articles/20259486030615-Configure-on-premise-Microsoft-Active-Directory-with-Active-Directory-Federation-Service-and-SAML-SSO
+  - https://github.com/clickup/clickup-APIv2-demo
+  - https://pypi.org/project/clickupython/
+  - https://pypi.org/project/clixify/
+  - https://pypi.org/project/clickup-apiv2/
+  - https://www.npmjs.com/package/%40damotech/clickup
+  - https://www.npmjs.com/package/%40clickup/rest-client
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Audit Logs include authentication events like user login and logout,
+        with event data fields such as startTime/endTime, userId, clientIp, userEmail,
+        userRole, title 'User Login (2FA)', eventType USER_LOGIN, and eventStatus.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: Audit Logs track role and permission changes, including events like User
+        Role Changed, Role Permission Changed, Custom Role Created/Updated/Deleted.
+      reference: dubious claim, hallucinated reference
+    api_call:
+      value: uncertain – official Audit Logs event lists focus on user authentication/authorization,
+        task, fields, and hierarchy actions; no explicit events documenting individual
+        API calls were found.
+      reference: dubious claim, hallucinated reference
+    data_export:
+      value: uncertain – product supports task/data exports (CSV/XLSX) via UI, but
+        no evidence that export actions are recorded as Audit Log events.
+      reference: dubious claim, hallucinated reference
+    configuration_change:
+      value: Audit Logs capture security and workspace configuration updates such
+        as 2FA Policy Changed, SSO Configuration Updated, Advanced Settings Update,
+        and Bypass SSO Enabled.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: User lifecycle events are logged, including User Invited to Workspace,
+        User Joined Workspace, User Removed from Workspace/Team, and SCIM-based provisioning/deprovisioning.
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: Security policy changes are logged; for example, changes to Chat data
+        retention are explicitly captured in Audit Logs, and user log includes 2FA
+        policy and SSO configuration changes.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: Audit Logs are Enterprise-plan only; accessible to Workspace Owners by
+      default (Owners can grant selected Admins). Audit Log historical data retention
+      is 30 days.
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: 'Splunk Add-on for ClickUp (Avotrix): pulls ClickUp data via API into Splunk;
+      configured with API token and inputs.'
+    reference: https://splunkbase.splunk.com/app/7247
+  - value: 'Splunk App for ClickUp (Avotrix): dashboards/visualizations for ClickUp
+      data brought into Splunk.'
+    reference: https://splunkbase.splunk.com/app/7324
+  - value: 'Coefficient: imports ClickUp Audit Logs into Google Sheets with optional
+      auto-refresh for monitoring/compliance analyses.'
+    reference: https://coefficient.io/use-cases/import-clickup-audit-logs-data-to-google-sheets
+  - value: 'Workato: prebuilt integration between ClickUp and Microsoft Azure Sentinel
+      (Microsoft Sentinel) for workflow-based exchanges.'
+    reference: https://www.workato.com/integrations/azure-sentinel~clickup
+  - value: 'n8n: workflows to connect ClickUp with Elastic Security/Kibana/Azure Monitor
+      using ClickUp nodes and HTTP requests.'
+    reference: https://n8n.io/integrations/clickup/and/elastic-security/
+  ingestion_methods:
+  - value: 'REST API: Enterprise owners can query Audit Logs via POST /v3/workspaces/{workspace_id}/auditlogs
+      with applicability (e.g., ''auth-and-security'') and filters/pagination; suitable
+      for SIEM pulls.'
+    reference: dubious claim, hallucinated reference
+  - value: 'API authentication: use personal token or OAuth2 for programmatic access
+      when integrating logs with external systems.'
+    reference: https://developer.clickup.com/docs/authentication
+  - value: 'Webhooks (event push): ClickUp can push task and other events to external
+      endpoints; useful for near-real-time monitoring of changes (note: separate from
+      Audit Logs).'
+    reference: https://developer.clickup.com/docs/webhooks
+  - value: 'Splunk ingestion via Add-on: configure the ClickUp Add-on for Splunk to
+      poll ClickUp API and ingest data into Splunk indexes.'
+    reference: https://splunkbase.splunk.com/app/7247
+  - value: 'Sheets-based collection: Coefficient connector pulls ClickUp Audit Logs
+      into Google Sheets with scheduled refresh for downstream ingestion.'
+    reference: https://coefficient.io/use-cases/import-clickup-audit-logs-data-to-google-sheets
+  log_export_options:
+    tools_connectors:
+      value: 'Audit Logs export is API-based: ClickUp explicitly supports integrating
+        or exporting Audit Logs to external systems via its public API; no native
+        built-in CSV/FTP export of Audit Logs is documented.'
+      reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs
+  - https://help.clickup.com/hc/en-us/articles/25324213764119-Audit-Logs-feature-availability-and-limits
+  - https://clickup.com/api/clickupreference/tag/Audit-Logs/paths/~1v3~1workspaces~1%7Bworkspace_id%7D~1auditlogs/post/
+  - https://developer.clickup.com/docs/index
+  - https://developer.clickup.com/docs/authentication
+  - https://developer.clickup.com/docs/webhooks
+  - https://developer.clickup.com/docs/webhooksignature
+  - https://help.clickup.com/hc/en-us/articles/30452538132759-Chat-data-retention
+  - https://help.clickup.com/hc/en-us/articles/6310551109527-Task-data-export
+  - https://splunkbase.splunk.com/app/7247
+  - https://splunkbase.splunk.com/app/7324
+  - https://coefficient.io/use-cases/import-clickup-audit-logs-data-to-google-sheets
+  - https://www.workato.com/integrations/azure-sentinel~clickup
+  - https://n8n.io/integrations/clickup/and/elastic-security/
+incident_response:
+  suspend_user_api:
+    value: 'ClickUp provides an Enterprise-only API endpoint to deactivate (remove)
+      a user from a Workspace: DELETE /api/v2/team/{team_id}/user/{user_id}. This
+      effectively suspends Workspace access for the specified user.'
+    reference: https://developer.clickup.com/reference/removeuserfromworkspace
+  invalidate_sessions_api:
+    value: No documented API to invalidate user sessions. Admins on Enterprise can
+      enforce session timeouts; changing session duration from “Never expires” immediately
+      signs everyone out of ClickUp. Users can also log out of all sessions via their
+      account settings UI.
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: Personal API tokens “never expire” and are generated/regenerated in the
+      UI; there is no documented API to revoke or rotate personal tokens. OAuth access
+      tokens currently do not expire, and revocation is handled by removing the app/authorization
+      rather than via a published revoke endpoint.
+    reference: https://developer.clickup.com/docs/authentication
+  user_toggle_api:
+    value: An Enterprise-only API endpoint allows updating a user’s role on a Workspace
+      (e.g., admin flag or custom_role_id) via PUT /api/v2/team/{team_id}/user/{user_id}.
+      This changes privileges but documentation does not state it terminates existing
+      sessions. To fully block access use the Remove User endpoint.
+    reference: https://developer.clickup.com/reference/edituseronworkspace
+  user_status_api:
+    value: An Enterprise-only API endpoint GET /api/v2/team/{team_id}/user/{user_id}
+      returns information about a user in a Workspace, which can be used to check
+      their presence and details programmatically.
+    reference: https://developer.clickup.com/reference/getuser
+  session_timeout_configuration:
+    value: Session Management (Enterprise only) lets owners/admins set global session
+      duration (1 hour to 30 days, or Never) and idle timeout (15 minutes to 4 hours).
+      Switching from “Never expires” logs everyone out immediately; otherwise changes
+      apply on next session.
+    reference: dubious claim, hallucinated reference
+  known_automation_tools:
+  - value: n8n ClickUp node supports create/read/update/delete for tasks, lists, folders,
+      comments, time entries, etc., enabling custom incident workflows and integrations
+      via API token or OAuth2.
+    reference: https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.clickup/
+  - value: clickupython (Python) – community client for ClickUp API v2; useful for
+      scripting investigations or response automations (e.g., pulling audit-relevant
+      task/user data, changing roles if Enterprise).
+    reference: https://github.com/Imzachjohnson/clickupython
+  - value: clickup.js (Node.js) – JavaScript wrapper for ClickUp API; can automate
+      task operations from SOAR pipelines or custom bots.
+    reference: https://github.com/ComfortablyCoding/clickup.js/
+  - value: clickup-client-go (Go) – Go SDK for ClickUp API with helpers for tasks/comments;
+      suitable for Golang-based automation services.
+    reference: https://github.com/Guitarbum722/clickup-client-go
+  - value: ClickUp API Postman public collection to explore and operationalize endpoints
+      quickly for automation or incident runbooks.
+    reference: dubious claim, hallucinated reference
+  - value: Fivetran ClickUp connector – extracts ClickUp data (tasks, time entries)
+      to a warehouse, useful for SIEM/UEBA enrichment or investigations.
+    reference: https://fivetran.com/docs/connectors/applications/clickup
+  documentation_links:
+  - https://help.clickup.com/hc/en-us/articles/21929900448535-Audit-logs
+  - https://help.clickup.com/hc/en-us/articles/25324213764119-Audit-Logs-feature-availability-and-limits
+  - https://developer.clickup.com/reference/createworkspaceauditlog
+  - https://developer.clickup.com/reference/removeuserfromworkspace
+  - https://developer.clickup.com/reference/edituseronworkspace
+  - https://developer.clickup.com/reference/getuser
+  - https://developer.clickup.com/docs/authentication
+  - https://help.clickup.com/hc/en-us/articles/6311968998167-My-Settings
+  - https://help.clickup.com/hc/en-us/articles/6327732937751-Session-management
+  - https://help.clickup.com/hc/en-us/articles/6310514663319-Remove-someone-from-a-Workspace
+  - https://help.clickup.com/hc/en-us/articles/6305043992343-Intro-to-single-sign-on-SSO
+  - https://help.clickup.com/hc/en-us/articles/6305052795287-Okta-SCIM-ClickUp-configuration-guide
+  - https://help.clickup.com/hc/en-us/articles/23249507200791-Microsoft-Entra-ID-SCIM-configuration-guide
+  - https://developer.clickup.com/docs/index
+  - https://developer.clickup.com/docs/rate-limits
+  - https://developer.clickup.com/docs/open-api-spec

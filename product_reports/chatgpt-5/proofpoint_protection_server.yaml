@@ -1,0 +1,234 @@
+identity_and_access:
+  sso_support:
+    value: unclear — Okta lists a Proofpoint Protection Server app with SSO, but no
+      federation protocol (SAML/OIDC/Kerberos) is specified and no official PPS federation
+      docs were found
+    reference: https://www.okta.com/integrations/proofpoint-protection-server/
+  sso_license_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_support:
+    value: uncertain — no public documentation found indicating SCIM for Proofpoint
+      Protection Server
+    reference: no evidence
+  scim_licensing_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_mechanisms:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_acquisition_steps:
+    value: uncertain
+    reference: no evidence
+  user_management_api_support:
+    value: partial — CLI-based user and group management via useradm/groupadm; no
+      public REST endpoints found for user CRUD
+    reference: dubious claim, hallucinated reference
+  user_management_api_licensing_level:
+    value: uncertain
+    reference: no evidence
+  user_management_api_authentication_mechanisms:
+    value: 'For PPS REST (e.g., Quarantine/pss APIs): HTTPS to port 10000 with HTTP
+      Basic Auth tied to an admin role that includes specific API modules'
+    reference: https://github.com/demisto/content/blob/master//Packs/ProofpointServerProtection/Integrations/ProofpointProtectionServerV2/README.md
+  user_management_api_authentication_acquisition_steps:
+    value: 'On‑prem: 1) Enable API GUI (set com.proofpoint.admin.apigui.enable=t in
+      filter.cfg), 2) In PPS admin GUI create a role of type API and select required
+      Managed Modules (e.g., pss, Quarantine), 3) Assign the role to an administrator,
+      4) Access REST on port 10000 with that admin’s credentials'
+    reference: https://github.com/demisto/content/blob/master//Packs/ProofpointServerProtection/Integrations/ProofpointProtectionServerV2/README.md
+  seat_costs:
+  - license_level: PPS/Email Protection (on‑prem) — public seat pricing not documented
+    active:
+      value: uncertain
+      reference: no evidence
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - uncertain
+  rbac_support:
+    value: yes — administrator RBAC via separate admin IDs and Managed Modules to
+      restrict module access
+    reference: https://help.proofpoint.com/Proofpoint_Essentials/Administrator_Topics/Other_Features/How_to_customize_access_control
+  rbac_api_assignment:
+    value: no — available evidence shows role creation/assignment occurs in the PPS
+      GUI; no public endpoints documented to assign roles via API
+    reference: https://github.com/demisto/content/blob/master//Packs/ProofpointServerProtection/Integrations/ProofpointProtectionServerV2/README.md
+  documentation_links:
+  - https://github.com/demisto/content/blob/master//Packs/ProofpointServerProtection/Integrations/ProofpointProtectionServerV2/README.md
+  - https://docs.d3security.com/integration-docs/integration-docs/proofpoint-protection-server
+  - https://docs.blinkops.com/docs/integrations/proofpoint-protection-server/actions/proofpoint-protection-server-custom-action
+  - https://www.okta.com/integrations/proofpoint-protection-server/
+  - https://www.proofpoint.com/us/support/technical-training/how-to-videos
+  - https://www.proofpoint.com/us/resources/data-sheets/protection-server-technical-brief
+  - https://www.scribd.com/document/394152479/Proofpoint-Reference-Guide
+  - https://www.reddit.com/r/proofpoint/comments/1cssecr
+  - https://www.reddit.com/r/proofpoint/comments/1jdq2f0
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Audit logs for administrative access exist and can be forwarded to a
+        SIEM by enabling Remote Syslog in Logs and Reports > Log Settings; SIEM guidance
+        explicitly instructs collecting 'all audit logs and system events' from Proofpoint
+        Enterprise Protection (Protection Server) via Syslog.
+      reference: https://www.juniper.net/documentation/us/en/software/jsa7.5.0/jsa-dsm/topics/task/jsa-dsm-configuring-proofpoint-enterprise-protection-and.html
+    role_assignment:
+      value: uncertain – no public vendor documentation found confirming whether administrator
+        role/permission assignments are captured as discrete audit events in Protection
+        Server.
+      reference: no evidence
+    api_call:
+      value: uncertain – no public evidence that Protection Server records audit events
+        for administrative/business API calls; on-prem logging appears centered on
+        filter/MTA/syslog streams rather than API call auditing.
+      reference: no evidence
+    data_export:
+      value: uncertain – no public documentation confirming that administrative data/configuration
+        export actions generate explicit audit events in Protection Server.
+      reference: no evidence
+    configuration_change:
+      value: Community reports indicate a 'Configuration Log' that records configuration
+        changes with before/after details (e.g., policy/rule edits) in Protection
+        Server; public vendor docs are not available for this capability.
+      reference: https://www.reddit.com/r/proofpoint/comments/1d3w32d
+    user_account_creation:
+      value: uncertain – no public vendor documentation found confirming that creation
+        of administrative user accounts is logged as an audit event in Protection
+        Server.
+      reference: no evidence
+    security_policy_change:
+      value: Community reports suggest policy/rule changes appear in the Protection
+        Server 'Configuration Log' with change details, implying auditability of security
+        policy changes.
+      reference: https://www.reddit.com/r/proofpoint/comments/1d3w32d
+  event_logs_licensing_level:
+    value: For Proofpoint on Demand (PoD), Remote Syslog forwarding requires a separate
+      'Remote Syslog Forwarding' license; the Proofpoint Email Security Add-On for
+      Splunk notes PoD requires this license, while hardware/virtual Protection Server
+      uses built‑in syslog settings under Logs and Reports > Log Settings. Some SIEM
+      integrations with PoD use the Log API, which requires service principal credentials
+      (often created in the portal or via support).
+    reference: https://apps.splunk.com/app/3080/
+  monitoring_products:
+  - value: Splunk Email Security Add‑On (TA_pps) for Proofpoint Enterprise Protection/On
+      Demand; syslog-based ingestion with PoD Remote Syslog license requirement noted.
+    reference: https://apps.splunk.com/app/3080/
+  - value: Splunk Connect for Syslog (SC4S) – built-in vendor profile for Proofpoint
+      Protection Server (pps_filter_log, pps_mail_log) and guidance on BSD syslog
+      format.
+    reference: https://splunk.github.io/splunk-connect-for-syslog/3.4.4/sources/vendor/Proofpoint/
+  - value: IBM QRadar DSM for Proofpoint Enterprise Protection/Enterprise Privacy
+      – collects events via Syslog.
+    reference: https://help.proofpoint.com/Threat_Insight_Dashboard/API_Documentation/SIEM_API
+  - value: Juniper JSA DSM integration – step-by-step to collect 'all audit logs and
+      system events' from Proofpoint Enterprise (Protection Server) via Syslog.
+    reference: https://www.juniper.net/documentation/us/en/software/jsa7.5.0/jsa-dsm/topics/task/jsa-dsm-configuring-proofpoint-enterprise-protection-and.html
+  - value: Cortex XSOAR/XSIAM – integration and syslog-based ingestion content pack
+      for Proofpoint Protection Server, including parsing/modeling.
+    reference: https://cortex.marketplace.pan.dev/marketplace/details/ProofpointServerProtection/
+  - value: LogRhythm Open Collector – documentation for configuring Proofpoint log
+      source ingestion via Syslog relay.
+    reference: https://docs.logrhythm.com/OCbeats/docs/configure-the-proofpoint-log-source-in-siem
+  - value: Exabeam Cloud Connector – covers PoD Log API/TAP SIEM API ingestion requirements
+      (service principal, tokens), noting Remote Syslog license for PoD.
+    reference: dubious claim, hallucinated reference
+  ingestion_methods:
+  - value: 'Remote Syslog forwarding (TCP/UDP) from Protection Server: enable under
+      Logs and Reports > Log Settings; forward Filter and MTA logs with facility/level
+      selection.'
+    reference: https://cortex.marketplace.pan.dev/marketplace/details/ProofpointServerProtection/
+  - value: 'SIEM-side Syslog collection profile (JSA/QRadar): configure Protection
+      Server to send all audit logs and system events to the SIEM’s Syslog listener.'
+    reference: https://www.juniper.net/documentation/us/en/software/jsa7.5.0/jsa-dsm/topics/task/jsa-dsm-configuring-proofpoint-enterprise-protection-and.html
+  - value: Proofpoint On Demand (PoD) Log API (websocket streaming) for maillog/filter
+      logs; open-source Node client demonstrates subscription/ingest approach.
+    reference: https://github.com/lambdac0de/node-proofpoint-podclient
+  - value: 'SC4S-based ingestion: accepts PPS BSD syslog on default port 514, maps
+      to pps_filter_log/pps_mail_log sourcetypes; notes need for downstream reassembly/processing.'
+    reference: https://splunk.github.io/splunk-connect-for-syslog/3.4.4/sources/vendor/Proofpoint/
+  log_export_options:
+    tools_connectors:
+      value: Built-in Remote Syslog settings (Syslog Enable/Host/Facility/Level; MTA
+        and Filter log forwarding) and internal log database/rollover for Filter,
+        Email Command Processor, MTA, Regulatory Compliance, and Digital Assets logs;
+        admins configure these under Logs and Reports > Log Settings, with retention
+        and rollover under Report Settings.
+      reference: https://help.proofpoint.com/Proofpoint_Essentials/Administrator_Topics/110_logs/Understanding_Email_Logs
+  documentation_links:
+  - https://1library.net/article/logs-and-reports-proofpoint-administration-guide.zlg8jx6g
+  - https://cortex.marketplace.pan.dev/marketplace/details/ProofpointServerProtection/
+  - https://splunk.github.io/splunk-connect-for-syslog/3.4.4/sources/vendor/Proofpoint/
+  - https://apps.splunk.com/app/3080/
+  - https://www.ibm.com/docs/en/qsip/7.5?topic=pepep-syslog-log-source-parameters-proofpoint-enterprise-protection-enterprise-privacy
+  - https://www.juniper.net/documentation/us/en/software/jsa7.5.0/jsa-dsm/topics/task/jsa-dsm-configuring-proofpoint-enterprise-protection-and.html
+  - https://docs.exabeam.com/en/cloud-connectors/all/configuration/130541-proofpoint-cloud-connector.html
+  - https://github.com/lambdac0de/node-proofpoint-podclient
+  - https://gist.github.com/timconradinc/5724099
+  - https://community.splunk.com/t5/All-Apps-and-Add-ons/Setup-Secure-Encrypted-Syslog/m-p/391223
+  - https://github.com/splunk/splunk-connect-for-syslog/issues/509
+  - https://www.shi.com/product/40655750/Proofpoint-Remote-Syslog-Forwarding
+  - https://www.reddit.com/r/proofpoint/comments/1d3w32d
+  - https://www.reddit.com/r/proofpoint/comments/1cssecr
+incident_response:
+  suspend_user_api:
+    value: uncertain — The Cortex XSOAR “Proofpoint Protection Server v2” integration
+      exposes user CRUD (get/create/modify/delete) via REST on port 10000, but no
+      documentation indicates a specific “suspend/disable” toggle; only modify-user
+      with free-form fields/attributes is shown.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  invalidate_sessions_api:
+    value: uncertain — No vendor or integration documentation found describing an
+      API to invalidate active end-user or admin sessions in Proofpoint Protection
+      Server.
+    reference: no evidence
+  revoke_api_key_api:
+    value: No API key lifecycle documented for Protection Server; the XSOAR integration
+      authenticates with username/password to the PPS REST service (admins require
+      an API-enabled role), not API tokens/keys.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  user_toggle_api:
+    value: uncertain — User “modify” exists, but no explicit field is documented to
+      flip a user’s active/suspended state; available attributes are not detailed
+      publicly.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  user_status_api:
+    value: Partial capability — get-user returns a user profile (email, uid, groups,
+      safelist/blocklist, timestamps like lastsignon). This can confirm existence
+      and some state, but no explicit “active/suspended” status is documented.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  session_timeout_configuration:
+    value: uncertain — No public documentation found on configuring PPS web-session
+      timeouts or minimums.
+    reference: no evidence
+  known_automation_tools:
+  - value: Cortex XSOAR “Proofpoint Protection Server v2” integration — investigation
+      and response actions (smart search; quarantine message release, resubmit, forward,
+      move, delete, download; user get/create/modify/delete); requires API role and
+      runs over port 10000.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  - value: Cortex XSOAR “Proofpoint Protection Server” (deprecated) — earlier integration
+      showing response actions including release email, quarantine folders, download
+      email, manage sender allow/block lists.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/proofpoint-server-protection
+  - value: Splunk “Proofpoint Email Security Add-On using Remote Syslog” — normalizes
+      PPS filter logs to Splunk CIM Email data model for investigation in SIEM.
+    reference: https://splunkbase.splunk.com/app/3080
+  - value: Splunk “Proofpoint Email Security App for Splunk” — dashboards + requires
+      PPS remote syslog (PoD requires Remote Syslog Forwarding license) for ingestion;
+      useful for investigations and monitoring.
+    reference: https://apps.splunk.com/app/3727/
+  - value: LogRhythm SIEM Open Collector guidance — Proofpoint logs onboarding via
+      syslog virtualization template to create Proofpoint-specific log sources.
+    reference: https://docs.logrhythm.com/OCbeats/docs/configure-the-proofpoint-log-source-in-siem
+  documentation_links:
+  - https://xsoar.pan.dev/docs/reference/integrations/proofpoint-protection-server-v2
+  - https://xsoar.pan.dev/docs/reference/integrations/proofpoint-server-protection
+  - https://splunkbase.splunk.com/app/3080
+  - https://apps.splunk.com/app/3727/
+  - https://docs.logrhythm.com/OCbeats/docs/configure-the-proofpoint-log-source-in-siem
+  - https://www.reddit.com/r/proofpoint/comments/1cssecr
+  - https://www.reddit.com/r/proofpoint/comments/1jdq2f0

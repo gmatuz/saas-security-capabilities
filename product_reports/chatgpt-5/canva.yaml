@@ -1,0 +1,254 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 SSO supported with major IdPs; Microsoft Entra ID guide
+      shows IdP- and SP-initiated SSO plus Just-In-Time provisioning and notes Canva
+      SSO–enabled subscription required.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/canva-tutorial
+  sso_license_level_requirement:
+    value: Canva Enterprise (business) — Canva’s own SSO/SCIM security feature set
+      is called out as “exclusive to Canva Enterprise.”
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: yes — SCIM v2 at https://www.canva.com/_scim/v2; Canva provides SCIM for
+      provisioning users, groups, and teams; currently available to Canva Enterprise
+      for single teams (not for new Canva for Teams orgs).
+    reference: https://www.canva.dev/docs/scim/
+  scim_licensing_level_requirement:
+    value: Canva Enterprise (single-team orgs). Canva for Teams orgs must upgrade
+      to Enterprise to use the SCIM API; multi‑team orgs are not supported.
+    reference: https://www.canva.dev/docs/scim/
+  scim_authentication_mechanisms:
+    value: Bearer access token in Authorization header (long‑lived team‑scoped token).
+    reference: https://www.canva.dev/docs/scim/authentication/
+  scim_authentication_acquisition_steps:
+    value: 1) Log in as a Canva team admin/owner. 2) Open Account settings (gear).
+      3) Under your team, go to SSO & provisioning. 4) Under SCIM, toggle Enable SCIM
+      user provisioning (this revokes and regenerates a new token each time). 5) Copy
+      the generated access token and store securely.
+    reference: https://www.canva.dev/docs/scim/authentication/
+  user_management_api_support:
+    value: uncertain — No separate user lifecycle API publicly documented beyond SCIM;
+      Canva’s Connect APIs focus on assets/designs/export/users-me (not CRUD over
+      team users).
+    reference: https://www.canva.dev/docs/connect/
+  user_management_api_licensing_level:
+    value: uncertain — no evidence of a separate non‑SCIM user management API and
+      therefore no stated licensing tier for it.
+    reference: https://www.canva.dev/docs/connect/
+  user_management_api_authentication_mechanisms:
+    value: uncertain — no evidence of a separate non‑SCIM user lifecycle API; Connect
+      APIs authenticate via OAuth 2.0 (Authorization Code with PKCE) for content‑centric
+      endpoints.
+    reference: https://www.canva.dev/docs/connect/authentication/
+  user_management_api_authentication_acquisition_steps:
+    value: uncertain — no evidence of separate non‑SCIM user lifecycle API credential
+      steps; for Connect APIs, create an integration in the Developer Portal, enable
+      MFA, then obtain client ID/secret and perform OAuth 2.0 authorization to get
+      access/refresh tokens.
+    reference: https://www.canva.dev/docs/connect/creating-integrations/
+  seat_costs:
+  - license_level: Canva Teams (standard pricing)
+    active:
+      value: Billed per active seat; Canva states standard pricing of US$10/month
+        per person with a 3‑seat minimum.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: unclear — Billing follows a “Pay as You Grow” model; added seats are
+        billed on the next Billing Date and there are no refunds/credits for seats
+        already paid; removal before the Billing Date avoids charges.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain — no evidence of an “archived user” billing state documented.
+      reference: dubious claim, hallucinated reference
+  - license_level: Canva Enterprise (business)
+    active:
+      value: Custom pricing via sales; Enterprise plan highlighted for large orgs
+        (100+ employees or multiple teams).
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain — no public statement on billing treatment for suspended/disabled
+        users; relies on contract terms.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain — no evidence of an “archived user” billing state documented
+        for Enterprise.
+      reference: dubious claim, hallucinated reference
+  lifecycle_options:
+  - invited (email invite or invite link; Design School tutorials show add/remove/invite-link
+    management)
+  - active
+  - 'deprovisioned (SCIM: active=false deprovisions the user)'
+  - removed from team
+  rbac_support:
+    value: yes — In‑app permissions/roles exist (Admins, Brand Designers/Template
+      Designers, Members, etc.); Canva’s security page and business features emphasize
+      role assignment and permissions.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: partial — via SCIM User resource “role” attribute (e.g., Member, Admin,
+      Template-designer) with mappings; Groups and memberships managed via SCIM Group
+      endpoints.
+    reference: https://www.canva.dev/docs/scim/create-user/
+  documentation_links:
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/canva-tutorial
+  - https://support.google.com/a/answer/13053232
+  - https://www.canva.dev/docs/scim/
+  - https://www.canva.dev/docs/scim/authentication/
+  - https://www.canva.dev/docs/scim/users-groups-and-teams/
+  - https://www.canva.dev/docs/audit-logs/
+  - https://www.canva.dev/docs/audit-logs/setup/
+  - https://www.canva.com/for-teams/security-sso/
+  - https://www.canva.com/newsroom/news/pricing-promise/
+  - https://www.canva.com/policies/terms-of-use/
+  - https://www.canva.com/learn/canva-pro-vs-canva-enterprise/
+  - https://github.com/MicrosoftDocs/entra-docs/blob/main/docs/identity/saas-apps/canva-provisioning-tutorial.md
+  - https://www.okta.com/integrations/canva/
+  - https://www.canva.dev/docs/connect/
+  - https://www.canva.dev/docs/connect/authentication/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: 'Canva Enterprise audit logs include explicit authentication events:
+        LOGIN (with fields like login_type and optional oauth_platform; actor is USER
+        on success, ANONYMOUS on failure) and LOGOUT (with optional all_users and
+        all_sessions). Events include standard audit context (e.g., ip_address) per
+        the audit event schema.'
+      reference: https://www.canva.dev/docs/audit-logs/actions/users/
+    role_assignment:
+      value: Team role changes are captured via UPDATE_USER_IN_TEAM events, which
+        include new_role and old_role (MEMBER, DESIGNER, ADMIN, OWNER) and a reason
+        (e.g., SCIM, SAML_JIT_PROVISIONING, INVITATION_ACCEPTED). Adding/removing
+        users to teams and associated roles are also logged.
+      reference: https://www.canva.dev/docs/audit-logs/actions/teams/
+    api_call:
+      value: uncertain — No dedicated “API call” audit event is documented. The schema
+        supports actor types such as SYSTEM (e.g., SCIM IdP) and logs app-related
+        activities (install/permissions/connect/disconnect), but per-request Connect
+        API call logging is not described.
+      reference: https://www.canva.dev/docs/audit-logs/audit-events/
+    data_export:
+      value: Bulk user/team data export activities are logged, including EXPORT_BULK_DOWNLOAD
+        when a user exports personal data/uploads/designs and VIEW_BULK_DOWNLOAD_LINKS
+        when viewing the generated download links. Additionally, audit log UI exports
+        are tracked via EXPORT_AUDIT_LOGS.
+      reference: https://www.canva.dev/docs/audit-logs/actions/exports/
+    configuration_change:
+      value: Changes to audit log delivery configuration are logged via UPDATE_AUDIT_LOGS_SETTINGS
+        with changed_fields (REGION, S3_BUCKET_NAME, S3_KEY_PREFIX, ROLE_ARN) and
+        old/new values. Other org/team settings changes (e.g., permissions) are also
+        covered in separate action categories.
+      reference: https://www.canva.dev/docs/audit-logs/actions/audit-logs/
+    user_account_creation:
+      value: User provisioning is logged via CREATE_USER (includes identity details,
+        SAML/OAuth accounts, MFA flags, and the managing entity). UPDATE_USER and
+        DELETE/UNDELETE_USER are also captured; UPDATE_USER can be associated with
+        login flows in some cases.
+      reference: https://www.canva.dev/docs/audit-logs/actions/users/
+    security_policy_change:
+      value: Team feature permissions and organization-level security/controls changes
+        are logged. UPDATE_TEAM_PERMISSION records changes to access for features
+        (e.g., SHARE_DESIGNS_EXTERNALLY_VIA_LINKS, CANVA_AI), and UPDATE_ORGANIZATION_SETTING
+        records toggles such as PERSONAL_TEAM_ARCHIVING_ENABLED.
+      reference: https://www.canva.dev/docs/audit-logs/actions/permissions-and-settings/
+  event_logs_licensing_level:
+    value: Audit logs are available only to organizations using Canva Enterprise;
+      logging begins once the org upgrades and brands join the Enterprise account.
+    reference: https://www.canva.dev/docs/audit-logs/
+  monitoring_products:
+  - value: Elastic integration for Canva audit logs (beta) collects logs from the
+      customer’s AWS S3 via Elastic Agent using either S3 polling or S3+SQS modes;
+      supports Kibana 8.16.5+ and Serverless projects.
+    reference: https://www.elastic.co/docs/reference/integrations/canva/
+  ingestion_methods:
+  - value: Native delivery to a customer-owned AWS S3 bucket as gzipped JSONL files;
+      files arrive approximately every minute and are stored under orgId/yyyy/MM/dd/HH;
+      Canva requires PutObject via an IAM role.
+    reference: https://www.canva.dev/docs/audit-logs/setup/
+  - value: SIEM collection via Elastic Agent using AWS S3 polling or S3+SQS notification
+      modes to ingest Canva audit logs from S3.
+    reference: https://www.elastic.co/docs/reference/integrations/canva/
+  - value: Manual export/viewing of audit logs via the Canva admin UI is itself logged
+      (EXPORT_AUDIT_LOGS, VIEW_AUDIT_LOGS), indicating an admin-driven export path
+      in addition to S3 delivery.
+    reference: https://www.canva.dev/docs/audit-logs/actions/audit-logs/
+  log_export_options:
+    tools_connectors:
+      value: Export/delivery is documented as AWS S3 only (customer-owned bucket)
+        with IAM Role-based access; content is gzipped JSONL written every minute
+        into hourly prefixes. Admin UI also supports viewing/export actions which
+        are recorded in audit logs.
+      reference: https://www.canva.dev/docs/audit-logs/setup/
+  documentation_links:
+  - https://www.canva.dev/docs/audit-logs/
+  - https://www.canva.dev/docs/audit-logs/setup/
+  - https://www.canva.dev/docs/audit-logs/audit-events/
+  - https://www.canva.dev/docs/audit-logs/actions/users/
+  - https://www.canva.dev/docs/audit-logs/actions/teams/
+  - https://www.canva.dev/docs/audit-logs/actions/permissions-and-settings/
+  - https://www.canva.dev/docs/audit-logs/actions/exports/
+  - https://www.canva.dev/docs/audit-logs/actions/designs/
+  - https://www.canva.dev/docs/audit-logs/actions/audit-logs/
+  - https://www.elastic.co/docs/reference/integrations/canva/
+  - https://www.elastic.co/guide/en/integrations/current/canva.html
+incident_response:
+  suspend_user_api:
+    value: Canva provides a SCIM 2.0 API for user lifecycle; you can deprovision/suspend
+      a user by PATCHing the SCIM user and setting the active attribute to false.
+    reference: https://www.canva.dev/docs/scim/update-individual-attributes-user/
+  invalidate_sessions_api:
+    value: uncertain — No public admin API documented to invalidate another user’s
+      sessions. End users can use the UI to log out current or all sessions (audit
+      logs record LOGOUT with all_sessions true), so automation would need to rely
+      on UI policy plus deprovisioning via SCIM as a workaround.
+    reference: https://www.canva.dev/docs/audit-logs/actions/users/
+  revoke_api_key_api:
+    value: Canva Connect APIs expose an OAuth token revocation endpoint to programmatically
+      revoke access or refresh tokens (POST https://api.canva.com/rest/v1/oauth/revoke).
+      This targets OAuth tokens for Canva integrations; no evidence of user personal
+      access tokens documented.
+    reference: https://www.canva.dev/docs/connect/api-reference/authentication/revoke-token/
+  user_toggle_api:
+    value: You can programmatically toggle a user’s status via SCIM (active true/false).
+      Setting active to false deprovisions the user; documentation does not state
+      whether existing sessions are immediately terminated.
+    reference: https://www.canva.dev/docs/scim/update-individual-attributes-user/
+  user_status_api:
+    value: SCIM Get User and List Users return the active boolean indicating whether
+      a user can log in (active true) or is deprovisioned/suspended (active false).
+    reference: https://www.canva.dev/docs/scim/get-user/
+  session_timeout_configuration:
+    value: uncertain — No official documentation found describing administrator-configurable
+      session timeout values or minimums for Canva web sessions or enterprise controls.
+    reference: no evidence
+  known_automation_tools:
+  - value: Elastic Canva integration (SIEM) — ships an ingest integration that collects
+      Canva Enterprise Audit Logs from your AWS S3 bucket (polling or SQS modes) for
+      detection and monitoring.
+    reference: https://www.elastic.co/guide/en/integrations/current/canva.html
+  - value: Canva Audit Logs to AWS S3 — native export pipeline for Canva Enterprise;
+      configure Canva to write JSONL audit events to your organization-managed S3
+      bucket every minute (can be chained to SIEM/SOAR via S3/SQS).
+    reference: https://www.canva.dev/docs/audit-logs/setup/
+  - value: Okta SAML + SCIM provisioning for Canva — identity-driven automation to
+      onboard/offboard users and groups and enforce SSO; Okta integration advertises
+      SAML authentication and SCIM provisioning for Canva.
+    reference: https://www.okta.com/integrations/canva/
+  - value: Elastic integration (open-source tracker) — confirms Canva Audit Logs integration
+      availability and Enterprise licensing requirement; documents S3-based architecture
+      for ingestion.
+    reference: https://github.com/elastic/integrations/issues/10441
+  - value: Canva Connect API token revocation — automation to invalidate OAuth access/refresh
+      tokens associated with Canva integrations (backend-only call with client credentials).
+    reference: https://www.canva.dev/docs/connect/api-reference/authentication/revoke-token/
+  documentation_links:
+  - https://www.canva.dev/docs/scim/
+  - https://www.canva.dev/docs/scim/authentication/
+  - https://www.canva.dev/docs/scim/create-user/
+  - https://www.canva.dev/docs/scim/get-user/
+  - https://www.canva.dev/docs/scim/update-individual-attributes-user/
+  - https://www.canva.dev/docs/audit-logs/
+  - https://www.canva.dev/docs/audit-logs/setup/
+  - https://www.canva.dev/docs/audit-logs/audit-events/
+  - https://www.canva.dev/docs/audit-logs/actions/users/
+  - https://www.canva.dev/docs/connect/api-reference/authentication/revoke-token/
+  - https://www.elastic.co/guide/en/integrations/current/canva.html

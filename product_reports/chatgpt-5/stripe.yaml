@@ -1,0 +1,268 @@
+identity_and_access:
+  sso_support:
+    value: yes - SAML 2.0 SSO to the Stripe Dashboard; guides for Okta, Entra ID,
+      Google Workspace; supports IdP-initiated and SP-initiated flows; granular role
+      assignment via SAML attributes
+    reference: https://docs.stripe.com/get-started/account/sso
+  sso_license_level_requirement:
+    value: unclear - documentation describes setup and features but does not specify
+      plan/licensing requirements
+    reference: https://docs.stripe.com/get-started/account/sso
+  scim_support:
+    value: yes - SCIM 2.0 user provisioning (no groups) in public preview; supports
+      create, read, update, list, delete of Users; requires SSO enabled; roles still
+      assigned via SAML
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  scim_licensing_level_requirement:
+    value: unclear - SCIM is labeled public preview; no licensing level called out
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  scim_authentication_mechanisms:
+    value: Bearer token via HTTP header using a Stripe SCIM API key (SCIM connector
+      base URL https://access.stripe.com/scim/v2)
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  scim_authentication_acquisition_steps:
+    value: '1) In Stripe Dashboard: Settings > Team and security > SCIM provisioning
+      > Enable; 2) Copy SCIM endpoint URL and SCIM API key; 3) In IdP (e.g., Okta/Entra):
+      configure base URL https://access.stripe.com/scim/v2 and use the SCIM API key
+      as bearer token'
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  user_management_api_support:
+    value: unclear - documentation shows user lifecycle managed via Dashboard UI,
+      SAML JIT, and SCIM; no public REST API for dashboard user CRUD is documented
+    reference: https://docs.stripe.com/account/teams
+  user_management_api_licensing_level:
+    value: unclear - no separate user management REST API documented; Dashboard and
+      SCIM documentation do not list licensing tiers
+    reference: https://docs.stripe.com/get-started/account/orgs/team
+  user_management_api_authentication_mechanisms:
+    value: unclear - no public non‑SCIM user management API is documented
+    reference: https://docs.stripe.com/account/teams
+  user_management_api_authentication_acquisition_steps:
+    value: unclear - no public non‑SCIM user management API credential steps are documented
+    reference: https://docs.stripe.com/get-started/account/orgs/team
+  seat_costs:
+  - license_level: N/A or pay‑as‑you‑go pricing (no seat-based pricing called out
+      for Dashboard users)
+    active:
+      value: unclear - Stripe pricing page does not describe per-seat charges for
+        Dashboard users
+      reference: https://stripe.com/pricing
+    suspended_disabled:
+      value: unclear - no guidance on costs for suspended/disabled users
+      reference: https://stripe.com/pricing
+    archived:
+      value: unclear - no guidance on costs for archived users
+      reference: https://stripe.com/pricing
+  lifecycle_options:
+  - invited (invites expire after 10 days)
+  - active (accepted invite / SSO login)
+  - removed (manually removed via Team settings)
+  - deprovisioned (via SCIM; access immediately revoked and logged out)
+  - access revoked via SSO enforcement (Required mode blocks non‑IdP auth)
+  rbac_support:
+    value: 'yes - predefined Dashboard roles (for example: Administrator, IAM Admin,
+      Developer, Analyst, View only, Support roles, Super Administrator, and others)
+      at account and organization levels'
+    reference: https://docs.stripe.com/get-started/account/teams/roles
+  rbac_api_assignment:
+    value: partial - roles are assigned via SAML attribute statements from the IdP
+      (for example, Okta/Entra) using attributes like Stripe-Role-<account-id> or
+      Stripe-Role-<org-id>; no Stripe REST API for role assignment is documented
+    reference: https://docs.stripe.com/get-started/account/sso/okta
+  documentation_links:
+  - https://docs.stripe.com/get-started/account/sso
+  - https://docs.stripe.com/get-started/account/sso/okta
+  - https://docs.stripe.com/get-started/account/sso/entra-id
+  - https://docs.stripe.com/get-started/account/sso/google-workspace
+  - https://docs.stripe.com/get-started/account/orgs/sso
+  - https://docs.stripe.com/get-started/account/orgs/sso-consolidation
+  - https://docs.stripe.com/get-started/account/sso/scim
+  - https://docs.stripe.com/get-started/account/orgs/team
+  - https://docs.stripe.com/account/teams
+  - https://docs.stripe.com/get-started/account/teams/roles
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Stripe’s Dashboard security history provides audit logs of sensitive
+        account activity such as user logins, including device/IP consistency and
+        failed attempts; historical information can be exported from these logs.
+      reference: https://docs.stripe.com/security?locale=en-GB
+    role_assignment:
+      value: uncertain - Stripe documents team role management and notes that security
+        history logs team member account activity for 180 days, but it does not explicitly
+        enumerate whether role assignment changes are captured as discrete audit events.
+      reference: https://docs.stripe.com/account/teams
+    api_call:
+      value: Stripe records API request logs for calls made via the API, Dashboard,
+        or CLI; logs are viewable in the Developers Dashboard with filters (by source,
+        endpoint, status, etc.). Support notes these request logs are accessible for
+        the last 15 months.
+      reference: https://support.stripe.com/questions/stripe-request-log-retention-period?locale=en-GB
+    data_export:
+      value: uncertain - No specific documentation found confirming that actions to
+        export/download data are themselves captured in security audit logs.
+      reference: no evidence
+    configuration_change:
+      value: Security history audit logs include important account changes; Stripe
+        calls out changes like updating bank account information as logged activity.
+      reference: https://docs.stripe.com/security?locale=en-GB
+    user_account_creation:
+      value: Team access is managed under Team settings; Stripe states security history
+        logs team member account activity for the past 180 days. Inviting/adding members
+        and editing roles are documented workflows, but specific audit event types
+        aren’t listed.
+      reference: https://docs.stripe.com/account/teams
+    security_policy_change:
+      value: uncertain - Stripe supports enforcing two‑step authentication (2FA) for
+        all team members; documentation doesn’t state whether enabling/disabling this
+        policy is captured in audit logs.
+      reference: https://support.stripe.com/questions/require-two-step-authentication-for-your-team
+  event_logs_licensing_level:
+    value: uncertain - No Stripe documentation found that requires a particular plan
+      or paid add‑on to view/export security history audit logs.
+    reference: no evidence
+  monitoring_products:
+  - value: Sumo Logic Stripe app ingests Stripe events via webhooks into Sumo Logic
+      and provides prebuilt dashboards for Stripe activity.
+    reference: https://help.sumologic.com/docs/integrations/webhooks/stripe/
+  - value: CloudQuery integration to export data from Stripe APIs and load into Splunk,
+      enabling centralized analysis alongside other sources.
+    reference: https://hub.cloudquery.io/export-data/stripe/splunk
+  - value: Open-source AWS CDK stack to ingest Stripe webhook events into SQS/EventBridge
+      for downstream routing to SIEMs or data pipelines.
+    reference: https://github.com/IFTTT/stripe-webhook-event-ingester
+  - value: Stripe Event Destinations API (v2) to programmatically set webhook or Amazon
+      EventBridge destinations for forwarding Stripe events into monitoring pipelines.
+    reference: https://docs.stripe.com/api/v2/event-destinations
+  ingestion_methods:
+  - value: 'Webhooks: configure event destinations in Workbench to push Stripe events
+      to HTTPS endpoints (select event types and manage deliveries).'
+    reference: https://docs.stripe.com/workbench/event-destinations
+  - value: 'Amazon EventBridge: use Event Destinations (API v2) to send Stripe events
+      directly to an AWS account for downstream routing/processing.'
+    reference: https://docs.stripe.com/api/v2/event-destinations
+  - value: 'Events API: programmatically list events from your account using the /v1/events
+      endpoint to pull historical event records.'
+    reference: https://docs.stripe.com/api/events/list
+  - value: 'Developers Dashboard request logs: view and filter API request logs for
+      calls made via API/Dashboard/CLI to support monitoring and troubleshooting.'
+    reference: https://docs.stripe.com/development/dashboard/request-logs
+  - value: 'Stripe CLI streaming: `stripe logs tail` streams API request logs in real
+      time for external collection or forwarding.'
+    reference: https://stripe.com/blog/stripe-cli
+  - value: 'Security history export: Stripe states you can export historical information
+      from audit logs in the Dashboard.'
+    reference: https://docs.stripe.com/security?locale=en-GB
+  log_export_options:
+    tools_connectors:
+      value: 'Export/forward options include: Dashboard export of security history;
+        Event Destinations to HTTPS or Amazon EventBridge (push); Events API to list
+        events (pull). Business data exports are also available via Stripe’s data
+        tools (e.g., Data Pipeline, Reports) but these are for transactional/financial
+        data rather than security audit logs.'
+      reference: https://docs.stripe.com/event-destinations
+  documentation_links:
+  - https://docs.stripe.com/security?locale=en-GB
+  - https://docs.stripe.com/development/dashboard/request-logs
+  - https://support.stripe.com/questions/stripe-request-log-retention-period?locale=en-GB
+  - https://docs.stripe.com/event-destinations
+  - https://docs.stripe.com/api/v2/event-destinations
+  - https://docs.stripe.com/development/dashboard/events
+  - https://docs.stripe.com/api/events/types
+  - https://docs.stripe.com/account/teams
+  - https://docs.stripe.com/get-started/account/orgs/team
+  - https://help.sumologic.com/docs/integrations/webhooks/stripe/
+  - https://hub.cloudquery.io/export-data/stripe/splunk
+  - https://stripe.com/blog/stripe-cli
+incident_response:
+  suspend_user_api:
+    value: Yes, via SCIM. Stripe documents a SCIM 2.0 endpoint that allows programmatic
+      deprovisioning (DELETE /scim/v2/Users/<user_id>) and updates (PATCH/PUT) of
+      team members; deprovisioning immediately revokes access and removes the user
+      from the Team list. The guide notes “Deprovision a user from Stripe (DELETE
+      /scim/Users/<user_id>)” and that deprovisioned users are automatically logged
+      out of the Dashboard. Public preview. (See “Set up automatic user provisioning
+      with SCIM”.)
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  invalidate_sessions_api:
+    value: Yes, via SCIM deprovisioning. Stripe’s SCIM docs state that when a user
+      is deprovisioned their access is immediately revoked and they’re automatically
+      logged out of the Dashboard, which effectively invalidates active sessions.
+      (See SCIM provisioning guide.)
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  revoke_api_key_api:
+    value: 'Standard secret/restricted API keys: No public REST endpoint is documented
+      to rotate/revoke secret API keys; Stripe instructs rolling (revoking and replacing)
+      keys in the Dashboard. (See Stripe Support: “How do I roll/change/update my
+      Stripe API key?”.) Keys best‑practices further recommend rolling keys promptly
+      after a leak and using restricted/IP‑restricted keys. SCIM-specific API keys
+      (used for IdP provisioning) are rotated in the Dashboard under Organizations
+      API keys per the SCIM guide. Community reports also note the absence of an API
+      to create keys. (Support article; Keys best practices; SCIM doc; community Q&A.)'
+    reference: https://support.stripe.com/questions/how-do-i-roll-change-update-my-stripe-api-key
+  user_toggle_api:
+    value: 'Programmatic toggle is available via SCIM: update a user or delete (deprovision)
+      and later reprovision to restore access (POST/PUT/PATCH /scim/v2/Users). Deprovisioning
+      removes access immediately; reprovisioning restores it on next sign‑in with
+      SSO. (See SCIM provisioning guide.) For manual UI action, the Team settings
+      allow removing a member which immediately revokes access. (See Manage access
+      to your organization.)'
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  user_status_api:
+    value: 'Yes, via SCIM read endpoints: GET /scim/v2/Users and GET /scim/v2/Users/<user_id>
+      to retrieve/list provisioned users managed by your IdP. (See SCIM provisioning
+      guide capabilities.)'
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  session_timeout_configuration:
+    value: Uncertain. Stripe’s public docs expose a “Stay signed in” option that extends
+      Dashboard session time, but do not document configurable session timeout values
+      or minimums for Dashboard sessions. (See “Stay signed in” support article.)
+    reference: https://support.stripe.com/questions/stay-signed-in-checkbox-on-the-sign-in-page
+  known_automation_tools:
+  - value: 'SCIM provisioning with Okta: Use Stripe’s SCIM endpoint to automatically
+      provision/deprovision team members from Okta; includes step‑by‑step Okta configuration
+      and confirms immediate logout on deprovision. Useful for incident response playbooks
+      (disable compromised user).'
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  - value: 'SCIM provisioning with Microsoft Entra ID (Azure AD): Stripe documents
+      Entra configuration (tenant URL https://access.stripe.com/scim/v2 and Secret
+      token = SCIM API key). Deprovisioning in Entra triggers immediate removal/log
+      out in Stripe.'
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+  - value: 'Data Pipeline → Amazon S3: No‑code export of all Stripe data to your S3
+      bucket every ~3 hours as Parquet; from S3 you can route to a SIEM for investigation/forensics.
+      (Export to AWS S3 guide.)'
+    reference: https://docs.stripe.com/stripe-data/access-data-in-warehouse/cloud-storage/aws-s3-storage
+  - value: 'Stripe CLI: Authenticates with restricted keys, lets responders inspect
+      API request logs and test webhooks locally (useful for triage and validation
+      of detection/alerting playbooks).'
+    reference: https://docs.stripe.com/stripe-cli/keys
+  - value: 'Official Python SDK (stripe-python): Programmatic client for the Stripe
+      API to build bespoke IR scripts (e.g., enumerate webhooks, rotate restricted
+      keys, reconcile activity) as part of automation.'
+    reference: https://github.com/stripe/stripe-python
+  - value: 'Official Node.js SDK (stripe-node): Node client for automating Stripe
+      investigations and response actions within SOAR/custom runbooks.'
+    reference: https://github.com/stripe/stripe-node
+  - value: 'Workflows (no‑code): Dashboard automation to react to Stripe events (e.g.,
+      Radar early‑fraud warnings) and take preconfigured actions such as refunds or
+      alerting a team member for investigation.'
+    reference: https://docs.stripe.com/workflows
+  - value: 'Security history (audit logs) export: Stripe documents viewing and exporting
+      organization Security history (hundreds of action types, including User security/Team/API).
+      Exports can be ingested into SIEM for investigations.'
+    reference: https://docs.stripe.com/get-started/account/orgs/team
+  documentation_links:
+  - https://docs.stripe.com/get-started/account/sso/scim
+  - https://docs.stripe.com/get-started/account/sso
+  - https://docs.stripe.com/get-started/account/orgs/team
+  - https://docs.stripe.com/get-started/account/teams/roles
+  - https://docs.stripe.com/development/dashboard/request-logs
+  - https://docs.stripe.com/security?locale=en-GB
+  - https://docs.stripe.com/keys-best-practices
+  - https://support.stripe.com/questions/how-do-i-roll-change-update-my-stripe-api-key
+  - https://docs.stripe.com/sandboxes/dashboard/manage-access
+  - https://docs.stripe.com/stripe-data/access-data-in-warehouse
+  - https://docs.stripe.com/stripe-data/access-data-in-warehouse/cloud-storage/aws-s3-storage
+  - https://docs.stripe.com/workflows/use-cases
+  - https://support.stripe.com/questions/stay-signed-in-checkbox-on-the-sign-in-page

@@ -1,0 +1,320 @@
+identity_and_access:
+  sso_support:
+    value: yes — supports SAML 2.0 SSO with common IdPs (Microsoft Entra ID/Azure
+      AD, ADFS, Okta, Shibboleth). Zoom documents SAML-based SSO configuration, including
+      signed/encrypted assertions and client session controls; no Kerberos documented;
+      OAuth is used for API access, not end-user SSO.
+    reference: https://library.zoom.com/admin-corner/account-and-endpoint-management/sso-field-guide
+  sso_license_level_requirement:
+    value: Business, Education, Enterprise, or API plan required to obtain a Vanity
+      URL (prerequisite for SSO).
+    reference: https://zoomusdev.service-now.com/hc/en/article?id=zm_kb&sysparm_article=KB0061540
+  scim_support:
+    value: 'yes — SCIM 2.0 for Users and Groups via /scim2; requires SSO enabled and
+      approved Vanity URL; headers Accept: application/scim+json.'
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/mdiq1ve/zoom-scim2-api
+  scim_licensing_level_requirement:
+    value: Business or Education account with approved Vanity URL and SSO enabled.
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/mdiq1ve/zoom-scim2-api
+  scim_authentication_mechanisms:
+    value: OAuth 2.0 (SCIM2 scope) — bearer token flow via OAuth or Server-to-Server
+      OAuth; Microsoft Entra guidance notes legacy Bearer Authentication is no longer
+      supported.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/zoom-provisioning-tutorial
+  scim_authentication_acquisition_steps:
+    value: '1) In Zoom App Marketplace, create an OAuth or Server-to-Server OAuth
+      app. 2) Add the SCIM2 scope. 3) Generate an OAuth access token for the app.
+      4) Call SCIM endpoints (e.g., https://api.zoom.us/scim2/Users) with Authorization:
+      Bearer <token> and Accept: application/scim+json.'
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/mdiq1ve/zoom-scim2-api
+  user_management_api_support:
+    value: yes — non‑SCIM user management APIs available (GraphQL and REST). Examples
+      include createUser and updateUserStatus (deactivate/reactivate).
+    reference: https://developers.zoom.us/graphql-ref/index.html
+  user_management_api_licensing_level:
+    value: unclear — Zoom does not publish one minimum plan for all user‑management
+      APIs; several reporting/dashboard APIs require Business+ while user creation/status
+      APIs do not list plan prerequisites.
+    reference: https://devforum.zoom.us/t/rest-api-access-rights-for-business-plan/76670
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 — Server‑to‑Server OAuth (account credentials grant) and 3‑legged
+      OAuth; JWT deprecated. Token acquisition via OAuth token endpoint.
+    reference: https://devforum.zoom.us/t/i-made-a-server-to-server-oauth-application-to-use-a-webhook-and-api-how-to-create-jwt-for-the-api/85643
+  user_management_api_authentication_acquisition_steps:
+    value: '1) In Zoom App Marketplace, create a Server‑to‑Server OAuth app. 2) Note
+      Account ID, Client ID, Client Secret. 3) Request token: POST https://zoom.us/oauth/token?grant_type=account_credentials&account_id=<ACCOUNT_ID>
+      with Basic auth (base64(ClientID:ClientSecret)). 4) Use returned access_token
+      as Bearer for API calls.'
+    reference: https://devforum.zoom.us/t/i-made-a-server-to-server-oauth-application-to-use-a-webhook-and-api-how-to-create-jwt-for-the-api/85643
+  seat_costs:
+  - license_level: Zoom Workplace Pro (1–9 users)
+    active:
+      value: Paid per active licensed user; listed at $13.32/month/user billed annually
+        or $15.99 billed monthly (US site).
+      reference: https://www.zoom.com/en/products/collaboration-tools/zoom-workplace-pro-annual/
+    suspended_disabled:
+      value: Deactivating a user removes all licenses and blocks login (license can
+        be reassigned; billing is by total purchased licenses).
+      reference: https://developers.zoom.us/graphql-ref/index.html
+    archived:
+      value: uncertain — no documented 'archived user' state affecting seat billing
+        in cited docs.
+      reference: https://www.zoom.com/en/small-business/
+  - license_level: Zoom Workplace Business (10–250 users)
+    active:
+      value: Priced per licensed user; plan page indicates SSO and managed domains
+        included; exact per‑seat pricing varies and may be promotional.
+      reference: https://www.zoom.com/en/small-business/
+    suspended_disabled:
+      value: Deactivating a user removes assigned licenses and prevents login; freed
+        licenses may be reassigned.
+      reference: https://developers.zoom.us/graphql-ref/index.html
+    archived:
+      value: uncertain — no documented 'archived user' state affecting seat billing
+        in cited docs.
+      reference: https://www.zoom.com/en/small-business/
+  lifecycle_options:
+  - pending (invited but not activated)
+  - active
+  - inactive/deactivated (reactivatable)
+  - deleted/disassociated
+  rbac_support:
+    value: yes — roles (Owner/Admin/Member) and custom roles; role management available
+      in admin UI and specialized services (e.g., Quality Management has its own role
+      sets).
+    reference: https://preview.zoom.com/en/industry/healthcare/resources/deploying-zoom-healthcare/
+  rbac_api_assignment:
+    value: yes — REST APIs for roles exist (list/create/update roles; assign/unassign
+      members to roles).
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/t5d5y8s/list-roles
+  documentation_links:
+  - https://library.zoom.com/admin-corner/account-and-endpoint-management/sso-field-guide
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/zoom-tutorial
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/zoom-provisioning-tutorial
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/mdiq1ve/zoom-scim2-api
+  - https://zoomusdev.service-now.com/hc/en/article?id=zm_kb&sysparm_article=KB0061540
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0068315
+  - https://developers.zoom.us/graphql-ref/index.html
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/iiizunv/update-user-status
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064102
+  - https://support.zoom.com/hc/de/article?id=zm_kb&sysparm_article=KB0062967
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060781
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064121
+  - https://support.zoom.com/hc/de/article?id=zm_kb&sysparm_article=KB0064122
+  - https://support.zoom.com/hc/zt/article?id=zm_kb&sysparm_article=KB0062701
+  - https://community.zoom.com/t5/Zoom-App-Marketplace/Errors-occurring-every-day-in-the-Azure-Provisioning-Logs/td-p/124818
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0058988
+  - https://www.okta.com/integrations/zoom/
+  - https://github.com/prschmid/zoomus
+  - https://github.com/crista/zoomapi
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Sign-in/sign-out activity logs are available via the Reports API and
+        include fields such as client_type, email, ip_address, time, type (Sign in/Sign
+        out), and version. The API requires report:read:admin (or granular report:read:user_activities:admin)
+        scope and supports a one-month date range per request.
+      reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/kqar749/get-sign-in-sign-out-activity-report
+    role_assignment:
+      value: Role assignments and related admin actions are captured in Operation
+        Logs. Retrieve via the Reports API with optional category_type filtering (e.g.,
+        role). Returned fields include time, operator, category_type, action, and
+        operation_detail. One-month date range per request.
+      reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/7okmfpb/get-operation-logs-report
+    api_call:
+      value: API call visibility exists in the Marketplace “API Call Logs,” which
+        display up to 100 calls from the last 7 days for developer troubleshooting;
+        no security-audit-grade API for comprehensive API-call logging is documented.
+      reference: https://medium.com/zoom-developer-blog/transitioning-your-developer-apps-to-zooms-marketplace-6a8de3386716
+    data_export:
+      value: uncertain — forum guidance indicates no API endpoint to retrieve cloud
+        recording view/download counts, and no explicit audit log of data export actions
+        is documented via the Reports API.
+      reference: https://devforum.zoom.us/t/get-details-of-recordings-views-and-downloads/30670
+    configuration_change:
+      value: Configuration and administrative changes (e.g., account or user_settings
+        updates) are recorded in Operation Logs. Use the Reports API with category_type
+        filters (account, user_settings, billing, role, recording, etc.) to retrieve
+        change events with action and operation_detail fields.
+      reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/7okmfpb/get-operation-logs-report
+    user_account_creation:
+      value: Creation of users is audited in Operation Logs (category_type user).
+        Retrieve via the Reports API; events include operator, action (e.g., user
+        added), and operation_detail.
+      reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/7okmfpb/get-operation-logs-report
+    security_policy_change:
+      value: Security-relevant policy changes (for example, changing account settings
+        or SSO-related admin actions) are recorded in audit/operation logs and can
+        be ingested; Datadog’s integration explicitly consumes Operation Logs for
+        such changes.
+      reference: https://docs.datadoghq.com/integrations/zoom_activity_logs/
+  event_logs_licensing_level:
+    value: Access to Admin Activity Logs and related user activity reports requires
+      a Pro, Business, Education, or Enterprise plan and the account owner or a role
+      with “user activities reports” permission; the report duration is limited to
+      one month per query.
+    reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251
+  monitoring_products:
+  - value: Splunk Connect for Zoom receives Zoom Event Subscriptions (webhooks) and
+      ingests them into Splunk (sourcetype zoom:webhook).
+    reference: https://help.splunk.com/en/data-management/integrate-data-with-add-ons/splunk-connect-for-zoom/1.2/overview/splunk-connect-for-zoom
+  - value: Microsoft Sentinel “Zoom Reports” connector pulls Zoom Reports via REST
+      API using Azure Functions and parses into Zoom_CL for analytics.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/zoom-reports
+  - value: Datadog Zoom Activity Logs integration collects Sign-in/Sign-out Activities
+      and Operation Logs using report:read:admin scope for Cloud SIEM detection pipelines.
+    reference: https://docs.datadoghq.com/integrations/zoom_activity_logs/
+  - value: Sumo Logic Zoom Source ingests Zoom webhooks (Webhook Only app) to collect
+      event data for dashboards and alerts.
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/webhook-sources/zoom/
+  - value: Panther provides a Zoom.Operation schema and native parser for Operation
+      Logs to audit actions such as adding users, changing settings, and deleting
+      recordings.
+    reference: https://docs.panther.com/data-onboarding/supported-logs/zoom
+  - value: Coralogix Zoom integration ingests Sign-In/Sign-Out Activity Logs and Operation
+      Logs using OAuth scopes report:read:user_activities:admin and report:read:operation_logs:admin.
+    reference: https://coralogix.com/docs/integrations/pull/zoom/
+  - value: Site24x7 AppLogs monitors Zoom by subscribing to Zoom Webhook events (meetings,
+      webinars, recording, users, account) and ingesting them via HTTPS endpoint.
+    reference: https://www.site24x7.cn/help/log-management/zoom-monitoring.html
+  - value: Python client library “py-zoom-api” includes Reports API support for report_operation_logs
+      and report_sign_in_sign_out_activities methods (useful for security log ingestion).
+    reference: https://github.com/rootalley/py-zoom-api
+  - value: Zoom CLI (@zoom/cli) includes commands to retrieve reports, including reports:activity
+      and reports:operation-logs, suitable for scripted collection.
+    reference: https://www.npmjs.com/package/%40zoom/cli?activeTab=dependents
+  ingestion_methods:
+  - value: REST Reports API for Sign-in/Sign-out Activity (GET /report/activities)
+      with monthly range and pagination; returns per-login metadata fields suitable
+      for SIEM ingestion.
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/kqar749/get-sign-in-sign-out-activity-report
+  - value: REST Reports API for Operation Logs (GET /report/operationlogs) supports
+      category_type filtering (e.g., user, account, role, recording) and returns operator/action/details
+      fields.
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/7okmfpb/get-operation-logs-report
+  - value: GraphQL API provides operationLogsReports and ActivityReport queries to
+      retrieve the same audit datasets with pagination (after/first) and from/to parameters.
+    reference: https://developers.zoom.us/graphql-ref/index.html
+  - value: Event Subscriptions (webhooks) deliver real-time Zoom events via HTTP POST
+      to subscriber endpoints; used by SIEM collectors and integrations.
+    reference: dubious claim, hallucinated reference
+  - value: CSV export of Admin Activity Logs via the Zoom web portal UI enables manual
+      export of audited actions within a 1‑month window.
+    reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251
+  - value: AWS AppFabric can pull Zoom audit and login/logout logs via Server-to-Server
+      OAuth and normalize to OCSF for delivery to S3 or Firehose.
+    reference: https://docs.aws.amazon.com/zh_cn/appfabric/latest/adminguide/zoom.html
+  - value: Splunk Connect for Zoom listens for Zoom webhook events on a Splunk Heavy
+      Forwarder (TLS) and indexes them (sourcetype zoom:webhook).
+    reference: https://help.splunk.com/en/data-management/integrate-data-with-add-ons/splunk-connect-for-zoom/1.2/install-and-configure/install-splunk-connect-for-zoom-on-a-distributed-splunk-enterprise-deployment
+  log_export_options:
+    tools_connectors:
+      value: Zoom exposes audit datasets through APIs (REST Reports endpoints and
+        GraphQL queries) for programmatic export; additionally, Admin Activity Logs
+        can be exported as CSV from the portal; no evidence of FTP-based exports is
+        documented.
+      reference: https://developers.zoom.us/graphql-ref/index.html
+  documentation_links:
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067251
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/kqar749/get-sign-in-sign-out-activity-report
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/7okmfpb/get-operation-logs-report
+  - https://developers.zoom.us/graphql-ref/index.html
+  - https://help.splunk.com/en/data-management/integrate-data-with-add-ons/splunk-connect-for-zoom/1.2/overview/splunk-connect-for-zoom
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/zoom-reports
+  - https://docs.datadoghq.com/integrations/zoom_activity_logs/
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/webhook-sources/zoom/
+  - https://docs.panther.com/data-onboarding/supported-logs/zoom
+  - https://coralogix.com/docs/integrations/pull/zoom/
+  - https://zoomdevelopersupport.zendesk.com/hc/en-us/articles/360057236091-How-to-add-Webhooks-to-my-app
+  - https://docs.aws.amazon.com/zh_cn/appfabric/latest/adminguide/zoom.html
+  - https://devforum.zoom.us/t/sign-in-sign-out-report-api-not-adhering-to-time-in-from-to-parameters/21202
+  - https://devforum.zoom.us/t/sign-in-sign-out-report-api-not-giving-response-for-when-date-set-in-from-to-parameters-is-past-one-month/29507
+  - https://devforum.zoom.us/t/operation-logs-api/44723
+  - https://medium.com/zoom-developer-blog/transitioning-your-developer-apps-to-zooms-marketplace-6a8de3386716
+  - https://devforum.zoom.us/t/get-details-of-recordings-views-and-downloads/30670
+  - https://github.com/splunk/zoom-webhook-to-hec
+  - https://github.com/rootalley/py-zoom-api
+incident_response:
+  suspend_user_api:
+    value: Yes. Zoom provides an API to toggle a user's account status. PUT /users/{userId}/status
+      supports action=deactivate or action=activate. Deactivating removes licenses
+      and prevents the user from logging in; the user can later be reactivated.
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/507i12l/update-user-status
+  invalidate_sessions_api:
+    value: Limited. There is no general API to sign a user out of Zoom across all
+      devices/sessions. Zoom staff confirm the only programmatic logout is DELETE
+      /users/{userId}/token, which revokes an SSO user’s session; otherwise, there
+      is no API to log a user out. Use the admin/user UI to sign out of sessions.
+    reference: https://devforum.zoom.us/t/rest-api-for-zoom-sign-out/5998
+  revoke_api_key_api:
+    value: OAuth access/refresh tokens for Zoom Marketplace apps can be programmatically
+      revoked via POST https://zoom.us/oauth/revoke (Basic auth with client_id:client_secret
+      and token in x-www-form-urlencoded body). This revokes app access. Unclear for
+      other token types (e.g., ZAK/user tokens) beyond SSO-token revoke; no evidence
+      of a general 'API key' revoke for Server-to-Server OAuth credentials via API.
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/9tpyk7i/revoke-an-access-token
+  user_toggle_api:
+    value: Yes. You can programmatically toggle a user between active and deactivated
+      with PUT /users/{userId}/status. Deactivation prevents login; however, uncertain
+      whether it immediately terminates existing sessions—Zoom docs do not state forced
+      logout. Use UI 'Managing signed-in devices and sessions' to force sign-out if
+      needed. (uncertain about immediate session termination)
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/507i12l/update-user-status
+  user_status_api:
+    value: Yes. The List users API supports a status query (active | inactive | pending)
+      and returns each user’s status, allowing you to check if an account is active
+      vs. deactivated.
+    reference: https://www.postman.com/zoom-developer/zoom-public-workspace/request/sox1x04/list-users
+  session_timeout_configuration:
+    value: Zoom account security settings allow enforced automatic sign-out after
+      inactivity. Admins can set 'Users need to sign in again after a period of inactivity'
+      for the web portal (10–120 minutes) and Zoom client (5–120 minutes). There’s
+      also 'Automatically sign users out after a specified time' (Zoom-password-based).
+    reference: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064901&zcid=1231
+  known_automation_tools:
+  - value: 'Splunk Connect for Zoom (SIEM ingestion): Collects Zoom events via a Webhook
+      Only App; configure Splunk Data Input ''zoom:webhook'' to ingest meeting, user,
+      account events for detection/investigation.'
+    reference: https://help.splunk.com/en/data-management/integrate-data-with-add-ons/splunk-connect-for-zoom/1.2/install-and-configure/install-splunk-connect-for-zoom-on-a-distributed-splunk-enterprise-deployment
+  - value: 'Splunk SOAR Zoom App: Integration actions for investigation/admin tasks
+      (e.g., get user, get/update user settings, get meeting details, create/delete
+      meeting). Supports Server‑to‑Server OAuth.'
+    reference: https://splunkbase.com/app/5979/
+  - value: 'Cortex XSOAR Zoom integration: Includes zoom-delete-user-token to revoke
+      a user’s Zoom SSO session (DELETE /users/{userId}/token), useful in account‑compromise
+      response playbooks.'
+    reference: https://xsoar.pan.dev/docs/reference/integrations/zoom
+  - value: 'Microsoft Sentinel Zoom Reports connector: Azure Functions–based connector
+      pulls Zoom report data via REST for security analytics and investigations in
+      Sentinel.'
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/zoom-reports
+  - value: 'Sumo Logic Zoom Source/App: Uses a Zoom Webhook Only App to forward Zoom
+      events to Sumo HTTP source for dashboards and alerting on admin/user activity.'
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/webhook-sources/zoom/
+  - value: 'Elastic Zoom connector: Ingests Zoom content via Server‑to‑Server OAuth;
+      documents required scopes and limits, enabling search/analytics on Zoom data.'
+    reference: https://www.elastic.co/guide/en/elasticsearch/reference/current/es-connectors-zoom.html
+  - value: 'pszoom PowerShell module: Automation scripts for Zoom administration,
+      including Get-ZoomUsers with status filters—useful for investigation and user
+      state audits.'
+    reference: https://www.powershellgallery.com/packages/pszoom/2.0.3.0/content/public/users/get-zoomusers.ps1
+  - value: 'ZoomNet (.NET client library): Strongly-typed Zoom REST API v2 client
+      with helpers for OAuth/S2S and webhook processing—useful for bespoke incident
+      response automation.'
+    reference: https://github.com/Jericho/ZoomNet
+  - value: 'Zoom Server‑to‑Server OAuth Python sample: Official sample app demonstrating
+      S2S OAuth auth flow and endpoints (users, meetings), a starting point for custom
+      IR tooling.'
+    reference: https://github.com/zoom/server-to-server-python-sample
+  documentation_links:
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/507i12l/update-user-status
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/afo8ucd/revoke-a-user-s-sso-token
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/9tpyk7i/revoke-an-access-token
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/kqar749/get-sign-in-sign-out-activity-report
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/7okmfpb/get-operation-logs-report
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0077145
+  - https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064901&zcid=1231
+  - https://www.postman.com/zoom-developer/zoom-public-workspace/request/sox1x04/list-users
+  - https://devforum.zoom.us/t/rest-api-for-zoom-sign-out/5998
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/zoom-reports
+  - https://help.splunk.com/en/data-management/integrate-data-with-add-ons/splunk-connect-for-zoom/1.2/install-and-configure/install-splunk-connect-for-zoom-on-a-distributed-splunk-enterprise-deployment

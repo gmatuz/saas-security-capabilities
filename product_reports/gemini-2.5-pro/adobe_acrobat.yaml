@@ -1,177 +1,258 @@
-user_management:
-  sso_support:
-    value:
-      "Adobe supports SAML 2.0 for Single Sign-On. This is typically configured
-      in the Adobe Admin Console for enterprise customers, allowing users to authenticate
-      using their company's Identity Provider (IdP)."
-    reference: https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html
-  sso_licensing_level_requirement:
-    value:
-      'SSO (via Federated ID) is a feature of Adobe''s enterprise plans (like Adobe
-      Creative Cloud for enterprise or Adobe Acrobat for enterprise). It is not available
-      for individual or Teams plans. [18, 24, 25]'
-    reference: https://helpx.adobe.com/enterprise/using/identity.html
-  scim_support:
-    value: yes
-    reference: https://helpx.adobe.com/enterprise/using/add-azure-sync.html
-  scim_licensing_level_requirement:
-    value:
-      SCIM provisioning is available for enterprise plans (Creative Cloud for enterprise,
-      Document Cloud for enterprise) that use the Adobe Admin Console and have configured
-      a federated directory. [19]
-    reference: https://helpx.adobe.com/enterprise/using/add-azure-sync.html
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/adobe-identity-management-provisioning-tutorial
-  scim_authentication_acquisition_steps:
-    "1. Log in to the Adobe Admin Console with System Administrator privileges.\n2.
-    Navigate to Settings > Directory Details.\n3. Select the 'Sync' tab.\n4. Click
-    'Add Sync'.\n5. Choose 'Sync users from Microsoft Azure' (or your respective
-    IdP like Google Workspace). [20, 21]\n6. Click 'Next'.\n7. The Admin Console will
-    display the 'Tenant URL' (SCIM Endpoint) and a 'Secret Token' (Authentication
-    Token). [20]\n8. Copy these values to be used in your Identity Provider's provisioning
-    configuration. [20]\n"
-  user_management_api_support:
-    value: yes
-    reference: https://developer.adobe.com/umapi-documentation/docs/en/API_introduction.md
-  user_management_api_licensing_level:
-    value:
-      Access to the User Management API is available for Adobe's enterprise customers
-      (Creative Cloud for enterprise, Document Cloud for enterprise, Experience Cloud).
-      [3, 10]
-    reference: https://developer.adobe.com/umapi-documentation/
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://developer.adobe.com/umapi-documentation/docs/en/authentication.md
-  user_management_api_authentication_acquisition_steps:
-    "1. A System Administrator must log in to the Adobe Developer Console (https://developer.adobe.com/console).\n2.
-    Create a new Project. [7]\n3. Within the project, click 'Add API'.\n4. Select
-    the 'User Management API' and click 'Next'. [14]\n5. Choose 'OAuth Server-to-Server'
-    as the authentication type. [7, 14]\n6. Select the product profiles your integration
-    needs to access.\n7. The console will then generate credentials including the
-    'Client ID' (API Key), 'Client Secret', 'Technical account ID', and 'Organization
-    ID'. [11]\n8. To get an access token for API calls, you must make a POST request
-    to the Adobe IMS endpoint with your Client ID, Client Secret, and the appropriate
-    scope (e.g., 'user_management_sdk'). The response will contain a time-limited
-    bearer token. [7]\n"
-  seat_costs:
-  - license_level: Enterprise
-    active:
-      value: 'yes'
-      reference: https://www.adobe.com/creativecloud/business/enterprise.html
-    suspended_disabled:
-      value: no
-      reference: https://helpx.adobe.com/enterprise/using/reclaim-licenses.html
-    archived:
-      value: n/a
-      reference: https://community.adobe.com/t5/enterprise-teams-discussions/how-to-set-lifecycle-status-for-audiences/td-p/615550
-  lifecycle_options:
-  - create
-  - update
-  - delete
-  - remove from organization
-  - deactivate
-  rbac_support:
-    value: 'yes'
-    reference: https://helpx.adobe.com/enterprise/using/admin-roles.html
-  rbac_api_assignment:
-    value:
-      'Yes, user and group assignments to product profiles (which grant access to
-      products) and administrative roles can be managed via the User Management API.
-      [6, 41]'
-    reference: https://developer.adobe.com/umapi-documentation/docs/en/api_reference/
+identity_and_access:
   documentation_links:
-  - https://helpx.adobe.com/enterprise/using/identity.html
-  - https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html
-  - https://developer.adobe.com/umapi-documentation/
-  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/adobe-identity-management-provisioning-tutorial
-  - https://helpx.adobe.com/enterprise/using/admin-roles.html
-  - https://github.com/adobe/user-sync.py
+  - https://developer.adobe.com/console/apis/docs/umapi/
+  - https://helpx.adobe.com/enterprise/using/admin-console.html
   - https://helpx.adobe.com/enterprise/using/add-azure-sync.html
+  - https://helpx.adobe.com/enterprise/using/add-google-sync.html
   - https://helpx.adobe.com/enterprise/using/user-sync.html
-  - https://developer.adobe.com/umapi-documentation/docs/en/authentication.md
-  - https://developer.adobe.com/umapi-documentation/docs/en/api_reference/
+  - https://www.youtube.com/watch?v=J3T5HlW5H6Q
+  - https://www.youtube.com/watch?v=R_iJg9K_7eQ
+  - https://www.youtube.com/watch?v=0kF6xN4s4wU
+  - https://www.youtube.com/watch?v=FjI5jY1Wb_k
+  - https://www.youtube.com/watch?v=LqNjjY-5k5k
+  lifecycle_options:
+  - active
+  - invited
+  - removed/de-provisioned (revokes permissions and access)
+  - removed from product entitlements (retains user account without product access)
+  rbac_api_assignment:
+    reference: https://developer.adobe.com/console/apis/docs/umapi/getting-started/#manage-product-entitlements
+    value: yes - The User Management API allows for managing membership in user groups
+      and product profiles, which are used for assigning product entitlements. [20]
+      The User Sync Tool, built on UMAPI, can also manage group memberships. [10]
+  rbac_support:
+    reference: https://helpx.adobe.com/enterprise/using/admin-roles.html
+    value: yes - Adobe Admin Console supports Role-Based Access Control (RBAC) with
+      different administrative roles, including System Administrator, Product Administrator,
+      and Product Profile Administrator, which can be assigned to manage users, products,
+      and specific product profiles. [5, 9, 19, 21, 23, 26, 29]
+  scim_authentication_acquisition_steps:
+    reference: https://helpx.adobe.com/enterprise/using/add-azure-sync.html
+    value: 1. Log in to Adobe Admin Console. Navigate to Settings > Directory Details
+      > Sync. [17] 2. Select Add Sync. [17] 3. Select 'Sync users from Microsoft Azure'
+      and select Next. [17] 4. Copy and save the Tenant URL and the Secret token.
+      These values are entered in the Provisioning tab of your Adobe Identity Management
+      (SAML) application in Microsoft Entra ID. [17]
+  scim_authentication_mechanisms:
+    reference: https://helpx.adobe.com/enterprise/using/add-azure-sync.html
+    value: To configure SCIM provisioning with Microsoft Azure, a Tenant URL and Secret
+      Token are used. [16, 17]
+  scim_licensing_level_requirement:
+    reference: https://helpx.adobe.com/enterprise/using/add-azure-sync.html
+    value: SCIM support through Azure Sync and Google Sync is available for Federated
+      ID users, which implies an Enterprise-level license. [2, 14, 16, 17, 25]
+  scim_support:
+    reference: https://www.youtube.com/watch?v=R_iJg9K_7eQ
+    value: yes - Adobe Admin Console supports SCIM v2 for user provisioning, specifically
+      through Microsoft Azure Sync and Google Sync. [14]
+  seat_costs:
+  - archived:
+      reference: https://helpx.adobe.com/enterprise/using/cce-storage.html
+      value: uncertain - No explicit information found on whether archived users incur
+        costs.
+    license_level: Enterprise & Teams
+    suspended_disabled:
+      reference: https://www.youtube.com/watch?v=J3T5HlW5H6Q
+      value: uncertain - The documentation indicates that removing a user revokes
+        permissions and access. However, it also suggests that to revoke access without
+        deleting associated data, the user should be removed from the product that
+        confers entitlements instead of deleting the user. No explicit information
+        found on whether suspended/disabled users incur costs. [6]
+  sso_license_level_requirement:
+    reference: https://helpx.adobe.com/enterprise/using/admin-console.html
+    value: SSO support is available for Enterprise and Teams customers. [2, 5, 23]
+  sso_support:
+    reference: https://helpx.adobe.com/enterprise/using/set-up-identity.html
+    value: yes - Adobe Admin Console supports Single Sign-On (SSO) with various Identity
+      Providers (IdPs) such as Microsoft Azure, Google, Ping, Okta, InCommon, and
+      Shibboleth. It uses SAML for federation. [12, 16, 25, 27, 28, 30, 32]
+  user_management_api_authentication_acquisition_steps:
+    reference: https://developer.adobe.com/console/apis/docs/umapi/authentication/
+    value: 1. Create a new Integration (Project) in the Adobe Developer Console. Only
+      members with the SYSTEM ADMIN role can create this integration. [8] 2. The integration
+      provides an API key (Client ID) and other credentials. [8] 3. Obtain an access
+      token by making a POST request to 'https://ims-na1.adobelogin.com/ims/token/v2'
+      with grant_type, client_id, client_secret, and scope parameters. [8] 4. Use
+      the obtained access token in the Authorization header ('Bearer [access token]')
+      and the API key in the 'x-api-key' header for subsequent UMAPI calls. [8]
+  user_management_api_authentication_mechanisms:
+    reference: https://developer.adobe.com/console/apis/docs/umapi/authentication/
+    value: OAuth Server-to-Server (S2S) credentials are the recommended authentication
+      mechanism for the User Management API. This involves obtaining an access token
+      by calling Adobe's IMS endpoint using a Client ID and Client Secret, along with
+      grant type and scope parameters. JWT credentials are deprecated and will stop
+      working by January 27, 2025. [8, 31, 36]
+  user_management_api_licensing_level:
+    reference: https://developer.adobe.com/console/apis/docs/umapi/
+    value: The User Management API is available for Enterprise customers. [1, 23]
+  user_management_api_support:
+    reference: https://developer.adobe.com/console/apis/docs/umapi/
+    value: yes - The User Management API (UMAPI) provides programmatic access to create,
+      update, and delete user accounts, and retrieve information about Adobe users
+      and their product access. [1, 2, 3, 10, 20]
 security_monitoring:
+  documentation_links:
+  - https://developer.adobe.com/document-services/docs/overview/security/
+  - https://www.youtube.com/watch?v=yin5v1ESKyM
+  - https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG7cVWfYEPlT7aKFlWwLFVxtv69y-MkXJUreWm3VaKwsroJe-nkp-TzuwAvs1o1o_j7Hbk3Dk828-jAGKYrns8P9zZsOABErQjum4DFkRlGkBhg0VSWXQS7A8urwX1YsBRjieiIfM2fWpaQx5Cpb5IxQ0wW0ta2CW2S
   event_logs:
-    user_login:
-      value: "The Audit Log records user login events. The log includes details such as the date, event name ('User logged in'), the affected user's email, the admin involved (if applicable), and the IP address from which the login occurred. [2]"
-      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
-    role_assignment:
-      value: "The Audit Log tracks changes to administrative roles and product profile assignments. Events are logged when an admin is added or removed, or when a user is added to or removed from a product profile, which grants or revokes product access. [2, 4]"
-      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
     api_call:
-      value: "While the Admin Console Audit Log tracks administrative actions, detailed logs of individual API calls made using credentials from the Adobe Developer Console are not explicitly detailed in the standard audit log. However, actions performed *through* the API, such as user creation, are logged. [2, 37]"
-      reference: "https://adobe-apiplatform.github.io/umapi-documentation/en/api/api_reference.html"
-    data_export:
-      value: "The Admin Console allows for the export of various reports, including the Audit Log itself. These export actions are logged within the Audit Log, showing that an administrator downloaded a report. [2]"
-      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+      reference: https://developer.adobe.com/document-services/docs/overview/security/
+      value: The Adobe Acrobat Services APIs support Service Account authentication
+        and use OAuth Server to Server credentials. The PDF Embed API logs anonymous
+        usage data and can log event data for analytics if explicitly configured with
+        an Adobe Analytics report suite ID. Acrobat Sign exposes a comprehensive set
+        of REST APIs for custom integration, allowing for actions like creating and
+        managing agreements, retrieving signed documents, and downloading audit trails.
     configuration_change:
-      value: "The Audit Log tracks changes made in the Admin Console, which includes settings related to products, user management, and identity configurations. [4, 11]"
-      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
-    user_account_creation:
-      value: "User creation, whether done manually in the Admin Console, via bulk CSV import, or programmatically through the User Management API, is recorded in the Audit Log. [2, 3]"
-      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+      reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2CwEuZ0RuIT4D7npD1Q95utnreMcFlu6El5fCLkHDmqLwpc_UXr_lQtCpFgMC3_uOeDxEcbLmBA-NxEU64P_dvxfbz5MAOuZOK8BAqu6iLs2417i4Jw-1VvshcBwevIvG72OVIamf3eMrUBYOzE9-WGRy8bVrMORU_FbcLIQUCT97zg==
+      value: The Audit Log in the Admin Console provides visibility on changes made
+        within the Admin Console at the organizational level, including product profile
+        or user group changes.
+    data_export:
+      reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2CwEuZ0RuIT4D7npD1Q95utnreMcFlu6El5fCLkHDmqLwpc_UXr_lQtCpFgMC3_uOeDxEcbLmBA-NxEU64P_dvxfbz5MAOuZOK8BAqu6iLs2417i4Jw-1VvshcBwevIvG72OVIamf3eMrUBYOzE9-WGRy8bVrMORU_FbcLIQUCT97zg==
+      value: The Audit Log in the Admin Console can be viewed and downloaded for further
+        analysis. For Acrobat Sign, audit trails of signed documents can be downloaded.
+    role_assignment:
+      reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2CwEuZ0RuIT4D7npD1Q95utnreMcFlu6El5fCLkHDmqLwpc_UXr_lQtCpFgMC3_uOeDxEcbLmBA-NxEU64P_dvxfbz5MAOuZOK8BAqu6iLs2417i4Jw-1VvshcBwevIvG72OVIamf3eMrUBYOzE9-WGRy8bVrMORU_FbcLIQUCT97zg==
+      value: The Audit Log in the Admin Console tracks changes at the organizational
+        level, which includes why a user lost access to a product, implying changes
+        to product or user group assignments.
     security_policy_change:
-      value: "Changes to security-related settings within the Adobe Admin Console, such as identity provider configurations or password requirements, are captured in the Audit Log. [4]"
-      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+      reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQED0HO01DiOsmyOR_rrsjxTyOfS7nXh_SsCjzLY0yRaS7xaTSAw-TylxJvbrQg5UyLym_-u5199i3PzisFO3ppYWXuq22W1tj_LaS7YkUQPAegcC3vxbyjNMVjN-CVtrEr5ARcsjabqliZaZCt1cKg4-tdhMJVi2btabQQPPWweuzm-3tU
+      value: Adobe Experience Manager - Forms Server (Document Security) policies
+        can control access to PDFs and audit events as defined by the security policy.
+        Administrators can view all PDF and system events, modify configuration settings,
+        and change access to policy-secured PDFs. Acrobat and Reader have enhanced
+        security settings, including Protected Mode and Enhanced Security, which restrict
+        access to system resources and can be configured through the user interface
+        or registry for enterprise administrators.
+    user_account_creation:
+      reference: https://helpx.adobe.com/uk/enterprise/global-admin-console/insights.html
+      value: The Audit Log in the Admin Console helps understand events like when
+        a new user was added and by whom.
+    user_login:
+      reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2CwEuZ0RuIT4D7npD1Q95utnreMcFlu6El5fCLkHDmqLwpc_UXr_lQtCpFgMC3_uOeDxEcbLmBA-NxEU64P_dvxfbz5MAOuZOK8BAqu6iLs2417i4Jw-1VvshcBwevIvG72OVIamf3eMrUBYOzE9-WGRy8bVrMORU_FbcLIQUCT97zg==
+      value: Adobe provides an Audit Log in the Admin Console that tracks changes
+        made at the organizational level, including when a new user was added and
+        by whom, and when a former user was removed. It also captures the IP address
+        of the machine where the action was taken. The log displays the date, time,
+        event name, event details, object name (product, product profile, or user
+        group), affected user, and the admin who performed the event. The audit log
+        retains events for the last 90 days.
   event_logs_licensing_level:
-    value: "Access to the Audit Log in the Adobe Admin Console is available for enterprise and teams plans. [4]"
-    reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
-  monitoring_products:
-    - value: "ServiceNow: Integrates with Adobe Cloud (including Document Cloud) for license management and compliance reporting. This requires an Adobe Enterprise subscription. [14]"
-      reference: "https://docs.servicenow.com/bundle/tokyo-it-asset-management/page/product/software-asset-management2/task/adobe-cloud-integration.html"
-    - value: "Okta Workflows: The Adobe User Management connector allows for automation of user account creation, deletion, and group management. [29]"
-      reference: "https://help.okta.com/wf/en-us/Content/Topics/Workflows/connector-reference/adobousermanagement/adobousermanagement.htm"
-    - value: "Microsoft 365 App Certification: Provides information on Adobe Acrobat Sign's security posture, including event logging and monitoring processes. [6]"
-      reference: "https://learn.microsoft.com/en-us/microsoft-365-app-certification/teams/adobe-acrobat-sign"
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2CwEuZ0RuIT4D7npD1Q95utnreMcFlu6El5fCLkHDmqLwpc_UXr_lQtCpFgMC3_uOeDxEcbLmBA-NxEU64P_dvxfbz5MAOuZOK8BAqu6iLs2417i4Jw-1VvshcBwevIvG72OVIamf3eMrUBYOzE9-WGRy8bVrMORU_FbcLIQUCT97zg==
+    value: Access to the Audit Log in the Admin Console is available to system administrators.
+      For Adobe Acrobat with Document Cloud services, administrators entitle end-user
+      access by utilizing named user licensing in the Adobe Admin Console, supporting
+      Adobe ID, Business ID, Enterprise ID, and Federated ID.
   ingestion_methods:
-    - value: "Adobe User Management API: Allows programmatic access to user and entitlement data, which can be pulled into external monitoring systems. [1, 37]"
-      reference: "https://developer.adobe.com/usermanagement/docs/"
-    - value: "Manual CSV Export: The Audit Log can be manually downloaded as a CSV file from the Adobe Admin Console for a maximum of 90 days of data. [2]"
-      reference: "https://helpx.adobe.com/enterprise/using/audit-log.html"
+  - reference: https://helpx.adobe.com/uk/enterprise/global-admin-console/insights.html
+    value: The Audit Log in the Adobe Admin Console allows system administrators to
+      view and download reports for further analysis. Adobe Acrobat Sign provides
+      APIs that allow for custom integration with business systems and websites. The
+      Adobe Acrobat Services APIs support Service Account authentication. While not
+      explicitly stated as a direct log streaming method from Acrobat, general SIEM
+      solutions consume and analyze various data sources, including logs, to detect
+      threats. Some SIEMs offer prebuilt data integrations and enable streamlined
+      development of custom integrations with an open-data schema.
+  - reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG7cVWfYEPlT7aKFlWwLFVxtv69y-MkXJUreWm3VaKwsroJe-nkp-TzuwAvs1o1o_j7Hbk3Dk828-jAGKYrns8P9zZsOABErQjum4DFkRlGkBhg0VSWXQS7A8urwX1YsBRjieiIfM2fWpaQx5Cpb5IxQ0wW0ta2CW2S
+    value: For Adobe Acrobat itself, there is a diagnostic tool that collects data
+      related to Acrobat processes and system settings, including product logs. This
+      data can be viewed online or shared with support teams.
   log_export_options:
     tools_connectors:
-      value: "The primary tool for automated log/user data extraction is the User Sync Tool, which is built on the User Management API. It synchronizes directory information (like Active Directory/LDAP) with the Adobe Admin Console. While not a direct log shipper, it facilitates managing users based on directory events. For direct log ingestion, custom scripts using the User Management API are the main method. [3, 9]"
-      reference: "https://developer.adobe.com/usermanagement/docs/user-sync-tool/"
-  documentation_links:
-    - "https://helpx.adobe.com/enterprise/using/audit-log.html"
-    - "https://developer.adobe.com/usermanagement/docs/"
-    - "https://adobe-apiplatform.github.io/umapi-documentation/en/api/api_reference.html"
-    - "https://github.com/adobe/umapi-cli"
-    - "https://github.com/adobe-apiplatform/user-sync.py"
-    - "https://helpx.adobe.com/acrobat/using/activity-log-audit-report.html"
+      reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2CwEuZ0RuIT4D7npD1Q95utnreMcFlu6El5fCLkHDmqLwpc_UXr_lQtCpFgMC3_uOeDxEcbLmBA-NxEU64P_dvxfbz5MAOuZOK8BAqu6iLs2417i4Jw-1VvshcBwevIvG72OVIamf3eMrUBYOzE9-WGRy8bVrMORU_FbcLIQUCT97zg==
+      value: System administrators can view and download the audit log from the Admin
+        Console. Adobe Acrobat Sign allows for downloading audit trails of signed
+        documents. The Adobe Acrobat Diagnostics tool collects product logs and allows
+        them to be viewed or shared, saving them to Adobe's cloud storage and providing
+        a log ID for sharing.
+  monitoring_products:
+  - reference: https://slashdot.org/software/siem/for-adobe-sign/
+    value: Microsoft Sentinel is mentioned as a top SIEM software for Adobe Acrobat
+      Sign. Microsoft Purview Information Protection is a rights management solution
+      that helps manage and protect data, and its users can use Acrobat or Acrobat
+      Reader to read protected content. Microsoft Intune can be used to manage and
+      distribute the Adobe Acrobat Reader mobile app.
 incident_response:
-  suspend_user_management_api:
-    value: "The Adobe User Management API allows administrators to remove users from product profiles and user groups, effectively revoking their access and entitlements. A specific 'suspend' status is not explicitly documented; the action is to remove the user from the organization or specific entitlements. [1, 37]"
-    reference: "https://adobe-apiplatform.github.io/umapi-documentation/en/api/api_reference.html"
-  invalidate_sessions_api:
-    value: "Adobe's documentation does not describe a direct API endpoint to invalidate a specific user's active session for Acrobat. The primary method of session control is timeout configuration. Logging a user out of Adobe Connect invalidates the session cookie, but a similar direct function for Acrobat/Document Cloud is not specified. [19, 48]"
-    reference: "https://helpx.adobe.com/adobe-connect/webservices/manage-login-sessions-of-users-using.html"
-  revoke_api_key_api:
-    value: "API keys (credentials for a project) are managed through the Adobe Developer Console. They can be manually revoked by deleting the credential in the project's dashboard. There is no documented API endpoint to perform this revocation programmatically. [18]"
-    reference: "https://developer.adobe.com/developer-console/docs/guides/authentication/credentials/create-credential/#delete-a-credential"
-  user_toggle_api:
-    value: "The User Management API supports removing users, which deactivates their access. The User Sync tool can be configured to process and remove users based on changes in an enterprise directory. [3, 9]"
-    reference: "https://developer.adobe.com/usermanagement/docs/user-sync-tool/"
-  user_status_api:
-    value: "The User Management API provides endpoints to get information about users within an organization, which would include their current status and product entitlements. [15, 20]"
-    reference: "https://adobe-apiplatform.github.io/umapi-documentation/en/api/users_in_org.html"
-  session_timeout_configuration:
-    value: "Session timeout settings are not consistently documented for Adobe Acrobat specifically. Related products like Adobe Connect and AEM Forms have configurable session timeouts, often in an administration console or configuration file, but a central, user-facing setting for Acrobat web sessions is not clearly specified. [7, 8]"
-    reference: "https://helpx.adobe.com/adobe-connect/kb/configure-session-timeout-value.html"
-  known_automation_tools:
-    - value: "User Sync Tool: An open-source, command-line tool from Adobe that automates user management by syncing an enterprise directory (AD/LDAP) with the Adobe Admin Console. [3, 9]"
-      reference: "https://github.com/adobe-apiplatform/user-sync.py"
-    - value: "UMAPI-CLI: A command-line interface for the User Management API, allowing for scripted user and group operations. [5]"
-      reference: "https://github.com/adobe/umapi-cli"
-    - value: "unofficial Go SDK for UMAPI: A third-party Go library that wraps the Adobe User Management API. [20]"
-      reference: "https://github.com/bear-san/adobe-umapi"
-    - value: "Google Workspace Automatic Provisioning: Can be configured to automatically provision and de-provision users in Adobe based on their Google Workspace status. [31]"
-      reference: "https://support.google.com/a/answer/9250917?hl=en"
   documentation_links:
-    - "https://developer.adobe.com/usermanagement/docs/"
-    - "https://adobe-apiplatform.github.io/umapi-documentation/en/getstarted.html"
-    - "https://github.com/adobe/umapi-cli"
-    - "https://developer.adobe.com/developer-console/docs/guides/getting-started/"
-    - "https://github.com/adobe-apiplatform/user-sync.py"
-    - "https://helpx.adobe.com/enterprise/using/admin-console-api.html"
+  - https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHZXLwf8ySgjeGRWoKe5hTIEMwtK8D7P5EOGOKTAGj0_gOp5gDsoLlLiS-oDAGaQDsFtpwLEd1gTbU4WXpYryOGaoms0QREiqlmcfcZjQGXwHYfYjoHHK7nkMIP9ttN4dOrOSK5hEYRdM6z0pXCPi0my62SXs8iklgmG_kaDL2iDHCOGdg1IcdGmfLdVz7O
+  - https://helpx.adobe.com/acrobat/kb/automation-and-document-workflows.html
+  - https://vertexaisearch.google.com/grounding/schema/web_search_chunk?chunk_index=4&search_result_index=4
+  - https://vertexaisearch.google.com/grounding/schema/web_search_chunk?chunk_index=22&search_result_index=22
+  - https://vertexaisearch.google.com/grounding/schema/web_search_chunk?chunk_index=25&search_result_index=25
+  - https://vertexaisearch.google.com/grounding/schema/web_search_chunk?chunk_index=29&search_result_index=29
+  - https://vertexaisearch.google.com/grounding/schema/web_search_chunk?chunk_index=33&search_result_index=33
+  - https://vertexaisearch.google.com/grounding/schema/web_search_chunk?chunk_index=12&search_result_index=12
+  - https://vertexaisearch.google.com/grounding/schema/web_search_chunk?chunk_index=23&search_result_index=23
+  - https://www.microfocus.com/documentation/arcsight/arcsight-platform-24.2/arcsight-platform-ug-24-2/Content/threat-respond/setup/integrating-soar-with-other-components.htm?TocPath=What%20Admins%20Need%20to%20Know%7CSetting%20Up%20SOAR%7CInitial%20Configurations%7CConfiguring%20SOAR%20to%20Receive%20Alerts%7C_____3
+  invalidate_sessions_api:
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHZXLwf8ySgjeGRWoKe5hTIEMwtK8D7P5EOGOKTAGj0_gOp5gDsoLlLiS-oDAGaQDsFtpwLEd1gTbU4WXpYryOGaoms0QREiqlmcfcZjQGXwHYfYjoHHK7nkMIP9ttN4dOrOSK5hEYRdM6z0pXCPi0my62SXs8iklgmG_kaDL2iDHCOGdg1IcdGmfLdVz7O
+    value: Uncertain. No specific API for invalidating sessions in Adobe Acrobat was
+      found. Adobe's security documentation focuses on vulnerability handling and
+      internal incident response processes rather than exposing such direct user session
+      control APIs for external use in Adobe Acrobat.
+  known_automation_tools:
+  - reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGqgZD6UWk0COfZSN_ZYeKh_k026ZAUHWdgEj4ux5B9xeozmqUZolJ3-JOnpFP-GhpuvPjWiMNAw7GFjNqVG7p4qMHc7D39dYNLCGkR7HTeprukOvG0EqUkWIjY_3JAl-AJeaeaSn5k6momfuYSFFFvst6FslIpXHHsuNvejvL4
+    value: Adobe Acrobat Pro's Action Wizard allows users to automate repetitive tasks
+      on PDF documents, such as adding headers and footers, creating bookmarks, applying
+      security settings, and compressing documents. It can process multiple documents
+      and allows for the integration of custom commands and JavaScript for advanced
+      automation. This can be used to apply security settings, including password
+      protection, and ensure document integrity by locking form fields after signing.
+  - reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHB7RrWlRhEhTLCz3Sawzpr5TomR01ItlMxMZ9Po2R_3HdggQKb-vvesffOkyffo-dc82hlWhAXMhhgZto0U55Lo_voXmdoCw2kTpFN6TlmCKsXW35v1Xw1BGOLZMr3wp_g2c_swmMLeZDYo6N28laj15afFgf_3qXN2pot9Qr3epZLlK4=
+    value: Adobe Document Services provide APIs for automating PDF creation, manipulation,
+      content extraction, and document generation, which can be leveraged for building
+      document workflows.
+  - reference: https://www.getknit.dev/blog/adobe-acrobat-sign-api-integration-in-depth
+    value: Adobe Acrobat Sign offers turnkey integrations and a comprehensive set
+      of REST APIs for custom integration with enterprise services, systems of record,
+      and popular cloud productivity solutions like Microsoft 365, which could be
+      used to automate aspects of document workflows related to signatures and user
+      interactions.
+  - reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHZXLwf8ySgjeGRWoKe5hTIEMwtK8D7P5EOGOKTAGj0_gOp5gDsoLlLiS-oDAGaQDsFtpwLEd1gTbU4WXpYryOGaoms0QREiqlmcfcZjQGXwHYfYjoHHK7nkMIP9ttN4dOrOSK5hEYRdM6z0pXCPi0my62SXs8iklgmG_kaDL2iDHCOGdg1IcdGmfLdVz7O
+    value: While not specific to Adobe Acrobat, Adobe states that they leverage industry-standard
+      SOAR platforms to optimize the handling of vulnerabilities, alerts, and events
+      at scale for their own incident response program. This suggests that Adobe products,
+      in general, might be compatible with SOAR integrations, though specific Adobe
+      Acrobat integrations are not detailed.
+  - reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEy3-7ajpQCW329DssSgmkMcybd4y5Su9fpQqYeRD8xXaLYsi3bp_ddDFfi0PoaIFPTSqENJZ1p5aOxfkvZFqyX3nbR5heUWTTbbkCFQS1AbIEqyV4zTKckfqYhNW8cSz7fJeknuoYeoEe-a9lP
+    value: Microsoft Sentinel is listed as a SOAR platform for Adobe Acrobat Sign,
+      indicating a commercial integration option exists for that specific Adobe product.
+  - reference: https://m.youtube.com/watch?v=yin5v1ESKyM
+    value: Securonix SOAR integrates with many third-party systems, and while Adobe
+      Acrobat is not explicitly mentioned as an out-of-the-box integration, SOAR solutions
+      generally allow for custom integrations via an API-first approach.
+  - reference: https://www.microfocus.com/documentation/arcsight/arcsight-platform-24.2/arcsight-platform-ug-24-2/Content/threat-respond/setup/integrating-soar-with-other-components.htm?TocPath=What%20Admins%20Need%20to%20Know%7CSetting%20Up%20SOAR%7CInitial%20Configurations%7CConfiguring%20SOAR%20to%20Receive%20Alerts%7C_____3
+    value: OpenText SOAR platforms allow configuration to integrate with other platforms
+      and components to receive alerts and power automation. Integrations can be created,
+      managed, and configured, with options for credentials, SSL certificates, and
+      approval forms.
+  revoke_api_key_api:
+    reference: https://helpx.adobe.com/sign/faq/api.html
+    value: Uncertain. There is no specific API documentation found for revoking API
+      keys in Adobe Acrobat. While Adobe Acrobat Sign provides REST APIs for custom
+      integrations, it's not clear if these APIs extend to managing or revoking API
+      keys for security incident response.
+  session_timeout_configuration:
+    reference: https://dot.ca.gov/-/media/dot-media/programs/local-assistance/documents/atp/cy5/adobe-security-configurations.pdf
+    value: Uncertain. While security and session management are mentioned as being
+      ingrained in Adobe's processes, no specific documentation detailing configurable
+      session timeout values for Adobe Acrobat was found in the search results.
+  suspend_user_api:
+    reference: https://docs.useparagon.com/resources/integrations/adobe-acrobat-sign
+    value: Uncertain. There is no direct evidence found for a specific API to programmatically
+      suspend users in Adobe Acrobat. However, Adobe does offer APIs for Adobe Document
+      Services to automate PDF workflows, and Adobe Acrobat Sign offers APIs for integrating
+      e-signature workflows with enterprise systems, which might include user management
+      functionalities within a broader context.
+  user_status_api:
+    reference: https://rollout.com/integration-guides/adobe-sign/api-essentials
+    value: Uncertain. No specific API was found that allows checking user status (active,
+      suspended, disabled, non-existent) for Adobe Acrobat users.
+  user_toggle_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. No information was found regarding an API to toggle user status
+      (active/suspended/disabled) that would also affect active sessions in Adobe
+      Acrobat.

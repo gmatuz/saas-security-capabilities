@@ -1,173 +1,263 @@
-user_management:
-  sso_support:
-    value: "Yes, Calendly supports SAML 2.0-based Single Sign-On (SSO). It can be configured
-      for both Service Provider (SP) initiated and Identity Provider (IdP) initiated
-      flows."
-    reference: https://help.calendly.com/hc/en-us/articles/360057913534-How-to-set-up-SAML-SSO-with-your-identity-provider
-  sso_licensing_level_requirement:
-    value: The Enterprise plan is required for SAML SSO. Some documentation suggests it
-      might be available as a paid add-on for the Teams plan.
-    reference: https://www.zeeg.ai/blog/calendly-integrations
-  scim_support:
-    value: 'yes'
-    reference: https://help.calendly.com/hc/en-us/articles/17792613523735-SCIM-user-provisioning-overview
-  scim_licensing_level_requirement:
-    value: The Enterprise plan is required to use SCIM provisioning.
-    reference: https://help.calendly.com/hc/en-us/articles/17792613523735-SCIM-user-provisioning-overview
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://help.calendly.com/hc/en-us/articles/17792613523735-SCIM-user-provisioning-overview
-  scim_authentication_acquisition_steps: "1. Log into your Calendly account.\n2. In the
-    top-right corner, select Account, then select Organization Settings.\n3. On the
-    left side of the page, select Single Sign-On.\n4. Under 'Optional: Connect SCIM',
-    toggle on SCIM provisioning.\n5. Select 'Generate new bearer token'.\n6. Copy
-    the generated token. This token is used for authenticating SCIM requests."
-  user_management_api_support:
-    value: 'yes'
-    reference: https://developer.calendly.com/api-reference
-  user_management_api_licensing_level:
-    value: Access to the Calendly API is determined by your subscription plan and user
-      role. While most API functionalities are available across plans, certain features
-      or higher rate limits might require a paid subscription (Standard, Teams, or
-      Enterprise).
-    reference: https://developer.calendly.com/getting-started
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://developer.calendly.com/how-to-authenticate-with-personal-access-tokens
-  user_management_api_authentication_acquisition_steps: "1. Log in to your Calendly
-    account.\n2. Go to the 'Integrations & apps' page from the top navigation menu.\n3.
-    Select 'API & Webhooks'.\n4. Under 'Your personal access tokens', click 'Generate
-    new token'.\n5. Give your token a descriptive name and click 'Create token'.\n6.
-    Copy the generated token. This is your personal access token for API authentication."
-  seat_costs:
-  - license_level: All Plans
-    active:
-      value: 'yes'
-      reference: https://www.zeeg.ai/blog/calendly-billing
-    suspended_disabled:
-      value: uncertain
-      reference: https://help.calendly.com/hc/en-us/articles/17792613523735-SCIM-user-provisioning-overview
-    archived:
-      value: 'no'
-      reference: https://help.calendly.com/hc/en-us/articles/4404981775895-User-management
-  lifecycle_options:
-  - Active
-  - Pending
-  - Deactivated
-  - Removed
-  rbac_support:
-    value: 'yes'
-    reference: https://help.calendly.com/hc/en-us/articles/360044599553-User-roles-and-permissions
-  rbac_api_assignment:
-    value: 'Yes, role assignments can be managed via the API. The API allows for inviting
-      users to an organization and assigning them roles (user, team_manager, admin,
-      owner).'
-    reference: https://developer.calendly.com/api-reference/a7554559b9991-post-organization-invitations
+identity_and_access:
   documentation_links:
-  - https://help.calendly.com/hc/en-us/articles/360057913534-How-to-set-up-SAML-SSO-with-your-identity-provider
-  - https://help.calendly.com/hc/en-us/articles/17792613523735-SCIM-user-provisioning-overview
-  - https://developer.calendly.com/api-reference
-  - https://help.calendly.com/hc/en-us/articles/360044599553-User-roles-and-permissions
   - https://developer.calendly.com/how-to-authenticate-with-personal-access-tokens
-  - https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/CoreServices/Apps/AppCalendly.htm
-  - https://jumpcloud.com/supported-apps/calendly-sso-scim-integration
-  - https://developer.calendly.com/api-reference/a7554559b9991-post-organization-invitations
-  - https://www.wise.com/gb/blog/calendly-pricing-guide
-  - https://www.zeeg.ai/blog/calendly-pricing
+  - https://handbook.gitlab.com/handbook/security/customer-support-operations/docs/calendly/
+  - https://rollout.com/integration-guides/calendly/api-essentials
+  - https://www.okta.com/integrations/calendly/
+  lifecycle_options:
+  - active
+  - pending (invited but not yet accepted)
+  - deactivated (removed by SCIM)
+  rbac_api_assignment:
+    reference: hallucinated link doublecheck content
+    value: yes - SCIM can be used to add users to groups. Changing user roles (User,
+      Admin, Owner) is done manually through the Users page in the Admin Center. [3,
+      19]
+  rbac_support:
+    reference: https://handbook.gitlab.com/handbook/security/customer-support-operations/docs/calendly/
+    value: yes - Calendly supports roles (User, Admin, Owner) and organizing users
+      into groups.
+  scim_authentication_acquisition_steps:
+    reference: hallucinated link doublecheck content
+    value: '1. Log into your Calendly account as an owner or admin. 2. Go to Account
+      > Organization Settings > Single sign-on. 3. Under ''Optional: Connect SCIM'',
+      toggle SCIM provisioning on. 4. Select ''Copy base URL'' to copy the SCIM base
+      URL. 5. Choose when your token should expire. 6. Select ''Generate new bearer
+      token'', then ''Copy token''.'
+  scim_authentication_mechanisms:
+    reference: hallucinated link doublecheck content
+    value: Bearer Token
+  scim_licensing_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: Enterprise Plan
+  scim_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SCIM 2.0 for user provisioning (add, update, deactivate, remove users,
+      add/remove users from groups). Just-in-Time (JIT) provisioning is not supported;
+      SCIM should be used instead.
+  seat_costs:
+  - archived:
+      reference: https://help.calendly.com/hc/en-us/articles/10823458674071-Account-Suspension
+      value: uncertain
+    license_level: Free
+    suspended_disabled:
+      reference: https://help.calendly.com/hc/en-us/articles/10823458674071-Account-Suspension
+      value: uncertain
+  - archived:
+      reference: https://help.calendly.com/hc/en-us/articles/10823458674071-Account-Suspension
+      value: uncertain
+    license_level: Standard
+    suspended_disabled:
+      reference: https://www.youtube.com/watch?v=esvBAAnLiiU
+      value: Users are charged per seat per month/year. If a user is added, an extra
+        seat is charged.
+  - archived:
+      reference: https://help.calendly.com/hc/en-us/articles/10823458674071-Account-Suspension
+      value: uncertain
+    license_level: Teams
+    suspended_disabled:
+      reference: https://www.youtube.com/watch?v=esvBAAnLiiU
+      value: Users are charged per seat per month/year. If a user is added, an extra
+        seat is charged.
+  - archived:
+      reference: https://help.calendly.com/hc/en-us/articles/10823458674071-Account-Suspension
+      value: uncertain
+    license_level: Enterprise
+    suspended_disabled:
+      reference: https://help.calendly.com/hc/en-us/articles/10823458674071-Account-Suspension
+      value: uncertain
+  sso_license_level_requirement:
+    reference: https://help.calendly.com/hc/en-us/articles/360056867653-SAML-single-sign-on-SSO-overview
+    value: Teams + SSO Plan, Enterprise Plan
+  sso_support:
+    reference: https://help.calendly.com/hc/en-us/articles/360056867653-SAML-single-sign-on-SSO-overview
+    value: yes - SAML 2.0 (Okta, OneLogin, Microsoft Entra ID, Ping Identity, Auth0,
+      Duo, Microsoft AD FS). Supports both SP-initiated and IdP-initiated SSO. [4,
+      18]
+  user_management_api_authentication_acquisition_steps:
+    reference: https://developer.calendly.com/how-to-authenticate-with-personal-access-tokens
+    value: 'For Personal Access Tokens: 1. Log in to your Calendly account. 2. Go
+      to the Integrations Page. 3. Select the ''API & Webhooks'' tile. 4. If you have
+      no prior personal access tokens, select ''Get a token now'' under Personal Access
+      Tokens. If you already have a token, select ''Generate new token'' under Your
+      personal access tokens. 5. At ''Create your personal access token'', create
+      an identifiable name for your token and select ''Create Token'', then ''Copy
+      token''.'
+  user_management_api_authentication_mechanisms:
+    reference: https://developer.calendly.com/getting-started
+    value: Personal Access Tokens, OAuth 2.0
+  user_management_api_licensing_level:
+    reference: https://rollout.com/integration-guides/calendly/api-essentials
+    value: Webhooks require a paid Calendly subscription on the Professional, Teams,
+      or Enterprise plan. The core API v2 functionality appears to be generally available.
+  user_management_api_support:
+    reference: https://www.postman.com/calendlyapi/calendly-s-api-collection/documentation/tgml0ya/calendly-api
+    value: yes - Calendly provides a REST-based API (API v2) for managing users, retrieving
+      Calendly links, and syncing scheduled meetings. It also supports webhooks for
+      real-time data on events like invitee created/canceled.
 security_monitoring:
+  documentation_links:
+  - https://calendly.com/blog/enterprise-security-compliance
+  - https://calendly.com/security
+  - https://www.postman.com/calendlyapi/calendly-s-api-collection/documentation/tgml0ya/calendly-api
   event_logs:
-    user_login:
-      value: "Available in the activity log. The log tracks key account actions including logins. [1]"
-      reference: "https://calendly.com/blog/enterprise-security"
-    role_assignment:
-      value: "Available in the activity log. It includes details on permission changes for roles like admins, team managers, and standard users. [1, 16]"
-      reference: "https://calendly.com/help/the-activity-log"
     api_call:
-      value: "API activity is not explicitly mentioned as a distinct event type in the general activity log documentation. However, API-related configuration changes, like generating a personal access token, are logged. [16]"
-      reference: "https://calendly.com/help/the-activity-log"
-    data_export:
-      value: "Available in the activity log. Actions such as exporting the activity log itself or exporting outgoing communications are logged. [16, 17]"
-      reference: "https://calendly.com/help/export-outgoing-communications-log"
+      reference: hallucinated link doublecheck content
+      value: The activity log includes a category for "API" with activities like "Token
+        created" and "Token revoked". Calendly's API is REST-based and uses JSON for
+        request and response bodies. Authentication for the API can be done with personal
+        access tokens or OAuth 2.0.
     configuration_change:
-      value: "Available in the activity log. This includes changes to organizational settings, event type modifications, and workflow changes. [1, 16]"
-      reference: "https://calendly.com/help/the-activity-log"
-    user_account_creation:
-      value: "Available in the activity log, which tracks user invites. User provisioning and removal can also be managed and logged via SCIM. [1, 24]"
-      reference: "https://calendly.com/blog/enterprise-security"
+      reference: hallucinated link doublecheck content
+      value: The activity log captures various configuration changes under the "Settings"
+        category, including "Domain Control enabled/disabled/modified," "Email auditing
+        enabled," "SAML configured/disabled/enforced/updated," and "SCIM deleted/disabled/enforced/token
+        created/token revoked."
+    data_export:
+      reference: hallucinated link doublecheck content
+      value: Calendly allows users to export data manually as CSV files from various
+        pages. Owners and admins can export the activity log as a CSV file. Outgoing
+        communications logs, which include messages like reminders, reschedules, and
+        cancellations, can also be downloaded as a CSV file from the Admin Center.
+        Calendly's data deletion API enables the deletion of user data.
+    role_assignment:
+      reference: hallucinated link doublecheck content
+      value: The activity log in Calendly captures "User Management" activities, which
+        includes "Role changed" events. Owners and admins can manage users and assign
+        roles.
     security_policy_change:
-      value: "Available in the activity log. This includes changes to security settings like enabling or modifying SSO configurations. [16]"
-      reference: "https://calendly.com/help/the-activity-log"
+      reference: https://calendly.com/security
+      value: Calendly's activity (audit) log offers visibility into organizational
+        settings changes. This includes granular, role-based permissions to prevent
+        unauthorized changes. The activity log captures changes related to SAML and
+        SCIM enforcement and configuration, which are related to security policies.
+        Calendly maintains security programs and policies for all employees and conducts
+        routine audits and penetration testing.
+    user_account_creation:
+      reference: hallucinated link doublecheck content
+      value: The "User Management" category in the activity log includes events such
+        as "Added," "Deactivated," "Deleted," "Invite canceled," "Invite declined,"
+        "Invite resent," "Invite sent," "Modified," "Reactivated," and "User pending
+        (specific to domain control)." Calendly for Enterprise integrates with identity
+        providers like Okta, OneLogin, and Microsoft Azure for user provisioning via
+        SCIM.
+    user_login:
+      reference: https://calendly.com/blog/enterprise-security-compliance
+      value: Calendly for Enterprise provides an activity log where IT and security
+        teams can monitor key account actions, including logins (both successful and
+        failed). This log helps in quickly reacting to security incidents, reviewing
+        events, understanding changes, and identifying potentially suspicious activity.
   event_logs_licensing_level:
-    value: "Enterprise Plan. [3, 5]"
-    reference: "https://www.bardeenco.ai/blog/calendly-pricing-plans-costs"
-  monitoring_products:
-    - value: "Splunk (via REST API)"
-      reference: "https://calendly.com/blog/enterprise-security"
-    - value: "Microsoft Sentinel (via REST API)"
-      reference: "https://calendly.com/blog/enterprise-security"
-    - value: "Other SIEM providers (via REST API). [1]"
-      reference: "https://calendly.com/blog/enterprise-security"
-    - value: "Coupler.io"
-      reference: "https://blog.coupler.io/how-to-export-data-from-calendly/"
-    - value: "Sourcetable"
-      reference: "https://www.sourcetable.com/integrations/calendly/export-to-csv"
+    reference: https://calendly.com/blog/enterprise-security-compliance
+    value: Access to the activity log and its export capabilities (including SIEM
+      integration via API) is available to Calendly owners and admins. These features
+      are part of the Calendly Enterprise plan.
   ingestion_methods:
-    - value: "REST API: The activity log can be fetched via the 'List activity log entries' API endpoint, enabling integration with any SIEM. [16, 22]"
-      reference: "https://calendly.com/help/api-overview"
-    - value: "Manual CSV Export: The activity log can be manually exported as a CSV file from the Admin center. [16]"
-      reference: "https://calendly.com/help/the-activity-log"
-    - value: "Webhooks: Real-time notifications for events like meeting creation, cancellation, or rescheduling. Available on Professional, Standard, Teams, and Enterprise plans. [22]"
-      reference: "https://calendly.com/help/api-overview"
+  - reference: https://www.postman.com/calendlyapi/calendly-s-api-collection/documentation/tgml0ya/calendly-api
+    value: Calendly's API is REST-based.
   log_export_options:
     tools_connectors:
-      value: "Log data can be sent to a SIEM or logging service using the Calendly API. There are no specific pre-built connectors mentioned in the official documentation, requiring custom API integration. [16]"
-      reference: "https://calendly.com/help/the-activity-log"
-  documentation_links:
-    - "https://calendly.com/help/the-activity-log"
-    - "https://calendly.com/help/api-overview"
-    - "https://calendly.com/blog/enterprise-security"
-    - "https://calendly.com/developer"
-    - "https://calendly.com/security"
-    - "https://calendly.com/help/export-outgoing-communications-log"
-    - "https://www.bardeenco.ai/blog/calendly-pricing-plans-costs"
+      reference: hallucinated link doublecheck content
+      value: Calendly offers a REST API for owners and admins to send activity log
+        data to a SIEM or logging service. Manual export of activity logs and outgoing
+        communications logs is available in CSV format. Calendly also has a data deletion
+        API.
+  monitoring_products:
+  - reference: https://calendly.com/blog/enterprise-security-compliance
+    value: Calendly for Enterprise provides an activity log that IT and security teams
+      can monitor. This log allows teams to filter and analyze key account actions.
+      Calendly also performs continual monitoring and reviews application and log
+      exceptions.
+  - reference: https://calendly.com/blog/enterprise-security-compliance
+    value: Calendly offers integration with SIEM providers via a REST API. This allows
+      for sending activity log data to an existing SIEM or logging service.
+  - reference: https://calendly.com/integrations
+    value: Calendly integrates with various applications, including CRM systems like
+      Salesforce, Zoom, and Microsoft Teams. While these are primarily for functionality,
+      they contribute to a broader view of activity.
+  - reference: https://calendly.com/security
+    value: Calendly uses Whistic to securely share company and product security profiles
+      and documentation for vendor security assessments. Vanta is also listed as an
+      audit software that integrates with Calendly to help companies with security
+      and compliance programs.
 incident_response:
-  suspend_user_management_api:
-    value: "Yes, via SCIM 2.0. Users can be deactivated by setting the 'active' attribute to 'false' in the IdP, which syncs with Calendly. This action makes the user lose access to Calendly. A direct API endpoint 'Remove User from Organization' is also available. [24, 30, 31, 33]"
-    reference: "https://calendly.com/help/scim-provisioning-overview"
-  invalidate_sessions_api:
-    value: "Partially. Removing a user from an organization via the API or deactivating them via SCIM effectively invalidates their session and access. There is no specific API endpoint to only invalidate a session while keeping the user active. [15, 24, 31]"
-    reference: "https://calendly.com/help/single-sign-on-overview"
-  revoke_api_key_api:
-    value: "Yes. An endpoint exists to revoke OAuth access/refresh tokens. Personal Access Tokens (PATs) cannot be revoked via API but must be managed from the user's integration settings page. [11, 18, 28]"
-    reference: "https://developer.calendly.com/api-docs/ZG9jOjYzMzA0NA-revoke-access-refresh-token"
-  user_toggle_api:
-    value: "Yes, via SCIM. The 'active' attribute can be set to 'true' or 'false' to enable or disable a user's account. This is managed through the identity provider integrated with Calendly. [33]"
-    reference: "https://calendly.com/help/how-to-set-up-scim-with-your-identity-provider"
-  user_status_api:
-    value: "Yes, the API allows retrieving a user's information, including their status (e.g., 'active'). The SCIM integration also provides user status. [2, 36]"
-    reference: "https://developer.calendly.com/api-reference"
-  session_timeout_configuration:
-    value: "Yes. The default session timeout is 21 days, but this can be shortened in the Calendly settings for accounts using SAML SSO. [15]"
-    reference: "https://calendly.com/help/single-sign-on-overview"
-  known_automation_tools:
-    - value: "Okta (for SCIM user provisioning). [1]"
-      reference: "https://calendly.com/blog/enterprise-security"
-    - value: "Microsoft Entra ID / Azure AD (for SCIM user provisioning). [1]"
-      reference: "https://calendly.com/blog/enterprise-security"
-    - value: "OneLogin (for SCIM user provisioning). [1]"
-      reference: "https://calendly.com/blog/enterprise-security"
-    - value: "JumpCloud (for SCIM and SSO). [30]"
-      reference: "https://jumpcloud.com/support/integrate-with-calendly"
-    - value: "Oomnitza (provides workflow presets for inviting, getting details, and removing users). [36]"
-      reference: "https://documentation.oomnitza.com/integrations/extended/calendly"
-    - value: "n8n.io (community discussions on automating actions like event cancellation). [38, 42]"
-      reference: "https://community.n8n.io/t/cancel-event-on-calendly-api/18151"
   documentation_links:
-    - "https://calendly.com/help/scim-provisioning-overview"
-    - "https://developer.calendly.com/api-reference/8354c47552835-remove-user-from-organization"
-    - "https://developer.calendly.com/api-docs/ZG9jOjYzMzA0NA-revoke-access-refresh-token"
-    - "https://calendly.com/help/single-sign-on-overview"
-    - "https://calendly.com/help/how-to-set-up-scim-with-your-identity-provider"
-    - "https://jumpcloud.com/support/integrate-with-calendly"
-    - "https://documentation.oomnitza.com/integrations/extended/calendly"
-
+  - https://calendly.com/blog/enterprise-security-compliance
+  - https://calendly.com/integration
+  - https://rollout.com/integration-guides/calendly/api-essentials
+  - https://www.upguard.com/security-report/calendly
+  - https://www.youtube.com/watch?v=3TgWyOG5lTk
+  - https://www.youtube.com/watch?v=Nj3udUu3Chs
+  - https://phishingtackle.com/blog/calendly-phishing-scam
+  invalidate_sessions_api:
+    reference: https://github.com/calcom/cal.com
+    value: Uncertain. While Calendly allows for revoking access/refresh tokens via
+      their OAuth 2.0 API, which can disconnect applications [5], there is no explicit
+      mention of an API to invalidate all active user sessions within the Calendly
+      application itself, such as forcing a user logout from all devices. However,
+      user provisioning through SCIM with identity providers like Okta or Azure AD
+      can automate user lifecycle management, including automatically removing employees
+      from Calendly when they leave the company, which would presumably revoke their
+      access. [1]
+  known_automation_tools:
+  - reference: https://calendly.com/blog/enterprise-security-compliance
+    value: Calendly integrates with SIEM providers via REST API for activity log integration,
+      allowing for filtering and analysis of key account actions such as logins, user
+      invites, and changes to organizational settings. [1]
+  - reference: https://calendly.com/integration
+    value: Calendly integrates with Zapier, a no-code automation platform, to connect
+      with other tools and automate workflows. Examples include adding new Calendly
+      events to Google Sheets or sending Telegram messages for new invitees. [16,
+      10]
+  - reference: https://m.youtube.com/watch?v=3TgWyOG5lTk
+    value: Calendly can be automated using Pabbly Connect for workflows like sending
+      reminders, updating databases, or notifying teams when a new appointment is
+      scheduled. It also supports automating meeting cancellations for invalid invitees
+      and sending Slack notifications. [26, 27]
+  - reference: https://rollout.com/integration-guides/calendly/api-essentials
+    value: Calendly provides a REST-based API (API v2) that utilizes JSON and adheres
+      to standard HTTP methods, authentication, and response codes, enabling various
+      functionalities such as retrieving Calendly links, syncing scheduled meetings,
+      and managing users. [25]
+  - reference: https://calendly.com/blog/enterprise-security-compliance
+    value: Calendly offers integrations with identity providers like Okta, OneLogin,
+      and Microsoft Azure for advanced user provisioning, including SCIM enablement
+      to automatically remove employees. [1]
+  revoke_api_key_api:
+    reference: hallucinated link doublecheck content
+    value: Calendly provides an API endpoint to revoke an access/refresh token. This
+      endpoint requires the client ID, client secret, and the token to be revoked.
+      [5] Personal Access Tokens (PATs) can be generated, and once generated, they
+      are unretrievable. If a PAT needs to be revoked, it's not explicitly stated
+      if there's an API for it, but the documentation mentions that conditions can
+      result in an access token being revoked. [24]
+  session_timeout_configuration:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. The provided documentation mentions Calendly's general security
+      posture, including ISO 27001 and SOC 2 Type 2 certifications, and internal security
+      protocols [1, 3, 4, 7]. It also highlights features like SSO and user lifecycle
+      management (SCIM) for account protection. [4] However, specific details or configuration
+      options for session timeout values are not explicitly mentioned in the search
+      results.
+  suspend_user_api:
+    reference: hallucinated link doublecheck content
+    value: Calendly offers API capabilities for managing organization users, including
+      inviting users, revoking invitations, and removing users from the organization.
+      These administrative actions are available through the API, with broader access
+      provided by tokens generated by an admin or owner. [14]
+  user_status_api:
+    reference: https://github.com/calcom/cal.com
+    value: Uncertain. The Calendly API allows for managing organization users, including
+      inviting, revoking invitations, and removing users [14]. However, specific API
+      endpoints to check if a user is active (can log in) versus suspended/disabled
+      or non-existent are not explicitly detailed in the provided search results.
+      Admin/Owner roles can access data across the entire organization, which might
+      include user status, but direct API access for this specific check is not confirmed.
+      [14]
+  user_toggle_api:
+    reference: https://github.com/calcom/cal.com
+    value: Uncertain. While Calendly's API allows for removing users from an organization
+      [14] and SCIM provisioning can automate user removal upon leaving a company
+      [1], there is no explicit documentation found regarding an API to simply 'toggle'
+      a user's status between active/suspended/disabled and whether such a toggle
+      would automatically invalidate active sessions.

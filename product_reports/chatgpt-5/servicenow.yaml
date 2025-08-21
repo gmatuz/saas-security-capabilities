@@ -1,0 +1,277 @@
+identity_and_access:
+  sso_support:
+    value: yes — Multi-Provider SSO supports external IdPs via SAML 2.0 and OpenID
+      Connect (OIDC). Digest token authentication also available. Common IdPs used
+      include Microsoft Entra ID/Azure AD, Okta, Ping Identity.
+    reference: https://www.servicenow.com/community/now-platform-articles/administration-identity-amp-authentication-knowledge-amp/ta-p/2366519
+  sso_license_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_support:
+    value: yes — ServiceNow exposes an inbound SCIM 2.0 API for user/group provisioning.
+    reference: https://developer.servicenow.com/dev.do#!/reference/api/utah/rest/c_SCIMAPI
+  scim_licensing_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_mechanisms:
+    value: OAuth 2.0 bearer token (recommended for SCIM provisioning).
+    reference: https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/bc-p/3019097
+  scim_authentication_acquisition_steps:
+    value: 1) In ServiceNow, navigate to System OAuth > Application Registry and open
+      the 'SCIM API' record; note Client ID and set a Client Secret. 2) Confirm SCIM
+      OAuth policy is enabled under System Web Services > REST API Access Policies
+      and linked to 'SCIM API'. 3) Generate an authorization code by visiting https://<instance>.service-now.com/oauth_auth.do
+      with response_type=code, redirect_uri=<your login.do>, and client_id=<ClientID>.
+      4) Exchange the code for an access token via POST to https://<instance>.service-now.com/oauth_token.do
+      with grant_type=authorization_code, client_id, client_secret, and redirect_uri.
+      5) Use the returned access_token as the SCIM 'Secret Token' in your IdP’s provisioning
+      configuration.
+    reference: https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/bc-p/3019097
+  user_management_api_support:
+    value: yes — User lifecycle can be automated via the REST Table API against sys_user
+      (create/disable) and related tables; role assignments via sys_user_has_role.
+    reference: https://www.servicenow.com/community/developer-forum/how-to-create-new-user-in-service-now-using-rest-api-and-assing/td-p/1912340
+  user_management_api_licensing_level:
+    value: uncertain
+    reference: no evidence
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 bearer tokens and Basic Auth supported for inbound REST; enforcement
+      of allowed auth methods (incl. certificate-based, ID token, OAuth) is possible
+      via REST API Access Policy.
+    reference: https://www.servicenow.com/community/developer-articles/enforce-oauth-authentication-on-scripted-web-services/ta-p/2635625
+  user_management_api_authentication_acquisition_steps:
+    value: 1) In ServiceNow, go to System OAuth > Application Registry. 2) Click New
+      > Create OAuth API endpoint for external clients. 3) Name the app and set an
+      Auth Scope (e.g., useraccount). 4) (If using standard OAuth) set Redirect URL
+      for your client. 5) Submit and copy Client ID and Client Secret for use by your
+      automation/client.
+    reference: https://learn.microsoft.com/en-us/azure/databricks/ingestion/lakeflow-connect/servicenow-source-setup
+  seat_costs:
+  - license_level: uncertain
+    active:
+      value: uncertain
+      reference: no evidence
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - active
+  - inactive
+  - locked_out
+  - password_needs_reset
+  - web_service_access_only
+  rbac_support:
+    value: yes — RBAC via roles, groups, and ACLs.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: yes — assign roles via API by inserting records into sys_user_has_role
+      (and manage group membership via sys_user_grmember) using the REST Table API.
+    reference: https://www.servicenow.com/community/developer-forum/how-to-create-new-user-in-service-now-using-rest-api-and-assing/td-p/1912340
+  documentation_links:
+  - https://www.servicenow.com/community/now-platform-articles/multi-provider-sso-configuration-rome-step-by-step/ta-p/2321708
+  - https://docs.pingidentity.com/configuration_guides/servicenow/config_saml_servicenow_p1.html
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-1.1-for-ServiceNow.html
+  - https://www.servicenow.com/docs/bundle/vancouver-api-reference/page/integrate/inbound-rest/concept/scim-api.html
+  - https://www.servicenow.com/community/developer-blog/scim-provisioning-from-microsoft-entra-id/bc-p/3019097
+  - https://www.servicenow.com/community/developer-articles/video-how-to-authenticate-to-servicenow-rest-apis-using-oauth/ta-p/2330464
+  - https://www.servicenow.com/community/platform-privacy-security-blog/restrict-access-available-to-oauth-client-using-rest-api-auth/bc-p/3056761
+  - https://www.servicenow.com/community/developer-articles/oauth-2-0-setup-in-servicenow/ta-p/3307347
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/servicenow-provisioning-tutorial
+  - https://github.com/ServiceNow/PySNC
+  - https://github.com/ConductorOne/baton-servicenow
+  - https://www.servicenow.com/community/servicenow-ai-platform-forum/table-api-query-over-multiple-tables/td-p/1138554
+  - https://www.servicenow.com/community/developer-forum/sso-and-windows-authentication/m-p/1453466
+  - https://www.servicenow.com/community/servicenow-ai-platform-forum/unable-to-connect-azure-user-provision-with-new-oauth-update/m-p/2507237
+  - https://www.servicenow.com/community/secops-forum/security-incident-response-task-view-for-non-security-groups/td-p/1332892/page/2
+security_monitoring:
+  event_logs:
+    user_login:
+      value: 'Login events are recorded in the Event Log table (sysevent) with event
+        name "login". The record contains user identity (parm1) and client IP address
+        (parm2). You can correlate the login’s session with the Transaction Log (syslog_transaction)
+        to distinguish backend vs. portal access. Note: sysevent is auto-cleaned by
+        a table cleaner with a default short retention window, so many orgs copy or
+        export these events for longer retention.'
+      reference: https://www.servicenow.com/community/now-platform-articles/reporting-on-which-users-logged-in-where-and-when/ta-p/2320742
+    role_assignment:
+      value: Role changes are auditable via the Audit Roles table (sys_audit_role).
+        Enabling the system property glide.role_management.v2.audit_roles causes entries
+        to be written for role adds/removes/updates with fields such as user, role,
+        operation (Added/Removed), changed_by, granted_by_group, and count_after_change.
+      reference: https://www.servicenow.com/community/in-other-news/enabling-auditing-of-roles/ba-p/2278584
+    api_call:
+      value: Inbound REST API calls can be traced in System Logs > Transactions (type
+        “REST”, includes URL). For deeper request/response visibility, enable glide.rest.debug
+        to log REST processing and request bodies to the Node Log File Browser during
+        troubleshooting. Outbound HTTP/REST requests are visible in Outbound HTTP
+        Logs when the HTTP log level is set.
+      reference: https://www.servicenow.com/community/developer-articles/how-to-capture-the-inbound-rest-logs-and-the-associated-rest/ta-p/2312216
+    data_export:
+      value: 'Large-scale exports use Export Sets: define an export (table/fields/filter),
+        specify an Export Target to a MID Server path, and run or schedule. Export
+        Sets bypass common UI export limits and are intended for pushing data files
+        (CSV/XML/JSON) off-instance via the MID Server.'
+      reference: https://www.scribd.com/document/517714333/Data-Management-Documentation
+    configuration_change:
+      value: Field-level changes on audited tables are captured in the Audit table
+        (sys_audit) with persistent records; History Sets/Lines (sys_history_set/sys_history_line)
+        are generated on demand when viewing history and are subject to cleaner rotation.
+        Because sys_audit can be very large, direct reporting is discouraged; use
+        targeted queries or off-platform analytics.
+      reference: https://www.servicenow.com/community/itsm-forum/understanding-audit-history-and-how-it-works/td-p/921728
+    user_account_creation:
+      value: Account creations and updates on sys_user are capturable in sys_audit
+        when auditing is enabled for the table (via Dictionary). Full record deletions
+        are tracked in sys_audit_delete. For role membership changes, use sys_audit_role
+        (when role auditing is enabled).
+      reference: https://www.servicenow.com/community/common-service-data-model-forum/difference-bwteen-sys-audit-and-sys-audit-delete-tables/m-p/3320615
+    security_policy_change:
+      value: Changes to user security posture (role assignment/removal) are logged
+        to sys_audit_role when glide.role_management.v2.audit_roles is set, providing
+        who/what/when for role operations; this is commonly used for compliance tracking
+        of role changes.
+      reference: https://www.servicenow.com/community/in-other-news/enabling-auditing-of-roles/ba-p/2278584
+  event_logs_licensing_level:
+    value: 'Base platform logging (e.g., sys_audit, sysevent, syslog_transaction)
+      is available via standard access/ACLs and Table API. For continuous streaming
+      of system/audit/application logs to SIEMs, ServiceNow offers Log Export Service
+      (LES): near real-time streaming (Kafka/OTLP) with filtering. LES is available
+      with a starter tier and as a scalable add-on and is also bundled with ServiceNow
+      Vault.'
+    reference: https://www.servicenow.com/community/platform-privacy-security-blog/how-servicenow-s-log-export-service-helps-federal-agencies-meet/ba-p/3262521
+  monitoring_products:
+  - value: Splunk Add-on for ServiceNow collects incidents, events, changes, users,
+      groups, CMDB CIs and can be configured to read log/audit-related tables via
+      REST APIs; includes guidance to optionally grant read access to sys_audit, sys_audit_delete,
+      sysevent, and syslog_transaction.
+    reference: https://splunk.github.io/splunk-add-on-for-servicenow/ConfigureServiceNowtointegratewithSplunkEnterprise/
+  - value: Elastic ServiceNow connector (managed/self-managed) syncs ServiceNow tables
+      (records and attachments) into Elastic, enabling search/analytics use cases;
+      configured with instance URL and credentials and supports incremental sync.
+    reference: https://www.elastic.co/guide/en/elasticsearch/reference/current/es-connectors-servicenow.html
+  - value: Microsoft Sentinel bi-directional incident sync with ServiceNow using Sentinel
+      automation (Logic Apps) and ServiceNow business rules for incident lifecycle
+      synchronization.
+    reference: https://techcommunity.microsoft.com/t5/azure-sentinel/azure-sentinel-incident-bi-directional-sync-with-servicenow/ba-p/1667771
+  - value: IBM QRadar integration for ServiceNow Security Operations (plugin) enables
+      ingestion/synchronization of offenses and related enrichment; requires Security
+      Operations licensing.
+    reference: https://www.servicenow.com/community/secops-forum/integration-between-qradar-with-servicenow/m-p/1333659
+  ingestion_methods:
+  - value: REST Table API (api/now/table/...) to pull audit/system tables (subject
+      to ACLs). Suitable for periodic SIEM pulls and targeted exports; supports filters,
+      fields, and pagination.
+    reference: https://developer.servicenow.com/print_page.do?category=null&identifier=restListPage&module=api&release=utah
+  - value: Log Export Service (LES) for near real-time streaming of platform/system/audit
+      logs to external SIEM/data lakes via Kafka/OTLP with granular filtering.
+    reference: dubious claim, hallucinated reference
+  - value: Export Sets via MID Server to write large table extracts (CSV/XML/JSON)
+      to a filesystem path on the MID Server; schedulable for batch offloads.
+    reference: https://www.scribd.com/document/517714333/Data-Management-Documentation
+  - value: Syslog Probe via MID Server to send logs as syslog messages to an external
+      syslog receiver/SIEM; typically implemented via scheduled jobs or business logic.
+    reference: https://www.servicenow.com/community/now-platform-forum/syslog-probe-parameters/m-p/1067641
+  - value: Vendor add-ons/connectors (e.g., Splunk Add-on for ServiceNow) that use
+      ServiceNow REST APIs to ingest event/audit/transaction/user data with app-level
+      access controls.
+    reference: https://help.splunk.com/en/data-management/integrate-data-with-add-ons/splunk-supported-add-ons/servicenow
+  log_export_options:
+    tools_connectors:
+      value: Options include Table API pulls, scheduled Export Sets to a MID Server
+        path, near real-time streaming via Log Export Service, and vendor collectors
+        (e.g., Splunk Add-on) that can read sysevent, sys_audit, sys_audit_delete,
+        and syslog_transaction with appropriate roles/ACLs.
+      reference: https://splunk.github.io/splunk-add-on-for-servicenow/ConfigureServiceNowtointegratewithSplunkEnterprise/
+  documentation_links:
+  - https://www.servicenow.com/community/now-platform-articles/reporting-on-which-users-logged-in-where-and-when/ta-p/2320742
+  - https://www.servicenow.com/community/developer-articles/how-to-capture-the-inbound-rest-logs-and-the-associated-rest/ta-p/2312216
+  - https://www.servicenow.com/community/in-other-news/enabling-auditing-of-roles/ba-p/2278584
+  - https://www.servicenow.com/community/itsm-forum/understanding-audit-history-and-how-it-works/td-p/921728
+  - https://www.servicenow.com/standard/resource-center/data-sheet/ds-log-export-service.html
+  - https://www.servicenow.com/community/platform-privacy-security-blog/how-servicenow-s-log-export-service-helps-federal-agencies-meet/ba-p/3262521
+  - https://help.splunk.com/en/data-management/integrate-data-with-add-ons/splunk-supported-add-ons/servicenow
+  - https://splunk.github.io/splunk-add-on-for-servicenow/ConfigureServiceNowtointegratewithSplunkEnterprise/
+  - https://developer.servicenow.com/print_page.do?category=null&identifier=restListPage&module=api&release=utah
+  - https://www.scribd.com/document/517714333/Data-Management-Documentation
+  - https://www.servicenow.com/community/developer-forum/rest-api-logging/m-p/1680752
+  - https://www.servicenow.com/community/developer-forum/rest-api-get-from-sysevent-table/m-p/2869013
+incident_response:
+  suspend_user_api:
+    value: Use the REST Table API to update records in the User [sys_user] table and
+      set the active field to false to deactivate/suspend a user; developer examples
+      reference querying and updating sys_user.active via APIs (e.g., GlideQuery shows
+      sys_user where active=true), and community guidance refers to unchecking the
+      Active box on sys_user to deactivate. This can be automated via PATCH/PUT to
+      /api/now/table/sys_user.
+    reference: https://developer.servicenow.com/print_page.do?category=null&identifier=GlideQueryGlobalAPI&module=api&release=vancouver
+  invalidate_sessions_api:
+    value: Administrators can force‑logout a user from all nodes using the server‑side
+      API call GlideSessions.lockOutSessionsInAllNodes('user_name'), which terminates
+      active sessions across the cluster; community examples show using this for broad
+      session invalidation when logging out users.
+    reference: https://www.servicenow.com/community/developer-forum/force-logout-users-in-all-nodes/m-p/1410660
+  revoke_api_key_api:
+    value: Uncertain – ServiceNow (Washington D.C.+) supports inbound REST API keys
+      via the “API Key and HMAC Authentication” plugin, with records created under
+      System Web Services > API Access Policies (Inbound Authentication Profile, REST
+      API Key, REST API Access Policies). The blog shows how to create and apply keys
+      (x-sn-apikey) but does not document a dedicated “revoke” endpoint; operational
+      revocation appears to be by disabling/deleting the REST API Key record or removing
+      its policy (which could be automated via the Table API if the table is accessible).
+    reference: https://www.servicenow.com/community/developer-advocate-blog/inbound-rest-api-keys/ba-p/2854924
+  user_toggle_api:
+    value: You can toggle a user’s accessibility by updating sys_user.active (Table
+      API). However, locking or deactivating users does not necessarily kick out current
+      sessions immediately; community guidance shows that setting session “locked”
+      or explicitly calling GlideSessions.lockOutSessionsInAllNodes is needed to terminate
+      active sessions, while merely locking prevents re‑login.
+    reference: https://www.servicenow.com/community/now-platform-forum/how-to-logout-all-the-user-that-are-currently-logged-in-from-the/m-p/1187890
+  user_status_api:
+    value: Query user status via the Table API against the User [sys_user] record
+      to inspect fields like active and locked_out; developer examples show programmatic
+      queries on sys_user.active to determine whether a user is enabled.
+    reference: https://developer.servicenow.com/print_page.do?category=null&identifier=GlideQueryGlobalAPI&module=api&release=vancouver
+  session_timeout_configuration:
+    value: Session timeout is configured via the glide.ui.session_timeout system property
+      (value in minutes). Community documentation explains locating/setting it under
+      sys_properties.list and notes the default is typically 30 minutes; remember
+      Me and related properties can affect behavior.
+    reference: https://www.servicenow.com/community/itom-forum/how-to-change-the-session-time-out-values-in-an-instance/m-p/890237
+  known_automation_tools:
+  - value: Splunk SOAR (formerly Phantom) ServiceNow connector enables actions like
+      list/create/update records across ServiceNow tables, adding work notes, etc.,
+      to automate ticket/incident workflows from SOAR playbooks.
+    reference: https://github.com/splunk-soar-connectors/servicenow
+  - value: Cortex XSOAR “ServiceNow v2” integration supports fetching incidents, creating/updating/deleting
+      records (any table), mirroring, and requires roles like snc_platform_rest_api_access
+      for API operations.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/service-now-v2
+  - value: Microsoft Sentinel bi‑directional incident sync with ServiceNow using Sentinel
+      playbooks (Logic Apps) plus ServiceNow Business Rules to mirror state/comments
+      between systems.
+    reference: https://techcommunity.microsoft.com/t5/azure-sentinel/azure-sentinel-incident-bi-directional-sync-with-servicenow/ba-p/1667771
+  - value: Polarity ServiceNow Security Incident Response (SIR) open‑source integration
+      performs lookups of SIR incidents and observables (IP, CVE, domains, hashes,
+      emails) via ServiceNow tables.
+    reference: https://github.com/polarityio/servicenow-sir
+  - value: PSSnow (PowerShell) community module for ServiceNow REST APIs with OAuth
+      token renewal, pagination, table helpers, attachments, and catalog/incident
+      automation—useful for response scripting.
+    reference: https://www.reddit.com/r/PowerShell/comments/123jlls
+  - value: pysnow (Python) ServiceNow HTTP client library to perform Table API and
+      other REST operations for automation and investigation scripting.
+    reference: https://pypi.org/project/pysnow/
+  documentation_links:
+  - https://developer.servicenow.com/print_page.do?category=null&identifier=restListPage&module=api&release=utah
+  - https://developer.servicenow.com/blog.do-pipeline-github-actions/blog.do?p=%2Fpost%2Fdot-walking-in-the-rest-table-api-2%2F
+  - https://www.servicenow.com/community/developer-forum/force-logout-users-in-all-nodes/m-p/1410660
+  - https://www.servicenow.com/community/developer-forum/business-rules-for-the-user-sessions-sys-user-session-table-are/td-p/2945997
+  - https://www.servicenow.com/community/itom-forum/how-to-change-the-session-time-out-values-in-an-instance/m-p/890237
+  - https://www.servicenow.com/community/developer-advocate-blog/inbound-rest-api-keys/ba-p/2854924
+  - https://github.com/splunk-soar-connectors/servicenow
+  - https://xsoar.pan.dev/docs/reference/integrations/service-now-v2
+  - https://techcommunity.microsoft.com/t5/azure-sentinel/azure-sentinel-incident-bi-directional-sync-with-servicenow/ba-p/1667771
+  - https://www.servicenow.com/community/itsm-forum/how-do-you-handle-inactive-users-and-reactivations/td-p/796178

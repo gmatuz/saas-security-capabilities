@@ -1,0 +1,310 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 federation for AWS Management Console; OIDC (OpenID Connect)
+      supported for web identity federation to assume roles; Kerberos not documented
+      for AWS console SSO.
+    reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html
+  sso_license_level_requirement:
+    value: No license tiers; IAM Identity Center is offered at no extra charge.
+    reference: https://aws.amazon.com/iam/identity-center/faqs/
+  scim_support:
+    value: yes — SCIM v2 provisioning via IAM Identity Center; SAML 2.0 used for authentication
+      with external IdPs.
+    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/other-idps.html
+  scim_licensing_level_requirement:
+    value: No license tiers; SCIM provisioning is part of IAM Identity Center at no
+      extra charge.
+    reference: https://aws.amazon.com/iam/identity-center/faqs/
+  scim_authentication_mechanisms:
+    value: OAuth 2.0 bearer token in Authorization header (Bearer <token>); other
+      SCIM auth schemes not supported.
+    reference: https://docs.aws.amazon.com/singlesignon/latest/developerguide/making-api-requests.html
+  scim_authentication_acquisition_steps:
+    value: 1) Open IAM Identity Center console; 2) Go to Settings; 3) In Automatic
+      provisioning, choose Enable; 4) Copy the displayed SCIM endpoint and Access
+      token (shown once); 5) Paste these into your IdP’s provisioning settings.
+    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/how-to-with-scim.html
+  user_management_api_support:
+    value: yes — Non‑SCIM Identity Store APIs support user and group CRUD (e.g., CreateUser,
+      UpdateUser, DeleteUser) when using the IAM Identity Center directory.
+    reference: https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_CreateUser.html
+  user_management_api_licensing_level:
+    value: No license tiers; APIs are available with IAM Identity Center at no extra
+      charge.
+    reference: https://aws.amazon.com/iam/identity-center/faqs/
+  user_management_api_authentication_mechanisms:
+    value: AWS API requests signed with AWS Signature Version 4 using IAM credentials
+      (via SDK/CLI); Identity Store API supports SigV4 parameters.
+    reference: https://docs.amazonaws.cn/en_us/singlesignon/latest/IdentityStoreAPIReference/CommonParameters.html
+  user_management_api_authentication_acquisition_steps:
+    value: 'Option A (programmatic keys): 1) Create/identify an IAM user or role with
+      Identity Store/SSO Admin permissions; 2) Create or use temporary credentials;
+      3) Configure AWS CLI/SDK with the credentials (aws configure). Option B (SSO
+      for CLI): 1) Run ''aws configure sso'' to set up an IAM Identity Center session;
+      2) Use SDK/CLI profiles to call APIs.'
+    reference: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
+  seat_costs:
+  - license_level: N/A (IAM Identity Center has no per-user seat pricing)
+    active:
+      value: not applicable — no per-seat charges
+      reference: https://aws.amazon.com/iam/identity-center/faqs/
+    suspended_disabled:
+      value: not applicable — no per-seat charges
+      reference: https://aws.amazon.com/iam/identity-center/faqs/
+    archived:
+      value: not applicable — no per-seat charges
+      reference: https://aws.amazon.com/iam/identity-center/faqs/
+  lifecycle_options:
+  - invited (email invitation when adding a user)
+  - active
+  - disabled (user access disabled)
+  - deleted (user removed)
+  - session_revoked (delete active sessions / revoke IAM role sessions)
+  rbac_support:
+    value: yes — Role-based access via permission sets, users/groups, and assignments
+      across AWS accounts.
+    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/get-started-create-a-permission-set.html
+  rbac_api_assignment:
+    value: yes — API supports creating permission sets and assigning them to users/groups
+      and accounts (e.g., CreateAccountAssignment, CreatePermissionSet).
+    reference: https://docs.aws.amazon.com/singlesignon/latest/APIReference/API_CreateAccountAssignment.html
+  documentation_links:
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/other-idps.html
+  - https://docs.aws.amazon.com/singlesignon/latest/developerguide/serviceproviderconfig.html
+  - https://docs.aws.amazon.com/singlesignon/latest/developerguide/making-api-requests.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/how-to-with-scim.html
+  - https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/welcome.html
+  - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sso-admin.html
+  - https://boto3.amazonaws.com/v1/documentation/api/1.34.142/reference/services/identitystore.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/disableuser.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/delete-user-session.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/revoke-user-permissions.html
+  - https://repost.aws/questions/QUct63rxIsT_CXkQmOOHFKmA/disable-aws-identity-center-users
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/gs-okta.html
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/aws-single-sign-on-provisioning-tutorial
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/gs-gwp.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/onelogin-idp.html
+  - https://aws.amazon.com/blogs/security/use-new-account-assignment-apis-for-aws-sso-to-automate-multi-account-access/
+  - https://aws.amazon.com/blogs/security/how-to-bulk-import-users-and-groups-from-csv-into-aws-sso/
+  - https://github.com/aws-samples/aws-iam-identity-center-automation
+  - https://github.com/aws-samples/aws-iam-identity-center-scim-sync
+  - https://github.com/hellerda/aws-sso-admin-tools
+  - https://github.com/aws-samples/automated-role-entitlements-in-aws-iam-identity-center
+  - https://www.npmjs.com/package/%40aws-sdk/client-identitystore
+  - https://www.npmjs.com/package/%40aws-sdk/client-sso-admin
+security_monitoring:
+  event_logs:
+    user_login:
+      value: CloudTrail records AWS Management Console sign-ins as ConsoleLogin events
+        with fields like eventSource=signin.amazonaws.com, eventName=ConsoleLogin,
+        additionalEventData.MFAUsed, and userIdentity describing the actor. The Region
+        where ConsoleLogin is logged varies based on root vs IAM, and whether a global
+        or regional sign-in endpoint was used.
+      reference: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-aws-console-sign-in-events.html
+    role_assignment:
+      value: 'IAM and STS activities such as CreateUser, CreateRole, AttachRolePolicy,
+        UpdateAssumeRolePolicy, AddUserToGroup, and AssumeRole are logged as CloudTrail
+        management events; userIdentity helps map federated principals to assumed
+        role activity. Note: denied STS requests for cross-account role assumption
+        are not logged in the target account.'
+      reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html
+    api_call:
+      value: Authenticated API requests to AWS services are logged by CloudTrail with
+        details including actor identity, source IP, requestParameters, and responseElements;
+        entries follow a documented record schema for management, data, and network
+        activity events.
+      reference: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-record-contents.html
+    data_export:
+      value: Object-level access operations in Amazon S3 (for example, GetObject,
+        PutObject, DeleteObject) can be captured as CloudTrail data events to monitor
+        data reads/writes; data events are off by default, must be enabled, and incur
+        additional charges.
+      reference: https://docs.aws.amazon.com/AmazonS3/latest/userguide/cloudtrail-logging-s3-info.html
+    configuration_change:
+      value: AWS Config records detailed configuration items (CIs) and changes for
+        supported resources, delivering snapshots and history to S3. Config supports
+        continuous or daily recording and can detect changes not initiated via API.
+      reference: https://docs.aws.amazon.com/config/latest/developerguide/how-does-config-work.html
+    user_account_creation:
+      value: Identity lifecycle actions in IAM (for example, CreateUser) are logged
+        by CloudTrail, enabling attribution of new administrative user creation and
+        related changes; associated sign-in events are captured as ConsoleLogin.
+      reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html
+    security_policy_change:
+      value: IAM policy changes are auditable via CloudTrail and can be monitored
+        by creating CloudWatch Logs metric filters and alarms (for example, to detect
+        Put*Policy or Attach*Policy operations).
+      reference: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudwatch-alarms-for-cloudtrail.html
+  event_logs_licensing_level:
+    value: CloudTrail Event history provides 90 days of management events at no charge.
+      Ongoing delivery via trails is pay‑as‑you‑go (for example, management events
+      $2 per 100k beyond the first free copy; data and network events $0.10 per 100k).
+      CloudTrail Lake is billed for ingestion, retention, and queries; there is no
+      separate licensing tier—charges are usage‑based.
+    reference: https://aws.amazon.com/cloudtrail/pricing/
+  monitoring_products:
+  - value: Amazon Security Lake normalizes AWS logs (for example, CloudTrail) to OCSF
+      and stores them in S3 with subscriber access via data or query modes, enabling
+      integration with third‑party SIEMs.
+    reference: https://aws.amazon.com/security-lake/features/
+  - value: Splunk integration via Amazon Kinesis Data Firehose destination “Splunk”
+      to send CloudTrail/CloudWatch logs to Splunk HTTP Event Collector (HEC).
+    reference: https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html
+  - value: Microsoft Sentinel AWS S3 connector ingests AWS CloudTrail, VPC Flow Logs,
+      GuardDuty, and CloudWatch logs from S3 into Sentinel.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/amazon-web-services-s3
+  - value: IBM QRadar AWS CloudTrail log source retrieves events via AWS APIs/S3 and
+      provides parsing and rules for AWS security monitoring.
+    reference: https://www.ibm.com/support/pages/configuration-and-benefits-aws-log-source-qradar
+  - value: Elastic “AWS CloudTrail” integration collects CloudTrail logs from S3/CloudWatch,
+      parses them, and maps to ECS for detection and dashboards.
+    reference: https://www.elastic.co/docs/current/integrations/aws/cloudtrail
+  - value: Sumo Logic CloudTrail integration ingests CloudTrail logs from S3 for security
+      analytics and dashboards.
+    reference: https://help.sumologic.com/docs/integrations/amazon-aws/cloudtrail/
+  - value: AWS CloudTrail Processing Library (Java) helps build consumers that continuously
+      download, parse, and process CloudTrail log files from S3/SNS/SQS.
+    reference: https://github.com/aws/aws-cloudtrail-processing-library
+  - value: AWS for Fluent Bit CloudWatch Logs output plugin streams logs to CloudWatch
+      Logs (used with FireLens/EKS/ECS) for routing/aggregation prior to SIEM export.
+    reference: https://github.com/aws/amazon-cloudwatch-logs-for-fluent-bit
+  ingestion_methods:
+  - value: S3 object delivery of CloudTrail log files as gzip‑compressed JSON (.json.gz);
+      retrieval via S3 console, CLI, or API; optional digest files for integrity validation.
+    reference: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html
+  - value: Send CloudTrail events to CloudWatch Logs, then use subscription filters
+      to stream logs to Kinesis Data Streams, Kinesis Data Firehose, AWS Lambda, or
+      Amazon OpenSearch Service.
+    reference: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html
+  - value: Direct delivery from Kinesis Data Firehose to Splunk HEC as a managed destination
+      for near‑real‑time SIEM ingestion.
+    reference: https://aws.amazon.com/blogs/big-data/power-data-ingestion-into-splunk-using-amazon-kinesis-data-firehose/
+  - value: Configure a trail to send events to CloudWatch Logs for monitoring and
+      alerting; CloudTrail supports sending management, data, and Insights events.
+    reference: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/send-cloudtrail-events-to-cloudwatch-logs.html
+  - value: EventBridge integration for CloudTrail‑logged activity enables routing
+      of selected events to partner targets or custom consumers when data/management
+      events are recorded.
+    reference: https://docs.aws.amazon.com/zh_cn/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html
+  - value: CloudTrail Lake provides SQL querying over event data stores and API access
+      (start-query/describe-query/get-query-results) for analytics and export to downstream
+      tools.
+    reference: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake-queries.html
+  log_export_options:
+    tools_connectors:
+      value: Primary export is to Amazon S3 as gzip‑compressed JSON log files with
+        structured naming; files can be downloaded via console/CLI/API. Optional digest
+        files provide integrity verification. Additional access paths include delivery
+        to CloudWatch Logs and querying through CloudTrail Lake.
+      reference: https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html
+  documentation_links:
+  - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-aws-console-sign-in-events.html
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html
+  - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-record-contents.html
+  - https://docs.aws.amazon.com/AmazonS3/latest/userguide/cloudtrail-logging-s3-info.html
+  - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html
+  - https://docs.aws.amazon.com/config/latest/developerguide/how-does-config-work.html
+  - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/send-cloudtrail-events-to-cloudwatch-logs.html
+  - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudwatch-alarms-for-cloudtrail.html
+  - https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html
+  - https://aws.amazon.com/cloudtrail/pricing/
+  - https://aws.amazon.com/security-lake/features/
+  - https://docs.splunk.com/Documentation/AddOns/released/Firehose/ConfigureFirehose
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/amazon-web-services-s3
+  - https://www.ibm.com/support/pages/configuration-and-benefits-aws-log-source-qradar
+  - https://www.elastic.co/docs/current/integrations/aws/cloudtrail
+  - https://help.sumologic.com/docs/integrations/amazon-aws/cloudtrail/
+  - https://github.com/aws/aws-cloudtrail-processing-library
+  - https://github.com/duo-labs/cloudtrail-partitioner
+  - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudtrail.html
+  - https://www.npmjs.com/package/%40aws-sdk/client-cloudtrail
+  - https://repost.aws/questions/QUgQXnV5o6Q5q9meMf5Yunsg/console-logins-not-appearing-in-cloudtrail-logs
+  - https://stackoverflow.com/questions/70886404/console-login-events-not-showing-in-cloudtrail
+incident_response:
+  suspend_user_api:
+    value: No single 'suspend' API for IAM users; deactivation is performed by attaching
+      an explicit Deny policy to the IAM user or removing credentials (console password,
+      access keys) as documented under 'Deactivating an IAM user'.
+    reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_delete.html
+  invalidate_sessions_api:
+    value: 'Yes for IAM role sessions: immediately revoke permissions for all temporary
+      credentials issued before a point-in-time by attaching the AWSRevokeOlderSessions
+      inline policy to the role (via console, CLI, or SDK).'
+    reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_revoke-sessions.html
+  revoke_api_key_api:
+    value: Yes. Use IAM APIs to deactivate or delete access keys. UpdateAccessKey
+      changes an access key status to Inactive (programmatically revoking use), and
+      you can follow with DeleteAccessKey to fully remove it.
+    reference: https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAccessKey.html
+  user_toggle_api:
+    value: For IAM Identity Center (SSO) users, you can toggle user access (Disable/Enable)
+      in the console; disabling immediately prevents access-portal sign-in and new
+      sessions. Existing application sessions end within ~30 minutes; existing IAM
+      role sessions continue until the permission set session duration expires (max
+      12 hours).
+    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/authconcept.html
+  user_status_api:
+    value: Yes. Use IAM credential reports (GenerateCredentialReport/GetCredentialReport)
+      to programmatically see per-user credential state (e.g., password_enabled, access_key_1_active/2_active,
+      last used).
+    reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html
+  session_timeout_configuration:
+    value: IAM Identity Center access-portal and integrated app session duration is
+      configurable from 15 minutes to 90 days (default 8 hours). Changes affect new
+      sessions; portal session duration is separate from IAM permission set (role)
+      session duration.
+    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/configure-user-session.html
+  known_automation_tools:
+  - value: Automated Security Response on AWS (open-source) — playbooks and Systems
+      Manager Automation runbooks triggered via EventBridge/Security Hub to remediate
+      findings cross-account.
+    reference: https://github.com/aws-solutions/automated-security-response-on-aws
+  - value: Splunk SOAR 'AWS IAM' app — containment and investigation actions (e.g.,
+      disable/enable user login profile and access keys, list users/roles, attach/detach
+      policies).
+    reference: https://apps.splunk.com/app/5763/
+  - value: Cortex XSOAR 'AWS - IAM' integration — automations for IAM (create/list
+      roles/users, attach policies, etc.) with role/session auth support.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/aws---iam
+  - value: Cloud Custodian — policy-as-code engine for AWS that enforces and remediates
+      via Lambda/EventBridge (e.g., stop/terminate resources, remove public S3 access)
+      suited for automated response.
+    reference: https://cloudcustodian.io/docs/aws/gettingstarted.html
+  - value: aws_ir (ThreatResponse) — Python CLI to mitigate instance or key compromise
+      (e.g., isolate host, snapshot, disable keys) using AWS APIs.
+    reference: https://github.com/ThreatResponse/aws_ir
+  - value: AWS Systems Manager Incident Manager + Automation — define response plans
+      and automatically run Automation runbooks for incident remediation.
+    reference: https://docs.aws.amazon.com/incident-manager/latest/userguide/runbooks.html
+  - value: Security Hub + EventBridge automation — route findings to Lambda/Step Functions/SSM
+      for automated response or forwarding to SOAR/ticketing systems.
+    reference: https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cloudwatch-events.html
+  - value: Amazon Cognito session revocation — AdminUserGlobalSignOut and RevokeToken
+      to end user sessions in user pools (useful if Cognito identities are in scope).
+    reference: https://docs.aws.amazon.com/cognito/latest/developerguide/token-revocation.html
+  - value: AWS SDK for Python (boto3) — general-purpose automation client for AWS
+      APIs usable to implement investigation/response workflows.
+    reference: https://pypi.org/pypi/boto3/
+  - value: AWS SDK for JavaScript v3 (@aws-sdk/client-iam) — modular IAM client for
+      automation of IAM actions from Node.js/JS runtimes.
+    reference: https://www.npmjs.com/package/%40aws-sdk/client-iam
+  - value: AWS SDK for Java (IAM module) — Maven artifact providing programmatic IAM
+      operations for automation.
+    reference: https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-iam.html
+  documentation_links:
+  - https://docs.aws.amazon.com/security-ir/latest/userguide/security-incident-response-guide.html
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_revoke-sessions.html
+  - https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteLoginProfile.html
+  - https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAccessKey.html
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html
+  - https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cloudwatch-events.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/end-active-sessions.html
+  - https://aws.amazon.com/blogs/security/define-a-custom-session-duration-and-terminate-active-sessions-in-iam-identity-center/
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/configure-user-session.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/authconcept.html
+  - https://docs.aws.amazon.com/guardduty/latest/ug/compromised-creds.html
+  - https://docs.aws.amazon.com/incident-manager/latest/userguide/runbooks.html
+  - https://aws.amazon.com/about-aws/whats-new/2023/11/aws-iam-identity-center-apis-workforce-access/
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/revoke-user-permissions.html

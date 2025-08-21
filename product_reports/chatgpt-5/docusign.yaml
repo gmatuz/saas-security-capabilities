@@ -1,0 +1,282 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 SSO to DocuSign web app with Microsoft Entra ID (Azure AD);
+      supports IdP-initiated and SP-initiated flows and just‑in‑time (JIT) user provisioning.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/docusign-tutorial
+  sso_license_level_requirement:
+    value: Access Management with SSO add‑on required; Organization Management expands
+      SSO and requires Access Management; both add‑ons included with eSignature Enterprise
+      Pro.
+    reference: https://www.docusign.com/products/admin
+  scim_support:
+    value: yes — SCIM user provisioning available to Organization Management customers
+      (DocuSign Developer Newsletter notes SCIM now available to Org Management customers;
+      version not explicitly stated).
+    reference: https://developers.docusign.com/html/newsletter/202507.html
+  scim_licensing_level_requirement:
+    value: Requires Organization Management (with Access Management with SSO as prerequisite);
+      included with eSignature Enterprise Pro.
+    reference: https://www.docusign.com/products/admin
+  scim_authentication_mechanisms:
+    value: uncertain — no public DocuSign documentation found describing SCIM endpoint
+      authentication (e.g., OAuth bearer vs. API key).
+    reference: no evidence
+  scim_authentication_acquisition_steps:
+    value: uncertain — no public step‑by‑step published by DocuSign for obtaining
+      SCIM credentials/tokens.
+    reference: no evidence
+  user_management_api_support:
+    value: 'yes — non‑SCIM user lifecycle via Admin API and Org Admin API: create
+      users, silent activation, forced membership activation, update email, close
+      memberships, bulk CSV import/export.'
+    reference: https://www.docusign.com/blog/dsdev-introducing-the-docusign-organization-admin-api
+  user_management_api_licensing_level:
+    value: Requires a DocuSign Organization; Admin API use requires an organization
+      in your account (and an API‑enabled plan for production).
+    reference: https://github.com/docusign/code-examples-node
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 (Authorization Code Grant, JWT, Refresh Token) for Admin and
+      Org Admin APIs.
+    reference: https://www.postman.com/docusign/docusign-s-public-workspace/documentation/gpq5550/docusign-admin-api
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Sign in to DocuSign developer (demo) account as admin; 2) Admin > Apps
+      & Keys; 3) ADD APP / INTEGRATION KEY; 4) Configure auth (e.g., Auth Code or
+      JWT), set redirect URIs, generate secret/RSA as needed; 5) Use OAuth flow to
+      obtain access token; 6) Promote key to production via Go‑Live when ready.
+    reference: https://www.docusign.com/blog/developers/dsdev-new-api-and-keys-page
+  seat_costs:
+  - license_level: eSignature Standard
+    active:
+      value: Yes — $25 per user/month (annual billing shown on pricing page).
+      reference: https://ecom.docusign.com/plans/esignature
+    suspended_disabled:
+      value: uncertain — no public billing guidance found for suspended/disabled users.
+      reference: no evidence
+    archived:
+      value: uncertain — no public billing guidance found for archived users.
+      reference: no evidence
+  - license_level: eSignature Business Pro
+    active:
+      value: Yes — $40 per user/month (annual billing shown on pricing page).
+      reference: https://ecom.docusign.com/plans/esignature
+    suspended_disabled:
+      value: uncertain — no public billing guidance found for suspended/disabled users.
+      reference: no evidence
+    archived:
+      value: uncertain — no public billing guidance found for archived users.
+      reference: no evidence
+  lifecycle_options:
+  - ActivationSent
+  - Active
+  - Closed membership
+  - Silent activation
+  - Forced membership activation
+  - Just‑in‑time (JIT) provisioned
+  rbac_support:
+    value: yes — roles/permission profiles and groups; permission profiles define
+      user rights; groups can be associated to profiles.
+    reference: https://www.postman.com/docusign/docusign-s-public-workspace/request/oxkn6ao/gets-a-list-of-permission-profiles
+  rbac_api_assignment:
+    value: yes — assign users to permission profiles via Admin API multi‑product endpoint;
+      eSignature API also supports assigning permissionProfileId to users.
+    reference: https://www.postman.com/docusign/docusign-s-public-workspace/request/tym88wm/assign-user-to-permission-profiles-for-one-or-more-products
+  documentation_links:
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/docusign-tutorial
+  - https://docs.pingidentity.com/configuration_guides/docusign/config_saml_docusign_pf.html
+  - https://www.docusign.com/products/admin
+  - https://developers.docusign.com/html/newsletter/202507.html
+  - https://www.docusign.com/blog/dsdev-introducing-the-docusign-organization-admin-api
+  - https://www.postman.com/docusign/docusign-s-public-workspace/documentation/gpq5550/docusign-admin-api
+  - https://www.docusign.com/blog/developers/docusign-admin-api-closing-user-membership-vs-deleting-user-data
+  - https://saml-doc.okta.com/Provisioning_Docs/Docusign_Provisioning.html
+  - https://community.docusign.com/docusign-admin-102/problem-with-docusign-entra-provisioning-not-jit-23419
+  - https://www.postman.com/docusign/docusign-s-public-workspace/request/oxkn6ao/gets-a-list-of-permission-profiles
+  - https://www.postman.com/postman/integration-flows/request/1fxjegp/creates-one-or-more-groups-for-the-account
+  - https://github.com/docusign/docusign-admin-node-client
+  - https://github.com/docusign/postman-collections
+  - https://github.com/docusign/OpenAPI-Specifications
+  - https://github.com/docusign/code-examples-node
+  - https://community.docusign.com/ideas/audit-log-enhancement-24515
+  - https://community.docusign.com/esignature-111/security-concern-attackers-abusing-docusign-api-to-send-authentic-looking-invoices-21468
+security_monitoring:
+  event_logs:
+    user_login:
+      value: DocuSign Monitor logs user authentication activity, including failed
+        and successful login attempts, with fields such as timestamp, userId, object='User',
+        action='Login', result (e.g., 'Failed'), and IP/location metadata that can
+        be queried in SIEMs.
+      reference: https://techcommunity.microsoft.com/t5/azure-sentinel/protecting-your-docusign-agreements-with-azure-sentinel/ba-p/2085502
+    role_assignment:
+      value: Administrative role changes are captured; example Monitor events include
+        object='Account' with actions like 'AddAdministrator' and data fields identifying
+        the affected user/membership.
+      reference: https://www.docusign.com/blog/developers/integrate-the-docusign-monitor-api-your-siem
+    api_call:
+      value: Monitor surfaces eSignature web, mobile, and API account activity, enabling
+        detection such as spikes in REST API usage; organizations can alert on unusual
+        API activity levels.
+      reference: https://community.docusign.com/docusign-monitor-103/what-are-some-uses-for-docusign-monitor-4741
+    data_export:
+      value: Data export-related administrative actions are logged; example detections
+        include bulk user settings/account exports initiated at the organization level,
+        which can be ingested and alerted on in SIEM.
+      reference: https://techcommunity.microsoft.com/t5/azure-sentinel/protecting-your-docusign-agreements-with-azure-sentinel/ba-p/2085502
+    configuration_change:
+      value: Security-relevant configuration changes are tracked and can generate
+        events/alerts, including changes to legal disclosures, watermark configuration,
+        and other account policies.
+      reference: https://splunkbase.splunk.com/app/5665
+    user_account_creation:
+      value: Account user provisioning is recorded; example event shows object='Account'
+        action='UserAdded' with identifiers for the affected user and membership.
+      reference: https://www.docusign.com/blog/developers/integrate-the-docusign-monitor-api-your-siem
+    security_policy_change:
+      value: Policy-related security changes are monitored; examples include 'SSO
+        bypass enabled for user' and password policy updates, which can be forwarded
+        to SIEM for alerting.
+      reference: https://splunkbase.splunk.com/app/5665
+  event_logs_licensing_level:
+    value: Monitor is an add-on to eSignature/IAM plans. A Monitor Free Edition exists
+      (auto-enabled in Admin with no license) for dashboard viewing, while SIEM integrations
+      and add-on usage (e.g., Splunk TA) require a valid Monitor subscription.
+    reference: https://community.docusign.com/docusign-monitor-103/who-has-access-to-docusign-monitor-4742
+  monitoring_products:
+  - value: 'DocuSign Monitor Add-on (TA) for Splunk: official modular input to ingest
+      Monitor activity/alerts directly into Splunk; requires a valid DocuSign Monitor
+      subscription.'
+    reference: https://splunkbase.splunk.com/app/5665
+  - value: 'DocuSign Monitor Dashboards and Alerts App for Splunk: dashboards and
+      alerting built to visualize and act on Monitor events in Splunk.'
+    reference: https://apps.splunk.com/app/5666/
+  - value: Sumo Logic DocuSign app and Cloud-to-Cloud 'DocuSign Source' that pull
+      Monitor API events for dashboards, queries, and SIEM forwarding.
+    reference: https://help.sumologic.com/docs/integrations/saas-cloud/docusign/
+  - value: 'Microsoft Sentinel (Azure) community connector and analytics rules: Azure
+      Function-based data connector reads Monitor API and ingests security events
+      into Log Analytics/Sentinel.'
+    reference: https://techcommunity.microsoft.com/t5/azure-sentinel/protecting-your-docusign-agreements-with-azure-sentinel/ba-p/2085502
+  - value: AWS Glue native connector to read 'monitoring-data' entity from DocuSign
+      Monitor (API v2.0), exposing event fields (timestamp, object, action, userId,
+      ipAddress, etc.).
+    reference: https://docs.aws.amazon.com/glue/latest/dg/docusign-monitor-reading-from-entities.html
+  - value: Official Monitor SDK (Python) for integrating with the Monitor API to fetch
+      event streams programmatically.
+    reference: https://github.com/docusign/docusign-monitor-python-client
+  - value: Official Monitor SDK (Java) for programmatic access to Monitor event streams.
+    reference: https://github.com/docusign/docusign-monitor-java-client
+  - value: Official Monitor SDK (C#) for .NET integrations with the Monitor REST API.
+    reference: https://github.com/docusign/docusign-monitor-csharp-client
+  - value: Official Monitor SDK (PHP) for PHP-based integrations with Monitor.
+    reference: https://github.com/docusign/docusign-monitor-php-client
+  ingestion_methods:
+  - value: Monitor API streaming endpoint (pull model) using lens.docusign.net datasets
+      with cursor-based pagination (cursor, limit) to retrieve events continuously.
+    reference: https://www.postman.com/docusign/docusign-s-public-workspace/documentation/u7azh8g/monitor-api
+  - value: Splunk Modular Input via DocuSign Monitor Add-on (TA) to pull and ingest
+      Monitor events and alerts into Splunk.
+    reference: https://splunkbase.splunk.com/app/5665
+  - value: Sumo Logic Cloud-to-Cloud 'DocuSign Source' configured with Integration
+      Key/JWT to collect Monitor API data into Sumo (optionally forward to SIEM parsers).
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/docusign-source/
+  - value: Microsoft Sentinel connector implemented with an Azure Function to poll
+      the Monitor API and send events to Azure Log Analytics.
+    reference: https://techcommunity.microsoft.com/t5/azure-sentinel/protecting-your-docusign-agreements-with-azure-sentinel/ba-p/2085502
+  - value: AWS Glue connector reads the 'monitoring-data' entity (API v2.0) for ETL
+      into AWS analytics destinations.
+    reference: https://docs.aws.amazon.com/glue/latest/dg/docusign-monitor-reading-from-entities.html
+  log_export_options:
+    tools_connectors:
+      value: Primary export is via the DocuSign Monitor API streaming endpoint (GET
+        /api/v2.0/datasets/monitor/stream) with cursor/limit; vendors provide connectors
+        (Splunk TA, Sumo C2C, Sentinel Azure Function). No official FTP/ZIP dump is
+        documented for Monitor; integrations rely on API polling/streaming.
+      reference: https://www.postman.com/docusign/docusign-s-public-workspace/documentation/u7azh8g/monitor-api
+  documentation_links:
+  - https://www.postman.com/docusign/docusign-s-public-workspace/documentation/u7azh8g/monitor-api
+  - https://www.docusign.com/blog/developers/integrate-the-docusign-monitor-api-your-siem
+  - https://www.docusign.com/products/monitor
+  - https://splunkbase.splunk.com/app/5665
+  - https://apps.splunk.com/app/5666/
+  - https://help.sumologic.com/docs/integrations/saas-cloud/docusign/
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/docusign-source/
+  - https://techcommunity.microsoft.com/t5/azure-sentinel/protecting-your-docusign-agreements-with-azure-sentinel/ba-p/2085502
+  - https://docs.aws.amazon.com/glue/latest/dg/docusign-monitor-reading-from-entities.html
+  - https://community.docusign.com/docusign-monitor-103/what-are-the-features-of-the-monitor-dashboard-4743
+  - https://community.docusign.com/docusign-monitor-103/what-are-some-uses-for-docusign-monitor-4741
+  - https://community.docusign.com/docusign-monitor-103/who-has-access-to-docusign-monitor-4742
+  - https://www.docusign.com/blog/developers/docusign-monitor-safeguards-agreements-round-the-clock-activity-tracking
+  - https://www.docusign.com/blog/developers/the-trenches-how-to-use-api-logs
+incident_response:
+  suspend_user_api:
+    value: Yes. Admins can programmatically deactivate a user’s membership (soft close)
+      in an account using the eSignature REST API Users:delete call; the blog shows
+      SDK examples (C#/Java/Node/Python/Ruby/PHP). Reactivation is possible later,
+      but requires the user to click an emailed link.
+    reference: https://www.docusign.com/blog/developers/common-api-tasks-deactivate-or-close-user-the-docusign-account
+  invalidate_sessions_api:
+    value: No documented API to invalidate all active sessions for a user. For OAuth
+      2.0, DocuSign access tokens expire (about 8 hours) and the older revoke endpoint
+      is not applicable; recommended mitigation is to close the user’s membership
+      to block access.
+    reference: https://stackoverflow.com/questions/69977410/docusign-oauth-revoke-access-token
+  revoke_api_key_api:
+    value: No public API found to revoke DocuSign integration keys or all user app
+      authorizations. Admins can revoke a connected app’s access in the eSignature
+      UI (Manage Profile > Connected Apps > Revoke), per Okta’s DocuSign connector
+      guidance; requires a super user.
+    reference: https://help.okta.com/wf/en-us/Content/Topics/Workflows/connector-reference/docusign/overviews/revoke.htm
+  user_toggle_api:
+    value: You cannot set userStatus to Enabled/Disabled via API; the supported control
+      is to close the user’s membership (blocks account access). Reactivation later
+      requires the user to accept via an emailed link.
+    reference: https://www.docusign.com/blog/developers/common-api-tasks-deactivate-or-close-user-the-docusign-account
+  user_status_api:
+    value: Yes. Use Users:list (filter by email/status) to retrieve membership records
+      and check userStatus (e.g., Active vs. Closed) and permission profile; the DocuSign
+      blog recommends querying by email.
+    reference: https://www.docusign.com/blog/developers/the-trenches-may-i-see-your-id
+  session_timeout_configuration:
+    value: Recipient Signing Session Timeout is configurable at account level under
+      Settings > Security Settings (not per-user). Community guidance indicates a
+      minimum of 20 minutes for the web-app session timeout.
+    reference: https://community.docusign.com/esignature-111/docusign-web-app-session-timeout-settings-for-user-5754
+  known_automation_tools:
+  - value: 'DocuSign Monitor Add-on (TA) for Splunk: pulls DocuSign Monitor activity
+      into Splunk for investigation and response; Monitor subscription required.'
+    reference: https://splunkbase.splunk.com/app/5665
+  - value: 'DocuSign Monitor Dashboards and Alerts App for Splunk: prebuilt dashboards
+      and alerts (e.g., Unauthorized IP activity, SSO bypass enabled) that operate
+      on Monitor events.'
+    reference: https://classic.splunkbase.splunk.com/app/5666/
+  - value: 'Integrate the DocuSign Monitor API with your SIEM: developer guide with
+      Splunk modular input example and cursor handling.'
+    reference: https://www.docusign.com/blog/developers/integrate-the-docusign-monitor-api-your-siem
+  - value: 'Microsoft Defender for Cloud Apps (App Connector) for DocuSign: requires
+      a DocuSign Monitor-enabled subscription; ingests admin and sign-in activity
+      for threat detection.'
+    reference: https://learn.microsoft.com/en-us/defender-cloud-apps/protect-docusign
+  - value: 'DocuSign Connect webhooks: secure listener patterns (HMAC, Basic Auth,
+      mTLS) for forwarding envelope/account events into SIEM/SOAR pipelines.'
+    reference: https://www.docusign.com/blog/developers/dsdev-securing-connect-webhook-listener
+  - value: 'Node.js SDK (docusign-esign): official client usable for response automations
+      (e.g., closing users, auditing users via Users:list).'
+    reference: https://www.npmjs.com/package/docusign-esign
+  - value: 'Python SDK (docusign-esign): official client for automating investigations
+      (e.g., enumerate users, pull activity metadata via APIs).'
+    reference: https://pypi.org/project/docusign-esign/
+  - value: 'Python Admin SDK (docusign-admin): official client for Admin/Org management
+      (e.g., close memberships, data redaction flows).'
+    reference: https://pypi.org/project/docusign-admin/
+  documentation_links:
+  - https://www.docusign.com/blog/developers/common-api-tasks-deactivate-or-close-user-the-docusign-account
+  - https://www.docusign.com/blog/developers/docusign-admin-api-closing-user-membership-vs-deleting-user-data
+  - https://www.docusign.com/blog/developers/the-trenches-may-i-see-your-id
+  - https://docusign.github.io/docusign-esign-csharp-client/class_docu_sign_1_1e_sign_1_1_api_1_1_users_api.html
+  - https://www.docusign.com/blog/developers/integrate-the-docusign-monitor-api-your-siem
+  - https://www.docusign.com/products/monitor
+  - https://splunkbase.splunk.com/app/5665
+  - https://classic.splunkbase.splunk.com/app/5666/
+  - https://learn.microsoft.com/en-us/defender-cloud-apps/protect-docusign
+  - https://www.docusign.com/blog/developers/dsdev-securing-connect-webhook-listener
+  - https://stackoverflow.com/questions/69977410/docusign-oauth-revoke-access-token
+  - https://docusign.github.io/docusign-esign-csharp-client/class_docu_sign_1_1e_sign_1_1_api_1_1_authentication_api.html

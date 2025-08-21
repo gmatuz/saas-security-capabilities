@@ -1,163 +1,576 @@
-user_management:
-  sso_support:
-    value: "Yes, Atlassian Jira Cloud supports SAML 2.0 and OAuth 2.0 for Single Sign-On."
-    reference: "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-saml-single-sign-on-with-an-identity-provider/"
-  sso_licensing_level_requirement:
-    value: "SSO capabilities require an Atlassian Guard (formerly Atlassian Access) subscription. This is an additional subscription that applies across all users of your Atlassian Cloud products."
-    reference: "https://www.atlassian.com/software/guard/pricing"
-  scim_support:
-    value: "yes"
-    reference: "https://support.atlassian.com/atlassian-cloud-admins/docs/understand-user-provisioning/"
-  scim_licensing_level_requirement:
-    value: "SCIM provisioning requires an Atlassian Guard (formerly Atlassian Access) subscription."
-    reference: "https://www.atlassian.com/software/guard/pricing"
-  scim_authentication_mechanisms:
-    value: "API key"
-    reference: "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-user-provisioning-with-an-identity-provider/"
-  scim_authentication_acquisition_steps: "1. Go to admin.atlassian.com and select your organization. \n2. Navigate to Security > Identity providers. \n3. Select your identity provider directory. \n4. In the User provisioning section, you will find the Directory base URL and an option to create or regenerate an API key. \n5. Copy the Directory base URL and the API key. The API key is used as a Bearer Token in the Authorization header of your SCIM requests. \n6. The API key is only shown once upon creation/regeneration, so it must be stored securely."
-  user_management_api_support:
-    value: "yes"
-    reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
-  user_management_api_licensing_level:
-    value: "Access to the Jira Cloud REST API is available on all plans, including Free, Standard, Premium, and Enterprise. However, some specific API functionalities might be implicitly tied to features available only in higher-tier plans."
-    reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
-  user_management_api_authentication_mechanisms:
-    value: "API key"
-    reference: "https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/"
-  user_management_api_authentication_acquisition_steps: "1. Log in to your Atlassian account. \n2. Go to https://id.atlassian.com/manage-profile/security/api-tokens. \n3. Click 'Create API token'. \n4. Give the token a descriptive label. \n5. Click 'Create'. \n6. Copy the generated API token immediately. You will not be able to see it again. \n7. Use this token with Basic Authentication, providing your email address as the username and the API token as the password."
-  seat_costs:
-    - license_level: "Any paid plan with Atlassian Guard"
-      active:
-        value: "yes"
-        reference: "https://www.atlassian.com/software/guard/pricing"
-      suspended_disabled:
-        value: "no"
-        reference: "https://community.atlassian.com/t5/Atlassian-Access-questions/Deactivated-vs-Suspended-User/qaq-p/2436423"
-      archived:
-        value: "n/a"
-        reference: ""
-    - license_level: "Any paid plan without Atlassian Guard"
-      active:
-        value: "yes"
-        reference: "https://www.atlassian.com/pricing/cloud/jira-software"
-      suspended_disabled:
-        value: "no"
-        reference: "https://community.atlassian.com/t5/Jira-questions/When-you-suspend-a-user-are-you-still-paying-for-licenses/qaq-p/2438676"
-      archived:
-        value: "n/a"
-        reference: ""
-  lifecycle_options:
-    - "Active: User has full access and is billable. [19]"
-    - "Deactivated (for managed accounts with Atlassian Guard): User cannot log in to any Atlassian product and is not counted for billing. This action is synced from the IdP via SCIM. [25]"
-    - "Suspended: User cannot access a specific site but can still log in and access other sites. They are not counted for billing for the site from which they are suspended. [25]"
-    - "Delete: User account is permanently removed."
-  rbac_support:
-    value: "yes"
-    reference: "https://support.atlassian.com/jira-cloud-administration/docs/manage-groups/"
-  rbac_api_assignment:
-    value: "Yes, user and group assignments can be managed via the REST API. You can add users to groups using the 'Add user to group' endpoint."
-    reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-groups/#api-rest-api-3-group-user-post"
+identity_and_access:
   documentation_links:
-    - "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-saml-single-sign-on-with-an-identity-provider/"
-    - "https://support.atlassian.com/atlassian-cloud-admins/docs/configure-user-provisioning-with-an-identity-provider/"
-    - "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
-    - "https://www.atlassian.com/software/guard"
-    - "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/intro/"
-    - "https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/"
-    - "https://confluence.atlassian.com/cloud/api-tokens-938839638.html"
-    - "https://www.okta.com/resources/integration-guide/configure-atlassian-cloud-saml-sso/"
-    - "https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/atlassian-cloud-tutorial"
-    - "https://github.com/atlassian/jira-cloud-rest-api-docs"
+  - https://support.atlassian.com/atlassian-cloud/kb/how-to-invite-users-to-a-jira-cloud-site-and-then-add-users-to-groups-via-rest-api-on-an-organization-with-the-centralized-organization-experience/
+  - https://www.resolution.de/post/automating-user-management-in-jira/
+  - https://cloud.google.com/blog/products/identity-security/cloud-identity-and-atlassian-access-user-lifecycle-management-across-your-organization
+  - https://support.atlassian.com/jira/kb/how-to-bulk-create-users-in-jira/
+  - https://community.atlassian.com/forums/Jira-Service-Management-articles/Okta-user-lifecycle-management-now-available-in-Automation/ba-p/3022308
+  - https://confluence.atlassian.com/adminjiraserver/user-management-938847014.html
+  - https://www.youtube.com/watch?v=3teLPdpnYlY
+  - https://www.miniorange.com/iam/integrations/atlassian-jira-cloud-single-sign-on-sso
+  - https://community.atlassian.com/forums/Jira-questions/User-Invite-via-Rest-api/qaq-p/2375445
+  - https://appfire.com/products/use-cases/bulk-add-users-to-your-jira-account-with-jira-cli
+  - https://mdleom.com/blog/2025/02/02/atlassian-jira-sso/
+  lifecycle_options:
+  - Active
+  - Suspended/Deactivated (can be automated via API or by removing product access)
+  - Deleted
+  - Invited (users need to be invited before they can be added to groups)
+  rbac_api_assignment:
+    reference: https://support.atlassian.com/atlassian-cloud/kb/how-to-invite-users-to-a-jira-cloud-site-and-then-add-users-to-groups-via-rest-api-on-an-organization-with-the-centralized-organization-experience/
+    value: yes - Roles and group memberships can be assigned and managed through APIs.
+      The Organizations REST API can be used to add users to groups. Automation rules
+      can add users to Okta groups. Bulk adding users to Jira groups can also be done
+      via scripts using API tokens.
+  rbac_support:
+    reference: https://www.resolution.de/post/automating-user-management-in-jira/
+    value: yes - Jira supports Role-Based Access Control (RBAC) through roles, groups,
+      and permissions. Group memberships can be managed on the Identity Provider to
+      ensure users have the correct permissions.
+  scim_authentication_acquisition_steps:
+    reference: https://support.atlassian.com/provisioning-users/docs/understand-user-provisioning/
+    value: Uncertain. Detailed step-by-step user guides to acquire SCIM V2 credentials
+      are not explicitly provided in the search results. However, the process generally
+      involves configuring an API in the Identity Provider and creating a connection.
+  scim_authentication_mechanisms:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. While SCIM is supported, the specific authentication mechanisms
+      for the SCIM endpoint are not explicitly detailed in the provided search results.
+      However, Atlassian Access, which underpins SCIM, generally involves API keys
+      or tokens for integrations.
+  scim_licensing_level_requirement:
+    reference: https://cloud.google.com/blog/products/identity-security/cloud-identity-and-atlassian-access-user-lifecycle-management-across-your-organization
+    value: SCIM support is underpinned by Atlassian Access.
+  scim_support:
+    reference: https://cloud.google.com/blog/products/identity-security/cloud-identity-and-atlassian-access-user-lifecycle-management-across-your-organization
+    value: yes - SCIM 2.0 is supported for user lifecycle management to provision
+      and de-provision users with Google Cloud Identity. The resolution 'SAML SSO
+      for Atlassian Jira & Confluence Data Center' app also mentions SCIM protocol
+      support.
+  seat_costs: []
+  sso_license_level_requirement:
+    reference: https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Atlassian-Cloud.html
+    value: SAML SSO for Cloud deployment is available with an Atlassian Access subscription.
+      For Opsgenie, SSO is available through Standard and Enterprise plans.
+  sso_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SAML is supported for Single Sign-On (SSO) in Atlassian Jira Cloud
+      through Atlassian Access. For on-premise deployments (Server & Data Center),
+      SSO can be enabled via Data Center features, Atlassian Crowd, or by writing
+      a custom authenticator. OAuth is not considered SSO in the Atlassian environment
+      for logging into Atlassian accounts; it is for authorization, not authentication.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://support.qmetry.com/s/article/how-to-generate-the-api-token--y
+    value: 1. Log in to your Jira account settings. 2. Locate the API token section
+      and generate a new token. 3. Copy the generated token. This token is then used
+      for authorization in API calls.
+  user_management_api_authentication_mechanisms:
+    reference: https://support.atlassian.com/atlassian-cloud/kb/how-to-invite-users-to-a-jira-cloud-site-and-then-add-users-to-groups-via-rest-api-on-an-organization-with-the-centralized-organization-experience/
+    value: API Token. Authorization for the Organizations REST API is provided with
+      an admin API key, and for the Jira Cloud REST API, with a user API token. API
+      tokens can be generated from Jira account settings.
+  user_management_api_licensing_level:
+    reference: https://community.atlassian.com/forums/Jira-Service-Management-articles/Okta-user-lifecycle-management-now-available-in-Automation/ba-p/3022308
+    value: For automating user management with Okta, Premium and Enterprise Jira Service
+      Management Cloud customers can use the new automation actions. For general user
+      management APIs, specific licensing levels are not detailed, but administration
+      typically requires Org Admin or Site Admin permissions.
+  user_management_api_support:
+    reference: https://support.atlassian.com/atlassian-cloud/kb/how-to-invite-users-to-a-jira-cloud-site-and-then-add-users-to-groups-via-rest-api-on-an-organization-with-the-centralized-organization-experience/
+    value: yes - Jira supports a user management REST API for tasks like inviting
+      users, adding users to groups, and bulk user creation. There is also a 'lifecycle.enablement
+      privilege' that deactivates (blocks) specified user accounts from logging into
+      Atlassian.
 security_monitoring:
   event_logs:
-    user_login:
-      value: "Successful and failed user logins are tracked in the audit log. The specific event is 'User logged in' or 'User logged out'. Failed logins due to incorrect passwords or MFA are also logged."
-      reference: "https://support.atlassian.com/administration/docs/review-audit-logs-in-an-organization/"
-    role_assignment:
-      value: "Changes to user roles and permissions are logged. This includes events like 'User added to group', 'User removed from group', 'Global permissions changed', and 'Project role updated'."
-      reference: "https://support.atlassian.com/jira-cloud-administration/docs/track-important-events-with-the-audit-log/"
     api_call:
-      value: "While direct API calls are not logged with full request/response bodies, actions performed via the API that result in configuration or data changes are logged. For example, creating an issue via the API would appear as 'Issue Created' in the audit log, attributed to the user or API token that performed the action."
-      reference: "https://support.atlassian.com/administration/docs/review-audit-logs-in-an-organization/"
-    data_export:
-      value: "User-initiated exports are logged as 'Exported issues' or 'Exported data'. For full site data exports, the event 'Backup created' is logged."
-      reference: "https://support.atlassian.com/jira-cloud-administration/docs/track-important-events-with-the-audit-log/"
+      reference: https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-audit-records/
+      value: Jira Cloud platform REST API provides an endpoint `/rest/api/2/auditing/record`
+        (and `/rest/api/3/auditing/record` for API v3) to retrieve a list of audit
+        records. [20, 27] These records can be filtered by `eventSource`, `objectItem.name`,
+        `objectItem.typeName`, `changedValues.changedFrom`, `changedValues.changedTo`,
+        and `remoteAddress`. [20] The logs capture activities undertaken in Jira.
+        [20] The Elastic Jira integration collects audit logs from the audit API.
+        [24]
     configuration_change:
-      value: "A wide range of configuration changes are logged, including 'Workflow updated', 'General configuration changed', 'Project details updated', and changes to issue types, screens, and fields."
-      reference: "https://support.atlassian.com/jira-cloud-administration/docs/what-gets-logged-in-the-audit-log/"
-    user_account_creation:
-      value: "The creation of new user accounts is logged as 'User created' in the organization's audit log."
-      reference: "https://support.atlassian.com/administration/docs/audit-log-events-for-an-organization/"
+      reference: https://confluence.atlassian.com/adminjiraserver/audit-log-events-in-jira-998879036.html
+      value: Jira audit logs track key activities, including system configuration
+        changes, which are useful for diagnosing problems and maintaining security.
+        [11] Specific events logged include changes to global settings, application
+        links, and add-ons. [6] Jira audit logs record when changes happen, who made
+        them, the category (e.g., workflow or project modification), a summary of
+        the change, and what exactly changed. [31, 25]
+    data_export:
+      reference: hallucinated link doublecheck content
+      value: In Jira Data Center, you can export up to 100,000 events as a CSV file.
+        If there are more events, only the 100,000 newest events are included. Filtered
+        results can also be exported up to 100,000 events. [1] For Jira Cloud, data
+        export is possible via CSV, HTML, or the API. [6] Audit logs record actions
+        such as exporting external users or accounts for a verified domain. [11]
+    role_assignment:
+      reference: https://www.reddit.com/r/atlassian/comments/1hwey6k/how_can_i_prevent_people_in_atlassian_guard/
+      value: Audit logs capture changes to role assignments. For example, the audit
+        log can trace how a user came to get a license if there are concerns about
+        unauthorized assignments. [41] Datadog's integration collects Jira audit logs
+        which include data about activities such as account management and product
+        access changes, which would cover role assignments. [6]
     security_policy_change:
-      value: "Changes to security settings are logged. This includes events like 'Authentication policy updated' (for SSO, 2FA enforcement), 'Password policy updated', and 'API token policy changed'."
-      reference: "https://support.atlassian.com/administration/docs/audit-log-events-for-an-organization/"
+      reference: https://www.datadoghq.com/blog/datadog-cloud-siem-atlassian/
+      value: Audit logs capture changes related to security, including account management
+        and product access changes. [6]
+    user_account_creation:
+      reference: https://panther.com/integrations/atlassian
+      value: Atlassian Jira audit logs include activities related to user account
+        management. [6] Specific events such as 'User added to group' are logged.
+        [20]
+    user_login:
+      reference: https://support.atlassian.com/jira/kb/how-to-analyze-the-atlassian-jira-securitylog-file/
+      value: Jira logs security-related information, including login and logout events,
+        to `atlassian-jira-security.log` in Jira Data Center. [2] For Jira Cloud,
+        audit logs track key activities and can be viewed in the Jira administration
+        console. [5] Common security use cases for Atlassian logs in SIEM platforms
+        include monitoring for brute force login attempts or impersonator logins.
+        [25]
   event_logs_licensing_level:
-    value: "Basic audit logs are available on all plans, including Free. However, to access the full audit log, stream logs to a SIEM, or have longer retention periods, a Jira Cloud Premium or Enterprise plan is required. Atlassian Guard (formerly Atlassian Access) is often a necessary subscription for advanced security features like audit log streaming."
-    reference: "https://www.atlassian.com/software/jira/pricing"
+    reference: https://support.atlassian.com/jira-cloud-administration/docs/audit-activities-in-jira-applications/
+    value: Audit logging is available only on paid Jira accounts (Standard, Premium,
+      Enterprise) and not on the free plan. [36, 39, 40] For Jira Cloud, if all products
+      are on the Free plan, the audit log is not available. [5] Jira Data Center provides
+      audit logging capabilities, and logs can be stored in files for integration
+      with third-party logging tools. [1, 7]
   monitoring_products:
-    - value: "Splunk (via Splunk Add-on for Atlassian Cloud)"
-      reference: "https://splunkbase.splunk.com/app/5833"
-    - value: "Microsoft Sentinel (via Atlassian Jira Audit data connector)"
-      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-jira-audit"
-    - value: "Sumo Logic (via Atlassian Cloud ULM App)"
-      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/atlassian-cloud-ulm-app/"
-    - value: "Datadog (via Datadog-Jira integration)"
-      reference: "https://docs.datadoghq.com/integrations/jira/"
-    - value: "Panther"
-      reference: "https://panther.com/docs/configuration/log-sources/atlassian/"
+  - reference: https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/sentinel/data-connectors/atlassian-jira-audit.md
+    value: Microsoft Sentinel offers an Atlassian Jira Audit data connector that ingests
+      Jira Audit Records events through the REST API. [8, 17] Jira Service Management
+      also offers a webhook integration with Microsoft Sentinel. [3]
+  - reference: https://support.atlassian.com/jira-service-management-cloud/docs/integrate-with-splunk/
+    value: Splunk has various integrations with Jira. Jira Service Management provides
+      a two-way integration with Splunk, allowing Splunk alerts to be forwarded to
+      Jira Service Management and alert actions from Jira Service Management to be
+      sent to Splunk as events. [3] There are Splunk add-ons available to create customized
+      Jira issues based on triggered events in Splunk. [5, 8] Some users have noted
+      a lack of official documentation on Jira Cloud authentication event logs for
+      Splunk integration. [26]
+  - reference: https://www.datadoghq.com/blog/datadog-cloud-siem-atlassian/
+    value: Datadog Cloud SIEM offers integrations for Atlassian Jira and Confluence
+      Audit Records and Atlassian Organization Audit Logs to collect and process audit
+      logs for activities such as account management, system configuration, and product
+      access changes. [6]
+  - reference: https://panther.com/integrations/atlassian
+    value: Panther, a cloud SIEM platform, can collect, normalize, and monitor Atlassian
+      logs by querying the Atlassian Organizations REST API using an Atlassian API
+      Key. [21]
+  - reference: https://docs.logz.io/docs/user-guide/cloud-siem/integrations/create-jira-ticket-alert/
+    value: Logz.io Cloud SIEM allows configuring notification endpoints to automatically
+      create Jira tickets based on triggered alerts using the Jira REST API via webhooks.
+      [13, 19]
+  - reference: https://dnif.it/kb/device-integration/jira-cloud/
+    value: DNIF HYPERCLOUD integrates with Jira Cloud to create Jira issues directly
+      using the Jira REST API via webhooks based on detections. [34]
+  - value: Sacumen developed a Connector app to create Jira issue tickets from SIEM
+      platform events and alerts, which uses the Jira username and API Token for verification
+      and makes REST API calls. [17]
+identity_and_access:
+  documentation_links:
+  - https://www.resolution.de/post/automating-user-management-in-jira/
+  - https://www.resolution.de/post/user-lifecycle-automation-in-jira/
+  - https://community.atlassian.com/forums/Jira-Service-Management-articles/Okta-user-lifecycle-management-now-available-in-Automation/ba-p/2985264
+  - https://confluence.atlassian.com/adminjiraserver/licensing-your-jira-applications-938847718.html
+  - https://www.miniorange.com/iam/integrations/atlassian-jira-cloud-single-sign-on-sso
+  - https://confluence.atlassian.com/adminjiraserver/user-management-938847014.html
+  - https://www.atlassian.com/licensing/jira
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/jiramicrosoft-tutorial
+  - https://www.miniorange.com/atlassian/setup-saml-single-sign-on-sso-for-jira
+  - https://m.youtube.com/watch?v=LBdf5Bd844k
+  - https://developers.miniorange.com/docs/atlassian/scim-user-provisioning-for-cloud
+  - https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/incident-management
+  - https://www.atlassian.com/de/software/jira/service-management/product-guide/getting-started/incident-management
+  - https://deviniti.com/blog/application-lifecycle-management/incident-management-process-in-jira-4-effective-and-secure-practices/
+  - https://www.atlassian.com/incident-management/incident-response
+  - https://m.youtube.com/watch?v=x1gaRt3KSv8
+  - https://www.atlassian.com/software/jira/service-management/pricing
+  lifecycle_options:
+  - Create new employee accounts (user provisioning)
+  - Disable, deactivate or delete existing users (user deprovisioning)
+  - Manage group memberships
+  - Activate a user
+  - Deactivate (block) a user
+  - Delete account
+  - Cancel delete account
+  rbac_api_assignment:
+    reference: https://support.atlassian.com/jira/kb/adding-a-user-to-project-roles-via-jira-rest-api/
+    value: Uncertain. While the User Management REST API allows for managing managed
+      accounts, the documentation primarily focuses on user lifecycle states (activate,
+      deactivate, delete) and profile management, not explicit API endpoints for role
+      or group assignment. However, user provisioning via SCIM can manage group memberships.
+  rbac_support:
+    reference: https://confluence.atlassian.com/adminjiraserver/user-management-938847014.html
+    value: yes - Jira supports roles, groups, and permissions.
+  scim_authentication_acquisition_steps:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/atlassian-cloud-provisioning-tutorial
+    value: '1. Navigate to Atlassian Admin Console.
+
+      2. Select your organization if you have more than one.
+
+      3. Select Security > Identity providers.
+
+      4. Select your Identity provider directory.
+
+      5. Select Set up user provisioning.
+
+      6. Copy the values for SCIM base URL and API key.
+
+      '
+  scim_authentication_mechanisms:
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/
+    value: API Key (Bearer Token)
+  scim_licensing_level_requirement:
+    reference: https://seibert.group/products/blog/atlassian-guard-cloud-data-center-security/
+    value: Atlassian Guard Standard for Cloud, or through Marketplace apps like "SCIM
+      User Provisioning for Jira" which is paid via Atlassian.
+  scim_support:
+    reference: https://www.resolution.de/post/user-lifecycle-automation-in-jira/
+    value: yes - SCIM 2.0. Supports user provisioning to create, link, and deactivate
+      managed Atlassian user accounts from an identity provider.
+  seat_costs:
+  - archived:
+      reference: https://www.atlassian.com/licensing/jira
+      value: Uncertain. The licensing information refers to active users and "maximum
+        quantity billing" but does not explicitly detail the cost implications of
+        archived users.
+    license_level: Jira Cloud Free (up to 10 users)
+    suspended_disabled:
+      reference: https://www.atlassian.com/licensing/jira
+      value: Yes, users in cloud billing are based on "Maximum Quantity Billing,"
+        meaning the bill is based on the highest number of seats assigned during the
+        billing cycle. Removing seats mid-cycle does not reduce the bill for that
+        period.
+  - archived:
+      reference: https://www.atlassian.com/licensing/jira
+      value: Uncertain. The licensing information refers to active users and "maximum
+        quantity billing" but does not explicitly detail the cost implications of
+        archived users.
+    license_level: Jira Cloud Standard, Premium, Enterprise (monthly subscriptions)
+    suspended_disabled:
+      reference: https://www.atlassian.com/licensing/jira
+      value: Yes, users in cloud billing are based on "Maximum Quantity Billing,"
+        meaning the bill is based on the highest number of seats assigned during the
+        billing cycle. Removing seats mid-cycle does not reduce the bill for that
+        period.
+  - archived:
+      reference: https://confluence.atlassian.com/adminjiraserver/archiving-an-issue-968669980.html
+      value: Uncertain. No evidence found regarding the cost implications of archived
+        users for Data Center licenses.
+    license_level: Jira Data Center (annual licenses)
+    suspended_disabled:
+      reference: https://confluence.atlassian.com/adminjiraserver/licensing-your-jira-applications-938847718.html
+      value: Uncertain. Data Center licenses are based on user tiers. The documentation
+        indicates that exceeding the user count limits feature access but doesn't
+        explicitly state if suspended/disabled users count towards the license. [8,
+        14]
+  sso_license_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: Atlassian Access subscription is required for SSO with most identity providers,
+      except for Google Workspace which is free. Atlassian Access is included with
+      the Enterprise Plan.
+  sso_support:
+    reference: https://www.resolution.de/post/user-lifecycle-automation-in-jira/
+    value: yes - SAML 2.0, OAuth2. Integrates with various Identity Providers like
+      Okta, Azure AD, Google Cloud Identity, OneLogin, PingFederate, and JumpCloud.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://www.youtube.com/watch?v=LBdf5Bd844k
+    value: '1. Log in to your Atlassian account.
+
+      2. Navigate to "Manage account" (from your avatar).
+
+      3. Go to "Security" to create an API token.
+
+      4. Generate and copy the API token.
+
+      5. Provide the API key as a bearer token in the Authorization part of your HTTPS
+      header for API calls.
+
+      '
+  user_management_api_authentication_mechanisms:
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/
+    value: API Key (Bearer Token).
+  user_management_api_licensing_level:
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/
+    value: Uncertain. The Atlassian User Management REST API is available for Organization
+      Admins.
+  user_management_api_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Atlassian provides a User management REST API for administering and
+      editing managed accounts, including deactivating and activating users, and deleting
+      accounts. This API is separate from SCIM.
+security_monitoring:
+  documentation_links:
+  - https://support.atlassian.com/jira-service-management-cloud/docs/integrate-with-microsoft-sentinel/
+  - https://www.strongdm.com/connect/sumologic-jira
+  - https://support.atlassian.com/jira-service-management-cloud/docs/integrate-with-sumo-logic/
+  - https://support.atlassian.com/jira-service-management-cloud/docs/integrate-with-splunk/
+  - https://www.datadoghq.com/blog/datadog-cloud-siem-atlassian/
+  - https://www.youtube.com/watch?v=odmttnlgCcE
+  - https://support.atlassian.com/jira/kb/how-to-analyze-the-atlassian-jira-securitylog-file/
+  - https://www.youtube.com/watch?v=UvOvKHThu2I
+  - https://community.atlassian.com/forums/Jira-questions/JIRA-Service-desk-integration-with-SIEM-Tool/qaq-p/1152445
+  - https://docs.logz.io/docs/user-guide/cloud-siem/integrations/create-jira-ticket-alert/
+  - https://support.atlassian.com/security-and-access-policies/docs/export-audit-logs/
+  - https://help.sumologic.com/docs/integrations/app-development/jira/
+  - https://sourceforge.net/software/siem/integrates-with-jira/
+  - https://www.ravisagar.in/videos/jira-audit-log
+  - https://cloud.google.com/chronicle/docs/ingestion/default-parsers/atlassian-jira
+  - https://help.splunk.com/upgrade_browser
+  - https://learn.microsoft.com/en-us/defender-cloud-apps/protect-atlassian
+  - https://forty8fiftylabs.atlassian.net/wiki/spaces/SPLUNK4JSD/pages
+  - https://www.elastic.co/docs/reference/integrations/atlassian_jira
+  - https://vertexaisearch.google.com/search?q=jira+audit+log+missing+data+community+post&sca_esv=f47a61d102c9a3ee5d918a36d2e673fc&sxsrf=ADLYWIL624Xq67oP7I2V44F1z1X05M_1Jg%3A1719504000000&ei=Y7aTZp_wF5mZxc8PjKq-GA&ved=0ahUKEwi5h5zGg_aGAxWZzckDHQxVDxMQ4dUDCBA&uact=5&oq=jira+audit+log+missing+data+community+post&gs_lp=Egxnd3Mtd2l6LXNlcnAiK2ppcmEgYXVkaXQgbG9nIG1pY3NpbmcgZGF0YSBjb21tdW5pdHkgcG9zdEgAUABwAHgAkAEAmAEAoAEAqgEDN.GCAagBAsgBAJgDAJgDCIoECAAYgATyAQYIARBNGAY&sclient=gws-wiz-serp
+  - https://m.youtube.com/watch?v=SQFwzs7aofo
+  - https://www.youtube.com/watch?v=VSBZs2nrYuI
+  - https://www.atlassian.com/software/jira/security
+  - https://www.youtube.com/supported_browsers?next_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DZCDug-dgQ_Q
+  event_logs:
+    api_call:
+      reference: hallucinated link doublecheck content
+      value: The audit log can be accessed via the REST API for purposes such as exporting
+        the log or adding events triggered by external plugins. Microsoft Sentinel
+        can ingest Jira Audit Records events through the REST API. Events generated
+        by external apps that call the Jira REST API, which fall under the 'Apps'
+        coverage area, are not explicitly listed in the audit log events documentation
+        as they are app-dependent. [1, 8, 14]
+    configuration_change:
+      reference: hallucinated link doublecheck content
+      value: The audit log tracks configuration changes that can impact users and
+        projects. This includes a wide range of changes such as project creation/removal/updates,
+        permission scheme changes, workflow changes, notification scheme changes,
+        screen changes, custom field changes, plan changes (scheduling, work sources,
+        exclusion rules, permissions), and sprint changes. Global configuration and
+        administration changes are also logged. [1, 14, 26, 38]
+    data_export:
+      reference: https://support.atlassian.com/security-and-access-policies/docs/export-audit-logs/
+      value: Jira allows exporting audit logs as a CSV file, with up to 100,000 events
+        included. The newest events are included if there are more than 100,000. Exported
+        CSV files can be opened in a spreadsheet application for manipulation. The
+        organizations REST API also provides access to audit log activities for export
+        and saving. There are also third-party apps, such as 'Exporter for Jira',
+        that allow exporting more than 1000 issues with comments, attachments, and
+        transitions to Excel, CSV, and PDF for migrations, audits, and reports. [1,
+        21, 37]
+    role_assignment:
+      reference: hallucinated link doublecheck content
+      value: Role assignments are logged in Jira. Specifically, changes to global
+        permissions (added or removed from a group) and permission schemes (created,
+        copied, removed, edited, assigned to/unassigned from a project, permission
+        added/removed from scheme) are captured in the audit log. [1]
+    security_policy_change:
+      reference: https://www.cprime.com/resources/blog/secure-your-migration-key-atlassian-cloud-security-features/
+      value: Atlassian Guard provides auditing capabilities for security-related activities
+        and insights into potential threats. While a general category for 'Security'
+        events exists in the Jira audit log, specific details on security policy changes
+        beyond general configuration adjustments were not explicitly found. However,
+        Atlassian Guard allows for central visibility into user activity and captures
+        granular user actions to produce forensic evidence for security investigations,
+        which would implicitly include policy violations. [14, 16, 36]
+    user_account_creation:
+      reference: https://help.sumologic.com/docs/integrations/app-development/jira/
+      value: User account creation and changes are logged. This includes events like
+        user created, user deleted, and user updated, which are part of the logs used
+        by the Sumo Logic app for Jira. Atlassian Access (now Atlassian Guard) provides
+        centralized visibility into user activity, including account management. [9,
+        16, 22, 36]
+    user_login:
+      reference: https://support.atlassian.com/jira/kb/how-to-analyze-the-atlassian-jira-securitylog-file/
+      value: User login and session events are captured in the `atlassian-jira-security.log`
+        file. These logs can help identify compromised accounts, login issues, and
+        403 status codes from the REST API. The logs include information such as the
+        unique Atlassian Session ID, IP address, and location. This audit log feature
+        is available only for Jira paid accounts (Premium or above), not for free
+        plans. [1, 13, 32, 38]
+  event_logs_licensing_level:
+    reference: hallucinated link doublecheck content
+    value: The audit log isn't available if all of your Jira Cloud products are on
+      the Free plan. To view and access audit logs, users need a Jira paid account
+      (Premium or above). [1, 32, 38]
   ingestion_methods:
-    - value: "REST API: Pull audit logs programmatically. Requires Jira Cloud Premium or Enterprise."
-      reference: "https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-audit-records/#api-rest-api-3-auditing-record-get"
-    - value: "Atlassian Guard Data Connector: Stream organization audit logs to an AWS S3 bucket for ingestion by SIEM tools. Requires an Atlassian Guard subscription."
-      reference: "https://support.atlassian.com/guard/docs/connect-an-aws-s3-bucket-to-your-organization/"
-    - value: "Webhooks: Receive real-time notifications for specific events within Jira (e.g., issue created, updated). This is for operational events, not a full security audit log stream."
-      reference: "https://support.atlassian.com/jira-cloud-administration/docs/what-are-webhooks/"
+  - reference: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-audit-records/#api-group-audit-records
+    value: Atlassian Jira audit logs can be accessed via a REST API, which can be
+      used to export the logs or add events from external plugins. Microsoft Sentinel,
+      for example, ingests Jira Audit Records events through the REST API. [1, 8]
+  - reference: https://support.atlassian.com/jira-service-management-cloud/docs/integrate-with-microsoft-sentinel/
+    value: Webhooks are a primary method for sending alerts and data from Jira to
+      SIEMs and other tools. Jira Service Management offers webhook integrations with
+      Microsoft Sentinel and Sumo Logic. Google Security Operations also uses webhooks
+      as a source type for ingesting Jira logs in SYSLOG and JSON formats. [3, 5,
+      25, 27, 28]
+  - reference: https://help.sumologic.com/docs/integrations/app-development/jira/
+    value: Local file sources can be set up on an installed collector for Jira access
+      logs, security logs (atlassian-jira-security.log), and Catalina logs. This method
+      is supported by Sumo Logic for Jira Server. [22]
   log_export_options:
     tools_connectors:
-      value: "Connectors and add-ons for SIEMs like Splunk, Microsoft Sentinel, and Sumo Logic are the primary methods. Custom scripts can also use the REST API. Atlassian Guard's S3 export is the most robust native mechanism for large-scale ingestion."
-      reference: "https://support.atlassian.com/guard/docs/track-security-activity-across-your-atlassian-products/"
-  documentation_links:
-    - "https://support.atlassian.com/administration/docs/review-audit-logs-in-an-organization/"
-    - "https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-audit-records/"
-    - "https://support.atlassian.com/guard/docs/understand-atlassian-guard/"
-    - "https://www.atlassian.com/trust/security/security-practices"
-    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-jira-audit"
-    - "https://splunkbase.splunk.com/app/5833"
-    - "https://support.atlassian.com/jira-cloud-administration/docs/track-important-events-with-the-audit-log/"
+      reference: https://support.atlassian.com/security-and-access-policies/docs/export-audit-logs/
+      value: Jira's audit log can be exported as a CSV file directly from the administration
+        console. Additionally, the organizations REST API can be used to access and
+        save audit log activities. Third-party applications like 'Exporter for Jira'
+        allow exporting issues with comments, attachments, and transitions to Excel,
+        CSV, and PDF. [1, 21, 37]
+  monitoring_products:
+  - reference: https://help.sumologic.com/docs/integrations/app-development/jira/
+    value: Sumo Logic integrates with Jira Software to allow benchmarking performance
+      with DORA metrics, providing visibility into CI/CD pipelines, and enabling automatic
+      creation of issues in Jira Software from Sumo Logic alerts. The Sumo Logic app
+      for Jira also provides insight into Jira usage, request activity, issues, security,
+      sprint events, and user events, supporting Jira Server. For Jira Cloud, specific
+      documentation for the Jira Cloud app is available. Sumo Logic's integration
+      with Jira Service Management allows for two-way communication, where alerts
+      from Sumo Logic can create alerts in Jira Service Management, and actions in
+      Jira Service Management can send webhook data to Sumo Logic. [2, 5, 10, 22]
+  - reference: https://support.atlassian.com/jira-service-management-cloud/docs/integrate-with-microsoft-sentinel/
+    value: Microsoft Sentinel offers a webhook integration with Jira Service Management,
+      where Jira Service Management acts as a dispatcher for Microsoft Sentinel incidents.
+      The 'Atlassian Jira Audit (using Azure Functions) connector' for Microsoft Sentinel
+      enables ingesting Jira Audit Records events through the REST API, using Azure
+      Functions to pull logs. [3, 8, 18]
+  - reference: https://support.atlassian.com/jira-service-management-cloud/docs/integrate-with-splunk/
+    value: Splunk offers integration with Jira Service Management for two-way communication.
+      There's a 'Jira Service Management App from Splunkbase' for configuration. Splunk
+      On-Call has an add-on for Jira that allows creating Splunk On-Call incidents
+      when new issues are added to Jira tickets. The 'Real-Time Splunk for Jira Service
+      Desk' plugin can automate turning Splunk events into Jira Service Desk tickets.
+      [6, 7, 17, 28, 30]
+  - reference: https://www.datadoghq.com/blog/datadog-cloud-siem-atlassian/
+    value: Datadog Cloud SIEM integrates with Atlassian Jira and Confluence Audit
+      Records and Atlassian Organization Audit Logs. These integrations collect and
+      process audit logs covering activities like account management, system configuration,
+      and product access changes, enabling visualization, metrics, and alerts. [9]
+  - reference: https://cloud.google.com/chronicle/docs/ingestion/default-parsers/atlassian-jira
+    value: Google Security Operations can collect Atlassian Jira logs in SYSLOG and
+      JSON formats using a parser that extracts various fields and maps them to the
+      UDM. This is done through a webhook feed configured in SIEM Settings. [27]
+  - reference: https://learn.microsoft.com/en-us/defender-cloud-apps/protect-atlassian
+    value: Microsoft Defender for Cloud Apps connects to Atlassian products (Jira,
+      Confluence, Bitbucket) using App Connector APIs, providing visibility into and
+      control over an organization's Atlassian use, covering activities from the Atlassian
+      audit log. [29]
+  - reference: https://marketplace.atlassian.com/apps/1221707/alert-catcher-zabbix-siem-integration-with-jira
+    value: Alert Catcher is a Jira plugin for managing alerts from third-party systems,
+      providing custom endpoints for creating and updating incidents, and the ability
+      to group incidents. It supports connections with McAfee SIEM, Zabbix, Paessler
+      PRTG, and QRadar, and can be set up with other event management systems. [15,
+      19]
+  - reference: https://docs.logz.io/docs/user-guide/cloud-siem/integrations/create-jira-ticket-alert/
+    value: Logz.io Cloud SIEM allows configuring notification endpoints to automatically
+      create Jira tickets based on triggered alerts. This involves creating an API
+      token for the Atlassian account and converting it for use in the API. [20]
+  - reference: https://sentry.io/welcome/
+    value: Sentry integrates with Jira for two-way sync of issues and tracking releases.
+      [41]
 incident_response:
-  suspend_user_management_api:
-    value: "Yes, via the Atlassian Admin REST API. You can deactivate a user's account by making a POST request to `/admin/v1/users/{account_id}/deactivate`. This requires an Atlassian Guard subscription."
-    reference: "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/#api-admin-v1-users-account-id-deactivate-post"
-  invalidate_sessions_api:
-    value: "Yes, this can be done by deleting a user's password using the Admin API endpoint `DELETE /admin/v1/users/{account_id}/password`. This action forces a logout from all active sessions that rely on that password. For users logged in via SSO, session invalidation must be handled at the Identity Provider (IdP) level."
-    reference: "https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-users/#api-users-account-id-manage-password-delete"
-  revoke_api_key_api:
-    value: "There is no dedicated central API endpoint for an administrator to revoke a specific user's API token. This is a significant limitation. The user must revoke their own tokens, or an admin can deactivate the user's account entirely, which effectively disables their tokens."
-    reference: "https://community.atlassian.com/t5/Jira-questions/Is-there-a-way-for-an-admin-to-revoke-a-user-s-API-token/qaq-p/1129819"
-  user_toggle_api:
-    value: "Yes, this is effectively the same as suspending a user. The Atlassian Admin API allows for deactivating and reactivating user accounts. Deactivation (`POST /admin/v1/users/{account_id}/deactivate`) suspends access, and reactivation (`POST /admin/v1/users/{account_id}/reactivate`) restores it."
-    reference: "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/"
-  user_status_api:
-    value: "Yes, the Atlassian Admin REST API can be used to retrieve user details, including their status (active, inactive, closed). A `GET` request to `/scim/directory/{directoryId}/Users/{userId}` will return the user's profile, which includes an 'active' boolean field."
-    reference: "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-scim-users/#api-scim-directory-directoryid-users-userid-get"
-  session_timeout_configuration:
-    value: "Session duration can be configured in the administration settings. Under 'Security' -> 'Authentication policies', an administrator can set a session timeout policy with durations ranging from minutes to days. This requires an Atlassian Guard subscription."
-    reference: "https://support.atlassian.com/administration/docs/configure-authentication-policies/"
-  known_automation_tools:
-    - value: "BetterCloud - A SaaS management platform that provides workflows for user lifecycle management, including deprovisioning users from Jira."
-      reference: "https://www.bettercloud.com/integrations/atlassian-jira/"
-    - value: "Okta (as an IdP) - Can manage user provisioning and deprovisioning automatically. When a user is deactivated in Okta, their Jira account can be automatically deactivated."
-      reference: "https://www.okta.com/integrations/jira/"
-    - value: "Torq - A no-code security automation platform that can integrate with the Atlassian Admin API to automate response actions like suspending a user."
-      reference: "https://torq.io/integrations/atlassian/"
-    - value: "Tines - A security automation platform that can orchestrate actions using the Jira API for incident response, such as creating tickets or suspending users via API calls."
-      reference: "https://www.tines.com/integrations/jira"
-    - value: "Jira-User-Deactivator (GitHub) - An open-source Python script demonstrating how to use the Atlassian API to deactivate users, often used for cleanup or as a base for automation."
-      reference: "https://github.com/dren79/Jira-User-Deactivator"
   documentation_links:
-    - "https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/"
-    - "https://support.atlassian.com/guard/docs/understand-atlassian-guard/"
-    - "https://support.atlassian.com/administration/docs/configure-authentication-policies/"
-    - "https://www.atlassian.com/trust/security"
-    - "https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/"
-    - "https://torq.io/learn/jira-incident-response-automation-explained/"
+  - https://support.atlassian.com/jira-service-management-cloud/docs/automate-incident-management-in-jira-service-management/
+  - https://diwakartiwari.in/blog/integrating-ibm-soar-with-atlassian-jira/
+  - https://www.atlassian.com/incident-management/incident-response
+  - https://www.eficode.com/blog/steps-on-responding-to-a-security-breach-with-jira-service-management
+  - https://www.atlassian.com/trust/security/security-incident-management
+  - https://www.oreilly.com/library/view/jira-7-administration/9781785888441/ch05s11.html
+  - https://mindflow.io/use-cases/automated-device-containment-incident-tracking-crowdstrike-falcon-overwatch-jira
+  - https://docs.atlassian.com/software/jira/docs/api/7.6.16/com/atlassian/jira/web/session/currentusers/JiraUserSessionInvalidator.html
+  - https://devtools.in/blog/effective-automated-incident-management-using-atlassian-solution/
+  - https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/
+  - https://xsoar.pan.dev/docs/reference/integrations/jira-v3
+  - https://xsoar.pan.dev/docs/reference/integrations/jira-v2
+  - https://vertexaisearch.google.com/grounding-api-redirect/AUZIYQFvOFDk0VknyQtm0zt6tCiadV1nRbx11lVfD-T1rPB8yOpYv_cbjbGxdTTjvTTrNUQu1arDlfyCS00C782zQMM0xT6Gldp9eR-XFMLDG0hwvB1MlPEiWhM73TYwSMqqYIr8fqEtXavNHW90Z2lkxovRIjP1TVDpLX1-j-rJJ5to-FaghNMhiaNPCCl4xniHe_2SXdFiEIFQ9oScCejlmRZ9k1Qc3Q==
+  - https://community.atlassian.com/forums/Jira-questions/JIRA-Service-desk-integration-with-SIEM-Tool/qaq-p/1152445
+  - https://support.atlassian.com/security-and-access-policies/docs/send-alerts-to-a-siem-slack-or-other-tools/
+  - https://docs.logz.io/docs/user-guide/cloud-siem/integrations/create-jira-ticket-alert/
+  - https://www.oreilly.com/library/view/jira-7-administration/9781785888441/ch05s11.html
+  - https://www.youtube.com/watch?v=lZSrdbRKJ-A
+  - https://support.atlassian.com/organization-administration/docs/revoke-user-api-tokens/
+  - https://www.revyz.io/blog/leveraging-jira-and-confluence-for-effective-compliance-audits-of-soc2-nis2-and-dora-frameworks
+  - https://stackoverflow.com/questions/29810878/destroy-session-using-jira-python-rest-client
+  - https://www.youtube.com/supported_browsers?next_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DLX9DUirzpkk
+  - https://support.atlassian.com/automation/kb/automation-or-set-issue-security-level-via-automation-for-jira/
+  - https://stackoverflow.com/questions/11879450/how-to-know-that-your-session-expired-jira-rest-api
+  - https://cloudwars.com/
+  - https://www.youtube.com/watch?v=UFHxRMaIUUA
+  - https://akitra.com/cybersecurity-automation-with-soar/
+  - https://www.logsign.com/blog/why-do-we-need-automation-in-security-an-introduction-to-soar/
+  - https://www.youtube.com/watch?v=bRgSIoIAFJM
+  - https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/incident-management
+  invalidate_sessions_api:
+    reference: https://support.atlassian.com/jira/kb/invalidating-user-sessions-in-jira-data-center/
+    value: Jira Data Center (version 9.11 and later) allows instant invalidation of
+      a particular user session across all nodes via a REST API DELETE request to
+      `/api/2/user/session/{username}`. Prior to Jira 9.11, instant user session invalidation
+      in a multinode environment was not possible. Changing a user's password also
+      clears their sessions and 'remember me' cookies from the database. A rolling
+      restart of all nodes can invalidate all user sessions in a multinode Jira Data
+      Center by deleting 'remember me' tokens from the database.
+  known_automation_tools:
+  - reference: https://support.atlassian.com/jira-service-management-cloud/docs/automate-incident-management-in-jira-service-management/
+    value: 'Jira Automation: Allows defining rules to respond to changes in incident
+      work items. Triggers can be based on events like incident creation or escalation,
+      with conditions based on priority or impacted services. Actions include adding
+      bookmarks, members, or apps to Slack channels, and sending messages. It can
+      also be used to create post-incident reviews automatically.'
+  - reference: https://diwakartiwari.in/blog/integrating-ibm-soar-with-atlassian-jira/
+    value: 'IBM SOAR (Security Orchestration, Automation, and Response) with ''Atlassian
+      Jira Functions for SOAR'' app: Facilitates bidirectional synchronization between
+      SOAR incidents/tasks and Jira issues. Supports automated transitions and comments. '
+  - reference: https://mindflow.io/use-cases/automated-device-containment-incident-tracking-crowdstrike-falcon-overwatch-jira
+    value: 'CrowdStrike Falcon Fusion SOAR: Integrates with Atlassian Jira to automate
+      ticket creation and management for detected threats, streamlining incident tracking,
+      assignment, escalation, and resolution.'
+  - reference: https://mindflow.io/use-cases/automated-device-containment-incident-tracking-crowdstrike-falcon-overwatch-jira
+    value: 'Mindflow: Automates device containment and incident tracking, integrating
+      with tools like CrowdStrike Falcon Overwatch and Atlassian Jira to create and
+      update tickets for flagged devices.'
+  - reference: https://xsoar.pan.dev/docs/reference/integrations/jira-v3
+    value: 'Cortex XSOAR Atlassian Jira V3 Integration: Allows managing issues and
+      creating XSOAR incidents from Jira projects, with bidirectional mirroring of
+      issues. Supports Jira Cloud and On-prem instances, and various authentication
+      methods like Basic, Personal Access Token, and OAuth 2.0.'
+  - reference: https://www.youtube.com/supported_browsers?next_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DVigzxHHWTYo
+    value: 'Atlassian Opsgenie: A tool for incident management that integrates with
+      Jira Service Management to automate incident creation based on rules, define
+      responders, and facilitate communication through channels like Slack.'
+  - reference: https://docs.logz.io/docs/user-guide/cloud-siem/integrations/create-jira-ticket-alert/
+    value: 'Logz.io SIEM Integration: Enables creating Jira tickets automatically
+      based on triggered alerts using custom notification endpoints and the Jira REST
+      API. Requires an Atlassian API token.'
+  revoke_api_key_api:
+    reference: https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/
+    value: Atlassian allows users to revoke individual API tokens or all API tokens
+      for their account through the security settings in their Atlassian account profile.
+      This action permanently removes the token. It is also possible to automate this
+      process using the Delete API token API.
+  session_timeout_configuration:
+    reference: https://support.atlassian.com/jira/kb/how-to-change-the-default-session-timeout-to-avoid-user-logout-in-jira-data-center/
+    value: For Jira Data Center, the idle session timeout can be configured by editing
+      the `web.xml` file in `<jira-install>/atlassian-jira/WEB-INF/` and adjusting
+      the `<session-timeout>` value in minutes. Additionally, the `max-age` for the
+      JSESSIONID cookie can be configured in `<jira-install>/conf/web.xml`, which
+      is set in seconds. There is also a `seraph.rememberme.cookie` with a default
+      `max-age` of 14 days. For Jira Cloud, the expiration period for a session can
+      be configured, and there is documentation available on 'Session duration management'.
+  suspend_user_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. While Atlassian provides ways to manage user access and delete
+      users, there is no direct evidence of a specific API endpoint to 'suspend' a
+      user that would prevent login while retaining their data and configuration.
+      Actions like changing a user's password or anonymizing/deleting a user can affect
+      their session and access.
+  user_status_api:
+    reference: https://www.datadoghq.com/blog/datadog-cloud-siem-atlassian/
+    value: Uncertain. While Jira's audit logs can capture user account management
+      activities and SIEM integrations can provide visibility into authentication
+      and authorization events, a dedicated API to programmatically query the active/suspended/disabled
+      status of users was not explicitly found in the search results.
+  user_toggle_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. While session invalidation is possible through API (as described
+      in invalidate_sessions_api), there is no explicit API documentation found that
+      describes a programmatic 'toggle' of a user's status (active/suspended/disabled)
+      that would directly control their login ability and simultaneously invalidate
+      sessions as a single operation. Changing a user's password or deleting a user
+      can impact their active sessions.

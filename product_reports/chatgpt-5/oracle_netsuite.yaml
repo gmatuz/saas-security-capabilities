@@ -1,0 +1,290 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 inbound SSO to NetSuite; works with any SAML 2.0–compliant
+      IdP (IdP-initiated and SP-initiated supported by vendors).
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_N3825119.html
+  sso_license_level_requirement:
+    value: unclear — SSO is enabled as a feature (Setup > Company > Enable Features
+      > SuiteCloud > SAML Single Sign-on). No explicit public documentation of edition/license
+      tier prerequisites.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/subsect_1520718734.html
+  scim_support:
+    value: no — no native SCIM endpoint for user provisioning; Microsoft notes NetSuite
+      lacks SCIM/OAuth2 support for Entra automatic provisioning.
+    reference: https://learn.microsoft.com/en-us/answers/questions/477825/netsuite-saml-provisioning
+  scim_licensing_level_requirement:
+    value: n/a — SCIM not supported.
+    reference: https://learn.microsoft.com/en-us/answers/questions/477825/netsuite-saml-provisioning
+  scim_authentication_mechanisms:
+    value: n/a — SCIM not supported.
+    reference: https://learn.microsoft.com/en-us/answers/questions/477825/netsuite-saml-provisioning
+  scim_authentication_acquisition_steps:
+    value: n/a — SCIM not supported.
+    reference: https://learn.microsoft.com/en-us/answers/questions/477825/netsuite-saml-provisioning
+  user_management_api_support:
+    value: 'yes — SuiteTalk REST/SOAP support Employee record CRUD; use Employee REST
+      record (record id: employee) for creating users, toggling access, and managing
+      sublists.'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_161886175135.html
+  user_management_api_licensing_level:
+    value: Enable REST Web Services (SuiteCloud > SuiteTalk (Web Services) > REST
+      Web Services) and required permissions; SuiteCloud Plus license only needed
+      for higher API concurrency, not for basic access.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_5085602973.html
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 bearer tokens (preferred) and Token-Based Authentication (OAuth
+      1.0a HMAC-SHA256). Username/password login not supported for REST.
+    reference: dubious claim, hallucinated reference
+  user_management_api_authentication_acquisition_steps:
+    value: '1) Admin: Setup > Company > Enable Features > SuiteCloud: enable REST
+      Web Services and (optionally) OAuth 2.0. 2) Create an Integration record to
+      obtain client ID/secret (OAuth2) or consumer key/secret (TBA). 3) Grant role
+      permissions: REST Web Services and Log in using Access Tokens. 4) Create user
+      access tokens (for TBA) or complete OAuth2 flow to obtain access token; then
+      call REST endpoints.'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_5085602973.html
+  seat_costs:
+  - license_level: Full Licensed Users — pricing not publicly listed; counts shown
+      under Setup > Company > View Billing Information.
+    active:
+      value: Counts toward Full User Count when the user is active and has access.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N896195.html
+    suspended_disabled:
+      value: Inactive users with access do not count toward Full User Count.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N896195.html
+    archived:
+      value: unclear — NetSuite uses inactivation rather than an 'archive' state for
+        users.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1504014571.html
+  - license_level: Employee Center — separate license pool; see Employee Center role
+      notes.
+    active:
+      value: Counts against Employee Center licenses unless the user also has an Administrator
+        role; Admin+Employee Center does not consume Employee Center licenses.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1510166674.html
+    suspended_disabled:
+      value: Unclear publicly; general guidance is to inactivate user or remove access
+        to stop license consumption.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1525773325.html
+    archived:
+      value: unclear — no documented 'archive' state; inactivate instead.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1525773325.html
+  lifecycle_options:
+  - No access (employee record present; Give Access unchecked)
+  - Access granted (Give Access checked; roles assigned)
+  - Inactive user (record inactivated)
+  - Remove SAML access (remove SAML permission from roles or disable SSO)
+  - Password set/reset or Require Password Change on Next Login
+  rbac_support:
+    value: yes — roles with permissions control access; standard and custom roles;
+      manage via Setup > Users/Roles.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N285436.html
+  rbac_api_assignment:
+    value: yes (via APIs) — Employee record has a roles sublist accessible through
+      web services; roles sublist is supported in REST (with noted differences).
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_161886175135.html
+  documentation_links:
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_N3825119.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/subsect_1520718734.html
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/netsuite-tutorial
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Netsuite.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3827717.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_5085602973.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_1540809676.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_157769826287.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_161886175135.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N896195.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N897798.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N285436.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N326485.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3448861.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N259503.html
+  - https://learn.microsoft.com/en-us/answers/questions/477825/netsuite-saml-provisioning
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1521211724.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/nsoa-online-help/section_4577281258.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N556825.html
+  - https://saml-doc.okta.com/Provisioning_Docs/NetSuite_Provisioning.html
+  - https://github.com/fylein/netsuite-sdk-py
+  - https://github.com/Petercw94/restsuite
+  - https://github.com/ehmad11/netsuite-rest
+security_monitoring:
+  event_logs:
+    user_login:
+      value: NetSuite provides a dedicated Login Audit Trail search that records login
+        activity, including initial login date/time, user, role, and source IP, with
+        support for saved searches to filter/report on logins.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N324233.html
+    role_assignment:
+      value: 'Role and permission assignments are auditable: the Employee record has
+        an Access > History subtab that logs changes to roles/global permissions with
+        timestamp and user; you can also audit roles/permissions via saved searches.'
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4577281258.html
+    api_call:
+      value: API authentications and integration issues are visible in the Login Audit
+        Trail; administrators can track OAuth 2.0 integrations/users and view REST
+        Web Services/RESTlet error messages via the Detail field.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_158323851171.html
+    data_export:
+      value: Customer data access/export actions are logged by the Compliance 360
+        Activity Log (requires Compliance 360 SuiteApp), including UI vs API access,
+        action type (e.g., CSV Export, Full CSV Export, Report), user, role, IP, timestamp,
+        and URL.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0422104030.html
+    configuration_change:
+      value: 'Changes to key account configuration are auditable: Enable Features,
+        General Preferences, and Accounting Preferences have Audit Trail pages, and
+        related system notes can be retrieved via saved searches.'
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N250284.html
+    user_account_creation:
+      value: System Notes v2 captures create/change/delete actions with who/when/role
+        and object/old/new values on supported records, providing an audit trail for
+        administrative user creation when recorded on relevant records.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_158108495822.html
+    security_policy_change:
+      value: 'Security-relevant feature toggles and preference changes are auditable:
+        the Enable Features page supports system notes and has an Audit Trail link;
+        administrators can run saved searches to track changes to enabled features.'
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: SuiteAnalytics Connect (ODBC/JDBC/ADO.NET) is a paid add-on module required
+      for direct driver-based access to analytics data for queries/exports; it’s not
+      available for Small Business accounts and must be purchased via an Account Manager.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_1555594476.html
+  monitoring_products:
+  - value: 'Compliance 360 SuiteApp: enables Activity Log of user interactions with
+      customer records (access, exports, reports) for security/compliance monitoring;
+      data is immutable and exportable.'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_7153807491.html
+  - value: 'Splunk: CCX Add-on for NetSuite Products provides CIM-compliant field
+      extractions for NetSuite logs, currently covering Authentication and Change
+      data models for Splunk ingestion.'
+    reference: https://splunkbase.splunk.com/app/7830
+  - value: 'Engineering pattern: Splunk integration via NetSuite RESTlet—custom record
+      + RESTlet feed polled and forwarded to Splunk, demonstrating practical log export/ingest.'
+    reference: https://www.rea-group.com/about-us/news-and-insights/blog/splunking-netsuite/
+  - value: 'Satori NetSuite Connector (Tactical Connect): schedules NetSuite saved
+      searches and delivers CSV output to Azure Blob/SharePoint/OneDrive, supporting
+      downstream SIEM pipelines.'
+    reference: https://appsource.microsoft.com/en-us/product/web-apps/satoritechnologyllc.netsuite_connector
+  - value: 'npm: netsuite-api-client—SuiteTalk REST client supporting REST calls and
+      SuiteQL queries against NetSuite for programmatic log/audit data retrieval.'
+    reference: https://www.npmjs.com/package/netsuite-api-client
+  - value: 'Node package: suiteql—run SuiteQL queries via SuiteTalk REST Web Services;
+      useful for programmatically querying audit tables like system notes or login
+      audit where available.'
+    reference: https://github.com/ehmad11/suiteql
+  ingestion_methods:
+  - value: 'REST Query API (SuiteQL): POST to /services/rest/query/v1/suiteql to run
+      SuiteQL against the analytics data source (NetSuite2.com) with pagination and
+      a 100,000-row limit.'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157909186990.html
+  - value: 'SuiteAnalytics Connect (ODBC/JDBC/ADO.NET): read-only driver-based access
+      to the NetSuite2.com schema for external tools and ETL; supports archiving/reporting
+      of audit datasets.'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_3963845427.html
+  - value: 'Saved Search CSV export: searches include an Export button; administrators
+      can persist results and export CSV for ingestion.'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N663983.html
+  - value: 'Saved Search to SFTP: Saved Search Export (SuiteApp/Connector) schedules
+      saved search results and posts files to SFTP targets (optionally ZIP-compressed).'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0318013559.html
+  - value: 'SOAP Web Services (Advanced Search): reference existing saved searches
+      by ID to retrieve complex results for downstream ingestion.'
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3516862.html
+  log_export_options:
+    tools_connectors:
+      value: Saved Search Export to SFTP supports scheduled delivery of saved search
+        results to external SFTP servers, with authentication options (key or user/password),
+        optional ZIP compression, and File Cabinet copy.
+      reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0318013559.html
+  documentation_links:
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N324233.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1548084502.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1521211724.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_158323851171.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_158108495822.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_160225379741.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N250284.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/nsoa-online-help/section_4577281258.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157909186990.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_3963845427.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_1555594476.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N663983.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0318013559.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0422104030.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_7153807491.html
+  - https://splunkbase.splunk.com/app/7830
+  - https://www.rea-group.com/about-us/news-and-insights/blog/splunking-netsuite/
+  - https://www.npmjs.com/package/netsuite-api-client
+  - https://github.com/ehmad11/suiteql
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N688379.html
+incident_response:
+  suspend_user_api:
+    value: Inactivate/suspend a user by setting the employee record’s Inactive (isinactive)
+      flag via automation (for example through SuiteScript record updates or REST
+      record updates). The Employee record exposes fields including ‘isinactive’ (Inactive),
+      which can be targeted to remove access programmatically.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N3185342.html
+  invalidate_sessions_api:
+    value: Uncertain — No vendor documentation found for an API that force-terminates
+      all active UI sessions for a specific user. For OAuth 2.0-based sessions, NetSuite
+      provides a logout endpoint that revokes the id token and its associated access/refresh
+      tokens; use this to invalidate OAuth2 sessions for that user’s client. For UI
+      sessions, mitigation is to remove access (clear Give Access and/or set the user
+      inactive) and rely on session timeouts.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_161192337588.html
+  revoke_api_key_api:
+    value: 'Two token revocation methods are documented: (1) OAuth 2.0: POST to the
+      revoke endpoint to revoke a refresh token (invalidates associated access tokens).
+      (2) Token-Based Authentication (TBA, OAuth 1.0a): call the revoketoken endpoint
+      to revoke a TBA access token. Admins can also revoke TBA tokens in the UI.'
+    reference: dubious claim, hallucinated reference
+  user_toggle_api:
+    value: Yes (via record updates). Toggling a user between active and inactive can
+      be automated by updating the employee record’s Inactive flag. Official guidance
+      describes inactivating employees to remove access; however, whether existing
+      UI sessions are immediately terminated is not explicitly stated in vendor docs.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1504014571.html
+  user_status_api:
+    value: Yes. User status can be queried by reading employee fields such as ‘isinactive’
+      (Inactive) and ‘giveaccess’ (Login Access) in searches or via APIs to determine
+      if a user can log in versus being inactive.
+    reference: dubious claim, hallucinated reference
+  session_timeout_configuration:
+    value: UI idle session timeout is configurable under Setup > Company > Preferences
+      > General Preferences. Valid values range from 15 to 720 minutes; default is
+      180 minutes. Absolute UI session timeout defaults to 12 hours. Roles with permission
+      to view unencrypted credit card data are restricted to a 15-minute idle timeout.
+    reference: https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1534882691.html
+  known_automation_tools:
+  - value: 'Splunk: CCX Add-on for NetSuite Products — field extractions for NetSuite
+      logs mapped to CIM (Authentication, Change) to aid SIEM ingestion and correlation.'
+    reference: https://splunkbase.splunk.com/app/7830
+  - value: 'Workato: Azure Sentinel ↔ NetSuite (REST) connector actions (e.g., execute
+      RESTlet, SuiteQL, search/update records) usable in incident playbooks to query
+      or change NetSuite during response.'
+    reference: https://www.workato.com/integrations/azure-sentinel~netsuite_rest
+  - value: 'Satori NetSuite Connector (SuiteApp: Tactical Connect): schedules NetSuite
+      saved searches to Azure Blob/SharePoint/OneDrive — useful to export login/audit/search
+      data toward SIEM pipelines.'
+    reference: https://appsource.microsoft.com/en-us/product/web-apps/satoritechnologyllc.netsuite_connector
+  - value: 'Python SDK (netsuite-sdk-py): SOAP SuiteTalk client supporting TBA; can
+      automate reads/updates (e.g., status flips, token hygiene) during investigation/response
+      scripts.'
+    reference: https://github.com/fylein/netsuite-sdk-py
+  - value: 'Node.js client (netsuite-rest): OAuth 1.0a–signed requests for SuiteTalk
+      REST Web Services and SuiteQL — can implement responders to update users/roles
+      or pull audit data.'
+    reference: https://github.com/ehmad11/netsuite-rest
+  documentation_links:
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_N324233.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1548084502.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_159282412990.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_161071224088.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/nsoa-online-help/chapter_157017286140.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_161192337588.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1504014571.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1525773325.html
+  - https://www.netsuite.com/help/helpcenter/en_US/srbrowser/Browser2016_2/script/record/employee.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1534882691.html
+  - https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_3998867068.html

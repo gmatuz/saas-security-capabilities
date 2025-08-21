@@ -1,0 +1,313 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 only for product login; supports popular IdPs (Okta, Entra
+      ID/Azure AD, OneLogin, ADFS, Auth0, Google SSO, JumpCloud). Single Logout and
+      SAML encryption not supported; multi‑IdP available via private beta.
+    reference: dubious claim, hallucinated reference
+  sso_license_level_requirement:
+    value: Business Plan; Enterprise Plan
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: 'yes — SCIM 2.0; resources: Users and Groups (teams); features include
+      get users/teams, update/activate/deactivate users, add/move users between teams,
+      delete users; cannot create/delete teams.'
+    reference: https://developers.miro.com/docs/scim
+  scim_licensing_level_requirement:
+    value: Enterprise plan only
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: Bearer access token (API token) in Authorization header; Base URL https://miro.com/api/v1/scim/;
+      HTTPS only.
+    reference: https://developers.miro.com/docs/how-to-enable-scim
+  scim_authentication_acquisition_steps:
+    value: 1) Company Admin enables SSO; 2) In Admin console go to Enterprise integrations
+      and toggle SCIM provisioning on; 3) Click Generate new token to obtain SCIM
+      API token and note Base URL; 4) Configure IdP (Okta/Entra/OneLogin/Google) with
+      Tenant URL https://miro.com/api/v1/scim and the Secret Token; 5) Test connection
+      and begin provisioning.
+    reference: dubious claim, hallucinated reference
+  user_management_api_support:
+    value: partial — Enterprise REST API can invite existing org users and manage
+      team membership/roles, but cannot create or deactivate/delete users; user lifecycle
+      (create/deactivate) is via SCIM or UI.
+    reference: dubious claim, hallucinated reference
+  user_management_api_licensing_level:
+    value: Enterprise plan only (Enterprise REST APIs require Company Admin on an
+      Enterprise team).
+    reference: https://developers.miro.com/docs/miro-rest-api-introduction
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 authorization code flow; access token (Bearer) with optional
+      refresh token; expiring or non‑expiring tokens.
+    reference: https://developers.miro.com/docs/getting-started-with-oauth
+  user_management_api_authentication_acquisition_steps:
+    value: '1) Create developer team and app; 2) Select required Enterprise scopes;
+      3) Install app to Enterprise team and get OAuth token; 4) Use token as Authorization:
+      Bearer {token} when calling Enterprise API; 5) Use org_id from Admin console
+      URL.'
+    reference: https://developers.miro.com/docs/getting-started-with-enterprise-api
+  seat_costs:
+  - license_level: Business Plan
+    active:
+      value: Yes — billing is per member/seat; inviting/adding members increases paid
+        licenses; $16 per member/month billed annually (or $20 monthly).
+      reference: https://miro.com/pricing//
+    suspended_disabled:
+      value: Deactivated users are not billed; their Full licenses are released.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Enterprise Plan (incl. Flexible Licensing Program)
+    active:
+      value: Billed for Full licenses; FLP allows unlimited Free/Free Restricted licenses
+        with auto‑upgrade to Full; periodic true‑ups.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: Deactivated users are not billed; their Full licenses are released.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - Invited (pending up to 30 days, auto-expire if not accepted)
+  - Active
+  - Deactivated (can be reactivated; optional domain-level block)
+  - Deleted (after deactivation, permanent)
+  - Guest (board-scoped external/internal guest)
+  - Team Guest (team_guest role)
+  - Non-team external user (non_team role)
+  - Full (license type)
+  - Free Restricted (license type on Enterprise)
+  rbac_support:
+    value: yes — role-based access control at company (Company Admin), team (Admin/Member/Guest),
+      and board levels; licenses (Full/Free/Free Restricted) affect capabilities.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: yes — team roles assignable via Enterprise REST API (PATCH /v2/orgs/:org_id/teams/:team_id/members/:member_id);
+      org-level role (Company Admin) adjustable via SCIM Users PATCH to roles.value.
+    reference: https://developers.miro.com/docs/rest-api-reference-guide
+  documentation_links:
+  - https://help.miro.com/hc/en-us/articles/360017571414-Single-sign-on-SSO
+  - https://help.miro.com/hc/en-us/articles/21899027429778-Miro-metadata-for-Single-sign-on-configuration
+  - https://developers.miro.com/docs/scim
+  - https://help.miro.com/hc/en-us/articles/360036827513-SCIM
+  - https://developers.miro.com/docs/how-to-enable-scim
+  - https://help.miro.com/hc/en-us/articles/360036777814-Setting-up-automated-provisioning-with-Entra-ID
+  - https://github.com/MicrosoftDocs/entra-docs/blob/main/docs/identity/saas-apps/miro-provisioning-tutorial.md
+  - https://help.miro.com/hc/en-us/articles/360036768134-Setting-up-automated-provisioning-with-OKTA
+  - https://help.miro.com/hc/en-us/articles/360019893480-Setting-up-automated-provisioning-with-OneLogin
+  - https://developers.miro.com/docs/getting-started-with-enterprise-api
+  - https://engineering.miro.com/docs/api/miro/enterprise-invite-team-member
+  - https://engineering.miro.com/docs/api/miro/enterprise-update-team-member
+  - https://developers.miro.com/docs/users
+  - https://help.miro.com/hc/en-us/articles/360017571534-Manage-user-invitations-on-Enterprise-Plan
+  - https://help.miro.com/hc/en-us/articles/360017571434-Audit-logs
+  - https://help.miro.com/hc/en-us/articles/21852138484882-6-2-Setting-up-SIEM
+  - https://help.miro.com/hc/en-us/articles/4404745057170-Miro-app-for-Splunk
+  - https://help.miro.com/hc/en-us/articles/17774729839378-Content-Logs-overview
+  - https://help.miro.com/hc/en-us/articles/360034831793-Domain-control
+  - https://help.miro.com/hc/en-us/articles/11846063620882-Block-deactivated-users
+  - https://help.miro.com/hc/en-us/articles/6574185673874-Billing-groups
+  - https://miro.com/pricing//
+  - https://www.npmjs.com/package/%40mirohq/miro-api
+  - https://pypi.org/project/miro-api/
+  - https://github.com/LuisSantosColman/miro-deactivate-stale-users
+  - https://github.com/miroapp/app-examples
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Audit logs include authentication events such as sign in, failed sign
+        in, sign out, and profile locked/unlocked. These can be viewed in the admin
+        UI and accessed via the Audit Logs API.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: Audit logs record administrative role changes including promotion/revocation
+        of Company admin and Team admin, user conversion between member/guest/full
+        member, and user deactivation/reactivation.
+      reference: dubious claim, hallucinated reference
+    api_call:
+      value: There is no dedicated ‘API call’ event type. However, audit events include
+        a createdBy.type field that can be 'application' or 'miro_automation', so
+        actions performed via apps are captured and attributed to the application;
+        parameters include createdAfter/createdBefore with cursor pagination.
+      reference: dubious claim, hallucinated reference
+    data_export:
+      value: Audit logs list file upload/download and board export events, but tracking
+        of these export-related events is disabled by default and can be enabled upon
+        request through Miro Support.
+      reference: dubious claim, hallucinated reference
+    configuration_change:
+      value: Audit logs capture organization and team security configuration changes
+        such as enabling/disabling or changing SSO/SAML, SCIM, allowlist, domain control,
+        team privacy, and sharing settings, as well as app installs/uninstalls and
+        approvals/restrictions.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: User lifecycle events are logged, including inviting a new team member,
+        user joins company/team, converting roles (member/guest/full member), deactivating/reactivating
+        users, and deleting users from teams/organization.
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: Security policy-related changes (e.g., enabling/disabling sharing via
+        public link, allowlist updates, domain control settings, team privacy) are
+        included in audit logs.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: Audit Logs are available on the Enterprise plan. Content Logs require the
+      Enterprise Guard add-on. Tokens for SIEM ingestion are generated in Enterprise
+      Integrations (SIEM for Audit Logs, eDiscovery for Content Logs).
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: 'Splunk: Official Miro App for Splunk pulls Audit Logs (and Content Logs
+      with Enterprise Guard) via tokens and provides inputs and dashboards.'
+    reference: dubious claim, hallucinated reference
+  - value: 'IBM QRadar: Miro Connector for IBM QRadar ingests Audit Logs using the
+      Audit Logs API and QRadar’s Universal Cloud REST API protocol.'
+    reference: dubious claim, hallucinated reference
+  - value: 'IBM QRadar (community): Universal Cloud REST API community workflow for
+      Miro to collect Audit Logs.'
+    reference: https://github.com/IBM/IBM-QRadar-Universal-Cloud-REST-API/blob/master/Community%20Developed/Miro/Miro-Workflow.xml
+  - value: 'Microsoft Sentinel (open source): miro2sentinel ships Miro Audit Logs
+      to Microsoft Sentinel via Data Collection Rules.'
+    reference: https://github.com/hazcod/miro2sentinel
+  - value: 'Splunk TA (community): CCX Extensions for Miro provides field extractions
+      and CIM mappings for Authentication and Change log types.'
+    reference: https://splunkbase.splunk.com/app/7060
+  - value: 'Theta Lake: Marketplace integration to capture/retain Miro content for
+      compliance and eDiscovery using Content Logs.'
+    reference: https://miro.com/marketplace/theta-lake/
+  - value: 'Smarsh: Supported eDiscovery/archival integration mentioned as a collector
+      for Content Logs.'
+    reference: dubious claim, hallucinated reference
+  ingestion_methods:
+  - value: Audit Logs API (GET /v2/audit/logs) with OAuth access token; supports createdAfter/createdBefore,
+      cursor pagination, and sorting.
+    reference: https://developers.miro.com/reference/audit-logs
+  - value: Content Logs API for board item changes; supports filters by board IDs,
+      user emails, time range, cursor pagination, and sorting.
+    reference: dubious claim, hallucinated reference
+  - value: Splunk ingestion via the Miro App for Splunk, which periodically pulls
+      Audit/Content logs using tokens and configured intervals.
+    reference: dubious claim, hallucinated reference
+  - value: IBM QRadar ingestion via Miro Connector and QRadar Universal Cloud REST
+      API protocol.
+    reference: dubious claim, hallucinated reference
+  - value: CSV export of Audit Logs from the admin UI with downloadable CSV (available
+      for 24h; one export at a time).
+    reference: dubious claim, hallucinated reference
+  - value: eDiscovery Board Export job provides ZIP packages (SVG/HTML/PDF, comments,
+      collaborators, metadata) for board content export and download.
+    reference: https://developers.miro.com/reference/board-export
+  log_export_options:
+    tools_connectors:
+      value: 'Export options include: CSV download from the admin UI; programmatic
+        export via the Audit Logs API; supported SIEM integrations for automated collection
+        (Splunk, IBM QRadar).'
+      reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.miro.com/hc/en-us/articles/360017571434-Audit-logs
+  - https://engineering.miro.com/docs/api/miro/enterprise-get-audit-logs
+  - https://developers.miro.com/docs/rest-api-reference-guide
+  - https://developers.miro.com/changelog/2023-06-13-changelog
+  - https://help.miro.com/hc/en-us/articles/17774729839378-Content-Logs-overview
+  - https://engineering.miro.com/docs/api/miro/enterprise-board-content-item-logs-fetch
+  - https://developers.miro.com/reference/board-content-logs
+  - https://developers.miro.com/reference/audit-logs
+  - https://help.miro.com/hc/en-us/articles/21852138484882-6-2-Setting-up-SIEM
+  - https://help.miro.com/hc/en-us/articles/4404745057170-Miro-app-for-Splunk
+  - https://splunkbase.splunk.com/app/5677
+  - https://help.miro.com/hc/en-us/articles/6964551810834-Miro-Connector-For-IBM-QRadar
+  - https://github.com/IBM/IBM-QRadar-Universal-Cloud-REST-API/blob/master/Community%20Developed/Miro/Miro-Workflow.xml
+  - https://github.com/hazcod/miro2sentinel
+  - https://community.miro.com/developer-platform-and-apis-57/unable-to-call-audit-log-api-due-to-insufficient-permission-16128
+  - https://community.miro.com/developer-platform-and-apis-57/admin-rules-access-token-4791
+  - https://developers.miro.com/docs/miro-nodejs-readme
+  - https://developers.miro.com/docs/miro-python-client
+  - https://pypi.org/project/miro-api/
+incident_response:
+  suspend_user_api:
+    value: Yes. On Enterprise plans, Miro’s SCIM API supports deactivating (suspending)
+      a user by PATCHing the SCIM Users resource with active=false; reactivation is
+      done by setting active=true.
+    reference: https://developers.miro.com/docs/users
+  invalidate_sessions_api:
+    value: 'Available via Okta Workflows integration: the Miro Administration Connector
+      provides a ''User Session Wipeout (BETA)'' action that wipes all sessions for
+      a given user email (immediate logout).'
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: 'OAuth access/refresh tokens can be programmatically revoked using the
+      Revoke Token API (v2: POST /v2/oauth/revoke). When revoked, the access token
+      stops working and the refresh token is invalidated. Note: admin-generated tokens
+      for SCIM/SIEM/SAM are managed in the Admin console; no published API for revoking
+      those (uncertain).'
+    reference: https://www.postman.com/miro-developer-platform/miro-developer-platform/request/2gokit0/revoke-token-v2
+  user_toggle_api:
+    value: Yes. User status can be toggled programmatically using the SCIM Users API
+      by updating the active attribute (true/false). Deactivated users lose access
+      to the Enterprise subscription; immediate logout of deactivated users across
+      Miro can be enforced with the Okta Workflows 'User Session Wipeout' action.
+    reference: https://developers.miro.com/docs/users
+  user_status_api:
+    value: Yes. The SCIM Users API returns an 'active' field on GET (true=active,
+      false=deactivated), enabling programmatic status checks.
+    reference: https://developers.miro.com/docs/users
+  session_timeout_configuration:
+    value: Idle Session Timeout (Enterprise only) lets Company Admins auto‑sign‑out
+      inactive users. Defaults to 1 day; configurable from 1 hour up to 14 days. Applies
+      across devices and integrations.
+    reference: dubious claim, hallucinated reference
+  known_automation_tools:
+  - value: 'Miro App for Splunk: official app to ingest Audit Logs (and Content Logs
+      with Enterprise Guard) into Splunk for security monitoring and investigation.'
+    reference: dubious claim, hallucinated reference
+  - value: Splunkbase listing for the Miro App for Splunk (versioned app package by
+      Miro Enterprise Integrations).
+    reference: https://splunkbase.splunk.com/app/5677
+  - value: 'Miro Connector for IBM QRadar: guides using QRadar’s Universal Cloud REST
+      API to pull Miro Audit Logs into QRadar SIEM.'
+    reference: dubious claim, hallucinated reference
+  - value: 'Okta Workflows connectors (Administration + User Management) for Miro:
+      includes actions such as Update User Status (active true/false) and User Session
+      Wipeout (BETA).'
+    reference: dubious claim, hallucinated reference
+  - value: 'Enterprise workflow automation overview: Miro supports low/no‑code orchestration
+      via ServiceNow Automation Engine and Okta Workflows for onboarding/offboarding
+      and policy enforcement.'
+    reference: dubious claim, hallucinated reference
+  - value: 'ServiceNow Software Asset Management integration: can list subscription
+      usage and deactivate users (reclaim licenses) from ServiceNow.'
+    reference: dubious claim, hallucinated reference
+  - value: 'Miro Python API client (PyPI: miro_api): official client library supporting
+      OAuth and Enterprise endpoints (incl. org/team/user ops for Enterprise).'
+    reference: https://developers.miro.com/docs/miro-python-client
+  - value: 'Miro Node.js API client (@mirohq/miro-api): official Node/TS client library
+      for REST API, supports automation scripts and Enterprise endpoints.'
+    reference: https://developers.miro.com/docs/miro-nodejs-readme
+  - value: 'miro2sentinel (open source): Go utility to export Miro Audit Logs to Microsoft
+      Sentinel SIEM.'
+    reference: https://github.com/hazcod/miro2sentinel
+  - value: 'Example automation script (open source): deactivate inactive/stale users
+      using Miro REST + SCIM APIs (Node.js).'
+    reference: https://github.com/LuisSantosColman/miro-deactivate-stale-users
+  documentation_links:
+  - https://developers.miro.com/docs/scim
+  - https://developers.miro.com/docs/how-to-enable-scim
+  - https://developers.miro.com/docs/users
+  - https://developers.miro.com/docs/groups
+  - https://help.miro.com/hc/en-us/articles/360036827513-SCIM
+  - https://help.miro.com/hc/en-us/articles/360025025894-Deactivated-users
+  - https://help.miro.com/hc/en-us/articles/11846063620882-Block-deactivated-users
+  - https://help.miro.com/hc/en-us/articles/21852138484882-6-2-Setting-up-SIEM
+  - https://help.miro.com/hc/en-us/articles/6964551810834-Miro-Connector-For-IBM-QRadar
+  - https://help.miro.com/hc/en-us/articles/4404745057170-Miro-app-for-Splunk
+  - https://developers.miro.com/reference/audit-logs
+  - https://developers.miro.com/reference/board-content-logs
+  - https://help.miro.com/hc/en-us/articles/21852648540178-6-1-Setting-up-SAM
+  - https://help.miro.com/hc/en-us/articles/360021758459-Software-asset-management-with-ServiceNow
+  - https://help.miro.com/hc/en-us/articles/7993541034642-Enterprise-workflow-automation
+  - https://help.miro.com/hc/en-us/articles/8166481458706-Set-up-Miro-Connectors-for-Okta-Workflows
+  - https://help.miro.com/hc/en-us/articles/360017571434-Audit-logs
+  - https://help.miro.com/hc/en-us/articles/360017571454-Idle-Session-Timeout
+  - https://developers.miro.com/docs/getting-started-with-oauth
+  - https://developers.miro.com/changelog/2024-12-16

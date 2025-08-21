@@ -1,0 +1,298 @@
+identity_and_access:
+  sso_support:
+    value: 'yes — SAML 2.0 via Zoho Accounts for internal org users (example IdP:
+      Microsoft Entra ID/Azure AD). No Kerberos documented; OIDC here is for Zoho
+      as IdP to third‑party apps, not Zoho CRM as SP.'
+    reference: https://help.zoho.com/portal/en/kb/accounts/manage-your-organization/saml/articles/configure-saml-in-zoho-accounts
+  sso_license_level_requirement:
+    value: uncertain — docs describe configuring SAML for an organization account;
+      no explicit Zoho CRM edition gating for internal SSO found.
+    reference: https://help.zoho.com/portal/en/kb/accounts/manage-your-organization/saml/articles/configure-sso
+  scim_support:
+    value: uncertain — no official evidence of inbound SCIM v2 provisioning for Zoho
+      CRM users; provisioning guidance is via Zoho Directory/Zoho One or custom connectors.
+    reference: no evidence
+  scim_licensing_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_mechanisms:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_acquisition_steps:
+    value: uncertain
+    reference: no evidence
+  user_management_api_support:
+    value: yes — Users API (v8) supports add, update (incl. activate/deactivate),
+      list, and delete users; role/profile assigned via API.
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/add-user.html
+  user_management_api_licensing_level:
+    value: API available across editions; credit limits vary by edition (Free, Standard/Starter,
+      Professional, Enterprise/Zoho One, Ultimate/CRM Plus).
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/api-limits.html
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 bearer access token (Zoho Accounts); scopes such as ZohoCRM.users.*;
+      organization- and environment-specific tokens.
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/auth-request.html
+  user_management_api_authentication_acquisition_steps:
+    value: '1) Register an app in Zoho API Console to obtain Client ID/Secret. 2)
+      Generate a grant token with ZohoCRM.users.* scopes (org/environment-specific).
+      3) Exchange grant for access/refresh tokens at {accounts-server}/oauth/v2/token.
+      4) Call CRM APIs with Authorization: Zoho-oauthtoken {access_token}. 5) Refresh
+      tokens as needed.'
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/auth-request.html
+  seat_costs:
+  - license_level: Standard
+    active:
+      value: Per-user, per-month pricing by edition; see pricing page for current
+        USD amounts.
+      reference: https://www.zoho.com/crm/zohocrm-pricing.html
+    suspended_disabled:
+      value: Yes — deactivated users continue to consume paid licenses until you reduce/cancel
+        licenses.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/manage-subscriptions/articles/manage-subscriptions
+    archived:
+      value: uncertain — no distinct 'archived user' billing policy found.
+      reference: no evidence
+  - license_level: Professional
+    active:
+      value: Per-user, per-month pricing by edition; see pricing page for current
+        USD amounts.
+      reference: https://www.zoho.com/crm/zohocrm-pricing.html
+    suspended_disabled:
+      value: Yes — deactivated users continue to consume paid licenses until you reduce/cancel
+        licenses.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/manage-subscriptions/articles/manage-subscriptions
+    archived:
+      value: uncertain — no distinct 'archived user' billing policy found.
+      reference: no evidence
+  - license_level: Enterprise
+    active:
+      value: Per-user, per-month pricing by edition; see pricing page for current
+        USD amounts.
+      reference: https://www.zoho.com/crm/zohocrm-pricing.html
+    suspended_disabled:
+      value: Yes — deactivated users continue to consume paid licenses until you reduce/cancel
+        licenses.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/manage-subscriptions/articles/manage-subscriptions
+    archived:
+      value: uncertain — no distinct 'archived user' billing policy found.
+      reference: no evidence
+  - license_level: Ultimate
+    active:
+      value: Per-user, per-month pricing by edition; see pricing page for current
+        USD amounts.
+      reference: https://www.zoho.com/crm/zohocrm-pricing.html
+    suspended_disabled:
+      value: Yes — deactivated users continue to consume paid licenses until you reduce/cancel
+        licenses.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/manage-subscriptions/articles/manage-subscriptions
+    archived:
+      value: uncertain — no distinct 'archived user' billing policy found.
+      reference: no evidence
+  lifecycle_options:
+  - Invited/Pending (NotConfirmedUsers)
+  - Active
+  - Inactive/Deactivated
+  - Deleted
+  - Confirmed
+  rbac_support:
+    value: yes — RBAC via Roles (hierarchy) and Profiles (permissions).
+    reference: https://help.zoho.com/portal/en/kb/crm/users-and-control/role-management/articles/role-management-introduction
+  rbac_api_assignment:
+    value: yes — assign/change a user's role and profile via Users API (add/update);
+      list roles/profiles via settings APIs.
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/update-user.html
+  documentation_links:
+  - https://help.zoho.com/portal/en/kb/accounts/manage-your-organization/saml/articles/configure-saml-in-zoho-accounts
+  - https://help.zoho.com/portal/en/kb/accounts/manage-your-organization/saml/articles/access-zoho-via-entra-id
+  - https://help.zoho.com/portal/en/kb/crm/integrations/zoho/zoho-directory/articles/zoho-directory-integration-with-crm
+  - https://www.zoho.com/crm/developer/docs/api/v8/auth-request.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/api-limits.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/add-user.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/get-users.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/delete-user.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/get-roles.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/get-profiles.html
+  - https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+  - https://www.zoho.com/crm/developer/docs/api/v8/download-export-audit-log-result.html
+  - https://www.zoho.com/crm/developer/docs/api/v7/user-re-invite.html
+  - https://help.zoho.com/portal/en/community/topic/introducing-import-of-users-to-crm
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/zoho-one-provisioning-tutorial
+  - https://www.okta.com/integrations/zoho-provisioning-connector-by-aquera/
+  - https://www.npmjs.com/package/%40zohocrm/nodejs-sdk
+  - https://github.com/zoho/zohocrm-python-sdk
+  - https://help.zoho.com/portal/en/kb/directory/admin-guide/provisioning/articles/overview-provisioning
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Zoho CRM’s audit log does not record user sign-ins. Login history is
+        captured in Zoho Directory and is accessed from Zoho CRM via Setup > Security
+        Control > Login History; use this for monitoring sign-ins.
+      reference: https://help.zoho.com/portal/en/kb/crm/faqs/audit-log/articles/audit-logs-3-2-2023
+    role_assignment:
+      value: Audit Log captures setup changes to Roles, Profiles, and Groups (create/edit),
+        enabling tracking of authorization model changes performed in CRM.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+    api_call:
+      value: API activity is monitored via the Zoho CRM API Dashboard, which provides
+        usage statistics by user, IP address, module, method, and time with ~30 days
+        retention; it is a usage dashboard rather than a per-call security audit event
+        stream.
+      reference: https://www.zoho.com/crm/developer/docs/api/v8/dashboards.html
+    data_export:
+      value: Export actions are included in the Audit Log (bulk and individual), allowing
+        visibility into record exports from modules. Separate data export tooling
+        exists under Data Administration for module exports.
+      reference: https://help.zoho.com/portal/en/kb/crm/faqs/audit-log/articles/audit-logs-3-2-2023
+    configuration_change:
+      value: Audit Log records a wide range of configuration/setup changes including
+        Workflow Rules (create/edit/delete/lock with ‘View changes’), Webhooks, Assignment
+        Rules, Auto-response rules, Reports, Business Hours, etc.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+    user_account_creation:
+      value: User administration events are audited; the Audit Log lists Users (Add,
+        Edit Details) so creation/updates of CRM user accounts are captured.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+    security_policy_change:
+      value: uncertain — documentation enumerates many setup/change events but does
+        not explicitly confirm auditing of CRM security policy changes (e.g., Allowed
+        IPs/MFA policy). Login history and some security controls are handled in Zoho
+        Directory.
+      reference: https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+  event_logs_licensing_level:
+    value: uncertain — official Audit Log help pages describe permissions (admin/CEO
+      access) but do not specify edition-based licensing requirements for viewing/exporting
+      audit logs.
+    reference: https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+  monitoring_products:
+  - value: Zoho CRM API Dashboard — built-in usage monitoring of API calls (by user,
+      IP, module, method, time) with ~30-day statistics for operational/API-security
+      oversight.
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/dashboards.html
+  - value: Zoho CRM C# SDK v7+ — official SDK includes support for the Export Audit
+      Log API, enabling programmatic retrieval of audit logs for monitoring pipelines.
+    reference: https://github.com/zoho/zohocrm-csharp-sdk-7.0/blob/master/README.md
+  - value: 'Community guide (Kaizen #150) — demonstrates end-to-end use of the Export
+      Audit Log API (schedule, status, download), useful as a reference implementation
+      for monitoring/export workflows.'
+    reference: https://help.zoho.com/portal/en/community/topic/kaizen-150-track-and-monitor-activities-in-zoho-crm-using-the-export-audit-log-api
+  ingestion_methods:
+  - value: 'UI export: administrators can export Audit Log entries directly from Setup
+      > Security Control > Audit Log as CSV; supports up to last 3 years or 1M entries
+      when unfiltered (with filtered exports requiring a ≤180‑day time range).'
+    reference: https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+  - value: 'Export Audit Log API (create job): POST {api-domain}/crm/{version}/settings/audit_log_export
+      schedules an asynchronous export job; supports filters (e.g., audited_time/module/user)
+      with ≤180‑day filtered windows.'
+    reference: https://www.zoho.com/crm/developer/docs/api/v7/create-export-audit-log.html
+  - value: 'Export Audit Log API (download result): download CSV/ZIP via GET {download-domain}/v2/crm/{org_ID}/auditlog/{export_audit_job_ID}/AuditLog.(csv|zip);
+      CSV up to 100k rows per file, ZIP up to 1,000,000 entries.'
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/download-export-audit-log-result.html
+  - value: 'Login history export (Zoho Directory): exportable via Directory Reports;
+      use for sign-in monitoring since CRM audit log does not capture logins.'
+    reference: https://help.zoho.com/portal/en/kb/directory/admin-guide/reports/articles/export-report
+  - value: 'Function Analytics logs: Deluge function execution logs (timestamps, status,
+      params) downloadable as JSON for operational troubleshooting/monitoring of in-CRM
+      automations.'
+    reference: https://www.zoho.com/crm/developer/docs/functions/function-analytics.html
+  log_export_options:
+    tools_connectors:
+      value: 'Audit logs can be exported via: (a) UI CSV export; (b) Export Audit
+        Log API to create jobs and (c) Download API to fetch CSV/ZIP results. No native
+        CRM SIEM push/streaming is documented; SIEM integrations are documented for
+        other Zoho apps (e.g., Mail/Vault), so CRM SIEM ingestion typically uses the
+        export APIs or UI CSV.'
+      reference: https://www.zoho.com/crm/developer/docs/api/v7/create-export-audit-log.html
+  documentation_links:
+  - https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+  - https://help.zoho.com/portal/en/kb/crm/faqs/audit-log/articles/audit-logs-3-2-2023
+  - https://www.zoho.com/crm/developer/docs/api/v7/create-export-audit-log.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/download-export-audit-log-result.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/dashboards.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/customize_api_usage_notification.html
+  - https://help.zoho.com/portal/en/kb/one/admin-guide/managing-users/articles/zohoone-account-activity
+  - https://help.zoho.com/portal/en/kb/directory/admin-guide/reports/articles/export-report
+  - https://help.zoho.com/portal/en/community/topic/kaizen-150-track-and-monitor-activities-in-zoho-crm-using-the-export-audit-log-api
+  - https://github.com/zoho/zohocrm-csharp-sdk-7.0/blob/master/README.md
+  - https://www.zoho.com/es-xl/crm/help/administration/audit-log.html
+  - https://help.zoho.com/portal/en/community/topic/audit-log-export-via-api
+incident_response:
+  suspend_user_api:
+    value: 'Zoho CRM supports programmatically suspending a user by updating the user''s
+      status to inactive via the Users API (PUT /users or /users/{user_id} with key
+      "status": "inactive").'
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/update-user.html
+  invalidate_sessions_api:
+    value: uncertain - No public Zoho CRM/Accounts API was found to forcibly invalidate
+      a user's active web sessions organization-wide. Sessions can be terminated by
+      users/admins via the Zoho Accounts Sessions UI; API token access can be revoked
+      separately using OAuth token revocation.
+    reference: https://help.zoho.com/portal/en/kb/accounts/manage-your-zoho-account/articles/sessions-zohoaccounts
+  revoke_api_key_api:
+    value: Zoho uses OAuth; you can programmatically revoke access or refresh tokens
+      by POSTing to {accounts-server-url}/oauth/v2/token/revoke?token={token}, which
+      invalidates API access (revoking a refresh token also revokes derived access
+      tokens).
+    reference: https://www.zoho.com/accounts/protocol/oauth/revoke-refresh-token.html
+  user_toggle_api:
+    value: User activation state can be toggled via the Users API by updating the
+      user record and setting the "status" field to active or inactive.
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/update-user.html
+  user_status_api:
+    value: The Users API supports retrieving users and their status (active/inactive)
+      using GET /users with type filters (e.g., AllUsers, ActiveUsers, DeactiveUsers)
+      and returns a "status" field.
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/get-users.html
+  session_timeout_configuration:
+    value: 'Session controls are configured in Zoho Directory security policies (applies
+      to Zoho apps including CRM): Session Lifetime, Idle Session Timeout, and Concurrent
+      Sessions can be set in Directory > Security Policies > Advanced Settings. Minimum
+      numeric values were not documented.'
+    reference: https://help.zoho.com/portal/en/kb/directory/admin-guide/security/security-policy/articles/session-management
+  known_automation_tools:
+  - value: 'Notifications API: subscribe a webhook endpoint to near real-time record
+      events (create/update/delete) with field-level filters; useful to trigger SOAR
+      playbooks on CRM changes.'
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/notifications/enable.html
+  - value: 'Workflow Webhooks: native outbound HTTP calls from CRM workflows to external
+      endpoints; can notify SIEM/SOAR or custom responders with rate/size limits per
+      edition.'
+    reference: https://help.zoho.com/portal/en/kb/crm/automate-business-processes/actions/articles/webhooks-workflow
+  - value: 'Audit Log Export API: schedule and export CRM audit logs (CSV/ZIP) programmatically
+      for ingestion into SIEM; supports filtering by action, user, module, and time
+      window.'
+    reference: https://www.zoho.com/crm/developer/docs/api/v7/create-export-audit-log.html
+  - value: 'Audit Log export download/status APIs: programmatically check job status
+      and download exported audit logs for investigation pipelines.'
+    reference: https://www.zoho.com/crm/developer/docs/api/v8/download-export-audit-log-result.html
+  - value: 'Zoho CRM Python SDK (v7+): official SDK to automate CRM operations, including
+      Users API and Audit Log Export API, suitable for IR scripts and responders.'
+    reference: https://github.com/zoho/zohocrm-python-sdk-7.0
+  - value: 'Zoho CRM Node.js SDK (v2.x / v7.x repos): official SDK to drive Users
+      API toggling and log export from JavaScript-based automations.'
+    reference: https://github.com/zoho/zohocrm-nodejs-sdk-7.0
+  - value: 'n8n workflow automation: example vendor guide shows connecting Rapid7
+      Insight Platform with Zoho CRM to orchestrate security-alert-driven CRM actions.'
+    reference: https://n8n.io/integrations/rapid7-insight-platform/and/zoho-crm/
+  - value: 'Workato recipe catalog: Azure Sentinel ↔ Zoho CRM integration page showing
+      triggers/actions to route Sentinel records to CRM actions (and vice versa).'
+    reference: https://www.workato.com/fr-FR/integrations/azure-sentinel~zohocrm
+  - value: 'Zoho Flow: Microsoft Entra ID (Azure AD) ↔ Zoho CRM no‑code integration
+      to react to identity events (e.g., new/updated user) and drive CRM updates.'
+    reference: https://www.zohoflow.com/apps/microsoft-entra-id/integrations/zoho-crm/
+  - value: 'OAuth token revocation (Accounts): programmatic endpoint to revoke Zoho
+      OAuth tokens to cut off API access during incident response.'
+    reference: https://www.zoho.com/accounts/protocol/oauth/revoke-refresh-token.html
+  documentation_links:
+  - https://www.zoho.com/crm/developer/docs/api/v8/update-user.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/get-users.html
+  - https://www.zoho.com/accounts/protocol/oauth/revoke-refresh-token.html
+  - https://www.zoho.com/crm/developer/docs/api/v7/create-export-audit-log.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/get-export-audit-log.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/download-export-audit-log-result.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/notifications/overview.html
+  - https://www.zoho.com/crm/developer/docs/api/v8/notifications/enable.html
+  - https://help.zoho.com/portal/en/kb/crm/security-control/audit-log/articles/monitor-audit-log
+  - https://help.zoho.com/portal/en/kb/accounts/manage-your-zoho-account/articles/sessions-zohoaccounts
+  - https://help.zoho.com/portal/en/kb/directory/admin-guide/security/security-policy/articles/session-management
+  - https://www.zoho.com/crm/developer/docs/api/v8/delete-user.html

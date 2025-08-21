@@ -1,0 +1,282 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 SSO with major IdPs (Okta, Entra ID/Azure AD, OneLogin)
+      and Custom SAML; Google Single Sign-On also supported; SP- and IdP-initiated
+      flows and JIT provisioning are available.
+    reference: dubious claim, hallucinated reference
+  sso_license_level_requirement:
+    value: 'SAML SSO: Enterprise only; Google SSO: Pro and Enterprise.'
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: yes — SCIM v2.0 endpoints for Users and Groups/Teams; supports create,
+      update (PATCH/PUT), deprovision (active=false), team assign/unassign; available
+      via direct SCIM API and official IdP connectors.
+    reference: dubious claim, hallucinated reference
+  scim_licensing_level_requirement:
+    value: SCIM provisioning is Enterprise-only.
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: Bearer token (admin-generated SCIM token in Authorization header).
+    reference: dubious claim, hallucinated reference
+  scim_authentication_acquisition_steps:
+    value: '1) Admin logs in; 2) Go to Administration → Security → SCIM; 3) Click
+      Generate to create SCIM token; 4) Copy token and use as Authorization: Bearer
+      <token> against https://<account>.monday.com/scim/v2/.'
+    reference: dubious claim, hallucinated reference
+  user_management_api_support:
+    value: yes — GraphQL API supports inviting users, activating/reactivating, deactivating,
+      updating user attributes, and updating roles; also team/board/workspace membership
+      mutations.
+    reference: https://developer.monday.com/api-reference/reference/users
+  user_management_api_licensing_level:
+    value: uncertain — GraphQL API available broadly; specific capabilities have constraints
+      (e.g., only admins may use some mutations; custom roles are Enterprise-only).
+    reference: https://developer.monday.com/api-reference/reference/users
+  user_management_api_authentication_mechanisms:
+    value: Personal API token (Bearer) tied to user permissions; OAuth tokens for
+      apps via OAuth authorization flow.
+    reference: https://developer.monday.com/api-reference/docs/authentication
+  user_management_api_authentication_acquisition_steps:
+    value: 'Admins: Profile → Administration → Connections → Personal API token →
+      Copy. Non-admins: Avatar → Developers → My Access Tokens → Show/Copy. OAuth:
+      implement app OAuth flow per docs.'
+    reference: https://developer.monday.com/api-reference/docs/authentication
+  seat_costs:
+  - license_level: Basic
+    active:
+      value: Active users are paid seats.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: No — deactivated users do not count toward your paying plan.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: N/A — monday.com has no 'archived user' state; archiving applies to items/boards/docs
+        only.
+      reference: dubious claim, hallucinated reference
+  - license_level: Standard
+    active:
+      value: Active users are paid seats.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: No — deactivated users do not count toward your paying plan.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: N/A — monday.com has no 'archived user' state; archiving applies to items/boards/docs
+        only.
+      reference: dubious claim, hallucinated reference
+  - license_level: Pro
+    active:
+      value: Active users are paid seats.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: No — deactivated users do not count toward your paying plan.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: N/A — monday.com has no 'archived user' state; archiving applies to items/boards/docs
+        only.
+      reference: dubious claim, hallucinated reference
+  - license_level: Enterprise
+    active:
+      value: Active users are paid seats.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: No — deactivated users do not count toward your paying plan.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: N/A — monday.com has no 'archived user' state; archiving applies to items/boards/docs
+        only.
+      reference: dubious claim, hallucinated reference
+  lifecycle_options:
+  - pending (invited, not yet accepted)
+  - active
+  - deactivated/inactive
+  - deleted
+  rbac_support:
+    value: yes — account/user roles (Admin, Member, Viewer, Guest) and Enterprise
+      custom roles; Teams for grouping; workspace/account permission controls.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: yes — GraphQL mutation update_users_role (default roles and custom role
+      by role_id in API 2025-04+); also team membership via add_users_to_team; SCIM
+      userType mapping supported.
+    reference: https://developer.monday.com/api-reference/reference/users
+  documentation_links:
+  - https://support.monday.com/hc/en-us/articles/360000460605-SAML-Single-Sign-on
+  - https://support.monday.com/hc/en-us/articles/360000461565-Custom-SAML-2-0
+  - https://support.monday.com/hc/en-us/articles/360000810329-Google-Single-Sign-On
+  - https://support.monday.com/hc/en-us/articles/360021861660-SCIM-Provisioning-Custom-Setup
+  - https://support.monday.com/hc/en-us/articles/360021893619-SCIM-Provisioning-API
+  - https://support.monday.com/hc/en-us/articles/360015819239-SCIM-Provisioning-of-Users-and-Teams-with-OKTA
+  - https://support.monday.com/hc/en-us/articles/360018360819-SCIM-Provisioning-of-Users-and-Teams-with-Entra-ID-previously-known-as-Azure-AD
+  - https://support.monday.com/hc/en-us/articles/360016333360-SCIM-Provisioning-of-Users-and-Teams-with-OneLogin
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/mondaycom-tutorial
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/mondaycom-provisioning-tutorial
+  - https://developer.monday.com/api-reference/reference/users
+  - https://support.monday.com/hc/en-us/articles/360005144659-Does-monday-com-have-an-API
+  - https://support.monday.com/hc/en-us/articles/360002426980-How-to-manage-users-on-your-account
+  - https://support.monday.com/hc/en-us/articles/360002430099-How-to-invite-users-to-join-an-account
+  - https://support.monday.com/hc/en-us/articles/4406042650002-Audit-Log-API
+  - https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log
+  - https://support.monday.com/hc/en-us/articles/8292728458386-Custom-roles-for-account-permissions
+  - https://support.monday.com/hc/en-us/articles/360019180359-Workspace-permissions
+  - https://github.com/trix-solutions/moncli
+  - https://github.com/mondaycom/monday-sdk-js
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Audit Log records security-related activities including user login and
+        logout with device and IP address details; accessible to account admins in
+        the Audit tab.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: Audit logs include user role/type changes (e.g., user-role-change) performed
+        by admins.
+      reference: dubious claim, hallucinated reference
+    api_call:
+      value: Audit logs capture API-related events such as api-complexity-breach-over-time
+        (calls reaching account limits).
+      reference: https://developer.monday.com/api-reference/reference/audit-logs
+    data_export:
+      value: Audit Log tracks sensitive export actions including board data exports
+        and downloads of attachments.
+      reference: dubious claim, hallucinated reference
+    configuration_change:
+      value: Security configuration changes are logged (e.g., security-settings-change),
+        providing traceability for admin-level changes.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: User lifecycle actions are logged, including user invitations, reactivations,
+        deactivations, and deletions.
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: Changes to security policies/settings are logged as security-settings-change
+        events in the audit stream.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: Audit Log (and the Audit Log API) is an Enterprise plan feature and only
+      accessible to account admins.
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: 'Splunk: monday.com Add-on pulls monday.com audit logs into Splunk for
+      analysis and alerting.'
+    reference: https://splunkbase.splunk.com/app/6483
+  - value: 'JavaScript SDK: Official @mondaydotcomorg/api client for the GraphQL Platform
+      API (usable to query audit_logs with API version 2025-07).'
+    reference: https://www.npmjs.com/package/%40mondaydotcomorg/api
+  - value: 'Python client (moncli): Community SDK for monday.com GraphQL API that
+      can be used to build collectors for audit/activity logs.'
+    reference: https://github.com/trix-solutions/moncli
+  - value: 'Python client (LeetCyberSecurity/monday-client): Async Python wrapper
+      for monday.com API, suitable for integrating log retrieval into pipelines.'
+    reference: https://github.com/LeetCyberSecurity/monday-client
+  - value: 'monday ODBC driver (CData): Exposes an AuditLogs table (e.g., login/logout,
+      role change, security settings change) to pull events into tools that can consume
+      ODBC sources.'
+    reference: dubious claim, hallucinated reference
+  - value: 'n8n: Workflow integration between monday.com and QRadar using HTTP Request
+      to send monday events/logs to QRadar.'
+    reference: https://n8n.io/integrations/mondaycom/and/qradar/
+  ingestion_methods:
+  - value: 'REST Audit Log API: GET https://<slug>.monday.com/audit-api/get-logs with
+      bearer token; supports filters (user_id, event, ip_address, start_time, end_time);
+      50 req/min.'
+    reference: dubious claim, hallucinated reference
+  - value: 'GraphQL Audit Logs: audit_logs object (API v2025-07+) returns paginated
+      audit entries and supports filtering by user, events, IP, start/end times.'
+    reference: https://developer.monday.com/api-reference/reference/audit-logs
+  - value: 'Board Activity Logs API: boards->activity_logs GraphQL query for board-level
+      changes (limit up to 10,000 logs total per query window).'
+    reference: https://developer.monday.com/api-reference/reference/activity-logs
+  - value: 'Webhooks: Real-time push of board events (e.g., item created/updated,
+      status changes) to an HTTPS endpoint for downstream SIEM ingestion.'
+    reference: https://developer.monday.com/api-reference/reference/webhooks
+  - value: 'Splunk Add-on: Prebuilt connector to fetch monday.com audit logs into
+      Splunk via API.'
+    reference: https://splunkbase.splunk.com/app/6483
+  log_export_options:
+    tools_connectors:
+      value: Use the Audit Log API's Monitor by API capability to export audit events
+        and transfer them into external auditing platforms such as SIEMs.
+      reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log
+  - https://support.monday.com/hc/en-us/articles/4406042650002-Audit-Log-API
+  - https://developer.monday.com/api-reference/reference/audit-logs
+  - https://developer.monday.com/api-reference/changelog/new-ability-to-read-audit-logs-via-the-api
+  - https://developer.monday.com/api-reference/reference/audit-event-catalogue
+  - https://developer.monday.com/api-reference/reference/activity-logs
+  - https://developer.monday.com/api-reference/reference/webhooks
+  - https://support.monday.com/hc/en-us/articles/26989749858578-Export-to-Excel
+  - https://support.monday.com/hc/en-us/articles/360002543719-How-to-export-your-entire-account-s-data
+  - https://community.monday.com/t/activity-log-api-response-missing-data-but-no-error/74029
+  - https://community.monday.com/t/filtering-activity-logs-by-event-type/52834
+  - https://splunkbase.splunk.com/app/6483
+  - https://cdn.cdata.com/help/MOK/odbc/pg_AuditLogtable-auditlogs.htm
+  - https://www.npmjs.com/package/%40mondaydotcomorg/api
+  - https://n8n.io/integrations/mondaycom/and/qradar/
+incident_response:
+  suspend_user_api:
+    value: Yes. Admins can programmatically deactivate (suspend) users via the GraphQL
+      deactivate_users mutation (max 200 user_ids per call; only admins). There is
+      also an activate_users mutation to re-enable users. Deactivating users also
+      deactivates the automations/integrations they created.
+    reference: https://developer.monday.com/api-reference/reference/users
+  invalidate_sessions_api:
+    value: Uncertain – no documented public API to force-terminate user sessions.
+      Enterprise admins can use the Sessions Log in the Admin UI to sign out individual
+      members or log out all users; Panic Mode can also temporarily block access.
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: No documented programmatic token-revocation API. Admin UI provides a Manage
+      API tokens tab to view and revoke API tokens; users can regenerate personal
+      API tokens in the UI; OAuth app access can be removed by uninstalling the app.
+    reference: dubious claim, hallucinated reference
+  user_toggle_api:
+    value: 'Yes. Admins can toggle user state using GraphQL: deactivate_users to suspend
+      and activate_users to re-enable users (up to 200 per call).'
+    reference: https://developer.monday.com/api-reference/reference/users
+  user_status_api:
+    value: Yes. The GraphQL users query exposes user metadata including the enabled
+      Boolean field, plus filters like non_active to retrieve inactive users.
+    reference: https://developer.monday.com/api-reference/reference/users
+  session_timeout_configuration:
+    value: 'Enterprise-only. Admins can set session duration: inactivity logout after
+      5, 10, or 15 days, or enforce session expiry for all users after a set interval.
+      They can also immediately log out all users from the Sessions tab. Specific
+      date/time expirations are not supported.'
+    reference: dubious claim, hallucinated reference
+  known_automation_tools:
+  - value: 'Splunk Add-on for monday.com: ingests monday.com Audit Logs into Splunk
+      for analytics and alerting/response workflows.'
+    reference: https://splunkbase.splunk.com/app/6483
+  - value: 'Tines integration for monday.com: prebuilt actions (e.g., delete users
+      from workspaces, delete subscribers from boards, create items/notifications)
+      to orchestrate investigation/response playbooks.'
+    reference: https://www.tines.com/solutions/products/monday-com/
+  - value: 'Official JS SDK (@mondaydotcomorg/api): typed client for monday GraphQL
+      API, usable in Node.js and browser; supports raw requests and helper operations.'
+    reference: https://www.npmjs.com/package/%40mondaydotcomorg/api
+  - value: 'moncli (Python): community Python client for monday.com API; supports
+      board/item/user management and can be used in custom IR automations.'
+    reference: https://github.com/trix-solutions/moncli
+  - value: 'monday-python (Python): API wrapper with webhook support to build automation
+      around monday.com.'
+    reference: https://github.com/GearPlug/monday-python
+  - value: 'monday-client (PyPI): asynchronous Python client that handles rate/complexity
+      limits and retries for robust automation scripts.'
+    reference: https://pypi.org/project/monday-client/
+  documentation_links:
+  - https://developer.monday.com/api-reference/reference/users
+  - https://developer.monday.com/api-reference/changelog/new-deactivate_users-mutation
+  - https://support.monday.com/hc/en-us/articles/360021893619-SCIM-Provisioning-API
+  - https://support.monday.com/hc/en-us/articles/360021861660-SCIM-Provisioning-Custom-Setup
+  - https://support.monday.com/hc/en-us/articles/360018360819-SCIM-Provisioning-of-Users-and-Teams-with-Entra-ID-previously-known-as-Azure-AD
+  - https://support.monday.com/hc/en-us/articles/4406042650002-Audit-Log-API
+  - https://developer.monday.com/api-reference/reference/audit-logs
+  - https://developer.monday.com/api-reference/reference/audit-event-catalogue
+  - https://support.monday.com/hc/en-us/articles/360001259429-The-Audit-Log
+  - https://support.monday.com/hc/en-us/articles/115005321509-The-Administration-section-on-monday-com
+  - https://support.monday.com/hc/en-us/articles/4410500266514-How-to-set-a-session-duration-on-your-account
+  - https://support.monday.com/hc/en-us/articles/360005144659-Does-monday-com-have-an-API
+  - https://support.monday.com/hc/en-us/articles/15265913506450-How-to-manage-your-account-s-apps
+  - https://support.monday.com/hc/en-us/articles/360019453660-Security-and-permissions-for-your-Enterprise-account

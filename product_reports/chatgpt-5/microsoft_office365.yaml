@@ -1,0 +1,316 @@
+identity_and_access:
+  sso_support:
+    value: yes — Microsoft 365 uses Microsoft Entra ID for SSO; supported protocols
+      include OpenID Connect/OAuth 2.0 for apps and SAML 2.0/WS-Federation for IdP
+      federation (Kerberos-based Seamless SSO available for domain-joined devices;
+      see documentation links).
+    reference: https://learn.microsoft.com/en-us/entra/architecture/authenticate-applications-and-users
+  sso_license_level_requirement:
+    value: Microsoft Entra ID Free includes single sign-on across Azure, Microsoft
+      365, and many SaaS apps (Seamless SSO is a free feature).
+    reference: https://learn.microsoft.com/en-us/office365/servicedescriptions/azure-active-directory
+  scim_support:
+    value: no — Microsoft 365/Entra does not expose an inbound SCIM 2.0 endpoint;
+      Microsoft Entra acts as a SCIM client for provisioning to applications, and
+      inbound (HR → Entra) uses Graph-based API‑driven provisioning.
+    reference: https://learn.microsoft.com/en-us/entra/identity/app-provisioning/how-provisioning-works
+  scim_licensing_level_requirement:
+    value: Not applicable for inbound to Microsoft 365 (no SCIM endpoint). For outbound
+      SCIM provisioning from Entra to apps, Microsoft Entra ID P1 (or P2) is required.
+    reference: https://learn.microsoft.com/en-us/entra/identity/app-provisioning/on-premises-scim-provisioning
+  scim_authentication_mechanisms:
+    value: not applicable — no SCIM endpoint is provided by Microsoft 365/Entra; Entra’s
+      provisioning service authenticates to target SCIM apps using long‑lived bearer
+      tokens or OAuth authorization code (for the target app) when used outbound.
+    reference: https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-build-users-and-groups-endpoints
+  scim_authentication_acquisition_steps:
+    value: not applicable — Microsoft 365/Entra does not publish SCIM credentials
+      because no inbound SCIM endpoint exists; use Microsoft Graph or API‑driven inbound
+      provisioning instead.
+    reference: https://learn.microsoft.com/en-us/entra/identity/app-provisioning/how-provisioning-works
+  user_management_api_support:
+    value: yes — Microsoft Graph provides non‑SCIM user management APIs (create, update,
+      disable, delete users) via /users (v1.0).
+    reference: https://github.com/microsoftgraph/microsoft-graph-docs-contrib/blob/main/api-reference/v1.0/api/user-post-users.md
+  user_management_api_licensing_level:
+    value: Available with Microsoft Entra ID (Free and above). User and group management
+      is included in Entra ID Free; Graph access requires appropriate permissions/consent.
+    reference: https://learn.microsoft.com/en-us/office365/servicedescriptions/azure-active-directory
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 bearer tokens issued by the Microsoft identity platform; supports
+      delegated (on behalf of a user) and application (app‑only) permissions; MSAL
+      recommended.
+    reference: https://learn.microsoft.com/en-us/graph/auth/
+  user_management_api_authentication_acquisition_steps:
+    value: '1) Register an app in Entra ID; 2) Configure delegated or application
+      permissions (e.g., User.ReadWrite.All/Directory.ReadWrite.All) and obtain/admin‑consent;
+      3) Acquire tokens via OAuth 2.0 (authorization code or client credentials) from
+      https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token; 4) Call Microsoft
+      Graph with Authorization: Bearer <access_token>.'
+    reference: https://learn.microsoft.com/en-us/graph/auth-v2-user
+  seat_costs:
+  - license_level: Microsoft 365 user subscription seats (general per‑user licensing)
+    active:
+      value: yes — licenses are billed per assigned active seat; you can reassign
+        or remove a license.
+      reference: https://github.com/MicrosoftDocs/microsoft-365-docs/blob/public/microsoft-365/admin/add-users/remove-former-employee-step-6.md
+    suspended_disabled:
+      value: no — disabling/blocking sign‑in does not stop billing; remove or delete
+        the license to stop paying.
+      reference: https://github.com/MicrosoftDocs/microsoft-365-docs/blob/public/microsoft-365/admin/add-users/remove-former-employee-step-6.md
+    archived:
+      value: Exchange ‘inactive mailbox’ allows license removal if the mailbox was
+        placed on hold (Exchange Plan 2 or Exchange Online Archiving add‑on required).
+      reference: https://www.microsoft.com/licensing/faqs/5
+  - license_level: Exchange Online Plan 2 (or Exchange Plan 1 + Exchange Online Archiving
+      add‑on) — for inactive mailbox scenarios
+    active:
+      value: yes — standard per‑user license while assigned.
+      reference: https://www.microsoft.com/licensing/faqs/5
+    suspended_disabled:
+      value: no — charges tied to license assignment; removing the license stops billing.
+      reference: https://www.microsoft.com/licensing/faqs/5
+    archived:
+      value: no — after placing mailbox on hold and making it inactive, you may remove
+        the license and retain data.
+      reference: https://learn.microsoft.com/en-us/purview/inactive-mailboxes-in-office-365
+  lifecycle_options:
+  - 'Member user: active (accountEnabled=true)'
+  - 'Member user: blocked sign‑in (accountEnabled=false)'
+  - 'Guest user: invited (PendingAcceptance)'
+  - 'Guest user: accepted (externalUserState=Accepted)'
+  - Soft‑deleted user (restorable for 30 days)
+  - Hard‑deleted user (permanently removed after retention)
+  rbac_support:
+    value: yes — Microsoft Entra directory roles (admin roles) and groups provide
+      RBAC for Microsoft 365; roles and memberships are enumerable via Microsoft Graph.
+    reference: https://learn.microsoft.com/en-us/graph/api/directoryrole-list?view=graph-rest-1.0
+  rbac_api_assignment:
+    value: yes — roles can be assigned via Microsoft Graph role management APIs (unifiedRoleAssignment/roleManagement.d
+      irectory); Privileged Identity Management APIs also supported.
+    reference: https://learn.microsoft.com/en-us/graph/api/resources/rolemanagement?view=graph-rest-1.0
+  documentation_links:
+  - https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso
+  - https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso-how-it-works
+  - https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-fed-saml-idp
+  - https://learn.microsoft.com/en-us/entra/identity-platform/federation-metadata
+  - https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols
+  - https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
+  - https://learn.microsoft.com/en-us/entra/identity/app-provisioning/how-provisioning-works
+  - https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-build-users-and-groups-endpoints
+  - https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-concepts
+  - https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-powershell
+  - https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-graph-explorer
+  - https://learn.microsoft.com/en-us/entra/fundamentals/users-restore
+  - https://learn.microsoft.com/en-us/entra/architecture/recover-from-deletions
+  - https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add
+  - https://github.com/microsoftgraph/msgraph-sdk-powershell
+  - https://github.com/microsoftgraph/msgraph-sdk-python
+  - https://pypi.org/project/msgraph-sdk/
+  - https://www.npmjs.com/package/%40microsoft/microsoft-graph-client
+  - https://help.okta.com/oie/en-us/Content/Topics/Apps/Office365-Deployment/import-ms-graph.htm
+  - https://docs.pingidentity.com/r/en-us/pingfederate-azuread-office365-integration/pingfederate_azuread_office365_integration_creating_a_connection_to_azure_active_directory
+  - https://learn.microsoft.com/en-us/purview/audit-log-retention-policies
+  - https://learn.microsoft.com/en-us/defender-office-365/mdo-data-retention
+  - https://learn.microsoft.com/en-us/graph/auth/
+  - https://github.com/MicrosoftDocs/microsoft-365-docs/blob/public/microsoft-365/admin/add-users/remove-former-employee-step-6.md
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Exchange Online mailbox sign-ins are logged as MailboxLogin events in
+        the unified audit log (UAL). Records include standard audit fields (e.g.,
+        Operation=MailboxLogin, Workload=Exchange) and are searchable via Purview
+        Audit or Search-UnifiedAuditLog.
+      reference: https://learn.microsoft.com/en-us/purview/audit-log-activities
+    role_assignment:
+      value: Microsoft Entra role administration activities are captured in the UAL,
+        including 'Add member to role' and 'Remove member from role' when admin roles
+        are assigned or removed.
+      reference: https://learn.microsoft.com/en-us/purview/audit-log-activities
+    api_call:
+      value: Uncertain – There is no dedicated 'API call' audit event across Microsoft
+        365; the UAL records workload-specific operations (e.g., Exchange, SharePoint,
+        Teams). The Management Activity API exposes these audit records, whose schema
+        includes fields like Operation, Workload, ClientIP/UserAgent depending on
+        workload. No definitive documentation found for a generic cross‑service 'API
+        call' audit record.
+      reference: https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema
+    data_export:
+      value: Purview eDiscovery actions are audited, including export actions. Examples
+        include viewing export actions lists and deletion of a search export job (PurviewSearchExportJobDeleted).
+      reference: https://learn.microsoft.com/en-us/purview/audit-log-activities
+    configuration_change:
+      value: Configuration/admin changes across services are logged; for example,
+        Microsoft Teams tenant-wide setting changes are recorded as TeamsTenantSettingChanged
+        in the UAL.
+      reference: https://learn.microsoft.com/en-us/purview/audit-log-activities
+    user_account_creation:
+      value: User administration activities (e.g., 'Add user.') are logged when admins
+        create user accounts via the Microsoft 365 admin center or Azure portal; these
+        appear in the UAL and are searchable.
+      reference: https://learn.microsoft.com/en-us/purview/audit-log-activities
+    security_policy_change:
+      value: Security/compliance policy changes such as creation/update of retention
+        policies and labels are audited (e.g., NewRetentionCompliancePolicy, SetRetentionCompliancePolicy/Rule)
+        in the UAL.
+      reference: https://learn.microsoft.com/en-us/purview/audit-log-activities
+  event_logs_licensing_level:
+    value: Audit (Standard) is enabled by default and retains 180 days of logs; access
+      via Purview portal, Audit Search Graph API, Search‑UnifiedAuditLog, or the Office
+      365 Management Activity API. Audit (Premium) provides up to 1‑year default retention
+      (and higher‑bandwidth API access) with a 10‑year retention add‑on available;
+      Audit (Premium) is included with Microsoft 365 E5/A5/G5, E5 Compliance, or E5
+      eDiscovery & Audit.
+    reference: https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description
+  monitoring_products:
+  - value: Splunk Add‑on for Microsoft Office 365 pulls Management Activity API logs
+      (Audit.AzureActiveDirectory, Audit.SharePoint, Audit.Exchange), DLP events,
+      and service health into Splunk.
+    reference: https://docs.splunk.com/Documentation/AddOns/released/MSO365/About
+  - value: Elastic Microsoft Office 365 integration ingests audit logs using the Office
+      365 Management Activity API (Elastic Agent/CEL input), after enabling Audit
+      Log and granting ActivityFeed permissions.
+    reference: https://www.elastic.co/guide/en/integrations/current/o365.html
+  - value: Sumo Logic Microsoft Office 365 Audit Source collects audit content types
+      (Exchange, SharePoint/OneDrive, Azure AD, General, DLP) via the Management Activity
+      API.
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/microsoft-source/ms-office-audit-source/
+  - value: IBM QRadar integrates with Office 365 Management Activity API to collect
+      Azure AD, Exchange, SharePoint, General, and DLP audit events for SIEM analytics.
+    reference: https://community.ibm.com/community/user/blogs/patrick-routh/2019/11/05/qradar-best-practices-microsoft-azure-and-office-3
+  ingestion_methods:
+  - value: 'Office 365 Management Activity API: subscribe to content types (Audit.SharePoint,
+      Audit.Exchange, Audit.AzureActiveDirectory, Audit.General, DLP.All), poll /subscriptions/content
+      for content URIs, and GET blobs; optional webhooks (de‑emphasized by Microsoft)
+      can notify when new content is available.'
+    reference: https://learn.microsoft.com/en-us/office/office-365-management-api/troubleshooting-the-office-365-management-activity-api
+  - value: 'Audit Search Graph API: programmatic access to audit search (Microsoft
+      Graph) in addition to portal search and PowerShell.'
+    reference: https://learn.microsoft.com/en-us/purview/audit-solutions-overview
+  - value: 'PowerShell: Search‑UnifiedAuditLog cmdlet (Exchange Online PowerShell)
+      to query UAL records.'
+    reference: https://learn.microsoft.com/en-us/purview/audit-solutions-overview
+  - value: 'Portal export: Purview Audit search results can be exported to CSV for
+      downstream processing.'
+    reference: https://learn.microsoft.com/en-us/purview/audit-solutions-overview
+  - value: SIEM collectors/connectors (e.g., Splunk, Elastic, Sumo Logic, QRadar)
+      use the Management Activity API to pull audit data for ingestion.
+    reference: https://docs.splunk.com/Documentation/AddOns/released/MSO365/Configuresettings
+  log_export_options:
+    tools_connectors:
+      value: Export via Office 365 Management Activity API (polling /subscriptions/content
+        and downloading content blobs; webhooks optional but de‑emphasized). Government
+        endpoints vary (manage.office.com, manage-gcc.office.com, manage.office365.us,
+        manage.protection.apps.mil). Additionally, export CSV from Purview Audit portal;
+        PowerShell and Graph Audit Search also supported.
+      reference: https://learn.microsoft.com/en-us/office/office-365-management-api/troubleshooting-the-office-365-management-activity-api
+  documentation_links:
+  - https://learn.microsoft.com/en-us/purview/audit-log-activities
+  - https://learn.microsoft.com/en-us/purview/audit-solutions-overview
+  - https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference
+  - https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema
+  - https://learn.microsoft.com/en-us/office/office-365-management-api/troubleshooting-the-office-365-management-activity-api
+  - https://learn.microsoft.com/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description
+  - https://docs.splunk.com/Documentation/AddOns/released/MSO365/About
+  - https://www.elastic.co/guide/en/integrations/current/o365.html
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/microsoft-source/ms-office-audit-source/
+  - https://community.ibm.com/community/user/blogs/patrick-routh/2019/11/05/qradar-best-practices-microsoft-azure-and-office-3
+  - https://techcommunity.microsoft.com/blog/microsoftsecurityandcompliance/microsoft-exchange-online-search-mailboxauditlog-and-new-mailboxauditlogsearch-w/4366310
+  - https://github.com/ddbnl/office365-audit-log-collector
+incident_response:
+  suspend_user_api:
+    value: 'Yes. Use Microsoft Graph to disable/enable sign‑in by updating the user’s
+      accountEnabled flag: PATCH /users/{id|userPrincipalName} with {"accountEnabled":
+      false} (and true to re‑enable). Equivalent in PowerShell: Update-MgUser -UserId
+      <UPN> -AccountEnabled:$false.'
+    reference: https://github.com/microsoftgraph/microsoft-graph-docs-contrib/blob/main/api-reference/v1.0/api/user-update.md
+  invalidate_sessions_api:
+    value: Yes. Invalidate user sessions by resetting signInSessionsValidFromDateTime
+      via POST /users/{id|userPrincipalName}/revokeSignInSessions (or /me/revokeSignInSessions).
+      This invalidates refresh tokens and browser session cookies; a short delay may
+      apply.
+    reference: https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0
+  revoke_api_key_api:
+    value: Uncertain for user-scoped personal API keys—no evidence of tenant-wide
+      personal tokens in Microsoft 365. For app credentials used to automate against
+      Microsoft 365 (Entra ID app registrations/service principals), revoke by removing
+      the client secret/password using Microsoft Graph/PowerShell (e.g., Remove-MgServicePrincipalPassword
+      or POST /servicePrincipals/{id}/removePassword).
+    reference: https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.applications/remove-mgserviceprincipalpassword?view=graph-powershell-1.0
+  user_toggle_api:
+    value: Yes. Toggle user accessibility by setting accountEnabled true/false. Disabling
+      blocks new tokens; existing access can persist until tokens/sessions expire.
+      Microsoft’s emergency revocation guidance pairs account disable with revokeSignInSessions
+      and (optionally) device disable to hasten lockout.
+    reference: https://learn.microsoft.com/en-us/entra/identity/users/users-revoke-access
+  user_status_api:
+    value: Yes. Read a user’s enabled/disabled status via Microsoft Graph user.accountEnabled
+      (GET /users/{id}?$select=accountEnabled or list with $select).
+    reference: https://learn.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0
+  session_timeout_configuration:
+    value: Configure reauthentication via Microsoft Entra Conditional Access ‘Sign‑in
+      frequency’. Set periodic reauthentication in hours/days (e.g., 1 hour) or choose
+      ‘Every time’ for specific apps; changes apply when a new access token is required.
+    reference: https://learn.microsoft.com/en-us/windows-365/business/set-conditional-access-policies
+  known_automation_tools:
+  - value: 'Splunk Add‑on for Microsoft Office 365: pulls Office 365 Management Activity
+      API audit logs (Exchange, SharePoint, Entra ID) and service health/messages
+      for investigation in SIEM.'
+    reference: https://docs.splunk.com/Documentation/AddOns/released/MSO365/About
+  - value: 'Splunk Add‑on sourcetypes detail: includes o365:management:activity and
+      o365:graph:api for Graph-derived audit data; documents data models and ingestion
+      behavior.'
+    reference: https://docs.splunk.com/Documentation/AddOns/released/MSO365/Sourcetypes
+  - value: 'Splunk SOAR app ‘MS Graph for Office 365’: SOAR actions for Microsoft
+      365 via Graph (list users/groups, email actions, etc.) to automate investigation/response
+      playbooks.'
+    reference: https://apps.splunk.com/app/5824/
+  - value: 'Cortex XSOAR ‘Microsoft Graph User’ integration: playbook commands to
+      disable users and revoke sessions (msgraph-user-account-disable, msgraph-user-session-revoke)
+      using Graph.'
+    reference: https://xsoar.pan.dev/docs/reference/integrations/microsoft-graph-user
+  - value: 'Swimlane Turbine ‘Microsoft Graph API Connector’: connector capabilities
+      include Audit Logs List SignIns, Update User, and Revoke User Signin Session
+      for response automation.'
+    reference: https://docs.swimlane.com/turbine/connectors/microsoft%20graph%20api/microsoft%20graph%20api%20connector.htm
+  - value: 'ANSSI DFIR‑O365RC (open source): PowerShell module to collect Microsoft
+      365 Unified Audit Log and Entra ID sign‑in/audit logs for IR investigations.'
+    reference: https://github.com/ANSSI-FR/DFIR-O365RC
+  - value: 'Microsoft‑Extractor‑Suite (open source): PowerShell toolkit to acquire
+      M365/Entra logs (U AL, mailbox/audit/sign‑in, etc.) and related IR context at
+      scale.'
+    reference: https://github.com/invictus-ir/Microsoft-Extractor-Suite
+  - value: 'python‑o365 (pip): Python client library for Microsoft Graph/Office 365
+      to script investigative/response tasks (mail, files, users) programmatically.'
+    reference: https://github.com/O365/python-o365
+  - value: 'Microsoft Graph JavaScript SDK (@microsoft/microsoft-graph-client on npm):
+      official client library to call Graph (e.g., disable users, revoke sessions)
+      from Node/JS SOAR tooling.'
+    reference: https://github.com/microsoftgraph/msgraph-sdk-javascript
+  - value: 'Microsoft Graph SDK install guide: official multi-language SDKs (Java/Maven,
+      Go, etc.) for building bespoke automation against Microsoft 365 resources.'
+    reference: https://learn.microsoft.com/en-us/graph/sdks/sdk-installation
+  - value: 'Guidance: Immediately revoke access with Graph (example POST /users/{id}/revokeSignInSessions
+      and Revoke-MgUserSignInSession), with caveats on token behavior.'
+    reference: https://michev.info/blog/post/4688/immediately-revoke-access-to-microsoft-365-applications
+  documentation_links:
+  - https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0
+  - https://github.com/microsoftgraph/microsoft-graph-docs-contrib/blob/main/api-reference/v1.0/api/user-update.md
+  - https://learn.microsoft.com/en-us/entra/identity/users/users-revoke-access
+  - https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-session-lifetime
+  - https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-session-lifetime
+  - https://learn.microsoft.com/en-us/windows-365/business/set-conditional-access-policies
+  - https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.applications/remove-mgserviceprincipalpassword?view=graph-powershell-1.0
+  - https://github.com/microsoftgraph/microsoft-graph-docs-contrib/blob/main/api-reference/v1.0/api/serviceprincipal-removepassword.md
+  - https://docs.splunk.com/Documentation/AddOns/released/MSO365/About
+  - https://docs.splunk.com/Documentation/AddOns/released/MSO365/Sourcetypes
+  - https://apps.splunk.com/app/5824/
+  - https://xsoar.pan.dev/docs/reference/integrations/microsoft-graph-user
+  - https://docs.swimlane.com/turbine/connectors/microsoft%20graph%20api/microsoft%20graph%20api%20connector.htm
+  - https://github.com/ANSSI-FR/DFIR-O365RC
+  - https://github.com/invictus-ir/Microsoft-Extractor-Suite
+  - https://michev.info/blog/post/4688/immediately-revoke-access-to-microsoft-365-applications
+  - https://github.com/microsoftgraph/msgraph-sdk-powershell/issues/834
+  - https://learn.microsoft.com/en-us/answers/questions/1282326/graph-api-revokesigninsessions-in-azure-ad-b2c-hav
+  - https://learn.microsoft.com/en-us/graph/sdks/sdk-installation
+  - https://github.com/O365/python-o365

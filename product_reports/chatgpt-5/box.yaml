@@ -1,0 +1,291 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 service provider (SP) SSO; admins enable SSO in Admin Console;
+      common IdPs include ADFS, Google Cloud, Okta, OneLogin; supports SP‑initiated
+      flows and optional SAML‑based auto‑provisioning and group sync.
+    reference: https://support.box.com/hc/en-us/articles/360043696514-Setting-Up-Single-Sign-On-SSO-for-Your-Organization
+  sso_license_level_requirement:
+    value: Available for Business and Enterprise accounts.
+    reference: https://support.box.com/hc/en-us/articles/360043696514-Setting-Up-Single-Sign-On-SSO-for-Your-Organization
+  scim_support:
+    value: no — Box does not expose a SCIM v2 provisioning endpoint; feature request
+      marked not planned.
+    reference: https://pulse.box.com/forums/909778-help-shape-the-future-of-box/suggestions/36110995-support-scim
+  scim_licensing_level_requirement:
+    value: not applicable — SCIM endpoint not provided.
+    reference: https://pulse.box.com/forums/909778-help-shape-the-future-of-box/suggestions/36110995-support-scim
+  scim_authentication_mechanisms:
+    value: none — no SCIM endpoint; provisioning integrations (e.g., Okta) use Box
+      APIs via OAuth on admin’s behalf.
+    reference: https://saml-doc.okta.com/Provisioning_Docs/Box_Provisioning
+  scim_authentication_acquisition_steps:
+    value: not applicable — Box has no SCIM endpoint to obtain credentials for.
+    reference: https://pulse.box.com/forums/909778-help-shape-the-future-of-box/suggestions/36110995-support-scim
+  user_management_api_support:
+    value: yes — Box Users API supports create, update (including status), and delete
+      managed users.
+    reference: https://developer.box.com/reference/post-users/
+  user_management_api_licensing_level:
+    value: Business plans include licensed API call allocations; user endpoints require
+      admin permissions in an enterprise (Business/Enterprise).
+    reference: https://developer.box.com/guides/api-calls/permissions-and-errors/rate-limits/
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 (3‑legged) access tokens; JSON Web Token (JWT) for server‑to‑server
+      apps; Client Credentials Grant (CCG).
+    reference: https://developer.box.com/platform/authentication-methods/
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Log in to Box Developer Console; 2) Create Platform App; 3) Select User
+      Authentication (OAuth 2.0); 4) Configure redirect URI(s) and scopes; 5) Authorize
+      and exchange code for access token; use token to call Users API.
+    reference: https://developer.box.com/guides/authentication/oauth2/oauth2-setup/
+  seat_costs:
+  - license_level: Business
+    active:
+      value: Per‑user, per‑month pricing with minimum seats (Business Starter and
+        above); seats purchased govern billing.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: Yes — an Inactive managed user continues to consume a paid seat license.
+      reference: https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees
+    archived:
+      value: uncertain — Box “Archive” refers to content archiving, not a user state;
+        no evidence of an archived user seat policy.
+      reference: https://support.box.com/hc/en-us/articles/40530659112211-Archiving-Files-and-Folders
+  - license_level: Business Plus
+    active:
+      value: Per‑user, per‑month pricing with minimum seats; overage prompts purchase
+        of additional seats.
+      reference: https://support.box.com/hc/en-us/articles/360043695374-I-Have-More-Users-Than-Seats-Error
+    suspended_disabled:
+      value: Yes — Inactive managed users remain paid seats.
+      reference: https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees
+    archived:
+      value: uncertain — only content archiving documented; no user archiving billing
+        policy found.
+      reference: https://support.box.com/hc/en-us/articles/39905902305171-Introducing-Box-Archive
+  - license_level: Enterprise
+    active:
+      value: Per‑user, per‑month pricing with minimum seats; adding users over capacity
+        requires adding seats (billing applies).
+      reference: https://support.box.com/hc/en-us/articles/360044192113-Why-am-I-being-charged-for-adding-seats
+    suspended_disabled:
+      value: Yes — Inactive managed users are still charged as paid seats.
+      reference: https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees
+    archived:
+      value: uncertain — only content archiving documented; no user archiving billing
+        policy found.
+      reference: https://support.box.com/hc/en-us/articles/40530659112211-Archiving-Files-and-Folders
+  lifecycle_options:
+  - pending (new managed user until email confirmation)
+  - active
+  - inactive
+  - cannot_delete_edit
+  - cannot_delete_edit_upload
+  rbac_support:
+    value: yes — Roles include Admin, Co‑Admin (with granular co‑admin permissions),
+      Group Admin, and Member; group‑based access supported.
+    reference: https://support.box.com/hc/en-us/articles/360043694174-Understanding-Administrator-and-Co-Administrator-Permissions
+  rbac_api_assignment:
+    value: yes — Assign co‑admin vs user via Users API (role field); assign Group
+      Admin via Group Membership API (role=admin; configurable_permissions).
+    reference: https://developer.box.com/reference/put-group-memberships-id/
+  documentation_links:
+  - https://support.box.com/hc/en-us/articles/360043696514-Setting-Up-Single-Sign-On-SSO-for-Your-Organization
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/box-tutorial
+  - https://saml-doc.okta.com/Provisioning_Docs/Box_Provisioning
+  - https://support.box.com/hc/en-us/articles/360043691614-Adding-Managed-Users
+  - https://developer.box.com/reference/post-users/
+  - https://developer.box.com/reference/put-users-id/
+  - https://developer.box.com/reference/put-group-memberships-id/
+  - https://developer.box.com/platform/authentication-methods/
+  - https://developer.box.com/guides/authentication/oauth2/oauth2-setup/
+  - https://github.com/box/boxcli/blob/main/docs/Bulk%20actions/README.md
+  - https://docs.splunk.com/Documentation/AddOns/released/Box/Setup
+  - https://developer.box.com/guides/events/enterprise-events/for-enterprise/
+  - https://support.box.com/hc/en-us/articles/30900136778259-Adding-Integration-Credentials-for-Customer-Instance-Integrations
+  - https://support.box.com/hc/en-us/articles/360043693014-Best-Practice-Terminating-Employees
+  - https://pulse.box.com/forums/909778-help-shape-the-future-of-box/suggestions/36110995-support-scim
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Enterprise audit events include user authentication outcomes, such as
+        successful and failed logins. Relevant event types include LOGIN and FAILED_LOGIN.
+        Events contain identifiers like event_id, created_at, created_by, and event_type
+        within the standard Event object schema.
+      reference: https://developer.box.com/reference/resources/event/
+    role_assignment:
+      value: Changes to administrative roles are audited. The CHANGE_ADMIN_ROLE enterprise
+        event type records when an admin role for a user is modified.
+      reference: https://developer.box.com/guides/events/enterprise-events/for-enterprise/
+    api_call:
+      value: Administrative and application-level API activities have audit coverage
+        via event types such as USER_AUTHENTICATE_OAUTH2_ACCESS_TOKEN_CREATE (OAuth2
+        token creation) and ENTERPRISE_APP_AUTHORIZATION_UPDATE. These appear in enterprise
+        event feeds using the Event object schema.
+      reference: https://developer.box.com/reference/resources/event/
+    data_export:
+      value: File access and export-like actions are logged via download-related events.
+        Event types include DOWNLOAD and ITEM_DOWNLOAD, and may also include FILE_WATERMARKED_DOWNLOAD
+        depending on configuration.
+      reference: https://developer.box.com/reference/resources/event/
+    configuration_change:
+      value: Configuration changes in the Admin Console are captured by the Security
+        Logs report, which provides who changed what settings and when, with columns
+        such as Category, Setting, From, and Changed To. Reports are delivered to
+        the Box Reports folder as .xlsx and can be scheduled.
+      reference: https://support.box.com/hc/en-us/articles/4415103894803-Security-Logs-Report
+    user_account_creation:
+      value: Creation and deletion of managed users are audited via enterprise events,
+        including the NEW_USER and DELETE_USER event types.
+      reference: https://developer.box.com/reference/resources/event/
+    security_policy_change:
+      value: Security/governance policy updates are logged via enterprise event types
+        such as LEGAL_HOLD_POLICY_CREATE/UPDATE/DELETE and RETENTION_POLICY_ASSIGNMENT_ADD.
+        Box Shield-related controls generate SHIELD_* events (e.g., SHIELD_ALERT).
+      reference: https://developer.box.com/reference/resources/event/
+  event_logs_licensing_level:
+    value: Uncertain. Official guidance states enterprise events require an admin
+      or co-admin with permission to 'Run new reports and access existing reports.'
+      Specific paid plan requirements for accessing enterprise events or Security
+      Logs are not explicitly detailed in public docs reviewed.
+    reference: https://developer.box.com/guides/events/enterprise-events/for-enterprise/
+  monitoring_products:
+  - value: Splunk Add-on for Box collects Box enterprise events and related metadata
+      via Box REST APIs for near real-time monitoring; supports CIM mapping.
+    reference: dubious claim, hallucinated reference
+  - value: Sumo Logic Box Source (Cloud-to-Cloud Integration) polls the Box Get Events
+      API to ingest enterprise events; the Sumo app provides dashboards and sample
+      queries (e.g., FAILED_LOGIN).
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/box-source/
+  - value: Microsoft Sentinel data connector for Box ingests enterprise events using
+      Azure Functions to pull from the Box REST API into the BoxEvents_CL/BoxEventsV2_CL
+      tables.
+    reference: https://learn.microsoft.com/en-gb/azure/sentinel/data-connectors/box
+  - value: Elastic Box Events integration collects Box Events API data and optionally
+      Box Shield alerts, with dashboards and fields mapping in Kibana.
+    reference: https://www.elastic.co/docs/current/integrations/box_events
+  - value: Exabeam Cloud Connector for Box pulls audit/security events via Box APIs
+      (JWT server app) and can include Box Shield events.
+    reference: dubious claim, hallucinated reference
+  - value: Fortinet FortiSIEM Box.com connector authorizes to Box and pulls events
+      via API for analytics within FortiSIEM.
+    reference: https://docs.fortinet.com/document/fortisiem/6.3.0/external-systems-configuration-guide/276192/box-com
+  - value: Panther can collect, normalize, and monitor Box logs by polling the Events
+      API at short intervals for real-time detections.
+    reference: https://panther.com/integrations/box
+  ingestion_methods:
+  - value: 'Events API polling: Use GET /events with stream_type=admin_logs (historical
+      up to 1 year) or admin_logs_streaming (near real-time, ~2 weeks) for enterprise-wide
+      audit event ingestion.'
+    reference: https://developer.box.com/reference/get-events/
+  - value: 'Admin Console report export: Generate Security Logs and other admin reports
+      to .xlsx in the Box Reports folder; can be scheduled and retained up to 7 years
+      depending on reporting access.'
+    reference: https://support.box.com/hc/en-us/articles/4415010860435-Using-Reports
+  - value: 'Webhooks v2: Subscribe an HTTPS endpoint to file/folder events (e.g.,
+      FILE.UPLOADED, SHARED_LINK.UPDATED) for content-level monitoring; payloads include
+      trigger, created_by, and source.'
+    reference: https://developer.box.com/guides/webhooks/v2/
+  - value: 'Vendor SIEM connectors pull via Box REST APIs: Examples include Splunk
+      Add-on for Box, which authenticates to Box and continuously ingests enterprise
+      events for SIEM correlation.'
+    reference: https://splunk.github.io/splunk-add-on-for-box/
+  log_export_options:
+    tools_connectors:
+      value: From the Admin Console, Security Logs and other reports can be exported
+        as .xlsx files to the Box Reports folder with optional scheduling. These exports
+        provide configuration change auditing (who/what/when) and support long-term
+        access (up to 7 years depending on reporting access).
+      reference: https://support.box.com/hc/en-us/articles/4415010860435-Using-Reports
+  documentation_links:
+  - https://developer.box.com/guides/events/
+  - https://developer.box.com/guides/events/enterprise-events/
+  - https://developer.box.com/guides/events/enterprise-events/for-enterprise/
+  - https://developer.box.com/reference/get-events/
+  - https://developer.box.com/reference/resources/event/
+  - https://support.box.com/hc/en-us/articles/4415103894803-Security-Logs-Report
+  - https://support.box.com/hc/en-us/articles/4415010860435-Using-Reports
+  - https://support.box.com/hc/en-us/articles/15518640907283-Co-Admin-Permissions-Required-to-Run-Reports
+  - https://developer.box.com/guides/webhooks/v2/
+  - https://docs.splunk.com/Documentation/AddOns/latest/Box/About
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/box-source/
+  - https://help.sumologic.com/docs/integrations/saas-cloud/box/
+  - https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/sentinel/data-connectors/box.md
+  - https://www.elastic.co/docs/current/integrations/box_events
+  - https://docs.exabeam.com/en/cloud-connectors/all/configuration/123241-box-cloud-connector.html
+  - https://docs.fortinet.com/document/fortisiem/6.3.0/external-systems-configuration-guide/276192/box-com
+  - https://github.com/box/box-python-sdk/blob/main/docs/usage/events.md
+  - https://support.box.com/hc/en-us/community/posts/1500001360062-Box-Enterprise-Events-API-missing-events
+  - https://support.box.com/hc/en-us/community/posts/360049204033-Box-Event-logs-are-sometimes-delayed
+  - https://github.com/box-community/box-curl-samples
+incident_response:
+  suspend_user_api:
+    value: Yes. Box exposes PUT /users/:user_id to update a managed user, including
+      setting the 'status' field to values such as 'inactive' (and other restricted
+      modes).
+    reference: https://developer.box.com/reference/put-users-id/
+  invalidate_sessions_api:
+    value: Yes. Admins can terminate all active sessions for one or more users via
+      POST /users/terminate_sessions; Box creates async jobs and returns a status
+      message (check admin events for job status).
+    reference: https://developer.box.com/reference/post-users-terminate-sessions/
+  revoke_api_key_api:
+    value: Yes for tokens. Box supports revoking OAuth 2.0 access/refresh tokens programmatically
+      via POST /oauth2/revoke (effectively logging the user out). Box uses OAuth tokens
+      (including short‑lived developer tokens) rather than per-user API keys.
+    reference: https://developer.box.com/reference/post-oauth2-revoke/
+  user_toggle_api:
+    value: Yes. Toggling a user to 'Inactive' immediately logs the user out of all
+      Box apps and freezes their content; collaborators lose access while the account
+      is inactive. Use this in addition to session termination if needed.
+    reference: https://support.box.com/hc/en-us/articles/360044978393-Deprovision-Users-with-the-Box-API-or-CLI
+  user_status_api:
+    value: Yes. User objects include a 'status' field ('active', 'inactive', 'cannot_delete_edit',
+      'cannot_delete_edit_upload') available via the Users APIs to check if a user
+      can log in.
+    reference: https://developer.box.com/reference/resources/user/
+  session_timeout_configuration:
+    value: 'Admin Console > Enterprise Settings > Security: ''Session Duration for
+      All Users'' sets inactivity logout for the web app. Granular ranges: 10–59 minutes,
+      1–71 hours, or 3–90 days (default 14 days).'
+    reference: https://support.box.com/hc/en-us/articles/4402040225427-Enterprise-Settings-Security-Tab
+  known_automation_tools:
+  - value: 'Box CLI: users:terminate-session command to bulk-terminate user sessions
+      by IDs or logins; useful for rapid IR actions.'
+    reference: https://github.com/box/boxcli/blob/main/docs/users.md
+  - value: 'Box Node SDK: users.terminateSession() to programmatically kill user sessions
+      (and groups.terminateSession for groups).'
+    reference: https://github.com/box/box-node-sdk/blob/main/docs/users.md
+  - value: 'Cortex XSOAR Box v2 integration: manage Box users/content and use Box
+      APIs from playbooks; supports JWT app auth.'
+    reference: https://xsoar.pan.dev/docs/reference/integrations/box-v2
+  - value: 'Cortex XSOAR Box Event Collector: ingest Box enterprise events for investigation/automation
+      (admin permissions, JWT).'
+    reference: https://xsoar.pan.dev/docs/reference/integrations/box-events-collector
+  - value: 'Splunk Add-on for Box: SIEM ingestion of Box enterprise events, users,
+      collaborations, tasks—near real time via Box REST APIs.'
+    reference: https://help.splunk.com/en/supported-add-ons/splunk-supported-add-ons/box
+  - value: 'Sumo Logic app for Box: collects Box events and provides dashboards/queries
+      (e.g., failed logins) for investigation.'
+    reference: https://help.sumologic.com/docs/integrations/saas-cloud/box/
+  - value: 'Box Enterprise Events API: GET /events with stream_type=admin_logs or
+      admin_logs_streaming for historical (up to 1 year) and near-real-time monitoring
+      (2 weeks), with caveats on duplicates/out-of-order.'
+    reference: https://developer.box.com/guides/events/enterprise-events/for-enterprise/
+  documentation_links:
+  - https://developer.box.com/reference/post-users-terminate-sessions/
+  - https://developer.box.com/reference/put-users-id/
+  - https://developer.box.com/reference/resources/user/
+  - https://support.box.com/hc/en-us/articles/360044978393-Deprovision-Users-with-the-Box-API-or-CLI
+  - https://developer.box.com/guides/events/enterprise-events/for-enterprise/
+  - https://developer.box.com/reference/get-events/
+  - https://support.box.com/hc/en-us/articles/4402040225427-Enterprise-Settings-Security-Tab
+  - https://support.box.com/hc/en-us/articles/360044193273-Best-Practice-Choosing-Security-Settings
+  - https://github.com/box/boxcli/blob/main/docs/users.md
+  - https://help.splunk.com/en/supported-add-ons/splunk-supported-add-ons/box
+  - https://xsoar.pan.dev/docs/reference/integrations/box-v2
+  - https://help.sumologic.com/docs/integrations/saas-cloud/box/
+  - https://developer.box.com/reference/post-oauth2-revoke/
+  - https://box.dev/guides/authentication/tokens/developer-tokens/
+  - https://github.com/box/developer.box.com/blob/main/content/guides/events/event-triggers/shield-alert-events.md
+  - https://support.box.com/hc/en-us/community/posts/360052941393-Query-about-Concurrent-sessions-and-Session-Timeout

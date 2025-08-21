@@ -1,0 +1,288 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML and OIDC (via Custom OIDC option in the SSO setup wizard) for
+      ChatGPT workspaces; common IdPs supported (Okta, Entra ID/Azure AD, Google,
+      Ping, OneLogin, etc.).
+    reference: dubious claim, hallucinated reference
+  sso_license_level_requirement:
+    value: Team, Enterprise, and Edu workspaces support SSO.
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: yes — SCIM (Directory Sync) supported for ChatGPT Enterprise (and Edu).
+      Team plan does not include SCIM.
+    reference: dubious claim, hallucinated reference
+  scim_licensing_level_requirement:
+    value: Enterprise/Edu required; Team does not support SCIM.
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: Bearer token authentication to a SCIM v2.0 endpoint (provided via WorkOS
+      Directory Sync connection).
+    reference: https://workos.com/docs/integrations/scim/1-set-up-your-directory-sync-endpoint
+  scim_authentication_acquisition_steps:
+    value: 1) Sign in as Workspace Owner; 2) Navigate to Manage workspace → Identity
+      & Provisioning; 3) Enable Directory Sync; 4) Follow the embedded WorkOS portal
+      to create a SCIM connection; 5) Copy the SCIM endpoint URL and bearer token
+      provided; 6) Configure the SCIM app in your IdP (e.g., Okta/Entra/Google) and
+      assign groups; 7) Users/groups start syncing on the configured cadence.
+    reference: dubious claim, hallucinated reference
+  user_management_api_support:
+    value: no — no public non‑SCIM user management API for ChatGPT; use SCIM or admin
+      console (manual or CSV bulk import).
+    reference: dubious claim, hallucinated reference
+  user_management_api_licensing_level:
+    value: uncertain — no evidence of a public non‑SCIM user management API.
+    reference: no evidence
+  user_management_api_authentication_mechanisms:
+    value: uncertain — no evidence
+    reference: no evidence
+  user_management_api_authentication_acquisition_steps:
+    value: uncertain — no evidence
+    reference: no evidence
+  seat_costs:
+  - license_level: Team (monthly)
+    active:
+      value: yes — $30 per user per month billed monthly.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Team (annual)
+    active:
+      value: yes — $25 per user per month billed annually.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Enterprise
+    active:
+      value: yes — price via sales; includes Enterprise controls (SCIM, RBAC, analytics,
+        etc.).
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited (manual email invite)
+  - CSV bulk invite
+  - provisioned via SCIM (Directory Sync)
+  - automatic account creation (AAC) on verified domain
+  - active (member of workspace)
+  - removed/deprovisioned (via SCIM or admin console)
+  - account migration from Free/Plus to Enterprise on invite
+  rbac_support:
+    value: yes — Enterprise RBAC with custom roles; assign roles to Groups; manage
+      permissions for GPTs, projects, web search, deep research, agents, etc., via
+      admin UI.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: partial — roles are assigned to Groups in the admin UI; Groups can be synced
+      from IdP via SCIM; no public API documented to assign roles directly.
+    reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.openai.com/en/articles/10468051-sso-overview
+  - https://help.openai.com/en/articles/10472980-enabling-sso-on-chatgpt
+  - https://help.openai.com/en/articles/9534785-configuring-sso-for-chatgpt
+  - https://help.openai.com/en/articles/11489188-sso-for-chatgpt-team-faq
+  - https://help.openai.com/en/articles/9672121
+  - https://help.openai.com/en/articles/9627404-openai-chatgpt-scim-integration-faq?.docx=
+  - https://workos.com/docs/integrations/scim/1-set-up-your-directory-sync-endpoint
+  - https://spaces.at.internet2.edu/display/Grouper/Grouper%2Bprovisioning%2BSCIM%2Bfor%2BOpenAI%2B-%2BChatGPT
+  - https://help.openai.com/en/articles/8266401
+  - https://help.openai.com/en/articles/9160437-how-do-i-add-or-remove-seats-i-m-billed-for-on-chatgpt-team%23.svgz
+  - https://openai.com/pricing
+  - https://help.openai.com/en/articles/11750701-rbac
+  - https://help.openai.com/en/articles/9261474-compliance-apis-for-enterprise-customers
+  - https://openai.com/index/new-tools-for-chatgpt-enterprise/
+  - https://status.openai.com/incidents/01JNE4PJRWDCMS1ZH1FAH18BSB
+  - https://www.onelogin.com/connector/openai_chatgpt_formservice
+security_monitoring:
+  event_logs:
+    user_login:
+      value: uncertain – no public vendor documentation confirms that ChatGPT Enterprise’s
+        Compliance API includes explicit user login/logout audit events for the ChatGPT
+        workspace. OpenAI’s separate Admin/Audit Logs API references login failure
+        events, but that API applies to the API Platform organization (not ChatGPT
+        workspace), so it cannot be used as evidence for ChatGPT workspace login logging.
+      reference: no evidence
+    role_assignment:
+      value: uncertain – no public vendor documentation confirms that role-assignment
+        changes (e.g., member→admin/owner) in a ChatGPT Enterprise workspace are emitted
+        as audit events via the Compliance API.
+      reference: no evidence
+    api_call:
+      value: uncertain – no public vendor documentation confirms availability of per-call
+        audit logs for ChatGPT Enterprise “business/admin” APIs. The available Compliance
+        API is described as exposing logs/metadata of conversations and GPTs, not
+        API request telemetry.
+      reference: dubious claim, hallucinated reference
+    data_export:
+      value: ChatGPT provides an end-user data export feature (ZIP export) for accounts;
+        however, there is no public evidence that export actions are captured as Compliance
+        API audit events for ChatGPT Enterprise workspaces.
+      reference: dubious claim, hallucinated reference
+    configuration_change:
+      value: The Compliance API can be used to audit editors and changes to custom
+        GPTs in ChatGPT (e.g., configuration edits), indicating configuration-change
+        auditing for GPT assets within Enterprise/Edu workspaces.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: uncertain – OpenAI states the Compliance API covers “workspace users,”
+        but there is no public evidence that specific user account creation/deprovisioning
+        events are exposed via the Compliance API for ChatGPT workspaces (SCIM is
+        mentioned for provisioning but not as a logging feed).
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: uncertain – partner integrations (e.g., DLP/eDiscovery platforms) mention
+        “policy enforcement,” but OpenAI does not publicly document Compliance API
+        events for ChatGPT workspace security policy toggles (e.g., GPT sharing/connector
+        allowlists) as auditable events.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: The Compliance API that exposes ChatGPT Enterprise logs/metadata is Enterprise-only;
+      access requires an Enterprise plan and workspace-level enablement.
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: Microsoft Purview integration for ChatGPT Enterprise via Compliance API
+      to capture prompts/responses and surface them in Purview audit and AI data security
+      workflows (documented with ChatGPT Enterprise references).
+    reference: https://learn.microsoft.com/ja-jp/purview/ai-chatgpt-enterprise
+  - value: Netskope CASB/DLP integration with ChatGPT Enterprise Compliance API; vendor
+      guide details API key creation and requesting Compliance API scopes; enables
+      visibility/policy enforcement on ChatGPT Enterprise data.
+    reference: https://community.netskope.com/chatgpt-enterprise-casb-api-132/next-gen-chatgpt-enterprise-api-integration-with-netskope-7507
+  - value: Netskope overview blog describing integration outcomes (DLP, anomalous
+      behavior monitoring, near real-time scanning) using the ChatGPT Enterprise Compliance
+      API.
+    reference: dubious claim, hallucinated reference
+  - value: Relativity Collect connector for ChatGPT Enterprise via Compliance API;
+      documents captured fields (conversation ID/title, user identifiers, timestamps,
+      prompts/responses, attachments, edits, source attributions) and 30‑day retention
+      considerations.
+    reference: https://help.relativity.com/RelativityOne/Content/Collect/Data_sources/ChatGPT.htm
+  - value: Zscaler integration leveraging the ChatGPT Enterprise Compliance API to
+      retrieve time-indexed conversations for DLP and data security workflows.
+    reference: https://www.zscaler.com/blogs/product-insights/zscaler-delivers-new-chatgpt-enterprise-compliance-api-integration-drive
+  - value: Smarsh capture/archiving integration with the ChatGPT Enterprise Compliance
+      API for compliant retention and oversight in regulated industries.
+    reference: dubious claim, hallucinated reference
+  - value: Global Relay connector for ChatGPT Enterprise to capture/archive conversations
+      and metadata via direct API integration.
+    reference: https://www.globalrelay.com/connector/global-relay-connector-for-chatgpt-enterprise/
+  ingestion_methods:
+  - value: Direct REST ingestion using OpenAI’s Compliance API (Enterprise-only).
+      OpenAI states this API exposes raw JSON logs/metadata from ChatGPT Enterprise
+      workspaces and can be connected to SIEM/eDiscovery/DLP tools or a custom data
+      lake.
+    reference: dubious claim, hallucinated reference
+  - value: Partner connectors pull from the Compliance API and deliver to their platforms
+      (e.g., Purview, Netskope, Relativity, Smarsh, Zscaler) for downstream policy,
+      DLP, eDiscovery, or audit workflows.
+    reference: dubious claim, hallucinated reference
+  - value: Operational steps to enable ingestion include creating an API key and requesting
+      Compliance API scopes from OpenAI Support; third-party guides document required
+      key scope and workspace ID usage when configuring connectors.
+    reference: https://community.netskope.com/chatgpt-enterprise-casb-api-132/next-gen-chatgpt-enterprise-api-integration-with-netskope-7507
+  - value: eDiscovery collection via Relativity Collect uses the Compliance API to
+      retrieve conversation content and metadata fields (including attachments and
+      edited prompts), indicating pull-based retrieval suitable for compliance pipelines.
+    reference: https://help.relativity.com/RelativityOne/Content/Collect/Data_sources/ChatGPT.htm
+  log_export_options:
+    tools_connectors:
+      value: Export options are via the Enterprise Compliance API (REST, raw JSON)
+        and through officially cited third‑party integrations (Forcepoint, Global
+        Relay, Microsoft Purview, Netskope, Palo Alto Networks, Relativity, Smarsh,
+        Zscaler). Additionally, User Analytics offers CSV exports for usage insights
+        (distinct from Compliance API raw logs).
+      reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.openai.com/en/articles/9261474-compliance-apis-for-enterprise-customers
+  - https://openai.com/index/new-tools-for-chatgpt-enterprise/
+  - https://help.openai.com/en/articles/11327494
+  - https://help.openai.com/en/articles/10658904
+  - https://learn.microsoft.com/ja-jp/purview/ai-chatgpt-enterprise
+  - https://community.netskope.com/chatgpt-enterprise-casb-api-132/next-gen-chatgpt-enterprise-api-integration-with-netskope-7507
+  - https://www.netskope.com/blog/streamline-compliance-and-strengthen-data-protection-using-netskopes-integration-with-the-chatgpt-enterprise-compliance-api
+  - https://help.relativity.com/RelativityOne/Content/Collect/Data_sources/ChatGPT.htm
+  - https://www.zscaler.com/blogs/product-insights/zscaler-delivers-new-chatgpt-enterprise-compliance-api-integration-drive
+  - https://www.smarsh.com/press-release/smarsh-announces-integration-with-openais-chatgpt-enterprise-compliance-api
+  - https://www.globalrelay.com/connector/global-relay-connector-for-chatgpt-enterprise/
+  - https://help.openai.com/en/articles/10875114-user-analytics-for-chatgpt-enterprise-and-edu
+  - https://help.openai.com/en/articles/8266422-how-can-i-analyze-usage-in-my-chatgpt-enterprise-workspace
+  - https://help.openai.com/en/articles/11664471-enterprise-compliance-information-for-chatgpt-record-mode
+incident_response:
+  suspend_user_api:
+    value: SCIM directory sync supports automated provisioning and deprovisioning
+      of ChatGPT Enterprise users via your IdP; deprovisioning removes users from
+      the workspace and is the programmatic path to suspend access.
+    reference: dubious claim, hallucinated reference
+  invalidate_sessions_api:
+    value: No public API documented to invalidate sessions. Admins/users can use the
+      UI “Log out of all devices” in ChatGPT Settings > Security; OpenAI notes it
+      may take up to 30 minutes for other ChatGPT sessions to be logged out.
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: For OpenAI API Platform (separate from ChatGPT web), the Admin API supports
+      programmatic API key management, including listing and deleting project API
+      keys; otherwise, users delete keys in the dashboard. ChatGPT web itself does
+      not expose personal tokens.
+    reference: dubious claim, hallucinated reference
+  user_toggle_api:
+    value: Admins/Owners can remove members via the Members tab in workspace settings;
+      for automation, use SCIM (add/remove users in IdP groups) to grant or revoke
+      access. Documentation does not state whether removal immediately terminates
+      active sessions.
+    reference: dubious claim, hallucinated reference
+  user_status_api:
+    value: uncertain — no public API is documented to query ChatGPT Enterprise user
+      status (active/suspended). Status is visible in the Members UI or managed indirectly
+      via IdP/SCIM.
+    reference: no evidence
+  session_timeout_configuration:
+    value: uncertain — vendor documentation does not describe configurable session
+      timeout values for ChatGPT Enterprise. SSO can be enabled/enforced, but no session-length
+      controls are documented.
+    reference: no evidence
+  known_automation_tools:
+  - value: Compliance API integrations (e.g., Microsoft Purview) to ingest ChatGPT
+      workspace conversation/GPT logs for eDiscovery/SIEM/DLP.
+    reference: dubious claim, hallucinated reference
+  - value: Compliance API integration with Netskope DLP to monitor/prevent sensitive
+      data exfiltration from ChatGPT Enterprise.
+    reference: dubious claim, hallucinated reference
+  - value: Compliance API integration with Zscaler (CASB/DLP) for ChatGPT Enterprise
+      log ingestion and policy enforcement.
+    reference: dubious claim, hallucinated reference
+  - value: Compliance API integration with CrowdStrike for enterprise monitoring of
+      ChatGPT workspace activity.
+    reference: dubious claim, hallucinated reference
+  - value: Compliance API integration with Relativity for eDiscovery workflows over
+      ChatGPT Enterprise logs.
+    reference: dubious claim, hallucinated reference
+  - value: SCIM-based automated provisioning/deprovisioning via supported IdPs (Okta,
+      Entra ID, Google Workspace, Ping, OneLogin, Rippling) using WorkOS-backed directory
+      sync.
+    reference: dubious claim, hallucinated reference
+  - value: OpenAI Admin & Audit Logs API (API Platform) to programmatically manage
+      org users/projects/keys and export immutable audit logs to SIEM.
+    reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.openai.com/en/articles/9261474-compliance-apis-for-enterprise-customers
+  - https://help.openai.com/en/articles/9627404-openai-chatgpt-scim-integration-faq
+  - https://help.openai.com/en/articles/9672121
+  - https://help.openai.com/en/articles/9534785-configuring-sso-for-chatgpt-enterprise
+  - https://help.openai.com/en/articles/8266401
+  - https://help.openai.com/en/articles/9243857
+  - https://help.openai.com/en/articles/7967234-enabling-multi-factor-authentication-mfa-with-openai
+  - https://help.openai.com/en/articles/9687866-admin-and-audit-logs-api-for-the-api-platform
+  - https://help.openai.com/en/articles/9132009-how-can-i-view-the-users-or-organizations-associated-with-an-api-key
+  - https://help.openai.com/en/articles/9186755-managing-your-work-in-the-api-platform-with-projects
+  - https://openai.com/index/new-tools-for-chatgpt-enterprise

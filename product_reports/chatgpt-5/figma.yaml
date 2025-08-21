@@ -1,0 +1,291 @@
+identity_and_access:
+  sso_support:
+    value: 'yes — SAML 2.0 SSO with supported IdPs (Microsoft Entra ID, Okta, OneLogin,
+      Google Workspace, AD FS); optional Google SSO; Figma for Government requires
+      custom SAML. '
+    reference: https://help.figma.com/hc/en-us/articles/360040532333-Guide-to-SAML-SSO
+  sso_license_level_requirement:
+    value: Organization and Enterprise plans only for SAML SSO (Google SSO configuration
+      documented for organizations).
+    reference: https://help.figma.com/hc/en-us/articles/360040047614-Authenticate-with-Google-Google-SSO
+  scim_support:
+    value: yes — SCIM v2 for automatic provisioning (users and groups) with supported
+      IdPs (Google Workspace, Okta, Microsoft Entra ID, OneLogin) and custom SAML
+      SSO; supports create, update, deactivate; Enterprise can manage seat types via
+      SCIM.
+    reference: https://help.figma.com/hc/en-us/articles/360048514653-Set-up-automatic-provisioning-via-SCIM
+  scim_licensing_level_requirement:
+    value: SCIM available on Organization and Enterprise plans; SCIM seat-type management
+      available on Enterprise.
+    reference: https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+  scim_authentication_mechanisms:
+    value: API token (Bearer) — IdPs configure a SCIM Bearer Token/Secret Token with
+      the Figma SCIM base URL.
+    reference: https://help.figma.com/hc/en-us/articles/360040533373-SAML-SSO-with-OneLogin
+  scim_authentication_acquisition_steps:
+    value: '1) In Figma: Admin > Settings > Login and provisioning > SCIM provisioning
+      > Generate API token (copy). 2) Admin > Settings > Login and provisioning >
+      SAML SSO > Copy Tenant ID. 3) Construct SCIM base URL https://www.figma.com/scim/v2/[TenantID]
+      (or https://figma-gov.com/scim/v2/[TenantID] for Figma for Government). 4) Configure
+      SCIM in IdP with token and base URL; enable Create/Update/Deactivate.'
+    reference: https://help.figma.com/hc/en-us/articles/360048514653-Set-up-automatic-provisioning-via-SCIM
+  user_management_api_support:
+    value: no — Figma does not provide non‑SCIM user management REST APIs for adding/removing
+      users or assigning licenses.
+    reference: https://forum.figma.com/ask-the-community-7/api-user-maintenance-24991
+  user_management_api_licensing_level:
+    value: not applicable — no non‑SCIM user management API.
+    reference: https://forum.figma.com/ask-the-community-7/api-user-maintenance-24991
+  user_management_api_authentication_mechanisms:
+    value: not available.
+    reference: https://forum.figma.com/ask-the-community-7/api-user-maintenance-24991
+  user_management_api_authentication_acquisition_steps:
+    value: not available.
+    reference: https://forum.figma.com/ask-the-community-7/api-user-maintenance-24991
+  seat_costs:
+  - license_level: Professional — Collab $3/mo; Dev $12/mo; Full $16/mo (USD). View
+      seat free.
+    active:
+      value: Active paid seats billed per seat; View seats are free on paid plans.
+      reference: https://help.figma.com/hc/en-us/articles/360041061034-Billing-on-the-Professional-plan
+    suspended_disabled:
+      value: Deactivating a user in the IdP removes their Figma org account (loss
+        of permissions), implying seat is freed; no prorated refund when downgrading
+        to free View seat (seat can be reassigned until renewal).
+      reference: https://help.figma.com/hc/en-us/articles/360040532353-SAML-SSO-with-Okta
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Organization — Collab $5/mo; Dev $25/mo; Full $55/mo (USD). View
+      seat free. Annual billing.
+    active:
+      value: Active paid seats billed; View seats free; quarterly invoices; changes
+        applied per updated billing model.
+      reference: https://help.figma.com/hc/en-us/articles/360040328293-Manage-billing-on-the-Organization-and-Enterprise-plans
+    suspended_disabled:
+      value: Deprovisioning via IdP removes user from org (seat freed); admins can
+        move users to free View seat anytime (no prorated refund; seat reusable until
+        renewal).
+      reference: https://help.figma.com/hc/en-us/articles/360040328293-Manage-billing-on-the-Organization-and-Enterprise-plans
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Enterprise — Collab $5/mo; Dev $35/mo; Full $90/mo (USD). View
+      seat free. Annual billing.
+    active:
+      value: Active paid seats billed; View seats free; annual with quarterly invoicing;
+        SCIM seat management supported.
+      reference: https://www.figma.com/pricing/
+    suspended_disabled:
+      value: Deactivating in IdP removes Figma org account (seat freed); SCIM seat
+        type management available; no prorated refund when moving to free View seat
+        within term.
+      reference: https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited (org invite created)
+  - pending invite
+  - pending SCIM
+  - provisioned (SCIM)
+  - active (member)
+  - active (guest)
+  - seat type changed
+  - signed in / signed out
+  - deprovisioned / removed from org
+  rbac_support:
+    value: yes — roles and permissions include organization admins, workspace admins,
+      team admins, billing group admins; seat types (Full, Dev, Collab, View) control
+      product permissions.
+    reference: https://help.figma.com/hc/en-us/articles/4420557724439-Admins-in-Figma
+  rbac_api_assignment:
+    value: 'partial — via SCIM: assign seat types and groups; Entra ID/Okta mappings
+      allow programmatic seat role assignment. No general REST admin API for role
+      assignment.'
+    reference: https://help.figma.com/hc/en-us/articles/22766770509591-Manage-seats-via-SCIM-using-Microsoft-Entra-ID
+  documentation_links:
+  - https://help.figma.com/hc/en-us/articles/360040532333-Guide-to-SAML-SSO
+  - https://help.figma.com/hc/en-us/articles/360040047774-Set-up-a-custom-SAML-configuration
+  - https://help.figma.com/hc/en-us/articles/360040047614-Authenticate-with-Google-Google-SSO
+  - https://help.figma.com/hc/en-us/articles/360048514653-Set-up-automatic-provisioning-via-SCIM
+  - https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+  - https://help.figma.com/hc/en-us/articles/22773906477591-Manage-seats-via-SCIM-using-Okta
+  - https://help.figma.com/hc/en-us/articles/22766770509591-Manage-seats-via-SCIM-using-Microsoft-Entra-ID
+  - https://help.figma.com/hc/en-us/articles/25516157472791-Manage-workspaces-and-billing-groups-via-SCIM-in-Okta
+  - https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+  - https://help.figma.com/hc/en-us/articles/360040453453-Remove-people-from-an-organization
+  - https://help.figma.com/hc/en-us/articles/360039829474-Guide-to-Organization-Admin
+  - https://help.figma.com/hc/en-us/articles/360039960434-Manage-seats-in-Figma
+  - https://help.figma.com/hc/en-us/articles/360040328293-Manage-billing-on-the-Organization-and-Enterprise-plans
+  - https://help.figma.com/hc/en-us/articles/360041061034-Billing-on-the-Professional-plan
+  - https://www.figma.com/pricing/
+  - https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens
+  - https://github.com/figma/rest-api-spec
+  - https://github.com/didoo/figma-api
+  - https://github.com/Hirnspin/FigmaDotNet
+  - https://github.com/arnemolland/figma
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Activity Logs include authentication events for organization members,
+        specifically 'User signed in/signed out' with timestamp (UTC) and IP address;
+        guest login events are not recorded.
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+    role_assignment:
+      value: Membership and role-related changes are audited, including 'Team membership
+        changed', 'Org membership changed', 'Workspace admins added/removed', and
+        'Project membership changed'.
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+    api_call:
+      value: uncertain — no explicit audit event for generic REST API requests found.
+        Activity Logs do record integration-related events (e.g., 'Personal access
+        token created/deleted', 'App connected/disconnected', 'Webhook created/updated/deleted'),
+        but there is no documented event type for per-request API auditing.
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+    data_export:
+      value: 'File- and data-related exports are audited: ''Exported a file'', ''Downloaded
+        an image'', and organizational exports such as ''Exported the members list'',
+        ''Exported the organization team list'', and ''Exported the workspace team
+        list''.'
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+    configuration_change:
+      value: Security and admin configuration changes are logged, including 'Idle
+        session timeout changed', SSO authentication changes (Google/SAML), 'Password
+        protection setting changed', 'Web publishing enabled/disabled', external access
+        policy changes (guest invites, open sessions, public links, network access),
+        plugin and widget approval settings, library settings, and domain management.
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+    user_account_creation:
+      value: 'Account lifecycle events are recorded via SCIM and org actions: ''User
+        is provisioned/deprovisioned'', ''User profile updated'', ''Org invite created'',
+        ''Requested to join org'', ''Org join request approved'', and ''Org membership
+        changed''.'
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+    security_policy_change:
+      value: Security policy changes are audited, including SSO authentication changes,
+        '2FA for guests enabled/disabled', external collaboration controls, network
+        access settings, and idle session timeout updates.
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+  event_logs_licensing_level:
+    value: Activity Logs UI is available on Organization and Enterprise plans; only
+      organization admins can view. The Activity Logs API is available on the Enterprise
+      plan. Activity Logs do not track events on Starter/Professional and are not
+      retroactive.
+    reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+  monitoring_products:
+  - value: Postman public collection demonstrates querying the Activity Logs endpoint
+      (e.g., GET /v1/activity_logs with filters by events and time range), useful
+      for validating and building ingestion to a SIEM.
+    reference: https://www.postman.com/doitagain/figma/documentation/t8z8pvo/figma-api?entity=request-17652550-87b69d98-10a7-4c8c-83a6-e757f34afdf7
+  - value: Open-source SDK (gen-figma-api) includes ActivityLogsAPI (GET /v1/activity_logs)
+      and documents OAuth scope 'org:activity_log_read' for retrieving organization
+      activity logs.
+    reference: https://github.com/OliveiraCleidson/gen-figma-api
+  - value: Pipedream workflow examples show forwarding Figma events to Splunk (e.g.,
+      create Splunk event on Figma comment triggers), illustrating a path to push
+      Figma-originated events into a SIEM.
+    reference: https://pipedream.com/apps/figma/integrations/splunk
+  - value: SimWorkflow operation reference for GET /v1/activity_logs details supported
+      query parameters (order, limit, start_time, end_time, events) for pipeline-based
+      ingestion.
+    reference: https://www.simworkflow.com/integration-operation/figma-v1-activity_logs-get-e59
+  ingestion_methods:
+  - value: 'REST API polling: GET /v1/activity_logs supports filters (start_time,
+      end_time, events), ordering, and paging via ''limit'' to retrieve audit events
+      for ingestion.'
+    reference: https://www.simworkflow.com/integration-operation/figma-v1-activity_logs-get-e59
+  - value: 'Authentication/authorization: OAuth 2.0 with organization-level scope
+      ''org:activity_log_read'' is required to access Activity Logs via API.'
+    reference: https://github.com/OliveiraCleidson/gen-figma-api
+  - value: 'CSV export: Admins can export Activity Logs as CSV for a selected date
+      range via the Admin UI (''Get CSV''); files are delivered via email for offline
+      ingestion.'
+    reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+  - value: 'Discovery API (Governance+ add-on): provides secure, short-lived downloadable
+      files via API that enumerate text edit events across products, enabling compliance/eDiscovery
+      ingestion alongside Activity Logs.'
+    reference: https://help.figma.com/hc/en-us/articles/31825370509591-Governance-for-Figma-Enterprise
+  log_export_options:
+    tools_connectors:
+      value: Documented export options are the Activity Logs REST API and CSV export
+        from the Admin UI; these can be used to feed external pipelines and SIEMs.
+        No official built-in SIEM connector is documented.
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+  documentation_links:
+  - https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+  - https://www.postman.com/doitagain/figma/documentation/t8z8pvo/figma-api?entity=request-17652550-87b69d98-10a7-4c8c-83a6-e757f34afdf7
+  - https://www.postman.com/doitagain/figma/documentation/t8z8pvo/figma-api?entity=folder-17652550-9cb64f10-935a-43c3-be16-df522ed85011
+  - https://www.simworkflow.com/integration-operation/figma-v1-activity_logs-get-e59
+  - https://forum.figma.com/ask-the-community-7/activity-log-api-issue-13469
+  - https://forum.figma.com/ask-the-community-7/activity-logs-fig-file-view-action-details-is-nullable-22436
+  - https://forum.figma.com/ask-the-community-7/figma-activity-logs-19480
+  - https://figmareleases.blogspot.com/2022/10/activity-logs-api.html
+  - https://help.figma.com/hc/en-us/articles/31825370509591-Governance-for-Figma-Enterprise
+  - https://github.com/OliveiraCleidson/gen-figma-api
+  - https://github.com/api-evangelist/figma/blob/main/openapi/figma-activity-logs-api-openapi.yml
+  - https://pipedream.com/apps/figma/integrations/splunk
+incident_response:
+  suspend_user_api:
+    value: 'Yes via SCIM provisioning through your IdP: deactivating a user in the
+      IdP (SCIM “Deactivate Users”) removes their Figma account from the organization;
+      SCIM base URL is https://www.figma.com/scim/v2/<TenantID>. Reactivation requires
+      re-adding the user and reassigning access.'
+    reference: https://help.figma.com/hc/en-us/articles/360040532413-SAML-SSO-with-Microsoft-Entra-ID
+  invalidate_sessions_api:
+    value: No public endpoint found to programmatically invalidate a user’s active
+      sessions. Admins can enforce org-wide idle session timeouts; for ad‑hoc logouts,
+      Figma support can log a user out of all devices on the backend upon request.
+    reference: https://forum.figma.com/t/how-to-log-out-of-figma-on-another-device-to-which-access-is-lost/53044
+  revoke_api_key_api:
+    value: UI-only. Users can revoke Personal Access Tokens from Settings > Security,
+      but there is no public API to list/manage tokens (and thus no programmatic revocation
+      endpoint documented).
+    reference: https://forum.figma.com/ask-the-community-7/figma-access-token-via-api-17294
+  user_toggle_api:
+    value: Yes via SCIM deactivation/reactivation through the IdP. Toggling a user
+      to ‘deactivated’ removes their org access; reactivation requires re-adding them
+      and reassigning prior access. No documentation that this immediately kills live
+      sessions.
+    reference: https://help.figma.com/hc/en-us/articles/360040532353-SAML-SSO-with-Okta
+  user_status_api:
+    value: Uncertain for an API. There is no public REST endpoint to list users or
+      retrieve org user status; admins see ‘Last active’ in the People UI. SCIM may
+      represent status via identity provider, but no Figma REST user-status API is
+      documented.
+    reference: https://forum.figma.com/ask-the-community-7/get-all-users-list-35795
+  session_timeout_configuration:
+    value: Enterprise org admins can set an idle session timeout from 12 hours to
+      14 days (default automatic logout after 21 days of inactivity). Timeouts log
+      users out across web, desktop, mobile, embeds, and integrations; the shortest
+      timeout applies if users belong to multiple orgs.
+    reference: https://help.figma.com/hc/en-us/articles/14376092335127-Set-an-idle-session-timeout
+  known_automation_tools:
+  - value: Postman Figma API collection including Activity Logs requests; usable to
+      prototype polling /v1/activity_logs for SIEM/SOAR ingestion on Enterprise.
+    reference: https://www.postman.com/doitagain/figma/documentation/t8z8pvo/figma-api?entity=folder-17652550-18106ab7-c0e6-4b1c-a69d-6970e9e4f512
+  - value: SimWorkflow reference for GET /v1/activity_logs parameters (order, limit,
+      start_time, end_time, events); helpful when building polling automations.
+    reference: https://www.simworkflow.com/integration-operation/figma-v1-activity_logs-get-e59
+  - value: didoo/figma-api (npm) – Figma REST API client for Node/TypeScript; can
+      be leveraged to script Activity Logs retrieval or other reads.
+    reference: https://github.com/didoo/figma-api
+  - value: figma-library-analytics-api-example (Python) – example script exporting
+      Library Analytics; demonstrates authenticated data extraction patterns usable
+      for IR/monitoring (Enterprise-only APIs).
+    reference: https://github.com/gerard-figma/figma-library-analytics-api-example
+  - value: figma-export (CLI) – bulk export .fig/.jam/.deck for selected teams/projects;
+      useful for evidence preservation during investigations.
+    reference: https://github.com/alexchantastic/figma-export
+  documentation_links:
+  - https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+  - https://help.figma.com/hc/en-us/articles/360048514653-Set-up-automatic-provisioning-via-SCIM
+  - https://help.figma.com/hc/en-us/articles/360040532413-SAML-SSO-with-Microsoft-Entra-ID
+  - https://help.figma.com/hc/en-us/articles/360040532353-SAML-SSO-with-Okta
+  - https://help.figma.com/hc/en-us/articles/360040453453-Remove-people-from-an-organization
+  - https://help.figma.com/hc/en-us/articles/5726756336791-Manage-public-link-sharing-and-open-sessions
+  - https://help.figma.com/hc/en-us/articles/12080587805719-Restrict-access-to-content-from-outside-your-organization
+  - https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens
+  - https://figmareleases.blogspot.com/2022/10/activity-logs-api.html
+  - https://help.figma.com/hc/en-us/articles/14376092335127-Set-an-idle-session-timeout
+  - https://help.figma.com/hc/en-us/articles/4420842863255-View-members-and-guests

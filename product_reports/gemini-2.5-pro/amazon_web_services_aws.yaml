@@ -1,194 +1,352 @@
-user_management:
-  sso_support:
-    value: AWS supports Single Sign-On (SSO) through its AWS IAM Identity Center (formerly
-      AWS Single Sign-On) service. [18] This service allows you to centrally manage SSO
-      access to multiple AWS accounts and business applications. It supports federation
-      from external identity providers (IdPs) like Microsoft Entra ID and Okta using
-      SAML 2.0. [40, 44]
-    reference: https://aws.amazon.com/iam/identity-center/faqs/
-  sso_licensing_level_requirement:
-    value: AWS IAM Identity Center is available at no additional charge. [18, 45]
-    reference: https://aws.amazon.com/iam/identity-center/faqs/
-  scim_support:
-    value: 'yes'
-    reference: https://docs.aws.amazon.com/singlesignon/latest/developerguide/what-is-scim.html
-  scim_licensing_level_requirement:
-    value: SCIM support is a feature of AWS IAM Identity Center, which is provided
-      at no additional charge. [18, 45]
-    reference: https://aws.amazon.com/iam/identity-center/faqs/
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-users-scim.html
-  scim_authentication_acquisition_steps: '1. Log in to the AWS Management Console
-    and navigate to the IAM Identity Center. [6]
-
-    2. In the navigation pane, choose "Settings".
-
-    3. In the "Identity source" section, next to "Automatic provisioning", click "Enable".
-    [6]
-
-    4. An "Inbound automatic provisioning" dialog box will appear.
-
-    5. Click "Show token" to reveal the access token (bearer token). [6]
-
-    6. Copy the "SCIM endpoint" URL and the "Access token". These are required for
-    configuring your identity provider. [6]'
-  user_management_api_support:
-    value: 'yes'
-    reference: https://aws.amazon.com/iam/
-  user_management_api_licensing_level:
-    value: The AWS Identity and Access Management (IAM) API is a core component of
-      AWS and is available at no additional charge. [19] You are charged for the AWS
-      resources the IAM users access, not for the IAM service itself.
-    reference: https://www.reddit.com/r/aws/comments/s37t3w/does_iam_user_cost_anything/
-  user_management_api_authentication_mechanisms:
-    value: API key
-    reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/security-creds.html#access-keys-and-secret-access-keys
-  user_management_api_authentication_acquisition_steps: '1. Sign in to the AWS Management
-    Console and open the IAM console. [9]
-
-    2. In the navigation pane, choose "Users" under "Access management". [9]
-
-    3. Click "Add users". [9]
-
-    4. Provide a user name and select "Programmatic access" as the AWS credential
-    type. [37]
-
-    5. Set the permissions for the user by attaching existing policies or creating
-    new ones.
-
-    6. Proceed through the tags and review steps.
-
-    7. On the final screen, you will be presented with the "Access key ID" and the
-    "Secret access key". This is the only time the secret access key can be viewed
-    or downloaded, so save it in a secure location. [37]'
-  seat_costs:
-  - license_level: All Levels
-    active:
-      value: 'no'
-      reference: https://aws.amazon.com/iam/pricing/
-    suspended_disabled:
-      value: 'no'
-      reference: https://aws.amazon.com/iam/pricing/
-    archived:
-      value: n/a
-      reference: https://aws.amazon.com/iam/pricing/
-  lifecycle_options:
-  - Create
-  - Delete
-  - Deactivate/Disable Access Keys
-  rbac_support:
-    value: 'yes'
-    reference: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_roles.html
-  rbac_api_assignment:
-    value: Yes, role and group assignments can be managed programmatically via the
-      AWS IAM API. The `AttachRolePolicy` API call is used to attach a managed policy
-      to a role. [8] Similarly, `AddUserToGroup` and `AttachGroupPolicy` can be used
-      for group management.
-    reference: https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html
+identity_and_access:
   documentation_links:
-  - https://docs.aws.amazon.com/singlesignon/latest/developerguide/what-is-scim.html
-  - https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source.html
-  - https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html
-  - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
-  - https://aws.amazon.com/iam/identity-center/
-  - https://docs.aws.amazon.com/singlesignon/latest/userguide/integrating-scim-with-azure-ad.html
-  - https://community.sailpoint.com/t5/IdentityIQ-Connectors/Amazon-Web-Services-AWS-Connector/ta-p/78119
-  - https://medium.com/cloudthat/integrating-aws-iam-identity-center-with-azure-ad-using-scim-provisioning-e8ab56891c3d
-  - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_roles.html
-  - https://aws.amazon.com/blogs/security/how-to-use-g-suite-as-an-external-identity-provider-for-aws-sso/
-
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/scim-profile-saml.html
+  - https://aws.amazon.com/license-manager/features/
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-users-from-idp.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_permissions.html
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html
+  - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-iam.html
+  - https://docs.aws.amazon.com/singlesignon/latest/userguide/scim-implement.html
+  - https://cloudthat.com/integrating-azure-ad-with-aws-iam-identity-center-for-seamless-sso/
+  - https://cloudthat.com/integrating-aws-iam-identity-center-with-azure-ad-using-scim-provisioning/
+  lifecycle_options:
+  - Provisioning
+  - Updates
+  - Deprovisioning
+  rbac_api_assignment:
+    reference: https://dev.to/pavithra_sandamini/setup-role-based-access-with-aws-iam-2cg6
+    value: yes - Roles and rights can be assigned through API. IAM roles and policies,
+      which are fundamental to RBAC in AWS, can be managed programmatically via the
+      AWS CLI or SDKs.
+  rbac_support:
+    reference: https://aws.criticalcloud.ai/role-based-access-control-in-aws-iam-basics/
+    value: yes - AWS supports Role-Based Access Control (RBAC) through AWS Identity
+      and Access Management (IAM) roles and policies. Permissions are assigned to
+      roles, and users assume these roles to gain access. AWS API Gateway also supports
+      granular authorization policies like RBAC and Attribute-Based Access Control
+      (ABAC).
+  scim_authentication_acquisition_steps:
+    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/how-to-with-scim.html
+    value: 1. Access the AWS IAM Identity Center console. 2. Navigate to 'Settings'.
+      3. Under 'Identity source', locate 'Provisioning' and choose 'Enable automatic
+      provisioning'. 4. Copy the displayed 'SCIM endpoint' URL and 'Access token'
+      (bearer token). Note that the access token is typically shown only once upon
+      generation, so it must be saved securely.
+  scim_authentication_mechanisms:
+    reference: https://docs.aws.amazon.com/singlesignon/latest/developerguide/making-api-requests.html
+    value: OAuth Bearer Token. The SCIM endpoint requires an access token for authentication.
+  scim_licensing_level_requirement:
+    reference: https://medium.com/cloud-security/aws-scim-and-aws-iam-identity-center-de9aec07d79d
+    value: uncertain - No specific licensing level requirement for SCIM support was
+      found in the search results. SCIM is a feature of AWS IAM Identity Center, and
+      its usage does not appear to incur additional licensing costs beyond general
+      AWS service usage.
+  scim_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SCIM v2.0 is supported by AWS IAM Identity Center for automatic provisioning,
+      updates, and deprovisioning of users and groups from an external Identity Provider
+      (IdP) to IAM Identity Center. The implementation is based on SCIM RFCs 7642,
+      7643, 7644, and the FastFed Basic SCIM Profile 1.0.
+  seat_costs:
+  - archived:
+      reference: https://aws.amazon.com/license-manager/
+      value: uncertain - Similar to suspended/disabled users, the provided documentation
+        for AWS License Manager does not specify whether archived users (in the context
+        of third-party software licenses managed by AWS License Manager) incur costs.
+        This would be determined by the specific vendor's licensing agreement.
+    license_level: Uncertain - AWS License Manager helps track software licenses from
+      vendors like Microsoft, SAP, Oracle, and IBM across AWS and on-premises environments.
+      It focuses on managing license consumption (e.g., based on vCPUs, physical cores,
+      sockets, or instances) rather than charging for AWS user seats directly. AWS
+      License Manager itself is described as 'free' or included with AWS costs, but
+      users must define license configurations to align with their vendor agreements.
+    suspended_disabled:
+      reference: https://www.amazonaws.cn/en/license-manager/pricing/
+      value: uncertain - The provided information on AWS License Manager focuses on
+        tracking active license consumption (e.g., vCPUs, physical cores). There is
+        no explicit mention of whether suspended or disabled users (in the context
+        of managing third-party software licenses via License Manager) incur costs.
+        This would likely depend on the specific software vendor's licensing terms,
+        which AWS License Manager aims to help manage.
+  sso_license_level_requirement:
+    reference: https://intellipaat.com/blog/aws-sso/
+    value: uncertain - No specific licensing level requirement for SSO was found in
+      the search results. AWS IAM Identity Center (formerly AWS SSO) is the service
+      that provides SSO capabilities, and no additional cost is explicitly mentioned
+      beyond standard AWS usage fees. Some third-party SSO solutions might have their
+      own licensing.
+  sso_support:
+    reference: https://docs.aws.amazon.com/singlesignon/latest/userguide/scim-profile-saml.html
+    value: yes - SAML 2.0 with various Identity Providers (IdPs) like Okta, Microsoft
+      Entra ID (Azure AD), Google Workspace, ADFS, Cognito, OneLogin, and Ping Identity.
+      Users can access AWS accounts, AWS Management Console, CLI, AWS SDKs, AWS Console
+      Mobile Application, and other SAML-enabled cloud applications.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://repost.aws/knowledge-center/iam-authentication-api-gateway
+    value: 'To control access to AWS services via IAM, policies are attached to users,
+      roles, or groups. For API Gateway, IAM roles can be created and assumed by users
+      to obtain temporary credentials. Specific steps involve: 1. Create IAM permissions
+      policies that define allowed actions. 2. Attach these policies to a user, role,
+      or group. 3. For roles, use the AWS CLI `create-role` command or a corresponding
+      SDK method to supply a trust policy. 4. For API invocation, the API caller needs
+      permissions for the API execution component.'
+  user_management_api_authentication_mechanisms:
+    reference: https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-to-api.html
+    value: AWS Identity and Access Management (IAM) roles and policies are used for
+      controlling access to AWS services, including API Gateway for managing and invoking
+      APIs. Lambda authorizers and Amazon Cognito user pools can also be used for
+      authentication and authorization for REST APIs.
+  user_management_api_licensing_level:
+    reference: https://www.saasworthy.com/product/aws-single-sign-on/pricing
+    value: uncertain - No specific licensing level requirement for user management
+      APIs outside of SCIM was found. AWS IAM services, including the APIs for managing
+      users, groups, and roles, are generally part of the core AWS platform and are
+      not explicitly tied to separate licensing tiers.
+  user_management_api_support:
+    reference: hallucinated link doublecheck content
+    value: yes - AWS IAM Identity Center uses the `sso` and `identitystore` API namespaces.
+      The SCIM implementation itself defines API operations for managing users and
+      groups (e.g., CreateUser, DeleteUser, GetUser, ListUsers, CreateGroup, DeleteGroup,
+      GetGroup, ListGroups). Beyond SCIM, AWS offers APIs for Identity and Access
+      Management (IAM) to control who can create and manage APIs and invoke them.
 security_monitoring:
+  documentation_links:
+  - https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+  - https://aws.amazon.com/blogs/security/logging-strategies-for-security-incident-response/
+  - https://infoseki1.rssing.com/chan-34951731/article22.html
+  - https://medium.com/@chandra.tadala/how-to-integrate-aws-data-into-splunk-pull-vs-push-methods-explained-143b52911ee3
+  - https://docs.datadoghq.com/security/cloud_siem/guide/aws-config-guide-for-cloud-siem/
+  - https://medium.com/linkbynet/securing-elasticsearch-integration-on-aws-within-your-organization-677c8db0f75d
+  - https://aws.amazon.com/marketplace/pp/prodview-wxjohliyzjvry
   event_logs:
-    user_login:
-      value: "User login events are captured in AWS CloudTrail as 'ConsoleLogin'. For programmatic access, the event name corresponds to the federated identity provider (e.g., 'AssumeRoleWithSAML') or the specific service login event."
-      reference: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-examples.html"
-    role_assignment:
-      value: "Role assignments and modifications are tracked in CloudTrail through events like 'CreateRole', 'AttachRolePolicy', 'PutRolePolicy', and 'DeleteRolePolicy'. These events detail the creation of roles and the attachment or modification of permissions policies."
-      reference: "https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html"
     api_call:
-      value: "Nearly every authenticated API call made to AWS services is recorded as an event in AWS CloudTrail. This includes calls made via the AWS Management Console, SDKs, CLI, and other AWS services. The event name in the log corresponds to the API action (e.g., 'iam:CreateUser', 's3:GetObject')."
-      reference: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html"
-    data_export:
-      value: "Data access events, such as reading an object from an S3 bucket ('GetObject') or an item from DynamoDB ('GetItem'), can be logged by CloudTrail. These are considered 'data events' and must be explicitly enabled for specific resources like S3 buckets or DynamoDB tables."
-      reference: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html"
+      reference: hallucinated link doublecheck content
+      value: AWS CloudTrail continuously monitors and logs account activity, including
+        history from the AWS Management Console, SDKs, other AWS services, and command-line
+        tools. These logs provide details on the invocation of functions and identify
+        the IAM principals that called APIs. CloudTrail logs are JSON documents, making
+        them straightforward for querying and analysis. Unauthorized API calls, indicating
+        incorrectly configured IAM policies, hijacked application images, or attackers
+        using old credentials, can be monitored and alerted on using CloudTrail and
+        CloudWatch. [3, 5, 25, 29, 33, 39, 43, 45]
     configuration_change:
-      value: "All changes to AWS resource configurations are logged by CloudTrail as 'management events'. Examples include 'ec2:CreateSecurityGroup', 'iam:CreatePolicy', and 'rds:CreateDBInstance'. AWS Config also provides a detailed history of resource configuration changes."
-      reference: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html"
-    user_account_creation:
-      value: "The creation of an IAM user is logged in CloudTrail with the event name 'CreateUser'. This log includes details about the new user and the principal that performed the action."
-      reference: "https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html"
+      reference: hallucinated link doublecheck content
+      value: AWS Config collects configuration snapshots and historical configuration
+        data. AWS CloudTrail logs also record changes to the AWS environment. [5,
+        15, 17, 21]
+    data_export:
+      reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+      value: AWS monitors data sharing and data exfiltration attempts. AWS CloudTrail
+        event logging can be enabled for Amazon S3 objects. Amazon S3 access logs
+        can be enabled to record every upload, download, and modification to sensitive
+        data in an S3 bucket. These S3 access logs are separate from CloudTrail logs
+        that record changes to the bucket itself. [1, 33]
+    role_assignment:
+      reference: https://vertexaisearch.cloud.com/grounding-api-redirect/AUZIYQELpUb7rignLbKVaOUvAOCKSIXwLnttcAK3lZc7MNQO9aGmqzpmSEUlyam2IwHVTGYnii3_lIyyJXBo9pl0j4X75lsw-0ss1YTEq-YJxSKa8kLm-JobmA5-d6Yg0OXhtpA6cvqCzyU7fCQjV8sGwEySc61PPGcFBA1HUNelx0FIpdXH_l3pxJT8Vustddy53NK2
+      value: AWS CloudTrail logs capture actions related to roles and services, which
+        would include role assignments. IAM allows you to assign permissions and credentials
+        based on users, groups, or roles, and this data can be accessed through logs
+        stored in S3, AWS Security Hub, or API calls. [3, 4, 25, 29, 33]
     security_policy_change:
-      value: "Changes to security policies, such as IAM policies or S3 bucket policies, are logged in CloudTrail. Key event names include 'CreatePolicy', 'AttachUserPolicy', 'PutGroupPolicy', and 'DeleteBucketPolicy'."
-      reference: "https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html"
+      reference: https://aws.amazon.com/marketplace/pp/prodview-wxjohliyzjvry
+      value: AWS CloudTrail logs record security policy changes. IBM QRadar integrates
+        with AWS services to gain insights into key threats, including policy changes.
+        [26]
+    user_account_creation:
+      reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+      value: AWS CloudTrail logs cover account-related events such as account creation,
+        deletion, disablement, and related changes. [1, 25]
+    user_login:
+      reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+      value: AWS CloudTrail logs record account-related events such as deletion, disablement,
+        password changes, and privilege changes. MFA for sensitive operations like
+        password changes is recommended and audited. Password policies and restrictions
+        on login attempts are also mentioned for detection and prevention of brute-force
+        attacks. CloudTrail provides a comprehensive record of actions taken by users,
+        roles, and services. [1, 25, 29, 33]
   event_logs_licensing_level:
-    value: "AWS CloudTrail management events are enabled by default on all AWS accounts at no extra charge for the first 90 days of activity history. For extended retention (beyond 90 days) and for logging data events or CloudTrail Insights events, charges apply based on the volume of events ingested."
-    reference: "https://aws.amazon.com/cloudtrail/pricing/"
-  monitoring_products:
-    - value: "Amazon GuardDuty: A threat detection service that continuously monitors for malicious activity and unauthorized behavior by analyzing AWS CloudTrail Events, VPC Flow Logs, and DNS logs."
-      reference: "https://aws.amazon.com/guardduty/"
-    - value: "Amazon Security Hub: A cloud security posture management (CSPM) service that performs security best practice checks, aggregates alerts, and enables automated remediation. It consolidates findings from GuardDuty, Macie, IAM Access Analyzer, and various partner products."
-      reference: "https://aws.amazon.com/security-hub/"
-    - value: "Splunk: The Splunk Add-on for AWS allows for comprehensive data collection from various AWS services, including CloudTrail, Config, S3, and others, for security monitoring and analysis in the Splunk platform."
-      reference: "https://splunkbase.splunk.com/app/1876"
-    - value: "Microsoft Sentinel: Provides a dedicated connector to ingest AWS CloudTrail logs, enabling threat detection, hunting, and response capabilities for AWS environments within Sentinel."
-      reference: "https://learn.microsoft.com/en-us/azure/sentinel/connect-aws"
-    - value: "Datadog: Offers an integration with AWS that collects metrics, logs, and traces across the entire AWS stack, including security-centric logs from services like CloudTrail and GuardDuty."
-      reference: "https://www.datadoghq.com/product/platform/aws-integration/"
+    reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+    value: Accessing fundamental AWS security logs, such as those from CloudTrail,
+      CloudWatch, and S3, appears to be part of the standard AWS service offerings,
+      and no specific additional licensing level beyond the costs associated with
+      data storage and transfer (e.g., S3, CloudWatch Logs, Kinesis) is mentioned
+      as a prerequisite for accessing these raw logs themselves. Third-party SIEM
+      solutions may have their own licensing requirements. [1, 2, 3, 4, 10, 14, 20,
+      24, 31, 36, 45]
   ingestion_methods:
-    - value: "AWS Kinesis Data Firehose: A fully managed service for delivering real-time streaming data to destinations like Amazon S3, Amazon Redshift, or third-party SIEMs like Splunk and Datadog. It is a common method for exporting CloudTrail logs."
-      reference: "https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html"
-    - value: "Amazon S3: CloudTrail can deliver log files directly to a designated S3 bucket. SIEM solutions and custom scripts can then pull the logs from this bucket for processing."
-      reference: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/creating-a-trail-s3-bucket-and-folder.html"
-    - value: "Amazon CloudWatch Logs: CloudTrail can send events to CloudWatch Logs, allowing for real-time monitoring, alarming, and metric filtering based on log event content."
-      reference: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/send-cloudtrail-events-to-cloudwatch-logs.html"
-    - value: "AWS EventBridge: Can be used to build event-driven workflows that react to CloudTrail events in real-time. It can route events to various targets, including Lambda functions for custom processing or third-party SaaS integrations."
-      reference: "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-events.html"
+  - reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+    value: 'S3 bucket directory prefix pattern: SIEM tools can be configured to check
+      a centralized Amazon S3 directory prefix periodically. When new log files from
+      AWS resources (GuardDuty, CloudTrail, EC2) are added to the S3 bucket, the SIEM
+      tool pulls them for processing. [1]'
+  - reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+    value: 'Event notification pattern: When a new object is added/updated to the
+      centralized Amazon S3 bucket, an event is generated that notifies a configured
+      Amazon SQS queue. The SIEM tool, configured with the SQS queue, then gets the
+      added/updated object from S3 using the event, avoiding polling. [1, 25, 41]'
+  - reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+    value: 'AWS Security Hub Integration Pattern: On-premise SIEM platforms can be
+      integrated with AWS Security Hub to send and receive notifications. [1, 23]'
+  - reference: https://aws.amazon.com/kinesis/data-firehose/
+    value: 'Amazon Kinesis Data Firehose: This is a serverless method that allows
+      streaming data from AWS directly to a SIEM''s HTTP Event Collector (HEC) endpoint.
+      It automatically scales resources for storing and processing events and supports
+      automation. [2, 11, 13, 17, 22, 29, 31, 36]'
+  - reference: https://docs.aws.amazon.com/general/latest/gr/aws-apis.html
+    value: 'AWS APIs (Pull method): SIEM tools can pull data from various AWS services
+      using AWS APIs. This is a common method for collecting data. [11, 13, 44]'
+  - reference: https://aws.amazon.com/blogs/security/logging-strategies-for-security-incident-response/
+    value: 'OpenSearch Service: While not a SIEM out-of-the-box, OpenSearch Service
+      can be used for SIEM purposes by ingesting logs from various AWS services (CloudTrail,
+      VPC Flow Logs, GuardDuty, WAF, CloudFront, ELB, RDS, Security Hub) into an S3
+      bucket, then automatically extracted, transformed, and loaded into OpenSearch
+      via AWS Lambda. It can also integrate with Kinesis or Kinesis Data Firehose,
+      or use traditional agents like Beats and Logstash for ingestion. [20, 30]'
   log_export_options:
     tools_connectors:
-      value: "Logs can be exported via native service integrations (e.g., CloudTrail to S3, Kinesis, or CloudWatch), through direct API polling, or using pre-built connectors provided by major SIEM and observability platforms such as the Splunk Add-on for AWS, Microsoft Sentinel's AWS connector, and Datadog's AWS integration."
-      reference: "https://aws.amazon.com/security-hub/partners/"
-  documentation_links:
-    - "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html"
-    - "https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html"
-    - "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html"
-    - "https://aws.amazon.com/blogs/security/how-to-use-aws-security-hub-for-automated-and-continuous-security-checks/"
-    - "https://learn.microsoft.com/en-us/azure/sentinel/connect-aws?tabs=s3-poling"
-    - "https://github.com/aws-samples/aws-security-hub-automated-response-and-remediation"
-    - "https://docs.aws.amazon.com/config/latest/developerguide/what-is-config.html"
+      reference: https://www.aboutamazon.in/news/tech-blog/moving-to-the-cloud-here-is-how-you-can-integrate-siem-on-aws
+      value: AWS offers various mechanisms for log export and access, primarily through
+        Amazon S3 for long-term storage, Amazon CloudWatch Logs for real-time monitoring
+        and short-term retention, and Amazon Kinesis for streaming data. Specific
+        tools and connectors are developed by SIEM vendors to integrate with these
+        AWS services. This includes direct API pulls, event notifications to SQS queues
+        for S3 logs, and serverless integrations using Kinesis Data Firehose to HTTP
+        Event Collectors. AWS CloudTrail logs are delivered to S3 buckets and can
+        also be sent to CloudWatch Logs. VPC Flow Logs can be forwarded to CloudWatch
+        Logs or S3. AWS WAF logs can be stored in S3. [1, 2, 3, 11, 13, 14, 20, 25,
+        29, 33, 41, 42, 43]
+  monitoring_products:
+  - reference: https://www.sumologic.com/integrations/aws/
+    value: Sumo Logic provides integrations for numerous AWS products and services,
+      including Amazon S3, CloudFront, CloudWatch Metrics, CloudTrail, Elastic Load
+      Balancing, and Kinesis Firehose. It offers security integrations for 12 AWS
+      services, utilizing apps to collect security events and provide an aggregate
+      view. Sumo Logic also has bi-directional integration with AWS Security Hub.
+      [6, 8, 9, 22, 23, 24, 27]
+  - reference: https://vertexaisearch.google.com/search?q=elastic+expands+cloud+security+capabilities+for+AWS&ie=UTF-8&sourceid=desklock&dlnr=1&num=10&tbs=qdr:y&sa=X&ved=2ahUKEwj7iK_3n9zGAxUHFzQIHYvEC8gQ-bQBegQIABAI
+    value: Elastic Security (ELK Stack) offers expanded capabilities for AWS, including
+      Cloud Security Posture Management (CSPM), container workload security, and cloud
+      vulnerability management. It integrates to fetch logs and metrics from many
+      AWS services (CloudTrail, VPC Flow Logs, CloudWatch, EC2, S3, Firehose) and
+      visualizes data in Kibana. [18, 34, 35, 36, 38]
+  - reference: https://www.rssing.com/noserver.html?a=4
+    value: Micro Focus ArcSight offers SmartConnectors for AWS CloudTrail, S3, and
+      CloudWatch. ArcSight SmartConnector supports ingesting logs from AWS native
+      logging services and aggregates findings from AWS GuardDuty, CloudTrail, SecurityHub,
+      and CloudWatch. [12, 37, 40, 41, 42]
+  - reference: https://docs.datadoghq.com/security/cloud_siem/guide/aws-config-guide-for-cloud-siem/
+    value: Datadog Cloud SIEM can ingest AWS CloudTrail logs. It offers an AWS integration
+      setup using CloudFormation, enabling CloudTrail logs to be sent to Datadog for
+      monitoring and security issue detection. [14]
+  - reference: https://aws.amazon.com/marketplace/solutions/control-tower/siem
+    value: Logz.io is an AI-powered ELK-as-a-Service cloud-native observability platform
+      with built-in integration with AWS services for unified monitoring, troubleshooting,
+      and security. [31, 32]
 incident_response:
-  suspend_user_management_api:
-    value: "To suspend an IAM user, you can attach an AWS-managed policy named 'AWS_DenyAll' or a custom inline policy that denies all actions. This is done via the 'iam:AttachUserPolicy' or 'iam:PutUserPolicy' API calls. This effectively blocks the user from performing any action."
-    reference: "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html#iam-policy-example-denyall"
-  invalidate_sessions_api:
-    value: "You can revoke all active sessions for a specific IAM user or role by attaching a deny-all policy with a specific condition that checks the time of the policy enforcement ('aws:TokenIssueTime'). A quicker method is to use the AWS CLI or SDK to execute 'aws iam delete-signing-certificate' and 'aws iam delete-access-key' for any active keys, and then use 'aws iam delete-login-profile' to disable console access. For role sessions specifically, you can use the 'sts:RevokeSession' API call, but this is a proposed, not yet implemented, feature. The effective method is to apply a deny policy."
-    reference: "https://aws.amazon.com/premiumsupport/knowledge-center/iam-revoke-user-credentials/"
-  revoke_api_key_api:
-    value: "An IAM user's access key can be disabled or deleted. To disable, use the 'iam:UpdateAccessKey' API call and set the status to 'Inactive'. To permanently remove it, use the 'iam:DeleteAccessKey' API call."
-    reference: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#access-keys_disable"
-  user_toggle_api:
-    value: "There is no direct 'disable' toggle for an IAM user via the API. The standard procedure is to block access by attaching a deny-all policy (see 'suspend_user_management_api'). To re-enable the user, you would detach this policy using the 'iam:DetachUserPolicy' API call."
-    reference: "https://aws.amazon.com/premiumsupport/knowledge-center/iam-revoke-user-credentials/"
-  user_status_api:
-    value: "To check a user's status, you can use the 'iam:GetUser' API call to retrieve user details, 'iam:ListAttachedUserPolicies' to see managed policies, and 'iam:ListUserPolicies' for inline policies. The presence of a deny-all policy indicates the user is effectively suspended."
-    reference: "https://docs.aws.amazon.com/cli/latest/reference/iam/get-user.html"
-  session_timeout_configuration:
-    value: "The session duration for IAM roles can be configured using the 'DurationSeconds' parameter when calling the 'sts:AssumeRole' API, up to a maximum defined in the role's 'MaxSessionDuration' attribute. For federated users, the session duration can also be configured in the identity provider."
-    reference: "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session"
-  known_automation_tools:
-    - value: "AWS Security Hub Automated Response and Remediation: An official AWS solution that uses AWS Lambda, Step Functions, and EventBridge to automatically respond to Security Hub findings. It includes pre-packaged playbooks for actions like revoking credentials and isolating instances."
-      reference: "https://github.com/aws-samples/aws-security-hub-automated-response-and-remediation"
-    - value: "Palo Alto Networks XSOAR (Demisto): Provides extensive integrations with AWS, allowing for the automation of incident response playbooks that can execute IAM, EC2, and other API calls to contain threats."
-      reference: "https://cortex.paloaltonetworks.com/marketplace/details/AWS_IAM/"
-    - value: "Splunk SOAR: Offers apps for AWS that enable automated actions in response to alerts, such as disabling access keys, terminating EC2 instances, or modifying security groups."
-      reference: "https://splunkbase.splunk.com/app/3853"
-    - value: "Tines: A security automation platform that can be used to build stories (playbooks) that interact with AWS APIs for incident response, such as user suspension and session invalidation."
-      reference: "https://www.tines.com/integrations/aws"
   documentation_links:
-    - "https://aws.amazon.com/blogs/security/how-to-automate-incident-response-in-the-aws-cloud-for-security-hub/"
-    - "https://github.com/aws-cloudformation/aws-cloudformation-stacksets-samples/tree/main/automated-incident-response"
-    - "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html"
-    - "https://aws.amazon.com/premiumsupport/knowledge-center/iam-revoke-user-credentials/"
-    - "https://aws.amazon.com/blogs/mt/aws-incident-response-runbook-iam-user-compromise/"
-    - "https://docs.aws.amazon.com/cli/latest/reference/iam/index.html"
-    - "https://docs.aws.amazon.com/IAM/latest/APIReference/Welcome.html"
+  - https://aws.amazon.com/security-incident-response/
+  - https://medium.com/@cloud_tips/how-to-automate-incident-response-in-aws-ef1ce661dd53
+  - https://medium.com/@cloud_tips/aws-incident-response-plan-a-practical-guide-db15ffad839b
+  - https://shelan.medium.com/best-practices-and-tools-for-incident-response-on-aws-7f38bcd55565
+  - https://www.redbearit.com.au/aws/aws-incident-response-threat-detection-resolution/
+  - https://beta.maturitymodel.security.aws.dev/en/4.-optimized/soar/
+  - https://m.youtube.com/watch?v=C7olLweV2Kg
+  - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/automate-incident-response-and-forensics.html
+  - https://github.com/awslabs/aws-automated-incident-response-and-forensics
+  - https://cloudtweaks.com/2023/11/aws-incident-response-process-and-best-practices/
+  - https://dev.to/necologiclabs/mastering-aws-incident-management-automating-responses-with-systems-manager-incident-manager-3m8j
+  - https://aws.amazon.com/products/security/detection-and-response/
+  - https://medium.com/@adan.alvarez/automating-incident-response-in-aws-blocking-a-compromised-identity-center-user-3273d7c02e1d
+  - https://aws.amazon.com/marketplace/solutions/security/what-is/soar-software
+  - https://xsoar.pan.dev/docs/reference/articles/aws-integrations---authentication
+  - https://www.npmjs.com/package/@aws-sdk/client-inspector2
+  - https://docs.n8n.io/
+  invalidate_sessions_api:
+    reference: https://medium.com/@adan.alvarez/automating-incident-response-in-aws-blocking-a-compromised-identity-center-user-3273d7c02e1d
+    value: For AWS Identity Center users, it is possible to delete active sessions
+      via the AWS Identity Center console. However, this action can take up to an
+      hour to sign out the user, and it only affects the SSO portal session, not any
+      assumed roles. To fully invalidate sessions for an assumed role, you would need
+      to revoke the role's permissions. For IAM access keys, you can programmatically
+      change their status to 'Inactive' to disable them. [27, 35]
+  known_automation_tools:
+  - reference: https://aws.amazon.com/security-incident-response/
+    value: AWS Security Incident Response service helps automate monitoring and investigation,
+      accelerate communication, and coordinate response with 24/7 access to the AWS
+      Customer Incident Response Team (CIRT). It can read security findings from Amazon
+      GuardDuty and third-party detection tools via AWS Security Hub and use automation
+      to filter and suppress findings. [1, 2, 7]
+  - reference: https://medium.com/@cloud_tips/how-to-automate-incident-response-in-aws-ef1ce661dd53
+    value: AWS Incident Manager, a security incident response platform integrated
+      with AWS Security Hub, provides a centralized view of security incident response
+      workflows and allows for automation of actions like notifications, ticket creation,
+      or starting forensic investigations. [4]
+  - reference: https://medium.com/@cloud_tips/how-to-automate-incident-response-in-aws-ef1ce661dd53
+    value: The AWS Automated Incident Response and Forensics Framework on GitHub provides
+      open-source tools to automate data collection during incidents and a framework
+      for forensic analysis. It can be triggered by tagging an EC2 instance with 'SecurityIncidentStatus'
+      and 'Analyze' to initiate isolation and memory/disk acquisition. [4, 16]
+  - reference: https://medium.com/@cloud_tips/how-to-automate-incident-response-in-aws-ef1ce661dd53
+    value: AWS Lambda functions can be used for event-driven responses, triggered
+      by events from various AWS services (e.g., S3, DynamoDB, Kinesis, SNS) or custom
+      applications, allowing for automated remediation actions. [4, 8, 10, 13]
+  - reference: https://shelan.medium.com/best-practices-and-tools-for-incident-response-on-aws-7f38bcd55565
+    value: AWS Systems Manager Automation runbooks offer a solution for automating
+      incident resolution, ensuring consistency and reliability, and reducing human
+      error. They can be used for security-related incidents, compliance, and triaging.
+      [8, 21, 24]
+  - reference: https://www.npmjs.com/package/@aws-sdk/client-ssm-incidents
+    value: The `@aws-sdk/client-ssm-incidents` npm package provides a client for Systems
+      Manager Incident Manager, enabling programmatic interaction with its operations
+      to automate response plans, engage contacts, and initiate runbooks. [22, 30]
+  - reference: https://www.npmjs.com/package/@aws-sdk/client-inspector2
+    value: The `@aws-sdk/client-inspector2` npm package provides a client for Amazon
+      Inspector, a vulnerability discovery service that automates continuous scanning
+      for security vulnerabilities. [38]
+  - reference: https://docs.n8n.io/
+    value: n8n, an open-source workflow automation tool, has built-in integrations
+      for various AWS services like AWS Lambda, AWS S3, AWS SNS, and AWS SQS, which
+      can be leveraged for incident response automation. [40]
+  - reference: https://github.com/aws-samples/aws-incident-response-playbooks-workshop
+    value: GitHub repositories like `aws-samples/aws-incident-response-playbooks-workshop`
+      provide a sandbox environment and sample playbooks for developing incident response
+      capabilities in AWS, including scripts to simulate threats and practice responses.
+      [39]
+  revoke_api_key_api:
+    reference: https://docs.aws.amazon.com/cli/latest/reference/iam/update-access-key.html
+    value: It is possible to programmatically revoke AWS API keys by changing their
+      status to 'Inactive' using the `aws iam update-access-key` command. This applies
+      to IAM user access keys. The concept of 'personal tokens' or 'global keys' as
+      distinct entities from IAM access keys is not explicitly detailed in the provided
+      search results in a way that suggests different revocation methods. [35]
+  session_timeout_configuration:
+    reference: https://medium.com/@adan.alvarez/automating-incident-response-in-aws-blocking-a-compromised-identity-center-user-3273d7c02e1d
+    value: For AWS Identity Center, the session duration for permission sets can be
+      configured with a minimum of 1 hour and a maximum of 12 hours. [27]
+  suspend_user_api:
+    reference: https://medium.com/@adan.alvarez/automating-incident-response-in-aws-blocking-a-compromised-identity-center-user-3273d7c02e1d
+    value: AWS Identity and Access Management (IAM) does not have a direct API to
+      'suspend' a user. However, you can make an IAM user inactive by changing their
+      status to 'Inactive' for access keys, or by deleting active sessions in AWS
+      Identity Center (though this can take up to an hour to take effect and only
+      kicks them out of the SSO portal session, not assumed roles). To effectively
+      suspend access, you would need to revoke their active sessions and remove or
+      modify policies associated with their IAM user or role to deny permissions.
+      [27, 35]
+  user_status_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. While you can see if IAM access keys are active or inactive
+      [35], and disable user access in AWS Identity Center [27], there isn't explicit
+      mention of a single API to comprehensively check a user's overall 'active' vs.
+      'suspended/disabled/non-existent' status that covers all types of access (console,
+      programmatic, assumed roles) in a consolidated manner across all AWS services.
+  user_toggle_api:
+    reference: https://medium.com/@adan.alvarez/automating-incident-response-in-aws-blocking-a-compromised-identity-center-user-3273d7c02e1d
+    value: While there isn't a direct API to 'toggle' a user's status like active/suspended
+      in a single call that would immediately disable all active sessions, you can
+      disable user access in AWS Identity Center, which includes an option to delete
+      active sessions. However, this can take up to an hour to take effect. For IAM
+      users, setting their access key status to 'Inactive' effectively disables their
+      programmatic access. To control console access, you would need to manage their
+      login profile or attached policies. [27]

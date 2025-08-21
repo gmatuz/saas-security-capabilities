@@ -1,0 +1,293 @@
+identity_and_access:
+  sso_support:
+    value: yes - SAML 2.0 SSO; Grammarly provides manual SAML parameters and supports
+      major IdPs (e.g., Okta, Google).
+    reference: dubious claim, hallucinated reference
+  sso_license_level_requirement:
+    value: Available on Pro, Business, Enterprise, and Education; on Pro, SSO is available
+      starting at two seats.
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: yes - SCIM v2 provisioning endpoint; supported IdPs include Okta, Microsoft
+      Entra ID (Azure AD), OneLogin, and Rippling; group provisioning available for
+      Enterprise on request; requires SAML SSO to be enabled.
+    reference: dubious claim, hallucinated reference
+  scim_licensing_level_requirement:
+    value: Enterprise (and Education for some IdPs, e.g., Rippling guide notes Enterprise
+      or Education).
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: Bearer token (SCIM token) provided by Grammarly; IdPs configure Tenant
+      URL https://sso.grammarly.com/scim/v2 with Secret/Bearer token.
+    reference: dubious claim, hallucinated reference
+  scim_authentication_acquisition_steps:
+    value: 1) Sign in to Grammarly Admin; 2) Open Provisioning page and click Configure;
+      3) Click Activate SCIM; 4) Click Create token and copy the SCIM token; 5) In
+      your IdP, set Tenant URL to https://sso.grammarly.com/scim/v2 and paste the
+      token; 6) Test connection and save.
+    reference: dubious claim, hallucinated reference
+  user_management_api_support:
+    value: yes - License Management API (list users, list invitees, institution summary,
+      remove users).
+    reference: https://developer.grammarly.com/license-management-api.html
+  user_management_api_licensing_level:
+    value: Enterprise and Education (OAuth 2.0 credentials available to admins on
+      these institution-wide licenses).
+    reference: https://developer.grammarly.com/oauth-credentials.html
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 Client Credentials (access token via https://auth.grammarly.com/v4/api/oauth2/token;
+      scopes such as users-api:read, users-api:write as applicable).
+    reference: https://developer.grammarly.com/your-first-api-request.html
+  user_management_api_authentication_acquisition_steps:
+    value: 1) In Admin panel, go to Organization → OAuth 2.0 credentials; 2) Click
+      Add credential; 3) Name it and select API scopes; 4) Create and copy Client
+      ID/Secret; 5) Request access token via Client Credentials grant; 6) Use Bearer
+      token in API requests.
+    reference: https://developer.grammarly.com/oauth-credentials.html
+  seat_costs:
+  - license_level: Pro
+    active:
+      value: yes - billed per member (monthly $30/member; quarterly $60/member; annual
+        $144/member).
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Business
+    active:
+      value: 'yes - billed per seat; monthly $25/seat; annual tiers: 3–9 seats $180/seat/year
+        ($15/mo avg), 10–49 $174/seat/year, 50–149 $150/seat/year; admin counts as
+        a seat.'
+      reference: https://www.grammarly.com/business/pricing
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Enterprise
+    active:
+      value: pricing undisclosed; contact Sales.
+      reference: https://www.grammarly.com/business/pricing
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited
+  - expired_invite
+  - active
+  - admin
+  - removed
+  - inactive (deactivated via IdP)
+  - suspended (pending deletion after SCIM deprovision)
+  - deleted (after retention window)
+  rbac_support:
+    value: yes - roles (Admin, Account manager, User), optional Group Manager permissions;
+      custom roles (Enterprise); group management.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: uncertain - role assignment supported via SAML attribute (GrammarlyRole),
+      but no public API documented for role management.
+    reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://support.grammarly.com/hc/en-us/articles/360048683092-Set-up-SAML-single-sign-on
+  - https://support.grammarly.com/hc/en-us/articles/360048773472-Add-Grammarly-to-an-identity-provider
+  - https://support.grammarly.com/hc/en-us/articles/360048773252-Set-up-SSO-with-Okta
+  - https://support.grammarly.com/hc/en-us/articles/360051598552-Set-up-SSO-with-Google
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Grammarly.html
+  - https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning
+  - https://support.grammarly.com/hc/en-us/articles/360058725831-Configure-SCIM-provisioning-with-Okta
+  - https://support.grammarly.com/hc/en-us/articles/360058948112-Configure-SCIM-provisioning-with-Microsoft-Entra-ID-Azure-AD
+  - https://support.grammarly.com/hc/en-us/articles/4410368818445-Configure-SCIM-provisioning-with-OneLogin
+  - https://support.grammarly.com/hc/en-us/articles/13510454089357-Configure-SCIM-provisioning-with-Rippling
+  - https://developer.grammarly.com/license-management-api.html
+  - https://developer.grammarly.com/your-first-api-request.html
+  - https://support.grammarly.com/hc/en-us/articles/31625547341965-Receive-OAuth-2-0-credentials
+  - https://support.grammarly.com/hc/en-us/articles/115000931852-Invite-team-members
+  - https://support.grammarly.com/hc/en-us/articles/115000930532-Remove-team-members
+  - https://support.grammarly.com/hc/en-us/articles/4415031489037-Organize-team-members-into-groups
+  - https://support.grammarly.com/hc/en-us/articles/27540336731149-About-custom-roles
+  - https://github.com/MicrosoftDocs/entra-docs/blob/main/docs/identity/saas-apps/grammarly-provisioning-tutorial.md
+security_monitoring:
+  event_logs:
+    user_login:
+      value: uncertain – Grammarly exposes a Security Hub UI where users can view
+        and manage active sessions/devices, but there’s no vendor-documented audit
+        event schema or export for login events.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: uncertain – Vendor documentation describes roles (admin, account manager,
+        group manager, custom roles in Enterprise) but provides no public audit log
+        or export of role-assignment changes.
+      reference: dubious claim, hallucinated reference
+    api_call:
+      value: uncertain – Public REST APIs (e.g., Analytics API, License Management
+        API) are documented, but no provider-side audit of API invocations or administrative
+        API call logs is documented.
+      reference: https://developer.grammarly.com/analytics-api.html
+    data_export:
+      value: Member usage analytics can be exported manually as CSV from the admin
+        UI; no evidence of exportable security/audit logs specific to login/admin
+        actions.
+      reference: dubious claim, hallucinated reference
+    configuration_change:
+      value: uncertain – Security-related configurations (e.g., Session Timeout, SSO/SCIM)
+        are documented, but no public audit logging of configuration changes is documented.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: uncertain – Account lifecycle is commonly managed via SCIM/SSO; Microsoft
+        Entra ID and other IdPs provide provisioning logs on their side, but no Grammarly-side
+        audit export is documented.
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: uncertain – Enterprise features such as BYOK and Session Timeout are
+        available; documentation mentions CloudTrail visibility for key usage (BYOK)
+        but no app-level policy change audit log in Grammarly is documented.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: 'uncertain – No vendor-public entitlement for security audit logs found.
+      Related items: Analytics API requires Enterprise or Education; SCIM provisioning
+      and other enterprise controls (e.g., Session Timeout, BYOK) are Enterprise features.'
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: Analytics API (REST) – pull usage metrics (users, sessions) for monitoring
+      and external ingestion.
+    reference: https://developer.grammarly.com/analytics-api.html
+  - value: License Management API (REST) – query subscription summary, list users/last
+      activity, and de-provision users programmatically.
+    reference: https://developer.grammarly.com/license-management-api.html
+  - value: SCIM provisioning with Microsoft Entra ID/Okta/OneLogin – account lifecycle
+      events are logged on the IdP side and can be monitored there.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial
+  - value: BYOK with AWS KMS – CloudTrail provides audit logs of key access when Grammarly
+      encrypts/decrypts with customer-managed keys.
+    reference: dubious claim, hallucinated reference
+  - value: Security Hub UI – view/terminate active sessions/devices for basic account-access
+      monitoring.
+    reference: dubious claim, hallucinated reference
+  - value: Unofficial client library (TypeScript) – community project interacting
+      with Grammarly services; not an official security log client.
+    reference: https://github.com/stewartmcgown/grammarly-api
+  ingestion_methods:
+  - value: REST pull via Analytics API with OAuth 2.0; endpoint example GET /ecosystem/api/v2/analytics/users;
+      JSON responses suitable for SIEM/BI ingestion.
+    reference: https://developer.grammarly.com/analytics-api.html
+  - value: REST pull via License Management API with OAuth 2.0; endpoints include
+      institutions summary and user lists; can complement identity monitoring.
+    reference: https://developer.grammarly.com/license-management-api.html
+  - value: Manual CSV export from admin Member usage page for usage analytics; periodic
+      downloads could be staged into a log pipeline.
+    reference: dubious claim, hallucinated reference
+  - value: IdP-driven SCIM provisioning (push from IdP) – capture provisioning activity
+      from IdP logs (e.g., Microsoft Entra provisioning logs); not a Grammarly log
+      stream.
+    reference: dubious claim, hallucinated reference
+  log_export_options:
+    tools_connectors:
+      value: uncertain – No vendor-documented SIEM connectors, syslog, streaming,
+        or bulk audit-log export for Grammarly application events were found. Available
+        outputs include REST APIs (Analytics, License Management) and a manual CSV
+        export for usage analytics; BYOK surfaces AWS CloudTrail logs for encryption
+        key usage only.
+      reference: https://developer.grammarly.com/analytics-api.html
+  documentation_links:
+  - https://developer.grammarly.com/analytics-api.html
+  - https://support.grammarly.com/hc/en-us/articles/31543373220621-Analytics-API
+  - https://developer.grammarly.com/license-management-api.html
+  - https://developer.grammarly.com/oauth-credentials.html
+  - https://support.grammarly.com/hc/en-us/articles/11226802974477-Review-member-usage-analytics
+  - https://support.grammarly.com/hc/en-us/articles/4418264113165-How-do-I-check-what-devices-are-linked-to-my-Grammarly-account
+  - https://support.grammarly.com/hc/en-us/articles/27895143707405-Bring-Your-Own-Key-FAQ
+  - https://support.grammarly.com/hc/en-us/articles/26230680413325-Session-Timeout-FAQ
+  - https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning
+  - https://support.grammarly.com/hc/en-us/articles/360058948112-Configure-SCIM-provisioning-with-Microsoft-Entra-ID-Azure-AD
+  - https://support.grammarly.com/hc/en-us/articles/360058725831-Configure-SCIM-provisioning-with-Okta
+  - https://support.grammarly.com/hc/en-us/articles/4410368818445-Configure-SCIM-provisioning-with-OneLogin
+  - https://support.grammarly.com/hc/en-us/articles/360048683092-Set-up-SAML-single-sign-on
+  - https://www.grammarly.com/security
+  - https://www.grammarly.com/trust
+  - https://github.com/stewartmcgown/grammarly-api
+  - https://github.com/IamJoshing/grammarly-stats-via-gmail-api
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial
+incident_response:
+  suspend_user_api:
+    value: SCIM-based deprovisioning via your IdP (Okta/Entra/OneLogin/Rippling) will
+      deactivate a Grammarly member; when unassigned, Grammarly deactivates the account
+      (suspended within ~1 hour) and schedules deletion in 30 days.
+    reference: dubious claim, hallucinated reference
+  invalidate_sessions_api:
+    value: When a user is unassigned via SCIM, Grammarly “will invalidate any authenticated
+      sessions” for that member; this provides a programmatic session kill through
+      the IdP-to-Grammarly SCIM integration.
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: uncertain — No public documentation found for revoking/rotating Grammarly
+      OAuth client credentials or API keys; available docs cover creating OAuth 2.0
+      credentials and scopes only.
+    reference: https://developer.grammarly.com/oauth-credentials.html
+  user_toggle_api:
+    value: Yes via SCIM/IdP — toggling access by deactivating or unassigning a user
+      in the IdP marks the Grammarly account deactivated and also invalidates active
+      sessions; accounts are later deleted if not re-provisioned.
+    reference: dubious claim, hallucinated reference
+  user_status_api:
+    value: uncertain — The License Management API exposes lists of users with fields
+      like email, is_admin, and last_activity_at, but no explicit per-user active/deactivated
+      status field is documented.
+    reference: https://developer.grammarly.com/license-management-api.html
+  session_timeout_configuration:
+    value: Session Timeout is available for Grammarly Enterprise and Grammarly for
+      Education; configured by Grammarly’s Enterprise team (not self-serve). Timeout
+      is set in days (e.g., 14 or 30 days); default recommendation is 30 days.
+    reference: dubious claim, hallucinated reference
+  known_automation_tools:
+  - value: License Management API — programmatically list users/invitees and remove
+      users or invitees (DELETE /users/{userId}, /invitees/{inviteeId}); useful to
+      automate rapid deprovisioning during incident response.
+    reference: https://developer.grammarly.com/license-management-api.html
+  - value: SCIM with Microsoft Entra ID — automatic provisioning/deprovisioning; deactivating
+      users in Entra deactivates them in Grammarly (unusable login) with deletion
+      after 30 days; integrates with SIAM/IGA workflows.
+    reference: dubious claim, hallucinated reference
+  - value: SCIM with Okta — create/remove users; optional group sync; Okta deactivation
+      propagates to Grammarly deactivation and scheduled deletion; enables automated
+      offboarding.
+    reference: dubious claim, hallucinated reference
+  - value: SCIM with OneLogin — configure API integration and choose downstream action
+      (Delete/Suspend/Do Nothing) when a OneLogin user is deleted/suspended; supports
+      automated lifecycle actions.
+    reference: dubious claim, hallucinated reference
+  - value: SCIM with Rippling — use a Grammarly SCIM token with Rippling’s configuration
+      wizard to automate user create/remove and attribute sync.
+    reference: dubious claim, hallucinated reference
+  - value: Analytics API — REST API to retrieve organization/user-level Grammarly
+      usage metrics (e.g., sessions); useful for investigative enrichment and anomaly
+      detection in BI/SIEM pipelines.
+    reference: https://developer.grammarly.com/analytics-api.html
+  - value: Organization-wide client app controls — Enterprise admins can block specific
+      Grammarly client applications (e.g., desktop, browser extensions) across the
+      org or groups as a containment action.
+    reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning
+  - https://support.grammarly.com/hc/en-us/articles/360058948112-Configure-SCIM-provisioning-with-Microsoft-Entra-ID-Azure-AD
+  - https://support.grammarly.com/hc/en-us/articles/360058725831-Configure-SCIM-provisioning-with-Okta
+  - https://support.grammarly.com/hc/en-us/articles/4410368818445-Configure-SCIM-provisioning-with-OneLogin
+  - https://support.grammarly.com/hc/en-us/articles/13510454089357-Configure-SCIM-provisioning-with-Rippling
+  - https://developer.grammarly.com/license-management-api.html
+  - https://developer.grammarly.com/analytics-api.html
+  - https://developer.grammarly.com/your-first-api-request.html
+  - https://developer.grammarly.com/oauth-credentials.html
+  - https://support.grammarly.com/hc/en-us/articles/26230680413325-Session-Timeout-FAQ
+  - https://support.grammarly.com/hc/en-us/articles/115000930532-Remove-team-members
+  - https://support.grammarly.com/hc/en-us/articles/36868778228109-Deprovisioned-user-accounts-are-not-removed-from-the-subscription
+  - https://support.grammarly.com/hc/en-us/articles/4418264113165-How-do-I-check-what-devices-are-linked-to-my-Grammarly-account
+  - https://support.grammarly.com/hc/en-us/articles/4418264353677-How-do-I-sign-out-of-a-device-I-no-longer-use
+  - https://support.grammarly.com/hc/en-us/articles/360041542831-What-should-I-do-if-I-suspect-that-my-account-was-hacked
+  - https://support.grammarly.com/hc/en-us/articles/31543373220621-Analytics-API

@@ -1,0 +1,276 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAP S/4HANA (AS ABAP) supports SAML 2.0 for web SSO and Kerberos/SPNEGO
+      (via SAP Single Sign‑On/Secure Login Service) for browser/SAP GUI; commonly
+      integrated with external IdPs such as Azure AD.
+    reference: https://community.sap.com/t5/additional-blogs-by-sap/single-sign-on-technologies-supported-by-the-sap-netweaver-application/ba-p/12910818
+  sso_license_level_requirement:
+    value: Kerberos/SPNEGO on AS ABAP requires SAP Single Sign‑On (additional licenses).
+      Licensing requirements for SAML 2.0 on AS ABAP are not explicitly documented
+      in public sources.
+    reference: https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/c7/b12d71977e4b0682e327b4ecf81e9b/content.htm
+  scim_support:
+    value: yes — SAP S/4HANA Cloud Public Edition provides a SCIM interface via communication
+      scenario SAP_COM_0465; note that when HCM integration is active, SCIM user creation
+      is read‑only and the worker must pre‑exist (partial capability).
+    reference: https://userapps.support.sap.com/sap/support/knowledge/en/3515984
+  scim_licensing_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_mechanisms:
+    value: BasicAuthentication using a Communication User to call SCIM endpoints (as
+      used by S/4HANA Cloud connectors/IPS integrations).
+    reference: https://documentation.sailpoint.com/connectors/sap/s4_hana/help/integrating_sap_s4_hana_cloud/administrator_permissions.html
+  scim_authentication_acquisition_steps:
+    value: 1) In SAP S/4HANA Cloud, open Communication Arrangements. 2) Create New,
+      choose scenario SAP_COM_0465 (SCIM). 3) Select/assign a Communication System
+      and an inbound Communication User for the arrangement. 4) Save, then use the
+      Inbound Services URLs shown to reach the SCIM /Users and /Groups endpoints with
+      the Communication User credentials.
+    reference: https://documentation.sailpoint.com/connectors/saas/sap_s4hana_cloud/help/saas_connectivity/sap_s4_hana_cloud/create_comm_arrangement.html
+  user_management_api_support:
+    value: 'yes — non‑SCIM user lifecycle via SOAP: MANAGEBUSINESSUSERIN (create/update/delete)
+      and QUERYBUSINESSUSERIN (read) under scenario SAP_COM_0093 (Identity Management
+      Integration).'
+    reference: https://userapps.support.sap.com/sap/support/knowledge/en/2830982
+  user_management_api_licensing_level:
+    value: uncertain
+    reference: no evidence
+  user_management_api_authentication_mechanisms:
+    value: Basic authentication (Communication User) and client certificate options
+      in Communication Arrangements; scenario‑specific OAuth 2.0 may be available
+      for some APIs.
+    reference: https://community.sap.com/t5/enterprise-resource-planning-blogs-by-members/s-4hana-cloud-communication-arrangement-configuration/bc-p/13865557
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Create a Communication User in ‘Maintain Communication Users’ (set password
+      for Basic or upload client certificate). 2) Create a Communication System and
+      assign the inbound user. 3) Create a Communication Arrangement for SAP_COM_0093
+      and select the Communication System; service URLs for MANAGEBUSINESSUSERIN/QUERYBUSINESSUSERIN
+      are provided in the Inbound Services section. 4) Use those endpoints with the
+      Communication User credentials.
+    reference: https://community.sap.com/t5/enterprise-resource-planning-blogs-by-members/s-4hana-cloud-communication-arrangement-configuration/bc-p/13865557
+  seat_costs:
+  - license_level: 'S/4HANA Cloud Public Edition uses Full Use Equivalent (FUE) price
+      categories (Self‑Service/Core/Advanced/Developer) — ratios: 1 FUE = 30 Self‑Service,
+      5 Core, 1 Advanced, 0.5 Developer.'
+    active:
+      value: uncertain
+      reference: no evidence
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - active
+  - locked
+  - deleted
+  rbac_support:
+    value: yes — role‑based access with Business Roles composed of Business Catalogs;
+      restrictions control data/app scope; users (Business Users) are assigned roles.
+    reference: https://learning.sap.com/courses/implementing-sap-s-4hana-cloud-public-edition/creating-and-customizing-business-roles
+  rbac_api_assignment:
+    value: partial — user↔role assignment can be managed via Business User SOAP APIs;
+      managing Business Roles’ catalogs themselves is not available via SOAP (IAG
+      may be used for role governance).
+    reference: https://userapps.support.sap.com/sap/support/knowledge/en/2830982
+  documentation_links:
+  - https://help.sap.com/doc/saphelp_nw75/7.5.5/EN-US/4a/b4c93185376d61e10000000a42189c/content.htm
+  - https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/c7/b12d71977e4b0682e327b4ecf81e9b/content.htm
+  - https://community.sap.com/t5/technology-blogs-by-members/s-4hana-saml-sso-with-azure-ad/ba-p/13578564
+  - https://documentation.sailpoint.com/connectors/sap/s4_hana/help/integrating_sap_s4_hana_cloud/administrator_permissions.html
+  - https://userapps.support.sap.com/sap/support/knowledge/en/3515984
+  - https://community.sap.com/t5/enterprise-resource-planning-blogs-by-members/s-4hana-cloud-communication-arrangement-configuration/bc-p/13865557
+  - https://learning.sap.com/learning-journeys/develop-advanced-extensions-with-sap-cloud-sdk/activating-the-apis-in-sap-s-4hana-cloud_aa10624c-4e41-42e1-b3b5-1a69c096ba5b
+  - https://learning.sap.com/learning-journeys/managing-user-identity-and-access-in-sap-s-4hana-cloud-public-edition/maintaining-business-users-app_fd5813a1-b210-408c-b337-95127d7b0835
+  - https://github.com/SAP-samples/s4hana-ext-create-employee
+  - https://community.sap.com/t5/enterprise-resource-planning-blogs-by-sap/sap-s-4hana-cloud-public-edition-secure-by-default-part-2/ba-p/13551008
+security_monitoring:
+  event_logs:
+    user_login:
+      value: The ABAP-based Security Audit Log (SAL) in SAP S/4HANA records successful
+        and unsuccessful dialog logon attempts and provides event records containing
+        user ID, client, timestamp, terminal/IP, and other context. SAL is configured
+        via RSAU_CONFIG/SM19 and reviewed with RSAU_READ_LOG/SM20.
+      reference: https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-US/c7/69bcb7f36611d3a6510000e835363f/content.htm
+    role_assignment:
+      value: Role and authorization assignments to users are captured as change documents;
+        administrators can review who assigned/removed roles and when using SUIM/RSUSR100N
+        (“Change Documents for Users”), which provides detailed history of user master/authorization
+        changes.
+      reference: https://learning.sap.com/learning-journeys/exploring-the-authorization-concept-for-sap-s-4hana-and-sap-business-suite/maintaining-and-evaluating-user-data
+    api_call:
+      value: 'API activity is logged across layers: SAL records RFC function module
+        calls and RFC/CPIC logons; for OData/Gateway services, API requests and errors
+        are captured in SAP Gateway Error Log (/IWFND/ERROR_LOG) and Traces (/IWFND/TRACES)
+        for analysis; these complement SAL for application-layer API visibility.'
+      reference: https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/18/2e167819f6405792686e94c177b9eb/content.htm
+    data_export:
+      value: SAL’s security logging scope includes “Download of files,” enabling detection
+        of certain data export actions; in addition, Read Access Logging (RAL) can
+        be configured to log read access to sensitive fields across channels for audit
+        purposes.
+      reference: https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/18/2e167819f6405792686e94c177b9eb/content.htm
+    configuration_change:
+      value: Configuration changes can be captured via table change logging (SCU3/DBTABLOG)
+        when enabled (rec/client and table “Log data changes”), and SAL logs changes
+        to the audit configuration itself; together these provide evidence of security-relevant
+        configuration modifications.
+      reference: https://help.sap.com/doc/abapdocu_753_index_htm/7.53/en-US/abenddic_database_tables_protocol.htm
+    user_account_creation:
+      value: Creation and modification of user master records are logged as change
+        documents, accessible via SUIM/RSUSR100N (“Change Documents for Users”), providing
+        who/when context for account creation and subsequent adjustments.
+      reference: https://learning.sap.com/learning-journeys/exploring-the-authorization-concept-for-sap-s-4hana-and-sap-business-suite/maintaining-and-evaluating-user-data
+    security_policy_change:
+      value: Uncertain — SAL explicitly logs changes to its own audit configuration;
+        broader “security policy” settings (for example, customizing and policy objects)
+        are logged if table logging is enabled (SCU3/DBTABLOG), but no single, dedicated
+        SAL event was found for generic policy objects beyond audit configuration.
+        Enable table logging on relevant security tables to capture such changes.
+      reference: https://help.sap.com/doc/abapdocu_753_index_htm/7.53/en-US/abenddic_database_tables_protocol.htm
+  event_logs_licensing_level:
+    value: Uncertain — public SAP documentation describes SAL and Read Access Logging
+      as standard ABAP/S/4HANA components, but no explicit public statement was found
+      about additional licenses specific to accessing security audit logs. (SAL is
+      configured/reviewed via standard transactions.)
+    reference: https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-US/c7/69bcb7f36611d3a6510000e835363f/content.htm
+  monitoring_products:
+  - value: Microsoft Sentinel solution for SAP applications provides content and workbooks
+      to monitor SAP Security Audit Log events (including logon analysis and anomaly-based/deterministic
+      rules).
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-audit-log-workbook
+  - value: Microsoft Sentinel security content includes “Dynamic Deterministic Audit
+      Log Monitor” and anomaly-based rules designed to process the full set of standard
+      SAP audit events.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-solution-security-content
+  - value: SAP Enterprise Threat Detection (ETD) ingests SAP application-layer logs
+      (ABAP, HANA, Java) and can integrate with external SIEMs via JSON/LEEF; positioned
+      to monitor SAL/RAL and other SAP logs.
+    reference: https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/sap-enterprise-threat-detection-2-0-sp07/ba-p/13966555
+  - value: SAP ETD and SIEM integration patterns (QRadar, ArcSight) are documented
+      by SAP, emphasizing ETD’s focus on SAP application logs and options to forward
+      alerts/events to external SIEMs.
+    reference: https://community.sap.com/t5/technology-blogs-by-sap/sap-enterprise-threat-detection-etd-and-security-information-and-event/ba-p/13411762
+  - value: Splunk ingestion of SAP SAL directly from audit files via Universal Forwarder
+      is documented by practitioners, including required character set and parsing
+      considerations for the fixed-length SAL records.
+    reference: https://community.splunk.com/t5/Getting-Data-In/How-to-Splunk-the-SAP-Security-Audit-Log/m-p/380913
+  - value: Splunk Security Add-on for SAP solutions provides a connector to pull SAP
+      Enterprise Threat Detection (ETD) alerts via REST API as an alternative integration
+      route.
+    reference: https://apps.splunk.com/app/6878/
+  ingestion_methods:
+  - value: File-based ingestion of SAL from application server audit files (fixed-length,
+      UTF-16LE records) using log forwarders/agents (for example Splunk Universal
+      Forwarder), with parsing guidance for SAL record structure.
+    reference: https://community.splunk.com/t5/Getting-Data-In/How-to-Splunk-the-SAP-Security-Audit-Log/m-p/380913
+  - value: Remote API ingestion via RFC using the function module RSAU_API_GET_LOG_DATA
+      to read SAL; SAP provides sample ABAP (ZRSAU_API_GET_LOG_DATA) in an official
+      SAP-samples repository to demonstrate usage.
+    reference: https://github.com/SAP-samples/security-services-tools/blob/main/README.md
+  - value: OData access route for SAL via the released RSAU_LOG_API OData service
+      (available on newer SAP_BASIS releases) for programmatic retrieval of audit
+      log data.
+    reference: https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenreleased_apis.htm
+  - value: Gateway/OData API logs (requests, errors, payload/performance traces) available
+      in SAP Gateway Error Log and Traces; logs persist on ABAP DB and can be exported
+      or accessed via standard analysis tools.
+    reference: https://help.sap.com/doc/saphelp_nw74/7.4.16/en-US/00/f5ff5082d2793ee10000000a423f68/content.htm
+  - value: SAP HANA (DB layer of S/4HANA) audit logs can be emitted to Syslog and
+      ingested by SIEM; Sentinel details agent/syslog-based collection and required
+      HANA settings.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/sap/collect-sap-hana-audit-logs
+  log_export_options:
+    tools_connectors:
+      value: SAL supports storage to files and, on newer releases, to the database
+        (RSAU_CONFIG “Record in Database”), with archiving via object BC_SAL; programmatic
+        export is available via RFC (RSAU_API_GET_LOG_DATA) and, on newer platforms,
+        an OData service (RSAU_LOG_API). Community guidance consolidates the new RSAU_*
+        transactions, API function/class references, and archiving/reporting options
+        for SAL.
+      reference: https://community.sap.com/t5/application-development-blog-posts/analysis-and-recommended-settings-of-the-security-audit-log-sm19-rsau/ba-p/13297094
+  documentation_links:
+  - https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-US/c7/69bcb7f36611d3a6510000e835363f/content.htm
+  - https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/18/2e167819f6405792686e94c177b9eb/content.htm
+  - https://community.sap.com/t5/application-development-blog-posts/analysis-and-recommended-settings-of-the-security-audit-log-sm19-rsau/ba-p/13297094
+  - https://help.sap.com/doc/abapdocu_753_index_htm/7.53/en-US/abenddic_database_tables_protocol.htm
+  - https://learning.sap.com/learning-journeys/exploring-the-authorization-concept-for-sap-s-4hana-and-sap-business-suite/maintaining-and-evaluating-user-data
+  - https://help.sap.com/doc/34796706f38646f68d51a0fa0d4636e4/100/en-US/8d0d8d40faa04c559299add47a92b531.html
+  - https://help.sap.com/doc/saphelp_nw74/7.4.16/en-US/00/f5ff5082d2793ee10000000a423f68/content.htm
+  - https://github.com/SAP-samples/security-services-tools/blob/main/README.md
+  - https://github.com/SAP-samples/s4hana-hana-audit-policies
+  - https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-audit-log-workbook
+  - https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-solution-security-content
+  - https://learn.microsoft.com/en-us/azure/sentinel/sap/collect-sap-hana-audit-logs
+  - https://userapps.support.sap.com/sap/support/knowledge/en/3137004
+  - https://userapps.support.sap.com/sap/support/knowledge/en/3539092
+  - https://userapps.support.sap.com/sap/support/knowledge/en/3445656
+incident_response:
+  suspend_user_api:
+    value: BAPI_USER_LOCK (and related SUSR_BAPI_USER_LOCK) can be called remotely
+      (RFC/BAPI) to programmatically lock an SAP user so they cannot log in; this
+      is cited as an “attack disruption” action for SAP by Microsoft Sentinel and
+      requires appropriate ABAP authorizations.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/sap/required-abap-authorizations
+  invalidate_sessions_api:
+    value: TH_DELETE_USER is an RFC-enabled function to end all active sessions for
+      a specified SAP user (terminates sessions; does not delete the user). This is
+      explicitly listed for automated response actions.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/sap/required-abap-authorizations
+  revoke_api_key_api:
+    value: uncertain – No evidence of S/4HANA “personal API keys.” Inbound API access
+      uses Communication Users and OAuth 2.0 via Communication Arrangements; revocation
+      is typically achieved by locking/deleting the Communication User or disabling
+      the Communication Arrangement.
+    reference: https://help.sap.com/doc/00f68c2e08b941f081002fd3691d86a7/2023.20/en-US/0485d540e0b340a0bc0da86fe368997c.html
+  user_toggle_api:
+    value: Administrators can lock/unlock users via SU01 (and programmatically via
+      BAPI_USER_LOCK/UNLOCK). The lock/unlock affects the next logon; a user already
+      logged on is not affected. Combine with TH_DELETE_USER to force logoff if needed.
+    reference: https://help.sap.com/doc/saphelp_scm700_ehp02/7.0.2/en-US/4c/b5f7ac9cb33c94e10000000a42189c/content.htm?no_cache=true
+  user_status_api:
+    value: Programmatically query user status with BAPI_USER_GET_DETAIL; its return
+      includes ISLOCKED (lock state) and LOGONDATA (e.g., user type). Community guidance
+      recommends BAPI over reading USR02 directly.
+    reference: https://community.sap.com/t5/-/-/m-p/7555498
+  session_timeout_configuration:
+    value: Idle auto logoff is configured by profile parameter rdisp/gui_auto_logout
+      (seconds). Set via RZ10 (DEFAULT.PFL for all instances or per-instance); inactive
+      users are logged off without save or prompt after the period.
+    reference: https://help.sap.com/doc/saphelp_nw74/7.4.16/en-US/52/6717e0439b11d1896f0000e8322d00/content.htm
+  known_automation_tools:
+  - value: Microsoft Sentinel solution for SAP applications provides SOAR playbooks
+      to lock SAP users (basic/advanced) and re-enable audit logging; integrates approvals
+      via Teams/Outlook and can manage multiple SAP systems with Key Vault.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-incident-response-playbooks
+  - value: Microsoft Sentinel ABAP “attack disruption” prerequisites enumerate BAPI_USER_LOCK,
+      BAPI_USER_UNLOCK, and TH_DELETE_USER and required authorizations for automated
+      response.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/sap/required-abap-authorizations
+  - value: PyRFC (Python bindings for SAP NetWeaver RFC SDK) enables calling ABAP
+      RFC/BAPI (e.g., BAPI_USER_LOCK, TH_DELETE_USER) for automation; requires SAP
+      NWRFC SDK (downloadable with SAP credentials).
+    reference: https://pypi.org/project/pyrfc/
+  - value: node-rfc (Node.js bindings for SAP NetWeaver RFC SDK) to invoke SAP RFC/BAPI
+      for response workflows; requires SAP NWRFC SDK.
+    reference: https://www.npmjs.com/package/node-rfc
+  - value: Splunk Security Add-on for SAP solutions ingests alerts from SAP Enterprise
+      Threat Detection (ETD) via ETD API for SIEM workflows; requires Splunk Security
+      for SAP and ETD privileges.
+    reference: dubious claim, hallucinated reference
+  - value: Open-source Microsoft Sentinel Playbooks repo includes deployable IR playbooks
+      (e.g., disable Entra ID user) alongside SAP playbooks referenced in the solution.
+    reference: https://github.com/Azure/Azure-Sentinel/blob/master/Playbooks/AS-Azure-AD-Disable-User/README.md
+  documentation_links:
+  - https://help.sap.com/doc/saphelp_nw74/7.4.16/en-US/52/6717e0439b11d1896f0000e8322d00/content.htm
+  - https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-US/c7/69bcb7f36611d3a6510000e835363f/content.htm
+  - https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/7c/10a49a1a6b407788fe4863bf18c7fe/content.htm
+  - https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-incident-response-playbooks
+  - https://learn.microsoft.com/en-us/azure/sentinel/sap/required-abap-authorizations
+  - https://learn.microsoft.com/en-us/azure/sentinel/sap/solution-overview
+  - https://learn.microsoft.com/en-us/Azure/sentinel/sap/deployment-overview
+  - https://help.sap.com/doc/00f68c2e08b941f081002fd3691d86a7/2023.20/en-US/0485d540e0b340a0bc0da86fe368997c.html
+  - https://community.sap.com/t5/application-development-and-automation-discussions/bapi-user-lock-usage/td-p/3446683
+  - https://community.sap.com/t5/application-development-and-automation-discussions/bapi-to-disconnect-users/td-p/11468264

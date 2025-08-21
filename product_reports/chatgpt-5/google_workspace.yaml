@@ -1,0 +1,322 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 generally available; OpenID Connect (custom OIDC profiles)
+      available in open beta for Google as Service Provider
+    reference: https://workspaceupdates.googleblog.com/2024/12/open-beta-single-sign-on-custom-openid-connect-profiles.html
+  sso_license_level_requirement:
+    value: Multi-IdP SSO available to Google Workspace Business Starter, Business
+      Standard, Business Plus, Enterprise Essentials, Enterprise Standard, Enterprise
+      Plus, Education Fundamentals, Education Plus, Frontline, and Nonprofits, and
+      all Cloud Identity; not available to Google Workspace Essentials
+    reference: https://workspaceupdates.googleblog.com/2022/05/sso-profiles-for-multiple-3p-identity-providers.html
+  scim_support:
+    value: uncertain — no official inbound SCIM v2 endpoint documented to provision
+      users into Google Workspace; official provisioning guidance relies on Google
+      Cloud Directory Sync (GCDS) and Admin SDK Directory API; Google supports outbound
+      SCIM auto‑provisioning for some third‑party apps when Google is IdP
+    reference: https://cloud.google.com/architecture/identity/federating-gcp-with-active-directory-synchronizing-user-accounts
+  scim_licensing_level_requirement:
+    value: 'not applicable for inbound SCIM; for outbound SCIM auto‑provisioning:
+      Business Starter and Frontline Starter limited to 3 apps; Business Standard,
+      Business Plus, and Enterprise editions have no provisioning limit'
+    reference: https://support.google.com/a/answer/7681608
+  scim_authentication_mechanisms:
+    value: not applicable — no inbound SCIM v2 endpoint documented for Google Workspace
+    reference: https://cloud.google.com/architecture/identity/federating-gcp-with-active-directory-synchronizing-user-accounts
+  scim_authentication_acquisition_steps:
+    value: not applicable — no inbound SCIM v2 endpoint documented for Google Workspace
+    reference: https://cloud.google.com/architecture/identity/federating-gcp-with-active-directory-synchronizing-user-accounts
+  user_management_api_support:
+    value: yes — Admin SDK Directory API supports user CRUD (e.g., users.insert, users.patch,
+      users.delete), undelete, makeAdmin, etc.
+    reference: https://developers.google.com/admin-sdk/directory/reference/rest/v1/users/insert
+  user_management_api_licensing_level:
+    value: Directory management capability (and thus API-backed directory management)
+      is available across Business Starter, Business Standard, and Business Plus editions
+      (and in Enterprise/Cloud Identity).
+    reference: https://support.google.com/a/answer/6043385?co=DASHER._Family%3DBusiness
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0; service accounts with Domain‑Wide Delegation to impersonate
+      an admin/user; standard user-consent OAuth flows are also supported
+    reference: https://developers.google.com/workspace/guides/create-credentials
+  user_management_api_authentication_acquisition_steps:
+    value: '1) In Google Cloud console, create a service account; 2) Copy the service
+      account Client ID (Domain‑Wide Delegation section); 3) In Admin console: Security
+      > Access and data control > API controls > Manage Domain‑Wide Delegation > Add
+      new; 4) Paste Client ID and authorize required OAuth scopes (e.g., https://www.googleapis.com/auth/admin.directory.user);
+      5) Use the service account to impersonate an admin and call the Directory API.'
+    reference: https://developers.google.com/workspace/guides/create-credentials
+  seat_costs:
+  - license_level: Business Starter — $7 USD per user/month (annual) as listed 2025-08-18
+    active:
+      value: yes — billed per active licensed user at plan list price
+      reference: https://workspace.google.com/intl/en/pricing/
+    suspended_disabled:
+      value: yes — suspended accounts are still charged on both Annual and Flexible
+        plans
+      reference: https://support.google.com/a/answer/33312
+    archived:
+      value: yes — requires Archived User (AU) license to retain data; assign via
+        Admin console or GCDS
+      reference: https://support.google.com/a/answer/14925856
+  - license_level: Business Standard — $14 USD per user/month (annual) as listed 2025-08-18
+    active:
+      value: yes — billed per active licensed user at plan list price
+      reference: https://workspace.google.com/intl/en/pricing/
+    suspended_disabled:
+      value: yes — suspended accounts are still charged on both Annual and Flexible
+        plans
+      reference: https://support.google.com/a/answer/33312
+    archived:
+      value: yes — requires Archived User (AU) license to retain data; assign via
+        Admin console or GCDS
+      reference: https://support.google.com/a/answer/14925856
+  - license_level: Business Plus — $22 USD per user/month (annual) as listed 2025-08-18
+    active:
+      value: yes — billed per active licensed user at plan list price
+      reference: https://workspace.google.com/intl/en/pricing/
+    suspended_disabled:
+      value: yes — suspended accounts are still charged on both Annual and Flexible
+        plans
+      reference: https://support.google.com/a/answer/33312
+    archived:
+      value: yes — requires Archived User (AU) license to retain data; assign via
+        Admin console or GCDS
+      reference: https://support.google.com/a/answer/14925856
+  lifecycle_options:
+  - active
+  - suspended
+  - archived
+  - deleted
+  - undelete
+  rbac_support:
+    value: yes — prebuilt and custom admin roles with granular privileges; up to 750
+      custom roles; assign to users or groups
+    reference: https://support.google.com/a/answer/2406043?hl=en
+  rbac_api_assignment:
+    value: yes — Admin SDK Directory API supports creating roles and assigning them
+      via roles.insert and roleAssignments.insert
+    reference: https://developers.google.com/admin-sdk/directory/reference/rest/v1/roleAssignments/insert
+  documentation_links:
+  - https://support.google.com/a/answer/12032922
+  - https://workspaceupdates.googleblog.com/2022/05/sso-profiles-for-multiple-3p-identity-providers.html
+  - https://workspaceupdates.googleblog.com/2024/12/open-beta-single-sign-on-custom-openid-connect-profiles.html
+  - https://cloud.google.com/architecture/identity/federating-gcp-with-active-directory-synchronizing-user-accounts
+  - https://support.google.com/a/answer/7681608
+  - https://developers.google.com/admin-sdk/directory/reference/rest/v1/users/insert
+  - https://developers.google.com/workspace/guides/create-credentials
+  - https://support.google.com/a/answer/14925856
+  - https://support.google.com/a/answer/33312
+  - https://support.google.com/a/answer/7061566
+  - https://developers.google.com/admin-sdk/directory/v1/quickstart/python
+  - https://developers.google.com/admin-sdk/directory/v1/quickstart/nodejs
+  - https://help.okta.com/oie/en-us/content/topics/provisioning/google/google-provisioning.htm
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Enable-SAML-2.0-in-Google-Apps.html
+  - https://cloud.google.com/architecture/identity/okta-provisioning-and-single-sign-on
+  - https://workspace.google.com/intl/en/pricing/
+  - https://github.com/GAM-team/GAM/wiki/
+  - https://github.com/taers232c/GAMADV-XTD3
+  - https://github.com/SCRT-HQ/PSGSuite
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Login audit events are available via the Admin SDK Reports API using
+        applicationName=login; schema includes eventName (e.g., login_success), is_suspicious,
+        actor details, IP, and supports filtering by eventName and parameters.
+      reference: https://developers.google.com/workspace/admin/reports/v1/guides/manage-audit-login
+    role_assignment:
+      value: Role assignment changes are captured in Admin audit logs under Delegated
+        Admin Settings with event ASSIGN_ROLE; parameters include ROLE_NAME, ORG_UNIT_NAME,
+        and USER_EMAIL for the delegated admin.
+      reference: https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-delegated-admin-settings
+    api_call:
+      value: OAuth Token audit logs record third‑party app access and API activity;
+        events include 'activity' with parameters such as api_name and method_name,
+        plus authorize/request/revoke events with app_name, client_id, client_type,
+        and scopes.
+      reference: https://developers.google.com/admin-sdk/reports/v1/appendix/activity/token
+    data_export:
+      value: Export and download actions are auditable. Examples include Admin user
+        list exports (DOWNLOAD_USERLIST_CSV/ DOWNLOAD_USERLIST) and Looker Studio
+        (Data Studio) DATA_EXPORT events, each with parameters describing asset/type/export
+        format.
+      reference: https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-user-settings
+    configuration_change:
+      value: Security and access policy changes are logged under Admin audit 'Security
+        Settings' (e.g., ALLOW/DISALLOW_SERVICE_FOR_OAUTH2_ACCESS, CHANGE_TWO_STEP_VERIFICATION_*
+        , SESSION_CONTROL_SETTINGS_CHANGE, TOGGLE_CAA_ENABLEMENT), including org unit
+        and old/new values.
+      reference: https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-security-settings
+    user_account_creation:
+      value: Administrative user lifecycle actions are logged in Admin audit 'User
+        Settings', including CREATE_USER, DELETE_USER, SUSPEND_USER, UNSUSPEND_USER,
+        and related parameters such as USER_EMAIL and NEW_VALUE/OLD_VALUE.
+      reference: https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-user-settings
+    security_policy_change:
+      value: Changes to security policies (2‑Step Verification settings, OAuth2 API
+        access, Context‑Aware Access toggles, session control) are recorded in Admin
+        audit 'Security Settings' with event names and parameters indicating the specific
+        policy and values.
+      reference: https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-security-settings
+  event_logs_licensing_level:
+    value: Availability depends on feature and edition. The Audit and investigation
+      tool with log event reporting is included in Enterprise Standard and Enterprise
+      Plus. Some Reports API datasets (e.g., Drive activity) note edition limits in
+      API docs; verify per log source when planning.
+    reference: https://support.google.com/a/answer/6043385?co=DASHER._Family%3DEnterprise&hl=en
+  monitoring_products:
+  - value: Splunk Add‑on for Google Workspace collects Admin SDK Reports API data
+      (e.g., admin, login, drive, mobile, chat) and maps to CIM.
+    reference: https://apps.splunk.com/app/5556/
+  - value: Elastic Filebeat Google Workspace module polls the Admin SDK Reports API
+      (admin, login, drive, groups, saml, user_accounts) using service account with
+      domain‑wide delegation.
+    reference: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-google_workspace.html
+  - value: Microsoft Sentinel Google Workspace connector (Azure Functions) ingests
+      Reports API activity (admin, calendar, drive, login, mobile, token, user_accounts)
+      into Log Analytics tables.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/google-workspace-g-suite
+  - value: Sumo Logic Google Workspace Apps Audit Source ingests audit logs via Reports
+      API and watchpoints; documents edition caveats (e.g., Drive audit requires Business/Enterprise
+      for file owners).
+    reference: https://help.sumologic.com/docs/integrations/google/workspace/collect-logs/
+  - value: LogRhythm Google Workspace Beat (Open Collector) leverages Admin SDK Reports
+      API to collect admin, authentication, drive, and token/OAuth events.
+    reference: https://docs.logrhythm.com/OCbeats/docs/google-workspace-beat-formerly-gsuite
+  - value: Graylog Google inputs support Google Workspace via service account/domain‑wide
+      delegation and BigQuery‑backed inputs, polling and ingesting Workspace audit
+      data.
+    reference: https://go2docs.graylog.org/current/getting_in_log_data/google_inputs.html
+  ingestion_methods:
+  - value: REST polling via Admin SDK Reports API activities.list for applications
+      such as login, admin, user_accounts, drive, token; supports filtering, pagination,
+      and 180‑day window.
+    reference: https://developers.google.com/workspace/admin/reports/reference/rest/v1/activities/list
+  - value: Push notifications using activities.watch (webhook channels) to receive
+      event notifications on resource changes, reducing polling.
+    reference: https://developers.google.com/admin-sdk/reports/v1/guides/push
+  - value: BigQuery Export from Admin console to Workspace logs and reports in BigQuery
+      (activity and usage datasets) for supported services and editions.
+    reference: https://support.google.com/cloudidentity/answer/9079365
+  - value: Share audit logs to Google Cloud Logging (Cloud Audit Logs) at organization
+      level; then route via aggregated sinks to BigQuery, Cloud Storage, or Pub/Sub
+      for SIEM ingestion.
+    reference: https://cloud.google.com/logging/docs/audit/configure-gsuite-audit-logs
+  log_export_options:
+    tools_connectors:
+      value: 'Export options include: (a) Admin SDK Reports API (pull via REST; optional
+        push via watch); (b) BigQuery export of Workspace logs and reports from Admin
+        console for supported services; (c) Share to Google Cloud Logging (Cloud Audit
+        Logs) and route to destinations; (d) on‑demand CSV/console downloads for certain
+        admin reports.'
+      reference: https://support.google.com/cloudidentity/answer/9079365
+  documentation_links:
+  - https://developers.google.com/workspace/admin/reports/v1/guides/manage-audit-login
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/login/
+  - https://developers.google.com/workspace/admin/reports/v1/guides/manage-audit-admin
+  - https://developers.google.com/workspace/admin/reports/reference/rest/v1/activities/list
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-event-names
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/user-accounts
+  - https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-user-settings
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/token
+  - https://developers.google.com/workspace/admin/reports/v1/guides/manage-audit-drive
+  - https://developers.google.com/workspace/admin/reports/v1/appendix/activity/admin-security-settings
+  - https://developers.google.com/admin-sdk/reports/v1/guides/push
+  - https://support.google.com/a/answer/7061566
+  - https://support.google.com/a/answer/9322135
+  - https://support.google.com/a/answer/9320190
+  - https://cloud.google.com/logging/docs/audit/gsuite-audit-logging/
+  - https://cloud.google.com/logging/docs/audit/configure-gsuite-audit-logs
+  - https://support.google.com/cloudidentity/answer/9079365
+  - https://workspaceupdates.googleblog.com/2022/05/export-near-real-time-log-data-for-bigquery.html
+  - https://apps.splunk.com/app/5556/
+  - https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-google_workspace.html
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/google-workspace-g-suite
+  - https://help.sumologic.com/docs/integrations/google/workspace/collect-logs/
+  - https://docs.logrhythm.com/OCbeats/docs/google-workspace-beat-formerly-gsuite
+  - https://go2docs.graylog.org/current/getting_in_log_data/google_inputs.html
+  - https://developers.google.com/workspace/admin/reports/v1/appendix/activity/data-studio
+incident_response:
+  suspend_user_api:
+    value: Admin SDK Directory API supports suspending or reactivating a user by updating
+      the users.update endpoint with the "suspended" property set to true/false for
+      the target user.
+    reference: https://developers.google.com/admin-sdk/directory/reference/rest/v1/users/update
+  invalidate_sessions_api:
+    value: Admin SDK Directory API provides users.signOut to programmatically sign
+      a user out of all web and device sessions and reset their sign‑in cookies.
+    reference: https://developers.google.com/admin-sdk/directory/reference/rest/v1/users/signOut
+  revoke_api_key_api:
+    value: Google Workspace doesn’t use per‑user “API keys,” but admins can revoke
+      user-issued OAuth tokens per client via the Directory API Tokens.delete and
+      remove application‑specific passwords (ASPs) via the Directory API ASPS resource;
+      these endpoints enable programmatic revocation of user access credentials.
+    reference: https://developers.google.com/workspace/admin/directory/reference/rest
+  user_toggle_api:
+    value: If full session revocation isn’t used, admins can toggle account access
+      by suspending users via API or Admin console; suspension blocks Workspace access
+      and (per Admin Help) resets sign‑in cookies, effectively logging the user out.
+    reference: https://support.google.com/a/answer/2537800
+  user_status_api:
+    value: Directory API users.get exposes the "suspended" boolean (and other status
+      fields) to programmatically determine if a user is active vs suspended.
+    reference: https://developers.google.com/admin-sdk/directory/reference/rest/v1/users/
+  session_timeout_configuration:
+    value: Session length for Google services is configurable in Admin console (Security
+      > Access and data control > Google Session control). Default is 14 days; admins
+      can set shorter durations. Native mobile apps are not affected; Admin console
+      sessions are fixed at 1 hour. Supported editions are listed in the Help article.
+    reference: https://support.google.com/a/answer/7576830
+  known_automation_tools:
+  - value: GAM (Google Apps Manager) CLI includes commands to sign users out (reset
+      cookies) and turn off 2‑Step Verification; useful for incident response playbooks.
+    reference: https://github.com/GAM-team/GAM/wiki/Users-Signout-Turnoff2SV
+  - value: GAM deprovision workflow automates revoking OAuth tokens, ASPs, backup
+      codes; optional signout and 2SV actions for compromised accounts.
+    reference: https://github.com/GAM-team/GAM/wiki/Users-Deprovision
+  - value: Splunk Add‑on for Google Workspace ingests Admin Reports/Alert Center data
+      via Google Workspace APIs to support investigation and detection content.
+    reference: https://splunkbase.splunk.com/app/5556
+  - value: Microsoft Sentinel Google Workspace connector (using Azure Functions) pulls
+      Reports API events (login, admin, drive, token, etc.) for SOC investigations
+      and rules.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/google-workspace-g-suite
+  - value: Cortex XSOAR “Google Workspace Admin” integration provides actions including
+      gsuite-user-signout and user management for automated response.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/g-suite-admin
+  - value: Splunk SOAR Google Workspace for Drive app exposes actions and investigations
+      against Workspace (Drive) via Admin SDK scopes.
+    reference: https://github.com/splunk-soar-connectors/googleworkspacefordrive
+  - value: Sygnia Cirrus Google Workspace Collector automates collection of Workspace
+      logs, configurations, and Gmail artifacts for IR and threat hunting.
+    reference: https://github.com/SygniaLabs/Cirrus/blob/main/Collectors/collectors/gw/README.md
+  - value: ALFA (Automated Audit Log Forensic Analysis) acquires and analyzes Google
+      Workspace audit logs, mapping to MITRE ATT&CK for investigation automation.
+    reference: https://github.com/invictus-ir/ALFA
+  - value: Google SecOps SOAR integration for Google Workspace includes a “Revoke
+      User Sessions” action to sign out users via Workspace APIs in playbooks.
+    reference: https://cloud.google.com/chronicle/docs/soar/marketplace-integrations/google-workspace
+  - value: Node.js client @googleapis/admin provides official client bindings for
+      Admin SDK (Directory, Reports, etc.) for building custom automation.
+    reference: https://www.npmjs.com/package/%40googleapis/admin
+  documentation_links:
+  - https://developers.google.com/admin-sdk/directory/reference/rest/v1/users/signOut
+  - https://developers.google.com/admin-sdk/directory/reference/rest/v1/users/update
+  - https://developers.google.com/admin-sdk/directory/reference/rest/v1/tokens
+  - https://developers.google.com/admin-sdk/directory/reference/rest/v1/asps/delete
+  - https://developers.google.com/workspace/admin/directory/reference/rest
+  - https://developers.google.com/admin-sdk/alertcenter/reference/rest
+  - https://developers.google.com/admin-sdk/reports/v1/guides/manage-audit-login
+  - https://developers.google.com/admin-sdk/reports/reference/rest/v1/activities/list
+  - https://support.google.com/a/answer/7576830
+  - https://support.google.com/a/answer/33312
+  - https://support.google.com/a/answer/2537800
+  - https://workspaceupdates.googleblog.com/2020/08/new-api-sign-out-2-step-verification-google.html
+  - https://splunkbase.splunk.com/app/5556
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/google-workspace-g-suite
+  - https://xsoar.pan.dev/docs/reference/integrations/g-suite-admin
+  - https://github.com/GAM-team/GAM/wiki/Users-Deprovision
+  - https://github.com/SygniaLabs/Cirrus/blob/main/Collectors/collectors/gw/README.md
+  - https://github.com/invictus-ir/ALFA
+  - https://developers.google.com/admin-sdk/directory/v1/quickstart/python
+  - https://developers.google.com/admin-sdk/directory/v1/quickstart/java

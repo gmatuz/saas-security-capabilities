@@ -1,172 +1,377 @@
-user_management:
-  sso_support:
-    value: SAML and OAuth 2.0
-    reference: https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on
-  sso_licensing_level_requirement:
-    value: GitHub Enterprise Cloud and GitHub Enterprise Server
-    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/managing-iam-for-your-enterprise/about-identity-and-access-management
-  scim_support:
-    value: 'yes'
-    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-scim-for-user-provisioning/about-scim
-  scim_licensing_level_requirement:
-    value: GitHub Enterprise Cloud or GitHub Enterprise Server
-    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-scim-for-user-provisioning/about-scim
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-scim-for-user-provisioning/configuring-scim-provisioning-for-enterprise-managed-users
-  scim_authentication_acquisition_steps: "1. Sign in to GitHub as an enterprise owner.\n2. In the top-right
-    corner, click your profile photo, then click 'Your enterprises'.\n3. In the
-    list of enterprises, click the enterprise you want to view.\n4. In the enterprise
-    account sidebar, click 'Settings'.\n5. In the left sidebar, click 'Developer settings'.\n6.
-    Under 'Developer settings', click 'Personal access tokens'.\n7. Click 'Generate
-    new token'.\n8. Give your token a descriptive name.\n9. Select the 'admin:enterprise'
-    scope for Enterprise Managed Users, or 'admin:org' for organization-level SCIM.\n10.
-    GitHub recommends setting 'No expiration' for the token to prevent SCIM from ceasing
-    to function. [7]\n11. Click 'Generate token' and copy the token to a secure location,
-    as it won't be shown again."
-  user_management_api_support:
-    value: 'yes'
-    reference: https://docs.github.com/en/rest/users/users
-  user_management_api_licensing_level:
-    value: All plans. Core user endpoints are public, but management actions (like
-      adding a user to an organization) require appropriate permissions within an organization
-      or enterprise.
-    reference: https://docs.github.com/en/rest/overview/authenticating-to-the-rest-api
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://docs.github.com/en/rest/overview/authenticating-to-the-rest-api
-  user_management_api_authentication_acquisition_steps: "1. Log in to your GitHub
-    account.\n2. In the top-right corner, click your profile photo, then click 'Settings'.\n3.
-    In the left sidebar, scroll down and click 'Developer settings'. [8]\n4. In the
-    left sidebar, click 'Personal access tokens' and then 'Tokens (classic)' or 'Fine-grained
-    tokens'. GitHub recommends using fine-grained tokens where possible. [9]\n5. Click
-    'Generate new token'.\n6. Give the token a name, set an expiration, and select
-    the required scopes (e.g., 'admin:org' to manage organization members). [27]\n7.
-    Click 'Generate token'.\n8. Copy the token immediately and store it in a secure
-    place. You will not be able to see it again. [27]"
-  seat_costs:
-  - license_level: GitHub Enterprise
-    active:
-      value: 'yes'
-      reference: https://docs.github.com/en/billing/managing-billing-for-your-github-account/about-per-user-pricing
-    suspended_disabled:
-      value: 'no'
-      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-scim-for-user-provisioning/about-scim#about-user-lifecycle-management-with-scim
-    archived:
-      value: 'n/a'
-      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/user-management/managing-users-in-your-enterprise/suspending-and-unsuspending-users
-  lifecycle_options:
-  - When you provision a new user via SCIM, an account is created and an onboarding
-    email is sent. [1]
-  - When you deprovision a user via SCIM, their account is suspended, freeing up a
-    licensed seat. [19]
-  - A suspended user is unable to sign in or push code, and their repositories and
-    gists are hidden. [19]
-  - You can manually suspend a user from the enterprise settings, which also frees
-    up a license.
-  rbac_support:
-    value: 'yes'
-    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/user-management/managing-roles-in-your-enterprise/roles-in-an-enterprise
-  rbac_api_assignment:
-    value: 'Yes, role assignments for organizations and teams can be managed via the
-      REST API.'
-    reference: https://docs.github.com/en/rest/orgs/members#set-organization-membership-for-a-user
+identity_and_access:
   documentation_links:
-  - https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-saml-for-enterprise-iam/about-saml-for-enterprise-iam
-  - https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-scim-for-user-provisioning/about-scim
-  - https://docs.github.com/en/rest
-  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/github-enterprise-managed-user-tutorial
-  - https://help.okta.com/en-us/Content/Topics/Apps/apps-github-enterprise-cloud.htm
-  - https://docs.github.com/en/enterprise-cloud@latest/admin/user-management/managing-users-in-your-enterprise/suspending-and-unsuspending-users
-  - https://docs.github.com/en/rest/orgs/members
-  - https://docs.github.com/en/rest/teams/members#add-or-update-team-membership-for-a-user
+  - https://docs.github.com/en/rest/overview/authenticating-to-the-rest-api
+  - https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+  - https://docs.github.com/en/rest/teams/teams
+  - https://github.com/CodethinkLabs/lifecycle
+  - https://www.youtube.com/watch?v=cFx_6XbiyqE
+  - https://www.youtube.com/watch?v=PbyFCB6Bfkc
+  - https://www.youtube.com/watch?v=7xhPzLdSuJ8
+  - https://www.youtube.com/watch?v=d_k8J-305tI
+  - https://www.youtube.com/watch?v=GjYlRj2_q9s
+  - https://www.youtube.com/watch?v=sO-zV-D_02M
+  - https://www.youtube.com/watch?v=p4v3c_sI71M
+  lifecycle_options:
+  - 'Joiner (onboarding): Equipping new users with accounts and privileges.'
+  - 'Mover: Updating access as responsibilities and roles evolve.'
+  - 'Leaver (offboarding): Revoking access and closing accounts when users depart.'
+  - Active
+  - Pending (for invited users awaiting acceptance)
+  rbac_api_assignment:
+    reference: https://stackoverflow.com/questions/37462323/how-to-add-custom-user-roles-for-a-github-organisation
+    value: yes - Roles and rights can be assigned through API. The REST API allows
+      managing organization memberships (including setting admin/member roles), creating
+      and managing teams, and assigning custom repository roles.
+  rbac_support:
+    reference: hallucinated link doublecheck content
+    value: yes - GitHub supports Role-Based Access Control (RBAC) through organization
+      roles, custom repository roles, and team memberships which can be assigned permissions.
+  scim_authentication_acquisition_steps:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/github-enterprise-managed-user-provisioning-tutorial
+    value: 1. Log in as the admin account that created the GitHub Enterprise account.
+      2. Navigate to the Personal Access Tokens page. 3. Generate a new token with
+      the required SCIM permissions (e.g., scim:enterprise scope). 4. Set the token
+      to never expire per GitHub's recommendation to prevent SCIM disruptions. 5.
+      Save this token securely as it will be used during provisioning setup. Alternatively,
+      for Microsoft Entra ID, an OAuth app integration is leveraged where you select
+      Authorize to connect Microsoft Entra ID to GitHub's SCIM provisioning API.
+  scim_authentication_mechanisms:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/github-enterprise-managed-user-provisioning-tutorial
+    value: Personal Access Token (classic) with scim:enterprise scope, OAuth app integration.
+  scim_licensing_level_requirement:
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim
+    value: SCIM provisioning is available for GitHub Enterprise Cloud customers, specifically
+      for Enterprise Managed Users.
+  scim_support:
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim
+    value: yes - SCIM 2.0 is supported for user provisioning, enabling creation, management,
+      and deactivation of user accounts. It is integrated with IdPs like Okta and
+      Microsoft Entra ID for Enterprise Managed Users.
+  seat_costs:
+  - archived:
+      reference: https://www.okta.com/integrations/github-enterprise-managed-user/
+      value: uncertain - no evidence
+    license_level: Uncertain - specific seat costs are not found in the search results.
+    suspended_disabled:
+      reference: https://www.okta.com/integrations/github-enterprise-managed-user/
+      value: uncertain - no evidence
+  sso_license_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: GitHub Enterprise Cloud is required for SAML single sign-on.
+  sso_support:
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim
+    value: yes - SAML 2.0 with IdPs like Okta and Microsoft Entra ID (formerly Azure
+      AD). OIDC is also mentioned as an SSO method for Microsoft Entra ID.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://berrasari.medium.com/gaining-access-to-github-with-personal-access-tokens-a-step-by-step-guide-91306affc222
+    value: 'To acquire a Personal Access Token: 1. Sign in to your GitHub account.
+      2. Navigate to Settings, then to Developer settings. 3. Click on ''Personal
+      access tokens'' and then ''Generate new token'' (or ''Fine-grained tokens''
+      then ''Generate new token''). 4. Give your token a descriptive name, set an
+      expiration (recommended), and select the desired scopes or permissions (e.g.,
+      ''repo'' scope for broad repository access, or fine-grained permissions for
+      more granular control). 5. Click ''Generate token''. 6. Copy the new personal
+      access token, as it will not be shown again.'
+  user_management_api_authentication_mechanisms:
+    reference: https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api
+    value: Personal Access Tokens (fine-grained and classic), GitHub App user access
+      tokens, GitHub App installation access tokens, and the built-in GITHUB_TOKEN
+      in GitHub Actions workflows. Authentication is typically done using an Authorization
+      header with 'Bearer' or 'token' followed by the token.
+  user_management_api_licensing_level:
+    reference: https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/members
+    value: The REST API for managing organization members, teams, and user information
+      is available to GitHub Enterprise Cloud customers.
+  user_management_api_support:
+    reference: https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/members
+    value: yes - GitHub's REST API can be used to manage organization members (add,
+      remove, list), teams (create, manage), and user-related information. This includes
+      creating and managing users, though direct user creation for GitHub Team via
+      API is not supported (Okta documentation indicates existing GitHub Team users
+      are added to organizations/teams). Fine-grained personal access tokens and classic
+      personal access tokens can be used for API authentication.
 security_monitoring:
+  documentation_links:
+  - https://github.blog/news-insights/product-news/introducing-github-advanced-security-siem-integrations-for-security-professionals/
+  - https://github.blog/changelog/2024-11-21-programmatic-audit-log-configuration-and-multi-endpoint-streaming/
+  - https://docs.panther.com/data-onboarding/supported-logs/github
+  - https://panther.com/integrations/github-logs
+  - https://www.datadoghq.com/blog/monitor-github-datadog-cloud-siem/
+  - https://docs.github.com/en/enterprise-cloud@latest/rest/enterprise-admin/audit-log
+  - https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-security-log
   event_logs:
-    user_login:
-      value: "The audit log records user authentication events, including logins and sessions. Specifically, events with the action category 'session' are recorded. For users authenticating via SAML, an active SAML session is required to access organization resources."
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-enterprise/audit-log-events-for-your-enterprise"
-    role_assignment:
-      value: "The audit log tracks changes to user roles and permissions, such as 'org.update_member' which occurs when an organization member's role is changed. This is crucial for monitoring privilege escalation."
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-enterprise/audit-log-events-for-your-enterprise#org-category-actions"
     api_call:
-      value: "All interactions via the REST and GraphQL APIs are recorded in the audit log. For GitHub Enterprise Cloud, this includes Git events like clone, fetch, and push, which are also accessible via the REST API."
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-enterprise/audit-log-events-for-your-enterprise"
-    data_export:
-      value: "The audit log records when repository data is exported. The log can be exported manually from the UI as a JSON or CSV file. It also captures Git events like clones and fetches."
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/exporting-audit-log-activity-for-your-enterprise"
+      reference: https://docs.github.com/en/enterprise-cloud@latest/rest/enterprise-admin/audit-log
+      value: API requests to an endpoint for the enterprise or an enterprise-owned
+        resource can be included in audit logs if 'API Request Events' is enabled
+        in the enterprise's audit log settings. These events are only available via
+        audit log streaming and provide visibility into API activity within the enterprise,
+        helping to understand API usage, identify misconfigured applications, track
+        authentication tokens, troubleshoot rate limiting, and analyze activity for
+        forensic investigations. Audit log streaming of API requests became generally
+        available on January 13, 2025. There is a rate limit of 1,750 queries per
+        hour per user and IP address for accessing the audit log via the REST API.
     configuration_change:
-      value: "Changes to organization and repository settings are tracked in the audit log. This includes actions like 'repo.create' when a repository is created or 'org.update_member' for role changes. These events provide visibility into administrative actions."
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-enterprise/audit-log-events-for-your-enterprise"
-    user_account_creation:
-      value: "The audit log tracks user account management events, including when a new user is invited to an organization ('org.invite_member'). For organizations using SAML, Just-in-Time (JIT) provisioning can create user accounts automatically."
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-enterprise/audit-log-events-for-your-enterprise#org-category-actions"
+      reference: https://docs.github.com/en/enterprise-server@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/configuring-the-audit-log-for-your-enterprise
+      value: GitHub's audit log details events such as changes to settings and access.
+        This includes changes to IAM or MFA policies, and configuration changes related
+        to GitHub Advanced Security. The retention period for GitHub Actions artifacts
+        and logs can be configured for a GitHub Enterprise Server instance. If IP
+        addresses in GitHub logs are enabled, this can further aid in refining security
+        policies.
+    data_export:
+      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/exporting-audit-log-activity-for-your-enterprise
+      value: An export of the enterprise audit log can be created, and if a query
+        was used, the log will list the query and the number of entries matching it.
+        An export of the enterprise's Git events can also be created. Audit logs can
+        be exported in JSON or CSV format.
+    role_assignment:
+      reference: https://www.datadoghq.com/blog/monitor-github-datadog-cloud-siem/
+      value: GitHub audit logs include events related to changes in roles, such as
+        new admin roles or downgrades of existing admins. For enterprise accounts,
+        events related to an organization being added to an enterprise or a support
+        entitlement being added to a member are logged. Datadog's Cloud SIEM includes
+        detection rules for activities like a GitHub enterprise owner being added.
+        The `business.add_admin` action can trigger security signals for investigation.
     security_policy_change:
-      value: "Changes to security policies, such as enabling SAML authentication, updating repository permissions, or modifying security settings are recorded in the audit log. The 'oauth_authorization.destroy' action is logged when a token is revoked."
-      reference: "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation"
+      reference: hallucinated link doublecheck content
+      value: GitHub audit logs record security policy changes. For an enterprise,
+        an owner can create, update, or remove a policy for GitHub Advanced Security.
+        Changes to IAM or MFA policies are also logged. This provides visibility into
+        modifications of security configurations.
+    user_account_creation:
+      reference: hallucinated link doublecheck content
+      value: GitHub's audit logs for organizations and enterprises include events
+        related to user activities, such as users being added or removed from an organization,
+        repository, or team. For enterprises with Enterprise Managed Users, the audit
+        log also includes user events. This suggests that user account creation for
+        administrative users would be logged.
+    user_login:
+      reference: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-your-security-log
+      value: User login events are included in GitHub's audit logs. For organizations,
+        these logs detail who performed the action, what the action was, and when
+        it was performed. For enterprises, the `business.sso_response` and `org.sso_response`
+        events related to SAML SSO authentication are available via the REST API and
+        audit log streaming. IP addresses associated with logins can be turned on
+        in GitHub logs to help identify suspicious login attempts. Panther, a SIEM,
+        specifically mentions ingesting user logins for security visibility from GitHub
+        organizations. The personal security log also lists instances of sessions
+        being established.
   event_logs_licensing_level:
-    value: "Access to the audit log API and advanced features like audit log streaming is available for GitHub Enterprise Cloud customers. Organizations on other plans can view and export audit logs from the web UI, but API access and streaming require an Enterprise plan."
-    reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-organization"
-  monitoring_products:
-    - value: "Splunk: Offers an add-on and an app to ingest and visualize GitHub audit logs, webhooks, and performance metrics. [3, 42]"
-      reference: "https://github.blog/2022-10-13/introducing-github-advanced-security-siem-integrations-for-security-professionals/"
-    - value: "Microsoft Sentinel: Provides a connector to ingest GitHub audit logs and Advanced Security events for threat detection and response. [3, 12, 18, 20]"
-      reference: "https://github.blog/2022-10-13/introducing-github-advanced-security-siem-integrations-for-security-professionals/"
-    - value: "Datadog: Supports audit log streaming directly from GitHub for monitoring and analysis."
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/streaming-the-audit-log-for-your-enterprise#setting-up-streaming-to-datadog"
-    - value: "Panther: Integrates with GitHub for audit log ingestion via API polling or streaming to enhance security monitoring."
-      reference: "https://panther.com/docs/gcp/panther-gcp-deployment/panther-github-audit-log-gcs-setup/"
-    - value: "Elastic: Offers an integration to ingest GitHub audit and Advanced Security events for analysis within the Elastic Security solution. [3]"
-      reference: "https://github.blog/2022-10-13/introducing-github-advanced-security-siem-integrations-for-security-professionals/"
-    - value: "Sumo Logic: Provides out-of-the-box dashboards and queries to analyze GitHub audit data. [3]"
-      reference: "https://github.blog/2022-10-13/introducing-github-advanced-security-siem-integrations-for-security-professionals/"
+    reference: https://www.youtube.com/watch?v=dP5sfhDX09k
+    value: Access to GitHub's audit logs and streaming capabilities for SIEM integration
+      generally requires a GitHub Enterprise Cloud or GitHub Enterprise Server license.
+      For organizations without an enterprise plan, direct API access for audit logs
+      might not be available, and logs might need to be exported manually via JSON.
+      GitHub Advanced Security (GHAS) is an application security solution that provides
+      data for SIEM integrations. GitHub Actions workflow run events in the audit
+      log are only available to customers on the Enterprise plan. Microsoft Sentinel's
+      'Continuous Threat Monitoring for GitHub' solution works only in licensed GitHub
+      enterprise environments.
   ingestion_methods:
-    - value: "Audit Log Streaming: GitHub Enterprise Cloud allows streaming audit logs to supported endpoints like AWS S3, Google Cloud Storage, Azure Storage Account, and Datadog. [5, 23]"
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/streaming-the-audit-log-for-your-enterprise"
-    - value: "REST API Polling: The audit log can be queried programmatically via the REST API for GitHub Enterprise Cloud customers, allowing for custom integrations with SIEMs. [2, 14]"
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/using-the-audit-log-api-for-your-enterprise"
-    - value: "Webhooks: Can be used to send specific event payloads (e.g., push, pull request) to an external system, though this is not a direct audit log equivalent."
-      reference: "https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks"
-    - value: "Manual Export: Audit logs can be exported as JSON or CSV files directly from the GitHub UI. [2, 4]"
-      reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/exporting-audit-log-activity-for-your-enterprise"
+  - reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+    value: GitHub offers audit log streaming as the primary mechanism for ingesting
+      most platform events at the enterprise level. This allows streaming to external
+      locations such as Amazon S3, Azure Blob Storage, Google Cloud Storage, Splunk,
+      and Datadog. Audit logs can be streamed to two endpoints simultaneously.
+  - reference: https://m.youtube.com/watch?v=dP5sfhDX09k
+    value: The GitHub Audit Log REST API allows fetching audit logs by querying the
+      API. This method is available for organizations and typically requires a personal
+      access token (PAT) with `read:audit_log` or `admin:org` scope. The API has a
+      rate limit of 1,750 queries per hour per user and IP address.
+  - reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+    value: Webhooks can be used to notify a server when specific events occur for
+      a repository, organization, or enterprise. Webhooks are triggered each time
+      a security finding is created, resolved, or marked as closed by a user, and
+      the message contains information about the alert. They are considered an efficient
+      alternative to the audit log or API polling for certain use cases.
+  - reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/exporting-audit-log-activity-for-your-enterprise
+    value: Manual export of audit logs in JSON or CSV format is possible for organizations,
+      particularly those without an enterprise plan.
   log_export_options:
     tools_connectors:
-      value: "Official SIEM connectors are available for Splunk, Microsoft Sentinel, and Elastic. Additionally, third-party tools like Steampipe provide CLI-based querying of audit logs. [3, 40]"
-      reference: "https://github.blog/2022-10-13/introducing-github-advanced-security-siem-integrations-for-security-professionals/"
-  documentation_links:
-    - "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-enterprise/about-the-audit-log-for-your-enterprise"
-    - "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/streaming-the-audit-log-for-your-enterprise"
-    - "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/using-the-audit-log-api-for-your-enterprise"
-    - "https://github.blog/2022-10-13/introducing-github-advanced-security-siem-integrations-for-security-professionals/"
-    - "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-the-audit-log-for-your-enterprise/audit-log-events-for-your-enterprise"
+      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+      value: GitHub provides a REST API for programmatic access to audit log streaming
+        configuration, allowing creation, update, deletion, and listing of audit log
+        streams. This includes endpoints for retrieving streaming configurations and
+        obtaining a stream key for encrypting secrets. Supported streaming endpoints
+        include Azure Blob Storage, Azure Event Hubs, Amazon S3, Splunk, Google Cloud
+        Storage, and Datadog. Webhooks are another option for event notification.
+        For organizations without an enterprise plan, a manual JSON export option
+        for audit logs is available.
+  monitoring_products:
+  - reference: https://www.youtube.com/watch?v=oASCxWDTAQo
+    value: Splunk integrates with GitHub Advanced Security (GHAS) data. There is a
+      GitHub app for Splunk and a GitHub add-on for Splunk to embed data within Splunk
+      dashboards, allowing visualization and correlation of audit log data.
+  - reference: https://techcommunity.microsoft.com/blog/microsoftsentinelblog/how-to-set-up-sentinel-data-connectors-for-kubernetes-and-github/4068994
+    value: Microsoft Sentinel offers a cloud-native SIEM/SOAR platform with a GitHub
+      integration available through the `sentinel4github` solution in the Azure Marketplace.
+      This solution provides connectors to ingest GitHub audit logs and GitHub Advanced
+      Security events. It includes data connectors for GitHub Enterprise Audit Log
+      and GitHub (using Webhooks) for scan data. Azure Logic Apps or Azure Functions
+      can be used for custom connectors. Sentinel can detect anomalies like unusual
+      login patterns and offers automated playbooks.
+  - reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+    value: Datadog Cloud SIEM integrates with GitHub to monitor activity in real-time.
+      It ingests and normalizes audit logs streamed from GitHub and includes out-of-the-box
+      detection rules for suspicious activities like a GitHub enterprise owner being
+      added, anomalous repository cloning, or SSH keys added by suspicious IP addresses.
+  - reference: https://github.blog/news-insights/product-news/introducing-github-advanced-security-siem-integrations-for-security-professionals/
+    value: Elastic Security integrates with GitHub to ingest audit events and GitHub
+      Advanced Security events. It provides a set of visualizations, dashboards, and
+      predefined searches.
+  - reference: https://github.blog/news-insights/product-news/introducing-github-advanced-security-siem-integrations-for-security-professionals/
+    value: Sumo Logic integrates with GitHub for security monitoring.
+  - reference: https://panther.com/integrations/github-logs
+    value: Panther is a cloud-native SIEM that integrates with GitHub. It can fetch
+      GitHub audit logs by querying the GitHub API (for organization level) or ingest
+      logs via GitHub's audit log streaming feature (for enterprise level) using AWS
+      S3 or Google Cloud Storage. Panther ingests relevant activities such as user
+      logins, data access, and changes to security configurations.
+  - reference: https://slashdot.org/software/siem/for-github/
+    value: Abstract Security is an AI-driven security data management platform that
+      streamlines data operations with noise reduction, AI-based normalization, and
+      advanced threat analytics on live streaming data, and is listed as a SIEM software
+      for GitHub.
 incident_response:
-  suspend_user_management_api:
-    value: "The GitHub Enterprise Server API allows site administrators to suspend user accounts via a PUT request to `/api/v3/users/{username}/suspended`. Suspended users cannot sign in or interact with repositories."
-    reference: "https://docs.github.com/en/enterprise-server@3.12/rest/enterprise-admin/users#suspend-a-user"
-  invalidate_sessions_api:
-    value: "While there isn't a direct API endpoint to invalidate all user sessions, revoking a user's access via SAML, removing them from an organization, or suspending the user will effectively invalidate their sessions for organization resources. For SAML, session duration can be configured in the IdP."
-    reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/authenticating-users-to-your-enterprise/about-authentication-for-your-enterprise"
-  revoke_api_key_api:
-    value: "A specific Personal Access Token (PAT) can be revoked by deleting it through the UI. Organization owners can also revoke fine-grained PATs. A REST API endpoint POST /credentials/revocations is available to revoke exposed tokens. [24, 15]"
-    reference: "https://docs.github.com/en/rest/apps/installations#revoke-an-installation-access-token"
-  user_toggle_api:
-    value: "For GitHub Enterprise Server, site administrators can suspend and unsuspend users via the API, which serves as a toggle for user access. [6, 33]"
-    reference: "https://docs.github.com/en/enterprise-server@3.12/rest/enterprise-admin/users#suspend-a-user"
-  user_status_api:
-    value: "The REST API allows checking if a user is blocked by an organization (`GET /orgs/{org}/blocks/{username}`). For Enterprise Managed Users, SCIM APIs can be used to check user status. For Enterprise Server, you can check if a user is suspended."
-    reference: "https://docs.github.com/en/rest/orgs/blocking#check-if-a-user-is-blocked-by-an-organization"
-  session_timeout_configuration:
-    value: "For organizations using SAML SSO, the session duration is controlled by the `SessionNotOnOrAfter` attribute asserted by the Identity Provider (IdP). By default, GitHub invalidates a session after 24 hours if this is not specified. A minimum of 4 hours is recommended. [10]"
-    reference: "https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-saml-for-enterprise-iam/saml-configuration-reference#session-duration-and-timeout"
-  known_automation_tools:
-    - value: "GitHub Actions: Can be used to automate incident response workflows, such as running scripts to revoke tokens or alert security teams based on specific triggers."
-      reference: "https://github.com/features/actions"
-    - value: "SOAR Platforms (e.g., Microsoft Sentinel, Splunk SOAR): Integrate with GitHub to automate response actions, such as locking down a repository or revoking access when a threat is detected. [18]"
-      reference: "https://www.linkedin.com/pulse/securing-your-github-repositories-microsoft-azure-sentinel-group-x8lxf"
-    - value: "Open Source IR Frameworks: Tools like TheHive, FIR, or custom scripts can leverage GitHub's APIs to automate incident response tasks. [30]"
-      reference: "https://github.com/meirwah/awesome-incident-response"
   documentation_links:
-    - "https://docs.github.com/en/rest/orgs/members#remove-an-organization-member"
-    - "https://docs.github.com/en/enterprise-server@3.12/rest/enterprise-admin/users#suspend-a-user"
-    - "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/reviewing-and-revoking-personal-access-tokens-in-your-organization"
-    - "https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-saml-for-enterprise-iam/about-authentication-with-saml-single-sign-on"
-    - "https://github.blog/2024-04-29-credential-revocation-api-to-revoke-exposed-pats-is-now-generally-available/"
+  - http://docs2.lfe.io/v3/users/administration/
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/reviewing-and-revoking-personal-access-tokens-in-your-organization
+  - https://devodocs.refined.site/space/latest/992156140/GitHub+SOAR+Integration
+  - https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation
+  - https://github.blog/news-insights/product-news/introducing-github-advanced-security-siem-integrations-for-security-professionals/
+  - https://panther.com/integrations/github-logs
+  - https://www.datadoghq.com/blog/monitor-github-datadog-cloud-siem/
+  - https://github.com/certsocietegenerale/FIR
+  - https://github.com/meirwah/awesome-incident-response
+  - https://github.blog/security/application-security/application-security-orchestration-with-github-advanced-security/
+  - https://www.coalitioninc.com/blog/security-labs/centralizing-security-automation-github-reusable-actions
+  - https://www.docker.com/blog/mcp-horror-stories-github-prompt-injection/
+  invalidate_sessions_api:
+    reference: https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation
+    value: Uncertain. While GitHub provides mechanisms to revoke Personal Access Tokens
+      and OAuth tokens, and session timeouts can be configured, there is no explicit
+      API documentation found to programmatically invalidate all active user sessions
+      without suspending the user or revoking their tokens. Revoking an OAuth token
+      will revoke any tokens associated with the app and invalidate them. [13]
+  known_automation_tools:
+  - reference: https://devodocs.refined.site/space/latest/992156140/GitHub+SOAR+Integration
+    value: Devo SOAR has a GitHub integration that provides an action to get the list
+      of organization-public activities performed by a user. It connects using a GitHub
+      username and Personal Access Token. [4]
+  - reference: https://xsoar.pan.dev/docs/reference/integrations/git-hub
+    value: Cortex XSOAR offers a GitHub integration that allows configuration using
+      a personal access token or by creating a GitHub App. It supports fetching incidents
+      and can access various permissions like Pull requests, Checks, Security events,
+      and Commit statuses. [21, 24]
+  - reference: https://help.splunk.com/en/splunk-soar/soar-cloud/administer-soar-cloud/configure-administration-settings-in-splunk-soar-cloud/configure-a-source-control-repository-for-your-splunk-soar-cloud-playbooks
+    value: Splunk SOAR enables saving playbooks in Git repositories, including GitHub,
+      for importing/exporting playbooks and sharing facilities between Splunk SOAR
+      instances. [39, 40]
+  - reference: https://github.blog/news-insights/product-news/introducing-github-advanced-security-siem-integrations-for-security-professionals/
+    value: Microsoft Sentinel, a cloud-native SIEM/SOAR platform, provides a GitHub
+      integration through the 'sentinel4github' solution in the Azure Marketplace.
+      It offers connectors to ingest GitHub audit logs and GitHub Advanced Security
+      events. [16]
+  - reference: https://github.blog/news-insights/product-news/introducing-github-advanced-security-siem-integrations-for-security-professionals/
+    value: Elastic Security integrates with GitHub to ingest audit events and GitHub
+      Advanced Security events, providing visualizations, dashboards, and predefined
+      searches. [16]
+  - reference: https://www.datadoghq.com/blog/monitor-github-datadog-cloud-siem/
+    value: Datadog Cloud SIEM can ingest and normalize GitHub audit logs in real-time,
+      providing detection rules to identify suspicious activities like anomalous repository
+      cloning or adding new enterprise administrators. [19]
+  - reference: https://panther.com/integrations/github-logs
+    value: Panther, a cloud-native SIEM, can collect, normalize, and monitor GitHub
+      logs by querying the GitHub API for Organization accounts or leveraging audit
+      log streaming via AWS S3 or Google Cloud Storage for Enterprise accounts. [20]
+  - reference: https://aimultiple.com/open-source-incident-response
+    value: n8n is a flexible AI workflow automation platform that integrates with
+      over 500 applications, including GitHub, and can be used for security operations
+      to enrich security incident tickets. It allows for building multi-step AI agents
+      and automating API calls. [12, 37]
+  - reference: https://github.com/certsocietegenerale/FIR
+    value: FIR (Fast Incident Response) is an open-source cybersecurity incident management
+      platform designed for CSIRTs, CERTs, and SOCs. It allows for easy creation,
+      tracking, and reporting of cybersecurity incidents and is written in Python
+      using Django. [2, 10]
+  - reference: https://aimultiple.com/open-source-incident-response
+    value: Wazuh is an open-source XDR and SIEM solution that provides threat detection
+      and incident response capabilities, including intrusion detection, log data
+      analysis, and file integrity monitoring. [12, 32]
+  - reference: https://aimultiple.com/open-source-incident-response
+    value: TheHive Project is a publicly available security incident response platform
+      for security analysts in SOCs and CSIRTs to track, investigate, and respond
+      to security events. It enables collaboration and the creation of tasks from
+      templates. [12]
+  - reference: https://grafana.com/
+    value: Grafana OnCall provides flexible on-call management and routine task automation
+      for incidents. [35]
+  - reference: https://www.stepsecurity.io/blog/github-actions-security-automation-for-private-repositories
+    value: StepSecurity's orchestration platform automates GitHub Actions security
+      for CI/CD pipelines, scanning code, suggesting improvements, and integrating
+      essential security tools like SAST, SCA, and secret scanning. [17]
+  - reference: https://github.com/meirwah/awesome-incident-response
+    value: A curated list on GitHub, 'meirwah/awesome-incident-response', includes
+      various tools and resources for security incident response, such as all-in-one
+      tools, evidence collection tools, log analysis, memory analysis, and playbooks.
+      [2]
+  - reference: https://github.com/VersusControl/versus-incident
+    value: VersusControl/versus-incident is an open-source incident management tool
+      on GitHub supporting multi-channel alerting, customizable messages, and on-call
+      integrations, compatible with any tool supporting webhook alerts. [22]
+  - reference: https://github.com/paulveillard/cybersecurity-SOAR
+    value: paulveillard/cybersecurity-SOAR is a GitHub repository that collects frameworks,
+      libraries, tutorials, and resources about Security Orchestration, Automation
+      and Response (SOAR). [34]
+  - reference: https://github.blog/security/application-security/application-security-orchestration-with-github-advanced-security/
+    value: GitHub Advanced Security (GHAS) embeds security testing into workflows,
+      helping prevent and fix vulnerabilities and secret leaks. It allows seamless
+      integration of open-source and third-party testing tools using GitHub Actions.
+      [11, 14]
+  revoke_api_key_api:
+    reference: https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/reviewing-and-revoking-personal-access-tokens-in-your-organization
+    value: GitHub allows programmatic revocation of fine-grained personal access tokens
+      by organization owners using the REST API. These endpoints can only be called
+      by GitHub Apps, not by personal access tokens or OAuth apps. [3] Personal Access
+      Tokens (PATs) can be revoked by the user through the UI. [5, 30] GitHub automatically
+      revokes OAuth and personal access tokens that haven't been used in a year. [6,
+      15] If a valid OAuth token, GitHub App token, or personal access token is pushed
+      to a public repository or public gist, the token will be automatically revoked.
+      [13] A third party can submit a revocation request for a personal access token
+      they do not own through the REST API. [13] OAuth tokens can be revoked using
+      the Client ID and Client Secret of the OAuth application. [27, 44]
+  session_timeout_configuration:
+    reference: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/token-expiration-and-revocation
+    value: Personal Access Tokens (PATs) can be set with expiration dates, including
+      options for 7 days, 30 days, 90 days, or a custom date, or no expiration. [5,
+      30, 45] GitHub also automatically removes PATs that haven't been used in a year.
+      [15] User access tokens created by a GitHub App expire after eight hours by
+      default but can optionally be configured to never expire (not recommended).
+      [6] GitHub Actions default GITHUB_TOKEN expires when a job finishes or after
+      a maximum of 24 hours. [9]
+  suspend_user_api:
+    reference: http://docs2.lfe.io/v3/users/administration/
+    value: GitHub Enterprise Cloud allows suspending a user via the REST API. This
+      API is disabled for GitHub Enterprise instances with LDAP Sync enabled, and
+      users managed by an external account cannot be suspended via the API. You cannot
+      suspend your own account. When calling this endpoint, Content-Length must be
+      set to zero. [7]
+  user_status_api:
+    reference: https://stackoverflow.com/questions/60340798/github-enterprise-api-determine-if-a-user-is-dormant
+    value: Uncertain. While there are methods to monitor user activity through audit
+      logs which can be ingested by SIEM tools, and there is an API to suspend users,
+      there is no direct API documented to check if a user is 'active' (can log in)
+      versus suspended, disabled, or non-existent. A Stack Overflow discussion from
+      2020 indicates it's not possible to determine if a user is dormant via the GitHub
+      API. [36]
+  user_toggle_api:
+    reference: http://docs2.lfe.io/v3/users/administration/
+    value: Suspending a user is possible via API for GitHub Enterprise Cloud. [7]
+      If LDAP Sync is enabled or SCIM provisioning is used, user suspension must be
+      managed through the identity provider. [31] While suspending a user can disable
+      their access, it is not explicitly stated if this action invalidates active
+      sessions as a direct 'toggle' or if it's a consequence of the suspension. There
+      is no explicit API for toggling user status that directly addresses session
+      invalidation outside of suspension or token revocation.

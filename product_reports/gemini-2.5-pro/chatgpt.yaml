@@ -1,150 +1,126 @@
-user_management:
-  sso_support:
-    value: Yes, via SAML 2.0.
-    reference: https://help.openai.com/en/articles/9174542-configuring-sso-for-chatgpt
-  sso_licensing_level_requirement:
-    value: ChatGPT Enterprise or ChatGPT Edu.
-    reference: https://help.openai.com/en/articles/9174542-configuring-sso-for-chatgpt
-  scim_support:
-    value: 'yes'
-    reference: https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
-  scim_licensing_level_requirement:
-    value: ChatGPT Enterprise.
-    reference: https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
+identity_and_access:
+  scim_authentication_acquisition_steps:
+    reference: hallucinated link doublecheck content
+    value: SCIM integration setup for ChatGPT Enterprise is enabled by ChatGPT users
+      with Owner access in the Identity and Provisioning tab, guiding them through
+      the WorkOS portal. For example, when integrating with Okta, the process involves
+      configuring SAML in OpenAI by accessing the Identity & Provisioning settings
+      in the ChatGPT workspace, adding SAML SSO, and pasting the SSO URL and X.509
+      Signing Certificate from the IdP.
   scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://internet2.edu/wp-content/uploads/2024/07/Grouper-provisioning-SCIM-for-OpenAI-ChatGPT-Internet2-Wiki.pdf
-  scim_authentication_acquisition_steps: "1. Log in to the ChatGPT admin console.\n2. Navigate to 'Manage
-    Workspace' > 'Identity & Provisioning'.\n3. Select 'Directory Sync' and choose
-    to set up SCIM.\n4. Follow the setup wizard which will provide a SCIM API endpoint
-    URL and a bearer token for authentication."
+    reference: https://github.com/open-webui/open-webui
+    value: Uncertain. While SCIM supports integration with various IDPs, specific
+      authentication mechanisms (e.g., OAuth, API keys, Basic Auth) for the SCIM endpoint
+      are not explicitly detailed in the provided documentation for ChatGPT. For Okta
+      SCIM integration, common methods include Basic Auth with username/password or
+      HTTP Header with a bearer token.
+  scim_licensing_level_requirement:
+    reference: https://blockchain.news/news/openai-introduces-new-compliance-administrative-tools-chatgpt-enterprise
+    value: SCIM support is available for ChatGPT Enterprise.
+  scim_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SCIM (System for Cross-domain Identity Management) v2 is supported
+      for automated provisioning and deprovisioning of user accounts in ChatGPT Enterprise.
+      It is currently in beta with broader availability. It supports Okta, Entra ID
+      (Azure AD), Google Workspace, PingFederate, OneLogin, Rippling, and custom SCIM
+      implementations, as well as SFTP endpoint for CSV file provisioning. Group syncing
+      via SCIM is also supported.
+  sso_license_level_requirement:
+    reference: https://help.openai.com/en/articles/9534785-configuring-sso-for-chatgpt
+    value: Team, Enterprise, or Edu ChatGPT Workspace are required for SSO setup.
+      For API Platform, a Custom/Enterprise Billing Plan is necessary.
+  sso_support:
+    reference: https://help.openai.com/en/articles/9534785-configuring-sso-for-chatgpt
+    value: yes - SAML authentication for ChatGPT Enterprise and API Platform, supporting
+      IdPs like Okta, Azure Active Directory/Entra ID, and Google Workspace. Both
+      SP-Initiated and IdP-Initiated logins are supported. Social login via Google,
+      Microsoft, and Apple is also supported for non-enforced SSO scenarios.
   user_management_api_support:
-    value: 'no'
-    reference: https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
-  user_management_api_licensing_level:
-    value: n/a
-    reference: ''
-  user_management_api_authentication_mechanisms:
-    value: n/a
-    reference: ''
-  user_management_api_authentication_acquisition_steps: User management is handled through
-    a SCIM integration, not a separate user management API. Manual user management
-    is available in the admin console. [12]
-  seat_costs:
-  - license_level: ChatGPT Enterprise
-    active:
-      value: 'yes'
-      reference: https://www.techtarget.com/searchenterpriseai/tip/ChatGPT-Enterprise-pricing-features-and-limitations
-    suspended_disabled:
-      value: 'no'
-      reference: https://community.atlassian.com/t5/Atlassian-Access-articles/Deactivated-vs-Suspended-User/ba-p/2422003
-    archived:
-      value: n/a
-      reference: ''
-  lifecycle_options:
-  - create
-  - deactivate
-  - delete
-  - suspend
-  rbac_support:
-    value: 'yes'
-    reference: https://help.openai.com/en/articles/8243678-what-is-the-difference-between-different-roles-on-my-chatgpt-enterprise-workspace
-  rbac_api_assignment:
-    value: 'Uncertain. While SCIM manages user provisioning (create/deactivate), it
-      is not explicitly stated in the documentation whether role assignments (Member,
-      Admin, Owner) can be managed via the SCIM API. One source notes that it does
-      not appear SCIM can manage if a user is an admin or not. [17]'
-    reference: https://internet2.edu/wp-content/uploads/2024/07/Grouper-provisioning-SCIM-for-OpenAI-ChatGPT-Internet2-Wiki.pdf
-  documentation_links:
-  - https://help.openai.com/en/collections/8542330-chatgpt-enterprise
-  - https://help.openai.com/en/articles/9174542-configuring-sso-for-chatgpt
-  - https://help.openai.com/en/articles/8542347-openai-chatgpt-scim-integration-faq
-  - https://help.openai.com/en/articles/8243678-what-is-the-difference-between-different-roles-on-my-chatgpt-enterprise-workspace
-  - https://help.openai.com/en/articles/9218981-getting-started-with-identity-and-provisioning-in-chatgpt-enterprise
-  - https://www.okta.com/integrations/openai-chatgpt/
-  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/openai-tutorial
+    value: yes - ChatGPT Enterprise offers an admin console with bulk member management.
+      While a distinct 'user management API' (separate from SCIM) isn't explicitly
+      detailed with endpoints, the OpenAI API supports API keys for authentication
+      and allows sending requests to OpenAI's models, which implies programmatic interaction
+      capabilities. The SCIM integration itself provides automated provisioning and
+      deprovisioning, acting as a user management API.
 security_monitoring:
   event_logs:
-    user_login:
-      value: "session:login, session:logout, session:login_failure. These events track successful and failed user authentication attempts."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-    role_assignment:
-      value: "member:role_changed. This event is logged when an administrator changes a user's role (e.g., from member to admin)."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
     api_call:
-      value: "Not explicitly available. Audit logs capture metadata about ChatGPT usage such as conversation creation/deletion and GPT creation/modification, but do not provide detailed logs of user prompts or API-like calls within the web interface."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
+      reference: https://help.openai.com/en/articles/9261474-compliance-apis-for-enterprise-customers
+      value: The Compliance API for Enterprise customers provides access to logs and
+        metadata from your ChatGPT workspace. [1] Additionally, all authenticated
+        requests to this API are logged for security and compliance purposes. [1]
+        The Audit Log API tracks the lifecycle of API Keys, including creation, updates,
+        and deletion. [20] Datadog's integration with OpenAI monitors OpenAI API usage
+        patterns, costs, and performance, including tracking API error rates and response
+        times. [8, 10, 11]
     data_export:
-      value: "export:created. This event is logged when an administrator exports workspace data, such as conversations."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-    configuration_change:
-      value: "workspace_settings:setting_changed, sso:saml_configuration_saved, domain:validation_succeeded. These events track changes to workspace settings, including authentication, domains, and other administrative configurations."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-    user_account_creation:
-      value: "member:added. This event is logged when a new user is successfully added to the workspace."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-    security_policy_change:
-      value: "retention_policy:created, retention_policy:updated, retention_policy:deleted. These events track the creation, modification, and deletion of data retention policies within the enterprise account."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-  event_logs_licensing_level:
-    value: "ChatGPT Enterprise"
-    reference: "https://openai.com/enterprise"
-  monitoring_products:
-    - value: "Splunk (via Splunkbase Add-on for OpenAI)"
-      reference: "https://splunkbase.splunk.com/app/6985"
-    - value: "Datadog (for OpenAI API monitoring)"
-      reference: "https://www.datadoghq.com/blog/monitor-openai-usage/"
-    - value: "Microsoft Sentinel (via custom data connector)"
-      reference: "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/monitoring-and-protecting-openai-workloads-with-microsoft/ba-p/3965961"
-    - value: "Panther"
-      reference: "https://panther.com/partners/openai/"
-  ingestion_methods:
-    - value: "Manual CSV Export from Admin Console"
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-    - value: "Log Export API (for Enterprise)"
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-  log_export_options:
-    tools_connectors:
-      value: "Official support for direct SIEM connectors is not broadly available; the primary methods are manual CSV export or developing a custom integration against the Log Export API. Some SIEMs have connectors for the OpenAI API platform, which is distinct from ChatGPT Enterprise audit logs."
-      reference: "https://help.openai.com/en/articles/8502929-audit-logs"
-  documentation_links:
-    - "https://help.openai.com/en/articles/8502929-audit-logs"
-    - "https://openai.com/enterprise"
-    - "https://platform.openai.com/docs/api-reference/organizations/list-members"
-    - "https://help.openai.com/en/articles/8502902-chatgpt-enterprise-data-privacy-security"
-    - "https://trust.openai.com/"
-    - "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/monitoring-and-protecting-openai-workloads-with-microsoft/ba-p/3965961"
-    - "https://www.panther.com/blog/how-to-monitor-openai-audit-logs-with-panther/"
+      value: The Enterprise Compliance API allows workspace owners to audit and manage
+        their ChatGPT Enterprise workspace data efficiently, including detailed records
+        of time-stamped interactions and uploaded files. [2] Microsoft Purview can
+        scan ChatGPT Enterprise workspaces to identify messages and supports extracting
+        technical metadata, including text prompts and responses. [27] Palo Alto Networks
+        integration with ChatGPT Enterprise provides visibility into sensitive data,
+        including conversations and metadata used to build custom GPTs, allowing identification
+        of potential data exposure risks. [25]
+    role_assignment:
+      reference: https://www.ainews.com/p/new-compliance-and-administrative-tools-for-chatgpt-enterprise
+      value: The Audit Log API provides visibility into changes in OpenAI Organizations,
+        including the lifecycle of Users and Service Accounts, which encompasses role
+        assignment and changes. [20]
+    user_login:
+      reference: https://help.openai.com/en/articles/9261474-compliance-apis-for-enterprise-customers
+      value: ChatGPT Enterprise provides audit logs that allow workspace admins to
+        access a detailed record of time-stamped interactions, including workspace
+        users, and can track login and logout failures. [2, 4, 20]
 incident_response:
-  suspend_user_management_api:
-    value: "Yes, via user removal. The API endpoint DELETE /v1/organizations/{organization_id}/members/{member_id} removes a member from the organization, effectively revoking their access to ChatGPT Enterprise."
-    reference: "https://platform.openai.com/docs/api-reference/organizations/remove-member"
-  invalidate_sessions_api:
-    value: "Not Available. There is no documented API endpoint to programmatically invalidate a user's active web session. The primary remediation is to remove the user from the organization and/or their SSO identity provider."
-    reference: "https://platform.openai.com/docs/api-reference"
-  revoke_api_key_api:
-    value: "Not Applicable. API keys are associated with the OpenAI API Platform, not individual ChatGPT Enterprise user accounts for their web session access. API keys used by the organization can be managed in the platform settings."
-    reference: "https://platform.openai.com/docs/guides/production-best-practices/api-key-safety"
-  user_toggle_api:
-    value: "No, user status cannot be toggled on/off. The only available action via the API is permanent removal of the user from the organization."
-    reference: "https://platform.openai.com/docs/api-reference/organizations/remove-member"
-  user_status_api:
-    value: "Yes. The endpoint GET /v1/organizations/{organization_id}/members allows you to list all members of an organization to verify their status and role."
-    reference: "https://platform.openai.com/docs/api-reference/organizations/list-members"
-  session_timeout_configuration:
-    value: "Yes. ChatGPT Enterprise admins can configure session timeouts for the web interface, forcing users to re-authenticate after a set period. This is configured in the admin settings, not via an API."
-    reference: "https://help.openai.com/en/articles/8502902-chatgpt-enterprise-data-privacy-security"
-  known_automation_tools:
-    - value: "Palo Alto Networks XSOAR (via OpenAI pack)"
-      reference: "https://cortex.marketplace.pan.dev/details/OpenAI/"
-    - value: "Splunk SOAR (via OpenAI App)"
-      reference: "https://splunkbase.splunk.com/app/6837"
-    - value: "Custom Scripts (Python, etc.) using the OpenAI Platform API"
-      reference: "https://github.com/openai/openai-python"
   documentation_links:
-    - "https://platform.openai.com/docs/api-reference/organizations"
-    - "https://help.openai.com/en/articles/8502902-chatgpt-enterprise-data-privacy-security"
-    - "https://platform.openai.com/docs/guides/production-best-practices"
-    - "https://trust.openai.com/documents/openai-api-data-usage-faq"
-    - "https://cortex.marketplace.pan.dev/details/OpenAI/"
-    - "https://github.com/openai"
+  - https://promptsty.com/prompts-for-incident-response/
+  - https://www.brainchat.ai/blog/chatgpt-enterprise
+  - https://ttms.com/how-does-chatgpt-support-cybersecurity-and-risk-management/
+  - https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDCh5m2dJdGwNVxqcWu9a8gCWYFVtXwvLAG8FjqVm8xcQKxc_ljS4ItIdWhetuVWPFPUFVFtLJFoFTcvXupZ4paz84MH1Lr5ot_hoWP5oF64wChymoqvvrFhBPR5cuF8wW8en07zdQKCWQPa4CfLkB0h4cqZT5ErupcbwYG4fTZn2JWcSfdfaZIIJLLUwPDoQ3MtNgfWEzElV7jD2vKJarC_ox79bmmLHTnDdXgVh6uA==
+  - https://www.sentinelone.com/cybersecurity-101/data-and-ai/chatgpt-security-risks/
+  - https://www.darktrace.com/blog
+  - https://explodingtopics.com/blog/chatgpt-enterprise
+  - https://www.youtube.com/watch?v=OOZ_9KlRdwA
+  - https://www.safetydetectives.com/news/openai-admits-to-data-breach-and-security-concerns-in-chatgpt/
+  - https://www.cyware.com/blog/technical-blog-series-chatgpt-signals-transformative-possibilities-for-soar-and-tip-solutions-7f55
+  - https://pipedream.com/integrations/chat-with-responses-api-with-openai-chatgpt-api-on-new-or-updated-incident-from-pagerduty-api-int_xOsG8bLR
+  - https://www.sentinelone.com/cybersecurity-101/data-and-ai/chatgpt-security-risks/
+  invalidate_sessions_api:
+    reference: https://www.byteplus.com/en/topic/547724
+    value: uncertain
+  known_automation_tools:
+  - reference: https://ttms.com/how-does-chatgpt-support-cybersecurity-and-risk-management/
+    value: ChatGPT can be integrated with Security Information and Event Management
+      (SIEM) systems to process log data and provide analysis and recommendations
+      for enhanced protection.
+  - reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDCh5m2dJdGwNVxqcWu9a8gCWYFVtXwvLAG8FjqVm8xcQKxc_ljS4ItIdWhetuVWPFPUFVFtLJFoFTcvXupZ4paz84MH1Lr5ot_hoWP5oF64wChymoqvvrFhBPR5cuF8wW8en07zdQKCWQPa4CfLkB0h4cqZT5ErupcbwYG4fTZn2JWcSfdfaZIIJLLUwPDoQ3MtNgfWEzElV7jD2vKJarC_ox79bmmLHTnDdXgVh6uA==
+    value: LogPoint SOAR offers a ChatGPT integration that allows users to explore
+      its potential in cybersecurity, including automating breach report generation
+      and creating executive summaries.
+  - reference: https://medium.com/@manibharathi.b/integrating-microsoft-sentinel-incident-response-with-an-ai-model-885a5c835fce
+    value: Microsoft Sentinel (a cloud-native SIEM and SOAR system) can be integrated
+      with ChatGPT through playbooks, using the OpenAI API key to get remediation
+      suggestions for incidents.
+  - reference: https://www.tekstream.com/blog/splunk-x-chatgpt-for-security-teams/
+    value: ChatGPT can be used to generate Splunk SOAR automation scripts in Python,
+      providing a starting point for users to modify and deploy.
+  - reference: https://pollthepeople.app/custom-gpt-incident-management/
+    value: CustomGPT.ai can automate incident detection and logging, categorize issues,
+      and suggest solutions in real-time within incident management processes.
+  revoke_api_key_api:
+    reference: hallucinated link doublecheck content
+    value: uncertain
+  session_timeout_configuration:
+    reference: https://medium.com/@itsaithomas/chatgpt-enterprise-for-businesses-is-here-all-features-how-to-access-it-61c697cd1836
+    value: ChatGPT Enterprise allows users to control data retention duration, and
+      any deleted conversations are removed from systems within 30 days.
+  suspend_user_api:
+    reference: https://www.quora.com/Can-Chat-GPT-suspend-an-account-for-heavy-chat-usage
+    value: uncertain
+  user_status_api:
+    reference: https://www.youtube.com/watch?v=A18HuLr-av8
+    value: uncertain
+  user_toggle_api:
+    reference: https://help.openai.com/en/articles/10875114-user-analytics-for-chatgpt-enterprise-and-edu
+    value: uncertain

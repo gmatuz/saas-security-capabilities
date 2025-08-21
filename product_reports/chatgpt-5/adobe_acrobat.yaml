@@ -1,0 +1,267 @@
+identity_and_access:
+  sso_support:
+    value: yes — Adobe Admin Console supports SSO for logging into Acrobat/Adobe services
+      via SAML 2.0 (multiple IdPs such as Okta, ADFS, Ping) and Microsoft Entra ID
+      using OpenID Connect (OIDC).
+    reference: https://helpx.adobe.com/enterprise/using/sso-setup-azure.html
+  sso_license_level_requirement:
+    value: Teams and Enterprise — Adobe lists “Authenticate with Single Sign-On (SSO)”
+      as a feature for Acrobat Pro for teams and Acrobat for enterprise.
+    reference: https://helpx.adobe.com/enterprise/using/set-up-identity.html
+  scim_support:
+    value: yes (partial) — SCIM-protocol provisioning is supported via Adobe’s Azure
+      Sync and Google Sync connectors; general SCIM provisioning for other IdPs (e.g.,
+      Okta) is not available.
+    reference: https://helpx.adobe.com/si/enterprise/using/add-azure-sync.html
+  scim_licensing_level_requirement:
+    value: Enterprise only — Azure Sync with SCIM is available in enterprise Admin
+      Consoles (ETLA and eVIP).
+    reference: https://community.adobe.com/t5/enterprise-teams-discussions/admin-console-feature-release-announcement-azure-sync-with-scim/m-p/11581425
+  scim_authentication_mechanisms:
+    value: Secret token (Bearer) with Tenant URL — Microsoft Entra provisioning to
+      Adobe uses a SCIM Tenant URL plus a Secret Token configured in the Entra provisioning
+      app.
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/adobe-identity-management-provisioning-oidc-tutorial
+  scim_authentication_acquisition_steps:
+    value: '1) In Adobe Admin Console: Settings > Directory Details > Sync > Add Sync
+      > select “Sync users from Microsoft Azure”. 2) Copy the Tenant URL and Secret
+      Token shown. 3) In Microsoft Entra admin center: Enterprise apps > Adobe Identity
+      Management (OIDC or SAML) > Provisioning > set Provisioning Mode to Automatic
+      and paste the Tenant URL and Secret Token; Test Connection. 4) Configure attribute
+      mappings and turn Provisioning Status On.'
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/adobe-identity-management-provisioning-oidc-tutorial
+  user_management_api_support:
+    value: yes — Adobe User Management API (UMAPI) provides programmatic user lifecycle,
+      group and product profile membership management for Admin Console.
+    reference: https://adobe-apiplatform.github.io/umapi-documentation/en/API_introduction.html
+  user_management_api_licensing_level:
+    value: Enterprise only — UMAPI is available to Enterprise organizations; Teams/Education/Individuals
+      are not supported.
+    reference: https://experienceleaguecommunities.adobe.com/t5/adobe-developer-questions/how-enable-access-to-user-management-api/td-p/419150
+  user_management_api_authentication_mechanisms:
+    value: 'OAuth 2.0 Server-to-Server (Client Credentials) — obtain IMS access token
+      and use Authorization: Bearer plus x-api-key; JWT auth is deprecated and replaced
+      by OAuth S2S.'
+    reference: https://adobe-apiplatform.github.io/umapi-documentation/en/UM_Authentication.html
+  user_management_api_authentication_acquisition_steps:
+    value: '1) System Admin signs in to Adobe Developer Console and creates a Project
+      with UMAPI access. 2) Retrieve Client ID (x-api-key) and Client Secret. 3) Request
+      an access token from Adobe IMS token endpoint using client_credentials and required
+      scopes. 4) Call UMAPI endpoints with Authorization: Bearer <token> and x-api-key
+      headers.'
+    reference: https://adobe-apiplatform.github.io/umapi-documentation/en/UM_Authentication.html
+  seat_costs:
+  - license_level: Acrobat Pro for teams
+    active:
+      value: yes — billed per license seat under the Teams plan; pricing presented
+        as “Starting at” and varies by region/promo.
+      reference: https://www.adobe.com/acrobat/business/pricing-plans.html
+    suspended_disabled:
+      value: No separate ‘suspend’ billing state — you continue paying for purchased
+        seats until you reduce license counts at renewal; unassigning/removing a user
+        frees the seat for reuse.
+      reference: https://helpx.adobe.com/enterprise/using/direct-business-renewals.html
+    archived:
+      value: No — removed users remain in Directory Users if not permanently deleted;
+        costs are tied to seat count, not archived users.
+      reference: https://helpx.adobe.com/ph_fil/enterprise/using/manage-directory-users.html
+  - license_level: Acrobat for enterprise (ETLA/VIP enterprise)
+    active:
+      value: unclear — enterprise pricing is contract-based; Adobe directs to Contact
+        Sales.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain — enterprise billing terms depend on contract; no public documentation
+        found on charges for disabled/suspended users.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain — no explicit public documentation on archived users and billing
+        under enterprise contracts.
+      reference: https://www.adobe.com/acrobat/business/pricing-plans.html
+  lifecycle_options:
+  - invited/pending (user invited/has not yet activated via Admin Console)
+  - active (user can authenticate; SCIM active=true)
+  - disabled (SCIM active=false via provisioning)
+  - removed from organization (UMAPI removeFromOrg)
+  - deleted from directory (UMAPI removeFromOrg with deleteAccount=true)
+  rbac_support:
+    value: yes — Admin Console supports roles (System, Product, Product Profile, User
+      Group, Deployment, Support, Contract Admin) and group/profile-based entitlements.
+    reference: https://helpx.adobe.com/enterprise/using/roles.html
+  rbac_api_assignment:
+    value: yes (partial) — UMAPI can add/remove users to product profiles, user groups,
+      and most admin groups; cannot assign/remove System Admin (_org_admin) via API.
+    reference: https://adobe-apiplatform.github.io/umapi-documentation/en/api/ActionsCmds.html
+  documentation_links:
+  - https://helpx.adobe.com/enterprise/using/set-up-identity.html
+  - https://helpx.adobe.com/enterprise/using/create-directory.html
+  - https://helpx.adobe.com/enterprise/using/sso-setup-azure.html
+  - https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html
+  - https://helpx.adobe.com/si/enterprise/using/add-azure-sync.html
+  - https://helpx.adobe.com/si/enterprise/using/add-google-sync.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/API_introduction.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/UM_Authentication.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/RefOverview.html
+  - https://developer.adobe.com/umapi
+  - https://github.com/adobe-apiplatform/umapi-client.py
+  - https://github.com/adobe-apiplatform/user-sync.py
+  - https://github.com/adobe/umapi-cli
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/adobe-identity-management-provisioning-oidc-tutorial
+  - https://helpx.adobe.com/enterprise/using/bulk-upload-users.html
+  - https://helpx.adobe.com/enterprise/using/audit-logs.html
+security_monitoring:
+  event_logs:
+    user_login:
+      value: 'No vendor documentation indicates that Acrobat (desktop/web) emits user
+        login/session audit events. Adobe’s Admin Console Audit Log focuses on admin-
+        and org-level actions and, per Adobe employee guidance, does not capture device/session-level
+        login information. Therefore, Acrobat-specific user login auditing is not
+        available via Admin Console; rely on your IdP for sign-in logs. Status: unavailable
+        per community guidance.'
+      reference: https://community.adobe.com/t5/enterprise-teams-discussions/does-adobe-has-feature-to-audit-user-s-activity-logs/m-p/15405841
+    role_assignment:
+      value: Admin Console Audit Log records role and access changes at the org level,
+        including admin role assigned/removed, product profile created/edited/deleted,
+        and profile assignments to users/groups. These events cover Acrobat entitlement/profile
+        changes made in Admin Console (not in-product).
+      reference: https://community.adobe.com/t5/enterprise-teams-discussions/introducing-the-admin-audit-log/td-p/12022588
+    api_call:
+      value: Uncertain—no vendor documentation found for an Acrobat-specific audit
+        log of API calls. Admin Console Audit Log explicitly records only organizational
+        changes and not product‑specific events; separate Adobe product APIs (e.g.,
+        Experience Platform/CJA) have their own audit APIs unrelated to Acrobat.
+      reference: https://helpx.adobe.com/enterprise/using/audit-logs.html
+    data_export:
+      value: Document Cloud asset activities (relevant to Acrobat-managed cloud files)
+        are captured in Content Logs, including creation/removal of public links,
+        reads of public links, uploads/reads/updates/deletes, collaborator changes,
+        and access requests. These can be exported as CSV or streamed in near real
+        time via Adobe I/O Events for SIEM ingestion.
+      reference: https://helpx.adobe.com/mena_en/enterprise/using/content-logs.html
+    configuration_change:
+      value: 'Org-level configuration changes that affect Acrobat access are captured
+        in Admin Console Audit Log: product profiles created/edited/deleted, assignments
+        to users/groups, admin role changes, and encryption key enabled/disabled.'
+      reference: https://community.adobe.com/t5/enterprise-teams-discussions/introducing-the-admin-audit-log/td-p/12022588
+    user_account_creation:
+      value: Admin Console Audit Log records user lifecycle events such as user added/removed
+        from organization and user group membership changes, which cover Acrobat entitlements
+        at the org/profile level.
+      reference: https://community.adobe.com/t5/enterprise-teams-discussions/introducing-the-admin-audit-log/td-p/12022588
+    security_policy_change:
+      value: Security‑relevant policy changes like encryption key enabled/disabled
+        and product profile changes are captured in Admin Console Audit Log. No Acrobat
+        in‑product policy audit feed is documented.
+      reference: https://community.adobe.com/t5/enterprise-teams-discussions/introducing-the-admin-audit-log/td-p/12022588
+  event_logs_licensing_level:
+    value: Admin Console Audit Log and Content Logs are Admin Console features for
+      Enterprise & Teams organizations (system/global admins). Content Logs streaming
+      via Adobe I/O Events is available for enterprise customers; personal accounts
+      are not supported.
+    reference: https://helpx.adobe.com/enterprise/using/audit-logs.html
+  monitoring_products:
+  - value: Splunk Modular Input for Adobe I/O Events (Node.js) ingests Adobe I/O Events—including
+      Content Logs for Document Cloud assets—into Splunk via the Journaling API.
+    reference: https://github.com/adobeio/Splunk-Modular-Input-Adobe-IO-Events
+  - value: Operational guide from Adobe Tech Blog showing how to stream Adobe I/O
+      Events to Splunk using a custom Modular Input; applicable to Content Logs (Acrobat
+      cloud asset activity).
+    reference: https://medium.com/adobetech/using-splunk-to-monitor-aggregate-and-analyze-adobe-i-o-events-f5c5798d109
+  ingestion_methods:
+  - value: 'Admin Console Audit Log: on-demand CSV export (90‑day retention) for org/admin/product‑profile
+      events; download from Insights > Logs > Audit Log.'
+    reference: https://helpx.adobe.com/enterprise/using/audit-logs.html
+  - value: 'Content Logs (Document Cloud/Creative Cloud assets): CSV report generation
+      and download from Admin Console (90‑day lookback; multi‑file CSV).'
+    reference: https://helpx.adobe.com/si/enterprise/using/content-logs.html
+  - value: 'Content Logs streaming: Adobe I/O Events (webhook or pull via Journaling
+      API) enabling near real‑time ingestion into SIEMs such as Splunk, Microsoft
+      Sentinel, and Sumo Logic.'
+    reference: https://developer.adobe.com/events/docs/guides/using/contentlogs/contentlogs-setup
+  - value: Splunk ingestion using Adobe I/O Events Modular Input (Journaling API poller)
+      to continuously pull Content Logs events into Splunk.
+    reference: https://github.com/adobeio/Splunk-Modular-Input-Adobe-IO-Events
+  log_export_options:
+    tools_connectors:
+      value: Export options include CSV downloads from Admin Console (Audit Log and
+        Content Logs) and real‑time streaming of Content Logs via Adobe I/O Events
+        (webhook or Journaling API). No evidence of FTP/ZIP exports or a public API
+        for Admin Console Audit Log; Content Logs streaming is the vendor‑documented
+        programmatic method.
+      reference: https://helpx.adobe.com/si/enterprise/using/content-logs.html
+  documentation_links:
+  - https://helpx.adobe.com/enterprise/using/audit-logs.html
+  - https://helpx.adobe.com/enterprise/global-admin-console/insights.html
+  - https://helpx.adobe.com/enterprise/using/content-logs.html
+  - https://developer.adobe.com/events/docs/guides/using/contentlogs/contentlogs-setup
+  - https://github.com/adobeio/Splunk-Modular-Input-Adobe-IO-Events
+  - https://medium.com/adobetech/using-splunk-to-monitor-aggregate-and-analyze-adobe-i-o-events-f5c5798d109
+  - https://community.adobe.com/t5/enterprise-teams-discussions/does-adobe-has-feature-to-audit-user-s-activity-logs/m-p/15405841
+  - https://community.adobe.com/t5/enterprise-teams-discussions/introducing-the-admin-audit-log/td-p/12022588
+  - https://community.adobe.com/t5/enterprise-teams-discussions/what-s-new-real-time-streamable-content-logs-for-enterprise-visibility/td-p/15407723
+incident_response:
+  suspend_user_api:
+    value: uncertain — No documented UMAPI action to suspend/disable a user account.
+      Recommended mitigation is to remove the user from the organization or remove
+      product/profile entitlements (e.g., via removeFromOrg), which revokes access
+      to Acrobat under the org.
+    reference: https://adobe-apiplatform.github.io/umapi-documentation/en/api/ActionsCmds.html
+  invalidate_sessions_api:
+    value: IMS provides a token revocation endpoint to invalidate an access or refresh
+      token (revoking a refresh token also invalidates derived access tokens). There
+      is no documented Admin Console/UMAPI capability to kill all sessions for a user
+      across devices.
+    reference: https://developer.adobe.com/developer-console/docs/guides/authentication/UserAuthentication/ims
+  revoke_api_key_api:
+    value: Adobe I/O Management API allows programmatic removal of an OAuth Server‑to‑Server
+      client secret for a credential (DELETE /console/organizations/{org_id}/credentials/{credential_id}/secrets/{uuid}),
+      effectively revoking that secret so new tokens cannot be minted with it.
+    reference: dubious claim, hallucinated reference
+  user_toggle_api:
+    value: uncertain — No official API documented to toggle a user's global status
+      between active/suspended. Admins typically revoke access by removing product
+      profile assignments or removing the user from the org; community reports indicate
+      lack of a direct 'deactivate/suspend' control.
+    reference: https://community.adobe.com/t5/enterprise-teams-discussions/deactivate-experience-cloud-users-or-change-their-password/m-p/11754741#M30880
+  user_status_api:
+    value: UMAPI supports retrieving user details and listing users, and can also
+      filter users in a product profile by status=active|inactive, enabling checks
+      on whether a user is active within specific product access.
+    reference: https://adobe-apiplatform.github.io/umapi-documentation/en/api/getUsersByGroup.html
+  session_timeout_configuration:
+    value: Admin Console Authentication settings let admins configure Max session
+      life (global reauth interval) and Max idle time (auto sign‑out on inactivity)
+      for Adobe web apps, explicitly including Acrobat.com.
+    reference: https://helpx.adobe.com/enterprise/using/authentication-settings.html
+  known_automation_tools:
+  - value: UMAPI CLI — command‑line tool to read, update, and delete users; manage
+      group/product profile memberships to revoke/restore Acrobat access at scale.
+    reference: https://github.com/adobe/umapi-cli
+  - value: UMAPI Python client — library to automate UMAPI calls (e.g., removeFromOrg,
+      membership changes) for incident response playbooks.
+    reference: https://github.com/adobe-apiplatform/umapi-client.py
+  - value: User Sync Tool — open‑source utility to sync enterprise directory to Admin
+      Console; can automate deprovisioning/removal of users and entitlements affecting
+      Acrobat access.
+    reference: https://github.com/adobe-apiplatform/user-sync.py
+  - value: aio-lib-ims (Node.js) — SDK that includes ims.invalidateToken(...) helper
+      to programmatically revoke IMS tokens as part of incident response.
+    reference: https://github.com/adobe/aio-lib-ims/blob/master/api.md
+  - value: Admin Console Audit Log export — export CSV of admin/user/product assignment
+      events for SIEM ingestion to investigate suspicious changes impacting Acrobat
+      access.
+    reference: https://helpx.adobe.com/enterprise/using/audit-logs.html
+  documentation_links:
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/api/ActionsRef.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/api/ActionsCmds.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/api/getUser.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/api/getUsersByGroup.html
+  - https://developer.adobe.com/developer-console/docs/guides/authentication/UserAuthentication/ims
+  - https://helpx.adobe.com/enterprise/using/authentication-settings.html
+  - https://helpx.adobe.com/enterprise/using/audit-logs.html
+  - https://helpx.adobe.com/enterprise/using/manage-developers.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/API_introduction.html
+  - https://adobe-apiplatform.github.io/umapi-documentation/en/RefOverview.html
+  - https://developer.adobe.com/UMAPI

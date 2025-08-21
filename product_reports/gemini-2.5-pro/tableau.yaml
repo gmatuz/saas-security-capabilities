@@ -1,262 +1,338 @@
-user_management:
-  sso_support:
-    value:
-      'Tableau Cloud supports Single Sign-On (SSO) via SAML 2.0 and OpenID Connect.
-      This allows integration with various Identity Providers (IdPs) like Microsoft
-      Entra ID (Azure AD), Okta, and OneLogin.'
-    reference: https://help.tableau.com/current/cloud/en-us/security_auth.htm
-  sso_licensing_level_requirement:
-    value: All Tableau Cloud plans (Creator, Explorer, Viewer) support the use of SSO.
-      There is no specific add-on or higher-tier license required to enable SAML or
-      OpenID Connect.
-    reference: https://www.tableau.com/pricing/teams-orgs
-  scim_support:
-    value: yes
-    reference: https://help.tableau.com/current/cloud/en-us/security_scim.htm
-  scim_licensing_level_requirement:
-    value: SCIM provisioning is available for all Tableau Cloud license levels. However,
-      it requires that the site is configured for SAML SSO first.
-    reference: https://help.tableau.com/current/cloud/en-us/scim_okta.htm
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://help.tableau.com/current/cloud/en-us/scim_azure.htm
-  scim_authentication_acquisition_steps: '1. Sign in to your Tableau Cloud site as a site
-    administrator.
-
-    2. Navigate to the Settings > Authentication page.
-
-    3. Under the "Automatic Provisioning and Group Synchronization (SCIM)" section,
-    click the "Enable SCIM" checkbox.
-
-    4. This action will generate a Base URL and a Secret (token).
-
-    5. Copy the Secret token immediately as it is only displayed once.
-
-    6. Use this Secret token in your Identity Provider''s SCIM configuration for Tableau
-    Cloud, typically in a field named "Bearer Token", "API Token", or "Secret Token".'
-  user_management_api_support:
-    value: yes
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
-  user_management_api_licensing_level:
-    value: Access to the REST API is not restricted by a specific license level. However,
-      the actions a user can perform via the API are limited by their site role (Creator,
-      Explorer, Viewer, etc.). Administrative actions, like creating users, require
-      a Site Administrator role.
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm#make-a-sign-in-request-with-a-personal-access-token-pat
-  user_management_api_authentication_acquisition_steps: '1. Sign in to your Tableau
-    Cloud account.
-
-    2. Click on your user profile icon in the top right corner and select "My Account
-    Settings".
-
-    3. Scroll down to the "Personal Access Tokens" section.
-
-    4. Enter a name for your new token and click "Create Token".
-
-    5. A dialog will appear showing the token name and the token secret. Copy the
-    token secret immediately, as it will not be shown again.
-
-    6. In your API requests, use this token in the "X-Tableau-Auth" header for authentication
-    after an initial sign-in call.'
-  seat_costs:
-  - license_level: Creator
-    active:
-      value: yes
-      reference: https://www.tableau.com/pricing/teams-orgs
-    suspended_disabled:
-      value: no
-      reference: https://help.tableau.com/current/server/en-us/users_site_roles.htm
-    archived:
-      value: 'n/a'
-      reference: ''
-  - license_level: Explorer
-    active:
-      value: yes
-      reference: https://www.tableau.com/pricing/teams-orgs
-    suspended_disabled:
-      value: no
-      reference: https://help.tableau.com/current/server/en-us/users_site_roles.htm
-    archived:
-      value: 'n/a'
-      reference: ''
-  - license_level: Viewer
-    active:
-      value: yes
-      reference: https://www.tableau.com/pricing/teams-orgs
-    suspended_disabled:
-      value: no
-      reference: https://help.tableau.com/current/server/en-us/users_site_roles.htm
-    archived:
-      value: 'n/a'
-      reference: ''
-  - license_level: Unlicensed
-    active:
-      value: no
-      reference: https://help.tableau.com/current/server/en-us/users_site_roles.htm
-    suspended_disabled:
-      value: yes
-      reference: https://help.tableau.com/current/server/en-us/users_site_roles.htm
-    archived:
-      value: 'n/a'
-      reference: ''
-  lifecycle_options:
-  - Add User to Site
-  - Query User On Site
-  - Update User
-  - Remove User from Site
-  - Unlicensed
-  rbac_support:
-    value: yes
-    reference: https://help.tableau.com/current/server/en-us/permission_license_site_roles.htm
-  rbac_api_assignment:
-    value: 'Yes, role and group assignments can be managed via the REST API. You can
-      add users to groups (`Add User to Group`) and update a user''s site role (`Update
-      User`).'
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
+identity_and_access:
   documentation_links:
-  - https://help.tableau.com/current/cloud/en-us/security_auth.htm
-  - https://help.tableau.com/current/cloud/en-us/security_scim.htm
-  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref.htm
-  - https://help.tableau.com/current/cloud/en-us/scim_azure.htm
-  - https://help.tableau.com/current/cloud/en-us/scim_okta.htm
-  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm#add_user_to_site
-  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm#update_user
-  - https://help.tableau.com/current/server/en-us/permission_license_site_roles.htm
-  - https://www.tableau.com/pricing/teams-orgs
-  - https://github.com/tableau/server-client-python
-
-incident_response:
-  documentation_links:
-  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
-  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_auth.htm
-  - https://help.tableau.com/current/api/server/en-us/api_rest.htm
   - https://help.tableau.com/current/online/en-us/security_auth.htm
-  - https://github.com/tableau/tableau-api-lib
-  - https://help.tableau.com/current/online/en-us/session_lifetime.htm
-  invalidate_sessions_api:
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_auth.htm#sign_out
-    value: The 'Sign Out' method in the REST API invalidates the authentication token
-      for the current session, effectively logging the user out. There is no specific
-      endpoint to invalidate a session for *another* user. The common workaround is
-      to remove the user from the site or revoke their Personal Access Token (PAT).
-  known_automation_tools:
-  - reference: https://github.com/tableau/tableau-api-lib
-    value: 'tableau-api-lib: A Python library that provides a client for the Tableau
-      Server REST API, simplifying automation of tasks like user management and content
-      interaction.'
-  - reference: https://help.tableau.com/current/server/en-us/tabcmd_overview.htm
-    value: 'tabcmd (Tableau Command Line Utility): A command-line utility that you
-      can use to automate site administration tasks on your Tableau site. While more
-      focused on content and site setup, it can be used for some user management tasks.'
-  - reference: https://github.com/tableau/rest-api-samples
-    value: 'Tableau REST API Samples: A GitHub repository with official samples in
-      Python and other languages demonstrating how to use the REST API for various
-      tasks, including user management.'
-  revoke_api_key_api:
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_auth.htm#revoke_personal_access_token
-    value: 'The REST API provides a "Revoke Personal Access Token" method. A site
-      administrator can revoke a user''s Personal Access Token (PAT) using its ID.
-      The endpoint is `DELETE /api/api-version/sites/site-id/personal-access-tokens/pat-id`.'
-  session_timeout_configuration:
-    reference: https://help.tableau.com/current/online/en-us/session_lifetime.htm
-    value: Site administrators can configure the session lifetime for Tableau Cloud.
-      The inactive session timeout can be set from a minimum of 15 minutes to a maximum
-      of 240 minutes. This is configured in the site's Settings page.
-  suspend_user_management_api:
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm#update_user
-    value: 'Suspending a user is achieved by updating the user''s site role to "Unlicensed"
-      using the "Update User" REST API method. The endpoint is `PUT /api/api-version/sites/site-id/users/user-id`.
-      Setting the site role to "Unlicensed" effectively blocks the user from accessing
-      any site content.'
-  user_status_api:
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm#query_user_on_site
-    value: The "Query User On Site" REST API method can be used to retrieve details
-      about a specific user, including their site role and last login time. An "Unlicensed"
-      role indicates the user is suspended. The endpoint is `GET /api/api-version/sites/site-id/users/user-id`.
-  user_toggle_api:
-    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm#remove_user_from_site
-    value: A user can be removed from a site entirely using the "Remove User from
-      Site" REST API method. The endpoint is `DELETE /api/api-version/sites/site-id/users/user-id`.
-      This is a more permanent action than suspending (unlicensing) them.
+  - https://help.tableau.com/current/server/en-us/trusted_auth.htm
+  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm
+  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref.htm
+  - https://www.youtube.com/watch?v=kR210c4d9n4
+  - https://www.youtube.com/watch?v=2QEErGQ7KUs
+  - https://help.tableau.com/current/server/en-us/admin.htm
+  - https://help.tableau.com/current/online/en-us/connected_apps.htm
+  - https://help.tableau.com/current/server/en-us/permissions.htm
+  lifecycle_options:
+  - Active
+  - Unlicensed (can claim a license on first sign-in with 'Grant License on Sign In'
+    feature)
+  - Deprovisioned/Disabled (can be a result of SCIM provisioning for unassigned/deleted
+    users in source)
+  - Invited (implied when adding a new user who will then set their password)
+  rbac_api_assignment:
+    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
+    value: yes - Roles and group assignments can be managed through the Tableau REST
+      API. You can add users to sites and groups, update site roles, and manage permissions
+      for projects, workbooks, and data sources.
+  rbac_support:
+    reference: https://medium.com/@himquantum/role-based-access-in-tableau-cb7075c80774
+    value: yes - Tableau supports roles (Creator, Explorer, Viewer, Server Administrator,
+      Site Administrator), groups, and permissions to control access to content. [6,
+      7, 8, 15, 16, 17, 30, 33]
+  scim_authentication_acquisition_steps:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/tableau-online-provisioning-tutorial
+    value: 1. Sign in to your Tableau Cloud site as a site administrator. 2. Navigate
+      to Settings > Authentication. 3. Under 'Automatic Provisioning and Group Synchronization
+      (SCIM)', select the 'Enable SCIM' checkbox. 4. Click 'New Configuration'. 5.
+      Enter a name for the SCIM configuration. 6. Copy the 'Base URL' and 'Secret'
+      (or 'Secret Token') values. 7. In your IdP's SCIM settings, paste the Tableau
+      Cloud Base URL and Secret Token in the appropriate fields.
+  scim_authentication_mechanisms:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/tableau-online-provisioning-tutorial
+    value: Bearer Token (recommended) - Previously, basic authentication was supported
+      but is no longer recommended.
+  scim_licensing_level_requirement:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/tableau-online-provisioning-tutorial
+    value: uncertain - SCIM support is for Tableau Cloud. The search results do not
+      explicitly state a specific license level requirement beyond this. It is part
+      of 'Advanced Management' for Tableau Cloud, which bundles manageability, security,
+      and scalability capabilities.
+  scim_support:
+    reference: https://help.tableau.com/current/online/en-us/scim_config_online.htm
+    value: yes - Tableau Cloud supports SCIM 2.0 for automated user and group provisioning.
+      It enables identity providers (IdPs) to centrally manage user identities and
+      synchronize group membership.
+  seat_costs:
+  - archived:
+      reference: https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/ManageTableauLicenses.htm
+      value: uncertain - The licensing models are typically per user per year. Information
+        on whether archived users still incur costs is not explicitly detailed in
+        the provided search results.
+    license_level: Creator
+    suspended_disabled:
+      reference: https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/ManageTableauLicenses.htm
+      value: uncertain - The licensing models are typically per user per year. Information
+        on whether suspended/disabled users still incur costs is not explicitly detailed
+        in the provided search results.
+  - archived:
+      reference: https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/ManageTableauLicenses.htm
+      value: uncertain - The licensing models are typically per user per year. Information
+        on whether archived users still incur costs is not explicitly detailed in
+        the provided search results.
+    license_level: Explorer
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: uncertain - The licensing models are typically per user per year. Information
+        on whether suspended/disabled users still incur costs is not explicitly detailed
+        in the provided search results.
+  - archived:
+      reference: https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/ManageTableauLicenses.htm
+      value: uncertain - The licensing models are typically per user per year. Information
+        on whether archived users still incur costs is not explicitly detailed in
+        the provided search results.
+    license_level: Viewer
+    suspended_disabled:
+      reference: https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/ManageTableauLicenses.htm
+      value: uncertain - The licensing models are typically per user per year. Information
+        on whether suspended/disabled users still incur costs is not explicitly detailed
+        in the provided search results.
+  - archived:
+      reference: https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/ManageTableauLicenses.htm
+      value: uncertain - This model is based on analytical impressions, not user numbers
+        directly, but Creators and Explorers still need to be purchased. Specifics
+        on archived user costs are not clear.
+    license_level: Usage-Based Licensing (for embedded scenarios on Tableau Cloud)
+    suspended_disabled:
+      reference: https://docs.flexera.com/flexeraone/EN/WhatsNew/FeatureList/ManageTableauLicenses.htm
+      value: uncertain - This model is based on analytical impressions, not user numbers
+        directly, but Creators and Explorers still need to be purchased. Specifics
+        on suspended/disabled user costs are not clear.
+  sso_license_level_requirement:
+    reference: https://www.manageengine.com/products/self-service-password/single-sign-on-for-tableau.html
+    value: uncertain - The search results indicate SSO is available but do not specify
+      any particular license level requirement for its use beyond potentially requiring
+      'DataSelf custom setup' or being available with Tableau Cloud/Server licenses
+      generally.
+  sso_support:
+    reference: https://tableau.github.io/embedding-playbook/pages/02_auth_and_sso
+    value: yes - SAML, OpenID Connect (OIDC), Azure Active Directory, Google Active
+      Directory, Salesforce, Kerberos, SSPI, and Trusted Authentication are supported.
+      MFA can be enabled through the SSO identity provider.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://help.metricinsights.com/m/Tableau_and_Metric_Insights/l/1942432-understanding-tableau-auth-types-and-methods
+    value: 'For Personal Access Tokens (PATs): As a user, go to account settings and
+      find the ''Personal Access Tokens'' section to generate a token. For JSON Web
+      Tokens (JWTs): Requires configuring ''Connected Apps'' and involves client ID,
+      client secret, and secret ID.'
+  user_management_api_authentication_mechanisms:
+    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_authentication.htm
+    value: Personal Access Tokens (PATs) (recommended for API scripting), JSON Web
+      Tokens (JWTs) (most secure, for full applications/automation suites), User ID
+      + Password (for beginners).
+  user_management_api_licensing_level:
+    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
+    value: uncertain - The Tableau REST API is a general capability. The search results
+      do not specify a particular license level requirement for using the user management
+      API features. It is accessible by Tableau Server administrators or Tableau Cloud
+      site administrators.
+  user_management_api_support:
+    reference: https://tableau.github.io/embedding-playbook/pages/03_server_management_and_restapi
+    value: yes - Tableau provides a REST API to manage Tableau Server, Tableau Cloud
+      site, and Prep Conductor resources programmatically. This includes operations
+      for users and groups such as creating, adding, deleting, updating, and importing
+      users in bulk via CSV.
 security_monitoring:
   documentation_links:
-  - https://help.tableau.com/current/online/en-us/activity_log.htm
-  - https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-  - https://help.tableau.com/current/online/en-us/admin_insights.htm
-  - https://www.salesforce.com/trailhead/en/content/learn/modules/tableau-cloud-migration-and-deployment/manage-and-optimize-your-tableau-cloud-environment
-  - https://www.theinformationlab.co.uk/2024/03/02/optimise-your-tableau-cloud-effective-admin-strategies/
-  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref.htm
+  - https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+  - https://help.tableau.com/current/server/en-us/activity_log_overview.htm
+  - https://help.tableau.com/current/server/en-us/logs_loc.htm
+  - https://interworks.com/blog/2023/05/01/how-to-use-tableau-repository-to-monitor-your-tableau-server/
+  - https://help.tableau.com/current/online/en-us/activity_log_audit_permissions.htm
   event_logs:
     api_call:
-      reference: https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-      value: The Activity Log captures events related to REST API calls, including
-        authentication successes and failures. Specific events like 'LoginSuccess'
-        and 'LoginFailed' are logged.
+      reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm
+      value: The Tableau Server REST API requires credentials tokens for requests,
+        which can be Personal Access Tokens (PAT) or username/password. An issue was
+        identified where Tableau Server inadvertently logged PATs in plain text into
+        internal log repositories for a subset of customers using the REST API for
+        authentication; this was resolved with critical updates. Activity Log records
+        changes made through the Permissions Dialog UI and REST API.
     configuration_change:
-      reference: https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-      value: The Activity Log records various configuration changes. Events such as
-        'UpdateSite', 'SetPermissions', 'UpdateUser', and 'CreateProject' are logged,
-        providing an audit trail for administrative actions. [27]
+      reference: https://help.tableau.com/current/server/en-us/logs_loc.htm
+      value: Tableau Server generates log files including information about what is
+        happening on the server, what the service or process is doing, and errors
+        or warnings. TSM logging levels can be adjusted to trace configuration changes.
+        Tableau Cloud's Activity Log captures events related to changes within Tableau
+        Cloud Manager tenants, such as changing site role capacity limits. Logs related
+        to configuring Tableau Server can be found in `tabadmin.log`.
     data_export:
-      reference: https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-      value: The Activity Log tracks data export events through the 'AccessDatasource'
-        and 'AccessView' event types, which include attributes indicating if data
-        was downloaded (e.g., 'isDownload').
+      reference: https://help.tableau.com/current/online/en-us/activity_log_monitor_data_exports.htm
+      value: Tableau Cloud's Activity Log allows for monitoring of data export actions
+        to maintain data security and compliance. This includes downloading published
+        content (workbooks, data sources, flows) and accessing or exporting data from
+        published views or dashboards (e.g., as PNG or CSV). To monitor data exports,
+        Activity Log data needs to be in a structured and queryable format, which
+        can be achieved by setting up Activity Log to write log files to an AWS S3
+        bucket and then importing them into a monitoring tool like Splunk or a cloud
+        data warehouse.
     role_assignment:
-      reference: https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-      value: The Activity Log tracks changes to user roles and permissions. The 'UpdateUser'
-        event is logged when a user's site role is changed, and 'SetPermissions'
-        is logged for changes to content permissions. [27]
+      reference: https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+      value: Tenant events in Tableau Cloud Manager record changes like assigning
+        users access and roles on a site. Site events for Tableau Cloud and Activity
+        Log events for Tableau Server track permissions changes, including adding
+        or removing users from a group.
     security_policy_change:
-      reference: https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-      value: The Activity Log captures changes related to security settings. The 'UpdateSite'
-        event logs changes to site-wide security settings, such as session timeout
-        or authentication configurations. The 'activity_log_settings_change' event
-        tracks changes to the log settings themselves. [31]
+      reference: https://help.tableau.com/current/online/en-us/activity_log_audit_permissions.htm
+      value: Tableau Cloud's Activity Log allows auditing of permission changes, such
+        as adding or removing users from a group, moving content, and explicitly changing
+        content permissions. These changes are recorded in JSON format with specific
+        keys like `eventType`, `permissionType`, and `capabilityValue`. Tableau Server
+        also includes security features like access control and can be configured
+        for encryption standards.
     user_account_creation:
-      reference: https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-      value: The creation of new users on a site is logged in the Activity Log under
-        the 'CreateUser' event type. [27]
+      reference: https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+      value: Tenant events in Tableau Cloud Manager include assigning users access.
+        Tableau Server Repository stores information about Tableau Server users, groups,
+        and group assignments. Tableau's general security documentation mentions adding
+        users to a server.
     user_login:
-      reference: https://help.tableau.com/current/online/en-us/activity_log_type_ref.htm
-      value: The Activity Log records user login events, specifically 'LoginSuccess'
-        and 'LoginFailed' event types, which include details like the user ID and
-        the time of the event. [1, 27]
+      reference: https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+      value: Tableau Cloud's Activity Log captures login successes and failures as
+        site events. Tableau Server also has pre-built audit logs that include user
+        activity and log-on history, and more detailed reports can be built by enabling
+        access to Server's internal data tables.
   event_logs_licensing_level:
-    reference: https://help.tableau.com/current/online/en-us/activity_log.htm
-    value: Access to the detailed Activity Log for export to an external SIEM requires
-      the 'Advanced Management' add-on for Tableau Cloud. [1, 8] Standard plans include
-      access to 'Admin Insights', which provides a 90-day retention of aggregated
-      event data. [9]
+    reference: https://help.tableau.com/current/online/en-us/license_product_keys.htm
+    value: For Tableau Cloud, the Activity Log feature, which provides detailed event
+      data for analysis and auditing, requires 'Advanced Management'. Tableau Server
+      with 'Advanced Management' also includes the Activity Log. Tableau Enterprise
+      license edition is designed for advanced administration, security, and data
+      management on Tableau Server. Tableau Plus is a license level for Tableau Cloud
+      that includes enhanced security and customer-managed encryption keys.
   ingestion_methods:
-  - reference: https://help.tableau.com/current/online/en-us/activity_log.htm#set-up-activity-log
-    value: 'Direct S3 Export: With the Advanced Management add-on, Tableau Cloud
-      can be configured to automatically send Activity Log files (in JSON format)
-      to an Amazon S3 bucket. From S3, the logs can be ingested by any SIEM or monitoring
-      tool. [1, 4]'
-  - reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
-    value: 'REST API: While not a direct log stream, the REST API can be used to programmatically
-      query metadata and activity information available through sources like Admin
-      Insights for custom monitoring solutions.'
+  - reference: https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+    value: For Tableau Cloud, Activity Log data can be sent to Amazon S3.
+  - reference: https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+    value: Tableau Cloud Manager REST API can be used to access Tenant events.
+  - reference: https://help.tableau.com/current/server/en-us/activity_log_overview.htm
+    value: For Tableau Server, Activity Log events are stored in specific folders
+      (backgrounder, dataserver, vizportal, vizqlserver) on the local hard drive,
+      typically at `%PROGRAMDATA%\Tableau\Tableau Server\data\tabsvc\logs\`.
+  - reference: https://interworks.com/blog/2023/05/01/how-to-use-tableau-repository-to-monitor-your-tableau-server/
+    value: The Tableau Server Repository (PostgreSQL database) stores server data
+      including user activity. It can be accessed for insights using administrative
+      views.
+  - reference: https://vertexaisearch.google.com/grounding/p/AUZIYQFHbLHWPVLGxyyDe3T3C7tgiMccNLmFKuSKxvftFm8RMJEjurPCas1yv3VdwHg1SEinHTyzKrb_afUE_yjZrVrt90oUfe-xhsnVCyZ4ulBBSOeesl5VKQ0rK_IodKGpp0yojpg6zomdJQsrK95wOIE0Yc5wAj0=
+    value: Tableau Server logs can be gathered into a zipped archive using the `tsm
+      maintenance ziplogs` command.
   log_export_options:
     tools_connectors:
-      reference: https://help.tableau.com/current/online/en-us/activity_log.htm
-      value: The primary method is configuring the Activity Log to send data to an
-        Amazon S3 bucket. From S3, you can use the native ingestion capabilities of
-        SIEMs like Splunk (via Splunk Add-on for AWS) or Microsoft Sentinel (via AWS
-        S3 connector) to pull in the logs. [1, 4]
+      reference: https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+      value: Tableau Cloud's Activity Log can be configured to send log data to Amazon
+        S3. For Tableau Server, log files are stored locally and can be collected
+        into a zipped archive using `tsm maintenance ziplogs`. The Tableau REST API
+        can be used to manage server resources programmatically, and Personal Access
+        Tokens (PATs) are a more secure authentication method for API calls.
   monitoring_products:
-  - reference: https://docs.splunk.com/Documentation/AddOns/released/AWS/S3
-    value: 'Splunk: Can ingest Tableau Cloud logs from the configured AWS S3 bucket
-      using the Splunk Add-on for Amazon Web Services (AWS).'
-  - reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/amazon-web-services-s3
-    value: 'Microsoft Sentinel: Can ingest Tableau Cloud logs from the AWS S3 bucket
-      using the Amazon Web Services S3 data connector.'
-  - reference: https://help.tableau.com/current/pro/desktop/en-us/examples_splunk.htm
-    value: 'Tableau as a Monitoring Tool: Tableau itself can connect to various data
-      sources, including Splunk (via JDBC/ODBC connectors), to build custom monitoring
-      dashboards for analyzing security data. [6, 19]'
-
+  - reference: https://help.tableau.com/current/online/en-us/activity_log_overview.htm
+    value: Tableau Cloud's Activity Log data can be integrated with monitoring tools
+      such as Splunk or Amazon EventBridge for querying log fields. Activity Log data
+      can also be imported into cloud data warehouses like Snowflake, Data Bridge,
+      and Google BigQuery for analysis.
+  - reference: https://www.cdata.com/drivers/splunk/tableau/
+    value: Tableau has a built-in connector for Splunk, which needs to be downloaded
+      for Desktop and installed on the server. CData also offers a native Tableau
+      Splunk connector for real-time Splunk connectivity.
+  - reference: https://support.docusign.com/s/document-item?bundleId=gso1581445176035&topicId=uxz1581533216990.html&_LANG=enus&language=en_US&rsc_301
+    value: Docusign Monitor allows direct delivery of security notifications to SIEM
+      systems such as Splunk, Tableau, or Power BI.
+  - reference: https://community.fortinet.com/t5/FortiSIEM-Discussions/FortiSIEM-to-Tableau/m-p/308408
+    value: For FortiSIEM, it's mentioned that Tableau can ingest data from its PostgreSQL
+      DB on the Supervisor or utilize the SIEM API.
+incident_response:
+  documentation_links:
+  - https://tableau.github.io/embedding-playbook/pages/03_server_management_and_restapi
+  - https://www.youtube.com/watch?v=d0EySQ6hohw
+  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_authentication.htm
+  - https://www.andredevries.dev/posts/personal-access-tokens-tableau
+  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
+  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm
+  - https://yaledata.yale.edu/sites/default/files/tableau_site_administrator_guide.pdf
+  - https://help.tableau.com/current/server/en-us/users_site_roles.htm
+  - https://help.tableau.com/current/server/en-us/users.htm
+  - https://www.growexx.com/blog/automated-testing-of-tableau-dashboard-using-kinesis-ci/
+  - https://community.tableau.com/s/idea-extension/a044T000004Doh4QAC/some-method-of-logging-to-a-siem-such-as-logrhythm-alienvault-and-the-like-s
+  - https://www.andredevries.dev/posts/personal-access-tokens-tableau
+  - https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_users_and_groups.htm
+  invalidate_sessions_api:
+    reference: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref.htm
+    value: The Tableau Server REST API includes a 'Sign Out' method that invalidates
+      the authentication token for the current session. This ensures that the token
+      cannot be used for further API calls. While a direct API to invalidate all sessions
+      for a specific user was not explicitly found, signing out of a session programmatically
+      is a documented capability. Session timeouts also automatically sign users out
+      after a predefined duration.
+  known_automation_tools:
+  - reference: https://kylejmassey.com/tableau-api-authentication-a-deep-dive/
+    value: 'Tableau Server Client Library (Python): This Python library simplifies
+      interactions with the Tableau Server REST API, allowing for programmatic management
+      of users, content, and other resources. It''s commonly used for automation tasks
+      like user creation, updating user details, and removing users.'
+  - reference: https://www.growexx.com/blog/automated-testing-of-tableau-dashboard-using-kinesis-ci/
+    value: 'Kinesis CI: A software designed for automated testing of Tableau Dashboards,
+      offering capabilities for functionality, regression, cross-environment, and
+      performance testing. It integrates with continuous integration servers like
+      Jenkins and TeamCity to identify and resolve errors.'
+  - reference: https://slashdot.org/software/siem/for-tableau/
+    value: 'Splunk Enterprise/Cloud: Tableau has a built-in connector for Splunk,
+      which is a frequently cited SIEM tool. This integration allows for gathering,
+      analyzing, and leveraging machine data for operational efficiency and security.'
+  - reference: https://sourceforge.net/software/it-alerting/integrates-with-tableau/
+    value: 'Rupert: An IT alerting software that integrates with Tableau, enabling
+      no-code custom alerts for identifying anomalies and exceptions. It can push
+      alerts to platforms like Slack and embed programmable action buttons for integrations
+      with tools like Jira and Salesforce.'
+  - reference: https://slashdot.org/software/incident-management/for-tableau/
+    value: 'Vivantio: Recognized as a customer service management software, Vivantio
+      offers a SaaS service management product that includes incident management features
+      like audit trails and corrective actions, and is listed as a top incident management
+      software for Tableau.'
+  - reference: https://vertexaisearch.google.com/grounding/documents/AUZIYQHfOjz3RfgNMv6eF5HUqbYnifnpn_jrmGJfjgFR36DW-J0gUTYAKCQJqVj7rDguP2KDyvPr2xns-4LWSqMenJgq8JQhgio57EUz4W--Xp54MoCTin9f_uzGDKNWfNeDk5RVI6egg2t_PmRBwxpINBg6ba8=
+    value: 'ServiceNow Tableau Dashboard Example: This example illustrates how Tableau
+      can be used to visualize and track ticketing trends and performance from ServiceNow,
+      providing an executive overview of incidents and detailed metrics.'
+  revoke_api_key_api:
+    reference: https://docs.gitguardian.com/secrets-detection/secrets-detection-engine/detectors/specifics/tableau_pat
+    value: Tableau's REST API provides methods to revoke Personal Access Tokens (PATs).
+      A server administrator can revoke all personal access tokens created by server
+      administrators using the 'Revoke Administrator Personal Access Tokens' method.
+      Individual users can also revoke their own PATs from their account settings.
+      Site administrators can list and revoke users' PATs on Tableau Cloud. PATs are
+      long-lived and can be revoked without disabling the associated Tableau user,
+      offering granular control over access rights. This is particularly useful for
+      managing access for consultants or automating security purges of tokens.
+  session_timeout_configuration:
+    reference: https://community.tableau.com/s/question/0D54T000017wBFzSAM/how-to-set-up-session-time-out-at-user-or-site-level-on-tableau-server
+    value: Tableau Server's session timeout can be configured at the server level
+      using TSM commands. The 'wgserver.session.idle_limit' setting controls the number
+      of minutes after which a user session will time out due to inactivity, with
+      a default of 240 minutes. Another setting, 'vizqlserver.session.expiry.minimum',
+      defaults to 5 minutes and dictates when a VizQL session is eligible for discard
+      if the VizQL process is low on memory. There is no explicit configuration to
+      set different session timeout values for individual sites or users; the timeout
+      is generally set at the server level and applies commonly.
+  suspend_user_api:
+    reference: https://help.tableau.com/current/server/en-us/users_site_roles.htm
+    value: Tableau's REST API allows for managing users, including adding and removing
+      them from a site. While there isn't a direct 'suspend user' API call, removing
+      a user from a site or setting their site role to 'Unlicensed' can effectively
+      suspend their access. The 'Remove User from Site' method is available and returns
+      a 204 response code upon success, indicating the user has been removed. Server
+      administrators can manage users across multiple sites, and site administrators
+      can manage users within their specific site. The API can also be used to update
+      a user's site role, which determines their maximum level of access.
+  user_status_api:
+    reference: hallucinated link doublecheck content
+    value: The Tableau REST API provides a 'Get a filtered, sorted list of users of
+      a site' method, which can be used to retrieve information about users on a site.
+      This can include their status, such as whether they are active or unlicensed.
+      Site roles, which determine a user's maximum access level, include 'Unlicensed'
+      for users who cannot edit or view any content. The 'View, Manage, or Remove
+      Users' UI option allows administrators to see details about users, including
+      content they own and their account settings.
+  user_toggle_api:
+    reference: https://www.it.northwestern.edu/docs/Tableau-Admin-Ref.pdf
+    value: Tableau's REST API allows for updating user details, including their site
+      role. While there isn't a direct 'toggle user' API, changing a user's site role
+      to 'Unlicensed' effectively disables their ability to log in and access content.
+      The API also supports updating a user's full name, email address, and password.
+      Server administrators can manage user roles across sites, and site administrators
+      can manage roles within their site. If a user is removed from an Active Directory
+      group, their site role is not automatically changed and would need manual adjustment.

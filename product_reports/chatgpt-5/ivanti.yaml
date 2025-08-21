@@ -1,0 +1,295 @@
+identity_and_access:
+  sso_support:
+    value: yes – Ivanti Neurons Platform supports SSO via SAML 2.0 and OpenID Connect
+      (OIDC) with Microsoft Entra ID (Azure AD), Okta, Google, PingOne, and OneLogin;
+      configured under Admin > Authentication.
+    reference: https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/external-authentication-SSO.htm
+  sso_license_level_requirement:
+    value: Ivanti Service Manager (ISM) requires an 'SSO-enabled subscription' to
+      use SSO with Microsoft Entra ID.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/ivanti-service-manager-tutorial
+  scim_support:
+    value: yes – Ivanti Neurons for MDM supports SCIM (v2-style) user and group provisioning
+      from IdPs (e.g., Entra ID, Okta); one‑way from IdP to Ivanti; no SCIM event
+      notifications.
+    reference: https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/101/all/en-us/User%20Provisioning%20Azure%20Active%20Directory.htm
+  scim_licensing_level_requirement:
+    value: uncertain – packaging/licensing tiers (e.g., Secure UEM, legacy Bronze/Silver/Gold)
+      are documented but SCIM availability per tier is not specified.
+    reference: https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/Packages.htm
+  scim_authentication_mechanisms:
+    value: Secret Token (shared token) + Tenant URL provided by Ivanti Neurons for
+      MDM; entered in IdP (e.g., Entra ID) as 'Tenant URL' and 'Secret Token'. No
+      basic auth; OAuth not required for SCIM.
+    reference: https://help.ivanti.com/mi/help/en_US/CLD/admin/ivanti/101/all/en-gb/User%20Provisioning%20Azure%20Active%20Directory.htm
+  scim_authentication_acquisition_steps:
+    value: 1) Log in to Ivanti Neurons for MDM admin portal. 2) Navigate to Admin
+      > Identity > User Provisioning. 3) Choose Identity Provider (e.g., Entra ID/Okta).
+      4) Click Generate to create a SCIM Token and Target SCIM URL; copy/save both.
+      5) Optionally manage token state (Active/Inactive/Renew/Remove) and view audit
+      trail.
+    reference: https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/114/all/en-us/User%20Provisioning%20with%20SCIM.htm
+  user_management_api_support:
+    value: yes – Ivanti Neurons for MDM provides REST User APIs to create users (with/without
+      password), invite users, list/search, update, and delete users (e.g., POST /api/v1/accounts,
+      POST /api/v1/account, POST /api/v1/invite/enduser, GET/PUT/DELETE /api/v1/account).
+    reference: https://help.ivanti.com/mi/help/en_us/CLD/8x/api/MDMCustomerIntegrationAPIGuide/User%20API%20Calls.htm
+  user_management_api_licensing_level:
+    value: uncertain – API usage documented for Ivanti Neurons for MDM; no explicit
+      license tier requirement stated in public API guide.
+    reference: https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/MobileIron%20Cloud%20API%20Basics.htm
+  user_management_api_authentication_mechanisms:
+    value: Basic Authentication for Ivanti Neurons for MDM Integration APIs (Tenant
+      Admin credentials).
+    reference: https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/MobileIron%20Cloud%20API%20Basics.htm
+  user_management_api_authentication_acquisition_steps:
+    value: 'Option A (use existing Tenant Admin): ensure account has Tenant Admin
+      rights and use Basic Auth in API calls. Option B (dedicated API user): 1) In
+      Neurons for MDM, go to Users. 2) Add > API User. 3) Fill Email/Name and set
+      password. 4) Assign API-specific role (e.g., Cisco ISE Operations or appropriate
+      admin roles) so credentials can authenticate API calls.'
+    reference: https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/96/all/en-us/Adding_an_API_User.htm
+  seat_costs:
+  - license_level: Neurons for ITSM (bundled license assignment to roles)
+    active: uncertain
+    suspended_disabled:
+      value: uncertain – license manager behavior and violations are documented, but
+        billing treatment for disabled/suspended users is not stated.
+      reference: https://help.ivanti.com/ht/help/en_US/ISM/2024/ITSM-On-Prem-Help/Content/Install_Deploy_guide/License_Manager.htm
+    archived:
+      value: uncertain – users (Employees) cannot be deleted; status can be set to
+        Terminated, but billing/seat implications not documented.
+      reference: https://help.ivanti.com/ht/help/en_US/ISM/2024/admin-user/Content/Configure/Users/Working_with_employees.htm
+  - license_level: Neurons for MDM (Secure UEM/Secure UEM Premium; legacy Bronze/Silver/Gold)
+    active: uncertain
+    suspended_disabled:
+      value: uncertain – packaging tiers listed; no public guidance on billing for
+        disabled users.
+      reference: https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/Packages.htm
+    archived:
+      value: uncertain
+      reference: https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/92/all/en-us/Packages.htm
+  lifecycle_options:
+  - 'Ivanti Neurons for MDM account states include: enabled/disabled flags and inviteState
+    values: Pending, Completed, Expired, None (via User APIs).'
+  - 'Ivanti Neurons for ITSM (Service Manager): Employee users cannot be deleted;
+    set Status to Terminated to remove from active list.'
+  rbac_support:
+    value: yes – Roles and permissions supported. Neurons Platform exposes Admin >
+      Access Control for Members, Roles, Scopes, Spaces; Neurons for MDM supports
+      system and custom roles (cross‑space and space‑specific).
+    reference: https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/access-control.htm
+  rbac_api_assignment:
+    value: 'partial – API support exists to manage admin users/roles in Ivanti EPMM
+      (API v2: admin users, roles listing, summaries; used to assign admins and roles
+      programmatically). Direct role-assignment endpoints are documented within the
+      Admins API set.'
+    reference: https://help.ivanti.com/mi/help/en_us/CORE/11.x/api2/APIv2/Admins.htm
+  documentation_links:
+  - https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/external-authentication-SSO.htm
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/ivanti-service-manager-tutorial
+  - https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/114/all/en-us/User%20Provisioning%20with%20SCIM.htm
+  - https://help.ivanti.com/mi/help/en_us/CLD/8x/api/MDMCustomerIntegrationAPIGuide/User%20API%20Calls.htm
+  - https://help.ivanti.com/mi/help/en_US/cld/8x/api/MDMCustomerIntegrationAPIGuide/MobileIron%20Cloud%20API%20Basics.htm
+  - https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/114/all/en-us/Assigning_Roles.htm
+  - https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/116/all/en-us/Roles_Management.htm
+  - https://help.ivanti.com/ht/help/en_US/CLOUD/vNow/access-control.htm
+  - https://help.ivanti.com/ht/help/en_US/ISM/2020/admin/Content/Configure/API/Create-a-Business-Object.htm
+  - https://help.ivanti.com/ht/help/en_US/ISM/2018.3/self/Content/Configure/API/Authentication_of_APIs.htm
+  - https://help.ivanti.com/ht/help/en_US/ISM/2024/admin-user/Content/Configure/Users/Working_with_employees.htm
+  - https://help.ivanti.com/ht/help/en_US/ISM/2024/ITSM-On-Prem-Help/Content/Install_Deploy_guide/License_Manager.htm
+  - https://github.com/joeywas/IvantiPS
+  - https://github.com/Rugiagialia/n8n-nodes-ivanti
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Admin login events are captured in Ivanti EPMM audit logs; the UI shows
+        entries such as “Action (for example, Admin Portal sign-in)” with fields including
+        State, Performed By, Performed On, Action Date, Completed At, and Details.
+        These can be viewed in the Admin Portal and exported to CSV.
+      reference: https://help.ivanti.com/mi/help/en_US/CORE/11.x/dmgw/DMGfiles/About_logs.htm
+    role_assignment:
+      value: Role/privilege assignments are present in EPMM audit action types (for
+        example, “assign_device_space_admin”) retrievable via the audit logs APIs,
+        indicating that administrator role assignment actions are audit‑logged.
+      reference: https://help.ivanti.com/mi/help/en_us/CORE/12.x/api2/APIv2/APIv2AuditLogs.htm
+    api_call:
+      value: uncertain - No explicit vendor documentation found stating that business/administrative
+        API invocations themselves are separately audit‑logged as API calls; audit
+        logs cover admin actions and system/device events.
+      reference: no evidence
+    data_export:
+      value: Ivanti Connect Secure (ICS) supports exporting Access, Admin, and Event
+        logs as CSV or JSON via the Neurons for Secure Access portal, both on-demand
+        and on a schedule.
+      reference: https://help.ivanti.com/ps/help/en_US/NSA/22.x/nsa-ics/ag/analytics.htm
+    configuration_change:
+      value: Configuration changes are captured in EPMM audit logs; action types include
+        “system_config_change,” and the audit logs API exposes these events for search/export.
+      reference: https://help.ivanti.com/mi/help/en_us/CORE/12.x/api2/APIv2/APIv2AuditLogs.htm
+    user_account_creation:
+      value: Account creation is logged in EPMM audit logs; sample responses include
+        actionType “ADD_USER” with who/when metadata, accessible via the audit logs
+        API and export.
+      reference: https://help.ivanti.com/mi/help/en_us/CORE/12.x/api2/APIv2/APIv2AuditLogs.htm
+    security_policy_change:
+      value: Policy/configuration object changes (for example, policies, compliance
+        groups, rules, actions) are logged with before/after details in EPMM; visible
+        via Logs > Audit Logs and indicated in the “Before and after log information”
+        section.
+      reference: https://help.ivanti.com/mi/help/en_us/CORE/12.x/dmga/DMGfiles/About_logs_AuditLogInfo.htm
+  event_logs_licensing_level:
+    value: 'No licensing tier requirement is stated for accessing audit logs in EPMM;
+      access is permission-based. The Audit Logs APIs specify the required role category
+      “Logs and Events Management: View logs and events.” Licensing prerequisites
+      are not mentioned.'
+    reference: https://help.ivanti.com/mi/help/en_us/CORE/12.x/api2/APIv2/APIv2AuditLogs.htm
+  monitoring_products:
+  - value: Microsoft Sentinel “Pulse Connect Secure” data connector ingests ICS logs
+      via Syslog (parser provided; table Syslog/PulseConnectSecure).
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/pulse-connect-secure
+  - value: Microsoft Sentinel “Ivanti Unified Endpoint Management” connector ingests
+      Ivanti UEM alerts via Syslog into IvantiUEMEvent table.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/ivanti-unified-endpoint-management
+  - value: Elastic integration for “Pulse Connect Secure” provides ingest pipelines
+      and mappings for ICS events in Elastic.
+    reference: https://www.elastic.co/guide/en/integrations/current/pulse_connect_secure.html
+  - value: Datadog integration for Ivanti Connect Secure with instructions to forward
+      ICS syslog (JSON filter) to the Datadog Agent.
+    reference: https://docs.datadoghq.com/integrations/ivanti_connect_secure/
+  - value: Cortex XSIAM content pack for “Ivanti Connect Secure” with modeling/parsing
+      rules and syslog collection guidance.
+    reference: https://cortex.marketplace.pan.dev/marketplace/details/IvantiConnectSecure/
+  - value: Splunk “Ivanti Service Manager Add-On” (TA) uses ISM REST APIs to ingest
+      incidents/requests/problems and enables alert actions to create/update ISM records.
+    reference: https://apps.splunk.com/app/4653/
+  - value: Sumo Logic Cloud SIEM includes a parser for “Pulse Secure Appliance,” aiding
+      ingestion of ICS (Pulse Secure) syslog.
+    reference: https://github.com/SumoLogic/cloud-siem-content-catalog/blob/master/parsers/README.md
+  - value: Radiant Security guidance for forwarding Ivanti Connect Secure logs via
+      syslog (WELF or JSON) to their collector.
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/22.x/22.8R2/ag/logging_n_monitoring.htm
+  - value: Community/open-source ICS log parsers (forensic conversion of .vc0 admin/access/event
+      logs to CSV) to aid downstream SIEM ingestion.
+    reference: https://github.com/SeizeCyber/Ivanti-Secure-Connect-Logs-Parser
+  ingestion_methods:
+  - value: ICS supports sending logs to remote syslog servers over UDP, TCP, or TLS;
+      categories include Events, User Access, and Admin Access.
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/22.x/22.8R2/ag/logging_n_monitoring.htm
+  - value: ICS also supports SNMP v2c/v3 for health/monitoring signals if needed alongside
+      log forwarding.
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/21.9R1/ag/logging_n_monitoring.htm
+  - value: EPMM can export syslog with TLS over TCP, selective categories, and custom
+      templates; facility mapping includes local6 (device) and local7 (audit).
+    reference: https://help.ivanti.com/mi/help/en_us/core/11.x/sys/CoreSystemManager/Data_Export__SysLog.htm
+  - value: EPMM Audit Logs REST APIs allow search and export of audit events and CSV
+      download (initiate/export/status endpoints).
+    reference: https://help.ivanti.com/mi/help/en_us/CORE/12.x/api2/APIv2/APIv2AuditLogs.htm
+  - value: Ivanti Neurons for MDM supports daily Audit Trails export to external SFTP
+      in JSON or CEF formats for SIEM ingestion.
+    reference: https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/102/all/en-us/Exporting_Audit_Trails.htm
+  - value: Ivanti Standalone Sentry can forward audit/health logs to syslog servers
+      (UDP/TCP) with facility-type selection.
+    reference: https://help.ivanti.com/mi/help/en_US/SNTRY/9.x/gdco/SentryGuide/Syslog.htm
+  - value: ICS (via Neurons for Secure Access) supports scheduled export jobs for
+      Access, Admin, and Event logs to CSV or JSON.
+    reference: https://help.ivanti.com/ps/help/en_US/NSA/22.x/nsa-ics/ag/analytics.htm
+  - value: ICS exposes REST APIs that include syslog configuration endpoints (for
+      example, toggling fault tolerance), enabling automated log forwarding setup.
+    reference: https://help.ivanti.com/ps/help/en_US/IPS/vNow/pcs-pps-rest-api/ics-spec-configs-using-restapis.htm
+  log_export_options:
+    tools_connectors:
+      value: EPMM provides syslog export with selectable data sets, TLS over TCP,
+        and customizable templates; facilities include local6 (device) and local7
+        (audit). Notes caution potential data loss when exporting high‑volume categories
+        (for example, audit) via syslog, and suggest disabling if performance issues
+        occur.
+      reference: https://help.ivanti.com/mi/help/en_us/core/11.x/sys/CoreSystemManager/Data_Export__SysLog.htm
+  documentation_links:
+  - https://help.ivanti.com/ps/help/en_US/ICS/22.x/22.8R2/ag/logging_n_monitoring.htm
+  - https://help.ivanti.com/mi/help/en_us/core/11.x/sys/CoreSystemManager/Data_Export__SysLog.htm
+  - https://help.ivanti.com/mi/help/en_US/CORE/12.x/api2/APIv2/APIv2AuditLogs.htm
+  - https://help.ivanti.com/mi/help/en_us/CORE/12.x/dmga/DMGfiles/About_logs_AuditLogInfo.htm
+  - https://help.ivanti.com/ps/help/en_US/NSA/22.x/nsa-ics/ag/analytics.htm
+  - https://help.ivanti.com/mi/help/en_US/SNTRY/9.x/gdco/SentryGuide/Syslog.htm
+  - https://help.ivanti.com/ps/help/en_US/IPS/vNow/pcs-pps-rest-api/ics-spec-configs-using-restapis.htm
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/pulse-connect-secure
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/ivanti-unified-endpoint-management
+  - https://www.elastic.co/guide/en/integrations/current/pulse_connect_secure.html
+  - https://docs.datadoghq.com/integrations/ivanti_connect_secure/
+  - https://apps.splunk.com/app/4653/
+  - https://github.com/SumoLogic/cloud-siem-content-catalog/blob/master/parsers/README.md
+  - https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/102/all/en-us/Exporting_Audit_Trails.htm
+  - https://www.cisa.gov/news-events/alerts/2024/02/29/cisa-and-partners-release-advisory-threat-actors-exploiting-ivanti-connect-secure-and-policy-secure
+incident_response:
+  suspend_user_api:
+    value: Uncertain — For Ivanti Connect Secure (ICS), the REST API exposes local
+      users with an 'enabled' attribute and documents field-level updates via PUT
+      (example shows updating 'fullname'), but there is no official example explicitly
+      showing a PUT to toggle 'enabled' true/false to suspend a user.
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/22.x/22.7R2/ag/customizable_admin_n_end_user_uis.htm
+  invalidate_sessions_api:
+    value: 'ICS provides REST endpoints to terminate sessions: DELETE /api/v1/system/active-users/session/{session-id}
+      to remove a specific session and DELETE /api/v1/system/active-users?all to remove
+      all active sessions.'
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/22.x/apig/rest_api_soln_guide/icsips_configs_using_restapis.htm
+  revoke_api_key_api:
+    value: In ICS, an API key is generated on successful admin login and remains valid
+      until the administrator account is disabled or the 'Allow access to REST APIs'
+      option for that user is disabled; revocation is performed by disabling the account
+      or REST access.
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/21.9R1/apig/rest_api_soln_guide/ovw.htm
+  user_toggle_api:
+    value: 'Uncertain — ICS supports removing ''named users'' via PUT /api/v1/license/named-users
+      (with optional "delete-active-sessions": true) and shows ''enabled'' on local
+      user objects; however, official documentation does not confirm that toggling
+      a user’s enabled/disabled state via API will terminate active sessions.'
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/22.x/apig/rest_api_soln_guide/icsips_configs_using_restapis.htm
+  user_status_api:
+    value: ICS REST API returns local user details including the 'enabled' flag via
+      GET /api/v1/configuration/authentication/auth-servers/auth-server/{AuthServer}/local/users/user/{username},
+      allowing programmatic checks of active vs. disabled users.
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/22.x/apig/rest_api_soln_guide/ovw.htm
+  session_timeout_configuration:
+    value: ICS session options per role allow configuring idle timeout and max session
+      length; minimum idle timeout is 5 minutes (default 10).
+    reference: https://help.ivanti.com/ps/help/en_US/ICS/22.x/ag/user_roles.htm
+  known_automation_tools:
+  - value: 'Cortex XSOAR ''Ivanti Heat (Ivanti Service Manager)'' integration: fetch
+      and update business objects, enabling SOAR-driven ticket operations for Ivanti
+      ISM.'
+    reference: https://github.com/demisto/content/blob/master//Packs/IvantiHeat/Integrations/IvantiHeat/README.md
+  - value: 'Splunk SOAR ''ivantiitsm'' app: actions such as create/update tickets
+      in Ivanti ITSM from SOAR playbooks.'
+    reference: https://github.com/splunk-soar-connectors/ivantiitsm
+  - value: 'Microsoft Sentinel ''Ivanti Unified Endpoint Management'' data connector:
+      ingests Ivanti UEM alerts via Syslog for SIEM analytics and incident workflows.'
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/ivanti-unified-endpoint-management
+  - value: 'Ivanti Policy Secure Splunk Syslog Add-On: vendor TA for ingesting Policy
+      Secure logs into Splunk, useful for alerting and downstream SOAR triggers.'
+    reference: https://help.ivanti.com/ps/help/en_us/ips/vnow/int-splunk/configuring_splunk.htm
+  - value: 'Ivanti Connect Secure Logs Parser (open source): Python tool to parse
+      ICS .vc0 logs to CSV for IR investigations (supports CVE-related triage).'
+    reference: https://github.com/Hexastrike/Ivanti-Connect-Secure-Logs-Parser
+  - value: 'PSMobileIron (PowerShell module): wrapper for MobileIron (Ivanti EPMM/Core)
+      MDM API to automate device/user operations.'
+    reference: https://github.com/Kraktorist/PSMobileIron
+  - value: 'mobileironAPI (Python): scripts to query MobileIron/Core user information
+      (e.g., enabled status, last connection) for investigation automation.'
+    reference: https://github.com/aexlz/mobileironAPI
+  - value: 'Ivanti Neurons APIs (platform): official REST APIs for Neurons (Patch
+      Management, Bots, People/Device Inventory, App Distribution) enabling automation/integration.'
+    reference: https://help.ivanti.com/ht/help/en_US/CLOUD/api/Shared-Content/welcome.htm
+  documentation_links:
+  - https://help.ivanti.com/ps/help/en_US/ICS/22.x/apig/rest_api_soln_guide/icsips_configs_using_restapis.htm
+  - https://help.ivanti.com/ps/help/en_US/ICS/21.9R1/apig/rest_api_soln_guide/ovw.htm
+  - https://help.ivanti.com/ps/help/en_US/ICS/22.x/ag/user_roles.htm
+  - https://help.ivanti.com/mi/help/en_us/cld/admin/ivanti/110/all/en-us/Timeout_Information.htm
+  - https://help.ivanti.com/mi/help/en_US/SNTRY/9.x/gdcl/SentryGuide/Timeout.htm
+  - https://help.ivanti.com/ht/help/en_US/CLOUD/api/Shared-Content/welcome.htm
+  - https://help.ivanti.com/mi/help/en_us/CORE/10.8.0.0/api2/Content/APIv2/Users.htm
+  - https://help.ivanti.com/mi/help/en_US/core/11.x/api1/MobileIronWebServiceAPI/Security%20Management.htm
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/ivanti-unified-endpoint-management
+  - https://github.com/demisto/content/blob/master//Packs/IvantiHeat/Integrations/IvantiHeat/README.md
+  - https://github.com/splunk-soar-connectors/ivantiitsm
+  - https://help.ivanti.com/ps/help/en_us/ips/vnow/int-splunk/configuring_splunk.htm

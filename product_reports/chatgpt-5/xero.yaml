@@ -1,0 +1,232 @@
+identity_and_access:
+  sso_support:
+    value: no — no native SSO (SAML/OIDC) to log in to Xero; Okta lists Xero as SWA
+      (form-based) only
+    reference: https://www.okta.com/integrations/xero/
+  sso_license_level_requirement:
+    value: N/A (no native SSO feature for Xero sign-in)
+    reference: https://www.okta.com/integrations/xero/
+  scim_support:
+    value: no — no native SCIM v2; provisioning available via third‑party connector
+      (Aquera) not by Xero
+    reference: https://www.okta.com/integrations/xero-by-aquera/
+  scim_licensing_level_requirement:
+    value: N/A (no native SCIM from Xero)
+    reference: https://www.okta.com/integrations/xero-by-aquera/
+  scim_authentication_mechanisms:
+    value: N/A (no native SCIM endpoint)
+    reference: https://www.okta.com/integrations/xero-by-aquera/
+  scim_authentication_acquisition_steps:
+    value: N/A (no native SCIM endpoint/credentials to acquire)
+    reference: https://www.okta.com/integrations/xero-by-aquera/
+  user_management_api_support:
+    value: no — Users endpoint is read‑only (GET /Users, GET /Users/{UserID}); no
+      create/disable/delete via API
+    reference: https://xeroapi.github.io/xero-node/accounting/index.html#tag/Users
+  user_management_api_licensing_level:
+    value: N/A (no user lifecycle management API)
+    reference: https://xeroapi.github.io/xero-node/accounting/index.html#tag/Users
+  user_management_api_authentication_mechanisms:
+    value: N/A (no user lifecycle management API; general Xero APIs use OAuth 2.0)
+    reference: https://xeroapi.github.io/xero-node/accounting/index.html#tag/Users
+  user_management_api_authentication_acquisition_steps:
+    value: N/A (no user lifecycle management API to authenticate to)
+    reference: https://xeroapi.github.io/xero-node/accounting/index.html#tag/Users
+  seat_costs:
+  - license_level: 'Core Xero Business Edition subscriptions (US: Early/Growing/Established)
+      — pricing per organization; unlimited users included'
+    active:
+      value: no per-seat charge; unlimited users on all plans
+      reference: https://www.xero.com/us/campaign/switch-to-xero/
+    suspended_disabled:
+      value: no per-seat charge (users are not billed individually)
+      reference: https://www.xero.com/us/campaign/switch-to-xero/
+    archived:
+      value: no per-seat charge (users are not billed individually)
+      reference: https://www.xero.com/us/campaign/switch-to-xero/
+  lifecycle_options:
+  - Pending (invited, not accepted)
+  - Active (invite accepted)
+  - Declined (invite declined)
+  - No Access / Removed (access removed)
+  rbac_support:
+    value: yes — built‑in roles/permissions (e.g., Read Only, Invoice Only variants,
+      Standard, Adviser); requests for more granular RBAC documented
+    reference: https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/44960935-user-roles-ability-to-set-up-greater-flexibility
+  rbac_api_assignment:
+    value: no — roles/permissions are not assignable via API; only read user records
+      via Users endpoint
+    reference: https://xeroapi.github.io/xero-node/accounting/index.html#tag/Users
+  documentation_links:
+  - https://www.okta.com/integrations/xero/
+  - https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/47072482-login-single-sign-on-sso-across-xero-products
+  - https://www.okta.com/integrations/xero-by-aquera/
+  - https://xeroapi.github.io/xero-node/accounting/index.html#tag/Users
+  - https://github.com/XeroAPI/xero-postman-oauth2
+  - https://github.com/XeroAPI/xero-python
+  - https://support.upstreamtech.io/hc/en-us/articles/4401955906447-Add-new-users-to-your-organisation
+  - https://support.evolutionclouds.com.au/knowledgebase/DetailsPartial/107
+  - https://www.okta.com/integrations/xero-idp/
+  - https://www.onelogin.com/connector/spotlight-workpapers
+  - https://www.miniorange.com/iam/integrations/xero-single-sign-on-sso
+  - https://www.xero.com/us/campaign/switch-to-xero/
+  - https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/49428623-cybersecurity-phishing-resistant-mfa-logging-o
+security_monitoring:
+  event_logs:
+    user_login:
+      value: 'Xero exposes basic login visibility inside the product UI: individual
+        users can view their own last 10 logins (with IP/location), and org admins
+        can view a Login History tab under Settings > Users that shows names and times
+        for recent logins but is limited to a short retention window (about two weeks).
+        No export/API for login history is documented on this page.'
+      reference: https://cynch.com.au/resources/review-the-security-of-your-xero-logins
+    role_assignment:
+      value: Xero’s Assurance Dashboard (accessible to Adviser users) surfaces user
+        activity and displays users’ roles and last login dates. However, there’s
+        no explicit documentation confirming an audit log of role changes over time;
+        thus, existence of granular role-assignment change logs is uncertain.
+      reference: https://www.aafl.nz/xero-tip-of-the-month-using-the-assurance-dashboard
+    api_call:
+      value: There is no documented security/audit log stream of API calls. Xero provides
+        webhooks for accounting-object changes (for example invoices/contacts) and
+        per-object “History & Notes” endpoints via the Accounting API, but not security
+        events like logins. Therefore, availability of API-call audit logs is uncertain.
+      reference: https://coefficient.io/xero-api/xero-webhooks
+    data_export:
+      value: Community feedback indicates Xero does not provide visibility into who
+        pulled which reports; users requested such assurance/reporting and noted its
+        absence. Therefore, logging of report export actions is uncertain.
+      reference: https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/44960347-history-notes-audit-trail-for-all-transactions
+    configuration_change:
+      value: Xero records transaction-level change history via “History & Notes” (who,
+        what, when across items like invoices, bank transactions, contacts, etc.).
+        Third-party tooling can extract this History & Notes data. There is no clear
+        documentation on audit logs for global/organisation configuration changes;
+        that aspect remains uncertain.
+      reference: https://g-accon.com/audit-trail-in-g-accon-for-xero/
+    user_account_creation:
+      value: The Assurance Dashboard provides visibility of users and last login dates
+        for monitoring, but there is no clear documentation confirming an audit trail
+        specifically for user invite/creation events; uncertain.
+      reference: https://www.aafl.nz/xero-tip-of-the-month-using-the-assurance-dashboard
+    security_policy_change:
+      value: Uncertain. Customer requests reference missing SSO and lack of logging
+        details for MFA attempts, but there is no official documentation showing an
+        audit log for security policy changes (e.g., MFA enforcement) within Xero.
+      reference: https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/49428623-cybersecurity-phishing-resistant-mfa-logging-o
+  event_logs_licensing_level:
+    value: Access to the Assurance Dashboard requires the Adviser user role in Xero;
+      no separate paid licensing tier for security/audit logs is documented in public
+      sources. Beyond role-based access, licensing requirements remain uncertain.
+    reference: https://www.aafl.nz/xero-tip-of-the-month-using-the-assurance-dashboard
+  monitoring_products:
+  - value: Xero’s built-in Assurance Dashboard highlights user activity (including
+      roles and last login), manual bank statement line edits/deletions, edited/duplicate
+      supplier bank accounts, and backdated invoices/bills for anomaly checking.
+    reference: https://www.aafl.nz/xero-tip-of-the-month-using-the-assurance-dashboard
+  - value: Flatly provides scheduled exports of Xero data, including multiple “History+Notes”
+      audit datasets (e.g., by Contact, Bank Transactions, Invoices) to destinations
+      like Excel/Sheets for monitoring and review.
+    reference: https://flatly.io/integrations/xero-accounting-to-excel
+  - value: G‑Accon for Xero extracts “History & Notes” (audit trails) across entities
+      (invoices, payments, bank transactions, contacts, etc.) into Google Sheets,
+      enabling centralized review and automation.
+    reference: https://g-accon.com/audit-trail-in-g-accon-for-xero/
+  ingestion_methods:
+  - value: Manual export of the in-product “History & Notes” report (now supports
+      PDF/Excel export), allowing periodic retrieval of change/audit records for monitoring
+      or external ingestion.
+    reference: https://productideas.xero.com/forums/939198/suggestions/45164593
+  - value: API access to per-object history via the Accounting API (e.g., GET /Invoices/{InvoiceID}/History,
+      GET /Items/{ItemID}/History) through official SDKs; suitable for scripted ingestion
+      of change logs tied to specific records.
+    reference: https://xeroapi.github.io/xero-python/v1/accounting/index.html
+  - value: Webhooks for accounting object events (e.g., invoices, contacts) to trigger
+      near-real-time processing; note these are not security login events and do not
+      provide security audit logs.
+    reference: https://coefficient.io/xero-api/xero-webhooks
+  - value: Login history visibility is limited to UI (per-user last 10 logins and
+      a short-retention org login list) with no documented export/API, implying monitoring
+      requires manual review or screenshots.
+    reference: https://cynch.com.au/resources/review-the-security-of-your-xero-logins
+  log_export_options:
+    tools_connectors:
+      value: 'Native: export History & Notes to PDF/Excel from the report UI. No evidence
+        of built-in SIEM/syslog, FTP, or streaming export for security logs. For automated
+        pulls, third-party connectors (e.g., Flatly, G‑Accon) can extract History
+        & Notes via API.'
+      reference: https://productideas.xero.com/forums/939198/suggestions/45164593
+  documentation_links:
+  - https://cynch.com.au/resources/review-the-security-of-your-xero-logins
+  - https://www.aafl.nz/xero-tip-of-the-month-using-the-assurance-dashboard
+  - https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/44960347-history-notes-audit-trail-for-all-transactions
+  - https://productideas.xero.com/forums/939198/suggestions/45164593
+  - https://xeroapi.github.io/xero-python/v1/accounting/index.html
+  - https://www.npmjs.com/package/xero-node
+  - https://coefficient.io/xero-api/xero-webhooks
+  - https://g-accon.com/audit-trail-in-g-accon-for-xero/
+  - https://flatly.io/integrations/xero-accounting-to-excel
+  - https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/49428623-cybersecurity-phishing-resistant-mfa-logging-o
+incident_response:
+  suspend_user_api:
+    value: No public Xero API to suspend or remove users was found; the Accounting
+      API exposes read-only user retrieval (GET /Users), and UI-based removal is referenced
+      elsewhere. This indicates suspension/removal is done via the UI, not via API.
+    reference: https://xeroapi.github.io/xero-php-oauth2/docs/v2/accounting/index.html
+  invalidate_sessions_api:
+    value: No documented API to invalidate or force-logout user sessions. Xero enforces
+      an inactivity prompt at ~10 minutes and automatic logout at 60 minutes, with
+      no admin-configurable extension.
+    reference: https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/44960581-login-don-t-log-me-out-extend-log-out-time-more
+  revoke_api_key_api:
+    value: 'Available via OAuth2 endpoints: revoke a refresh token to remove all connections
+      (POST https://identity.xero.com/connect/revocation) and disconnect a single
+      organisation (DELETE https://api.xero.com/connections/{connectionId}); Xero
+      announced the revocation capability and SDKs expose helpers (revoke/disconnect).'
+    reference: https://devblog.xero.com/release-round-up-august-2020-4d0f077f0b9
+  user_toggle_api:
+    value: No evidence of an API to activate/deactivate (toggle) Xero users; community
+      requests exist for broader user management endpoints (e.g., add user), implying
+      such capabilities are not exposed via API at this time.
+    reference: https://xero.uservoice.com/forums/5528-accounting-api?category_id=137688
+  user_status_api:
+    value: Read-only user listing is available via the Accounting API (GET /Users,
+      with filters like IsSubscriber). There is no documented API surface showing
+      a “suspended/disabled” state or allowing status changes.
+    reference: https://xeroapi.github.io/xero-php-oauth2/docs/v2/accounting/index.html
+  session_timeout_configuration:
+    value: Xero sessions prompt for inactivity at ~10 minutes and auto-log out after
+      60 minutes of inactivity; this timeout cannot be extended/configured by customers.
+    reference: https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/44960581-login-don-t-log-me-out-extend-log-out-time-more
+  known_automation_tools:
+  - value: xero-python SDK Identity API supports disconnecting an org (DELETE /Connections/{id});
+      usable in automation to programmatically revoke an organisation connection during
+      incident response.
+    reference: https://github.com/XeroAPI/xero-python/blob/master/xero_python/identity/docs/IdentityApi.md
+  - value: xero-node SDK exposes helper methods disconnect(connectionId) and revokeToken()
+      to remove a single org connection or revoke the refresh token (all connections)
+      for automated containment.
+    reference: https://github.com/XeroAPI/xero-node/blob/master/README.md
+  - value: Xero Accounting API Users endpoints (GET /Users and GET /Users/{UserID})
+      for querying organisation users in investigations (read-only; no write/toggle).
+    reference: https://xeroapi.github.io/xero-php-oauth2/docs/v2/accounting/index.html
+  - value: Programmatic disconnect of a specific connection via DELETE https://api.xero.com/connections/{connectionId}
+      (requires valid access token); useful to revoke a single tenant’s access for
+      a compromised integration.
+    reference: https://stackoverflow.com/questions/65090426/xero-delete-connection-with-connection-id
+  - value: .NET SDK support for DeleteConnectionAsync (Identity APIs) to automate
+      disconnect actions from Xero during incident response workflows.
+    reference: https://github.com/XeroAPI/Xero-NetStandard/issues/181
+  - value: Tray platform demonstrates orchestrated integrations between Splunk and
+      Xero (via connectors/HTTP), indicating a pathway to wire Xero API actions into
+      SOAR-style playbooks (no native Xero SOAR app found).
+    reference: https://tray.ai/connectors/splunk-xero-integrations
+  documentation_links:
+  - https://devblog.xero.com/release-round-up-august-2020-4d0f077f0b9
+  - https://xeroapi.github.io/xero-php-oauth2/docs/v2/accounting/index.html
+  - https://github.com/XeroAPI/xero-python/blob/master/xero_python/identity/docs/IdentityApi.md
+  - https://github.com/XeroAPI/xero-node/blob/master/README.md
+  - https://stackoverflow.com/questions/65090426/xero-delete-connection-with-connection-id
+  - https://productideas.xero.com/forums/939198-for-small-businesses/suggestions/44960581-login-don-t-log-me-out-extend-log-out-time-more
+  - https://xero.uservoice.com/forums/5528-accounting-api/suggestions/36920797-user-login-history
+  - https://www.xero.com/security/multi-factor-authentication/

@@ -1,167 +1,276 @@
-user_management:
-  sso_support:
-    value: Yes, Salesforce supports both SAML 2.0 and OpenID Connect protocols for
-      inbound Single Sign-On, where Salesforce acts as the Service Provider.
-    reference: https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&type=5
-  sso_licensing_level_requirement:
-    value: Federated authentication using SAML is available in all editions of Salesforce,
-      including Essentials, Professional, Enterprise, Unlimited, Performance, and
-      Developer Editions.
-    reference: https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&type=5
-  scim_support:
-    value: 'yes'
-    reference: https://help.salesforce.com/s/articleView?id=sf.identity_scim.htm&type=5
-  scim_licensing_level_requirement:
-    value: SCIM (System for Cross-domain Identity Management) is available in all editions
-      of Salesforce.
-    reference: https://help.salesforce.com/s/articleView?id=sf.identity_scim_and_rest_api_sheet.htm&type=5
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://help.salesforce.com/s/articleView?id=sf.identity_scim.htm&type=5
-  scim_authentication_acquisition_steps: "To get an OAuth 2.0 access token for SCIM operations, you must first create a Connected App in Salesforce:\n1.  **Navigate to App Manager:** In Salesforce Setup, search for 'App Manager' and click 'New Connected App'.\n2.  **Basic Information:** Fill in the Connected App Name, API Name, and Contact Email.\n3.  **Enable OAuth Settings:** Check 'Enable OAuth Settings'.\n4.  **Callback URL:** Provide a placeholder Callback URL (e.g., https://localhost/callback). The JWT bearer flow does not use it directly.\n5.  **Select OAuth Scopes:** Add the following scopes required for SCIM: 'Manage user data via APIs (api)' and 'Manage user data via SCIM (scim)'.\n6.  **Save the App:** Save the Connected App. It may take up to 10 minutes to become active. \n7.  **Retrieve Consumer Details:** Once saved, click 'Manage Consumer Details' to get the 'Consumer Key' (Client ID) and 'Consumer Secret'.\n8.  **Generate Access Token:** Use the obtained Consumer Key and an appropriate OAuth 2.0 flow (e.g., JWT Bearer Token Flow for server-to-server integration) to programmatically request an access token from the Salesforce token endpoint (e.g., https://MyDomainName.my.salesforce.com/services/oauth2/token)."
-  user_management_api_support:
-    value: 'yes'
-    reference: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_user.htm
-  user_management_api_licensing_level:
-    value: API access is included by default in Enterprise, Unlimited, Performance,
-      and Developer Editions. For Professional Edition, API access must be purchased
-      as an add-on.
-    reference: https://help.salesforce.com/s/articleView?id=sf.salesforce_app_limits_cheatsheet.htm&type=5
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_oauth_and_connected_apps.htm
-  user_management_api_authentication_acquisition_steps: "To acquire an OAuth 2.0 access token for the REST/SOAP API, you must create a Connected App:\n1.  **Navigate to App Manager:** In Salesforce Setup, go to 'App Manager' and select 'New Connected App'.\n2.  **Basic Information:** Provide a name for your app (e.g., 'User Management API Client'), an API name, and a contact email.\n3.  **Enable OAuth Settings:** Check the 'Enable OAuth Settings' box.\n4.  **Callback URL:** Enter a secure callback URL where you can receive the authorization code. For server-to-server integrations using the JWT flow, this can be a placeholder.\n5.  **Select OAuth Scopes:** Choose the necessary permissions. For full user management, select 'Full access (full)' or 'Manage user data via APIs (api)'.\n6.  **Save and Get Credentials:** Save the app. After a few minutes, go to 'Manage Consumer Details' to find your 'Consumer Key' (Client ID) and 'Consumer Secret'.\n7.  **Initiate OAuth Flow:** Use the Consumer Key and Secret to initiate an OAuth 2.0 flow (e.g., Authorization Code Flow for web apps, or JWT Bearer Token Flow for backend services) to obtain an access token."
-  seat_costs:
-  - license_level: All Editions (e.g., Professional, Enterprise, Unlimited)
-    active:
-      value: 'yes'
-      reference: https://www.salesforce.com/editions-pricing/sales-cloud/
-    suspended_disabled:
-      value: 'no'
-      reference: https://help.salesforce.com/s/articleView?id=sf.users_deactivate.htm&type=5
-    archived:
-      value: n/a
-      reference: https://help.salesforce.com/s/articleView?id=sf.users_deactivate.htm&type=5
-  lifecycle_options:
-  - Active - User can log in and access all features permitted by their license and
-    permissions. Consumes a license.
-  - Inactive (Deactivated) - User cannot log in. Their license becomes available for
-    another user. They still own records until they are transferred.
-  - Frozen - User is immediately prevented from logging in. This action does not
-    free up the user's license. It is often used as a temporary measure before deactivation.
-  rbac_support:
-    value: 'yes'
-    reference: https://help.salesforce.com/s/articleView?id=sf.admin_userperms.htm&type=5
-  rbac_api_assignment:
-    value: Yes, permission sets and permission set groups can be assigned to a user
-      via the API by creating a 'PermissionSetAssignment' record.
-    reference: https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_permissionsetassignment.htm
+identity_and_access:
   documentation_links:
-  - https://help.salesforce.com/s/articleView?id=sf.identity_scim.htm&type=5
-  - https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
-  - https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&type=5
-  - https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_user.htm
-  - https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_permissionsetassignment.htm
-  - https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm&type=5
-  - https://help.salesforce.com/s/articleView?id=sf.users_deactivate.htm&type=5
-  - https://trailhead.salesforce.com/content/learn/modules/identity-for-mobile-first-and-iot-world/scim-for-salesforce
-  - https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_oauth_and_connected_apps.htm
-  - https://medium.com/steve-tech-arc/step-by-step-guide-to-setting-up-a-salesforce-connected-app-for-easy-oauth-integration-5582f3473041
-
+  - https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&language=en_US&type=5
+  - https://www.minusculetechnologies.com/blogs/how-to-configure-salesforce-for-automatic-user-provisioning
+  - https://www.copado.com/resources/blog/salesforce-incident-management
+  lifecycle_options:
+  - Invited
+  - Active
+  - Deactivated (similar to disabled)
+  - Frozen
+  - Locked
+  rbac_api_assignment:
+    reference: https://reintech.io/blog/managing-salesforce-users-permissions-api
+    value: yes - Roles and permissions (profiles and permission sets) can be managed
+      programmatically via Salesforce APIs, including the SOAP API, REST API, or Bulk
+      API. For instance, setting up SCIM provisioning often involves assigning roles
+      to new users. Additionally, permission sets can be assigned to individual users.
+  rbac_support:
+    reference: https://www.salestq.com.au/blog/user-provisioning-in-salesforce-step-by-step-guide
+    value: yes - Salesforce supports Role-Based Access Control (RBAC) through roles,
+      profiles, and permission sets. Roles determine what data users can see based
+      on a hierarchy. Profiles define a user's minimum permissions and access settings.
+      Permission sets grant additional access beyond a user's profile. [19, 29, 34,
+      35, 40]
+  scim_authentication_acquisition_steps:
+    reference: https://community.rsa.com/s/article/Salesforce-SCIM-Configuration-RSA-Ready-Implementation-Guide
+    value: 1. Log in to Salesforce with an administrator account. 2. Navigate to Setup
+      menu > Platform Tools > Apps > App Manager. 3. Choose New Connected App. 4.
+      In the Basic Information section, fill in the App Name, API Name, and Contact
+      Email. 5. Under API (Enable OAuth Settings) section, select Enable OAuth Settings.
+      6. Provide a Callback URL and select necessary OAuth Scopes (e.g., Full access).
+      7. Save the connected app. 8. On the newly created connected app settings page,
+      under the API (Enable OAuth Settings) section, click Manage Consumer Details.
+      9. Salesforce will send a verification code to the Contact Email; enter it and
+      click Verify. 10. Copy the Consumer Key (Client ID) and Consumer Secret (Client
+      Secret). These credentials are used to obtain an OAuth 2.0 access token.
+  scim_authentication_mechanisms:
+    reference: https://help.salesforce.com/s/articleView?id=sf.remoteaccess_oauth_tokens_scopes.htm&language=en_US&type=5
+    value: OAuth 2.0 access tokens. The process to set up SCIM often involves enabling
+      OAuth settings for a Connected App, which includes obtaining a Consumer Key
+      (Client ID) and Consumer Secret (Client Secret).
+  scim_licensing_level_requirement:
+    reference: https://www.minusculetechnologies.com/blogs/how-to-configure-salesforce-for-automatic-user-provisioning
+    value: Uncertain. Similar to SSO, while API access (often necessary for SCIM)
+      is not available in trial accounts, and Salesforce Sales Cloud Enterprise or
+      Professional editions with API support are mentioned in the context of authentication
+      for integrations, a specific license level requirement for SCIM support is not
+      clearly defined across all sources.
+  scim_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Salesforce has a SCIM API which can be used to create or update users.
+      It supports SCIM 2.0. To manage Salesforce user objects with SCIM, you can send
+      REST API create, read, update, and disable (CRUD) operations to SCIM endpoints.
+  seat_costs:
+  - archived:
+      reference: https://trailhead.salesforce.com/content/learn/modules/record-archival-in-salesforce-spiff/archive-and-unarchive-users
+      value: uncertain
+    license_level: Starter Suite
+    suspended_disabled:
+      reference: https://help.salesforce.com/s/articleView?id=sales.activities_archived.htm&language=en_US&type=5
+      value: uncertain
+  - archived:
+      reference: https://trailhead.salesforce.com/content/learn/modules/record-archival-in-salesforce-spiff/archive-and-unarchive-users
+      value: uncertain
+    license_level: Pro Suite
+    suspended_disabled:
+      reference: https://help.salesforce.com/s/articleView?id=sales.activities_archived.htm&language=en_US&type=5
+      value: uncertain
+  - archived:
+      reference: https://trailhead.salesforce.com/content/learn/modules/record-archival-in-salesforce-spiff/archive-and-unarchive-users
+      value: uncertain
+    license_level: Unlimited
+    suspended_disabled:
+      reference: https://help.salesforce.com/s/articleView?id=sales.activities_archived.htm&language=en_US&type=5
+      value: uncertain
+  - archived:
+      reference: https://www.reddit.com/r/salesforce/comments/1cc1ae5/salesforce_just_retired_a_feature_without_warning/
+      value: uncertain
+    license_level: Einstein 1 Sales
+    suspended_disabled:
+      reference: https://www.reddit.com/r/salesforce/comments/1cc1ae5/salesforce_just_retired_a_feature_without_warning/
+      value: uncertain
+  sso_license_level_requirement:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/salesforce-provisioning-tutorial
+    value: Uncertain. While some sources indicate that API access (often a prerequisite
+      for advanced integrations like SSO) is not available in trial accounts and that
+      the Salesforce Sales Cloud Enterprise or Professional editions with API support
+      are required for certain authentication methods, a direct license level requirement
+      for general SSO support across all options is not explicitly stated. [14, 19,
+      37]
+  sso_support:
+    reference: https://help.salesforce.com/s/articleView?id=sf.sso_about.htm&language=en_US&type=5
+    value: yes - Salesforce supports SSO with SAML and OpenID Connect. It can act
+      as both a Service Provider (allowing users to log in to Salesforce with external
+      identity provider credentials) and an Identity Provider (allowing users to log
+      in to external services with Salesforce credentials). Preconfigured authentication
+      providers for systems like Facebook are also available.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/quickstart_oauth.htm
+    value: 1. Create a Connected App in Salesforce with OAuth settings enabled. 2.
+      Obtain the Consumer Key (Client ID) and Consumer Secret (Client Secret) from
+      the Connected App details. 3. Use these credentials to initiate an OAuth 2.0
+      flow (e.g., Web Server Flow, JWT Bearer Flow) to obtain an access token. For
+      example, using Salesforce CLI, you can log in to your org and then retrieve
+      the access token and instance URL. Ensure secure storage of client IDs, client
+      secrets, and refresh tokens. For JWT Bearer Flow, refer to Salesforce documentation
+      on OAuth 2.0 JWT Bearer Flow for Server-to-Server Integration.
+  user_management_api_authentication_mechanisms:
+    reference: https://reintech.io/blog/authenticating-with-salesforce-api-best-practices
+    value: OAuth 2.0 is the preferred and recommended authentication method for Salesforce
+      API access. This includes various flows like Web Server Flow for web applications
+      or JWT Bearer Flow for server-to-server integration. Access tokens are obtained
+      through authentication. Legacy Salesforce accounts/apps might also support OAuth
+      2.0 Password flow, though this is blocked by default for new orgs.
+  user_management_api_licensing_level:
+    reference: https://www.minusculetechnologies.com/blogs/how-to-configure-salesforce-for-automatic-user-provisioning
+    value: Uncertain. While API access is crucial for programmatic user management
+      and some sources indicate it's not available in trial accounts and generally
+      requires Sales Cloud Enterprise or Professional editions with API support, a
+      definitive license level for all user management API functionality is not explicitly
+      stated.
+  user_management_api_support:
+    reference: https://reintech.io/blog/managing-salesforce-users-permissions-api
+    value: yes - Salesforce supports user management through its APIs, specifically
+      the SOAP API, REST API, or Bulk API, for programmatic management of users (create,
+      disable, delete) and permissions. Additionally, the SCIM API can be used to
+      create, read, update, and disable users.
 security_monitoring:
+  documentation_links:
+  - https://docs.rapid7.com/insightidr/salesforce/
+  - https://medium.com/slalom-blog/threat-management-and-security-for-salesforce-using-event-monitoring-7da41195dbc3
+  - https://docs.logrhythm.com/OCbeats/docs/collect-salesforce-security-logs
+  - https://docs.rapid7.com/insightidr/salesforce-threat-detection/
   event_logs:
-    user_login:
-      value: "The 'LoginHistory' object tracks user login attempts, including successes and failures. For more granular detail, the 'Login' event type within EventLogFile objects can be used."
-      reference: "https://help.salesforce.com/s/articleView?id=sf.admin_loginhistory.htm&type=5"
-    role_assignment:
-      value: "Changes to user roles, profiles, and permission sets are tracked in the 'Setup Audit Trail'."
-      reference: "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
     api_call:
-      value: "API activity is logged in detail through the 'Api' and 'RestApi' event types within EventLogFile objects, available via Event Monitoring. This includes SOAP, REST, and Bulk API calls."
-      reference: "https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_eventlogfile_apitrigger.htm"
-    data_export:
-      value: "Report exports and data extractions via API are logged in the 'ReportExport' and 'Api' event types within EventLogFile objects, available via Event Monitoring."
-      reference: "https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/sforce_api_objects_eventlogfile_reportexport.htm"
+      reference: https://medium.com/slalom-blog/threat-management-and-security-for-salesforce-using-event-monitoring-7da41195dbc3
+      value: API calls to Salesforce are logged and can be monitored for anomalies.
+        The Salesforce Event Monitoring REST API can be queried for detection objects
+        related to API call anomalies.
     configuration_change:
-      value: "The 'Setup Audit Trail' tracks metadata and configuration changes made by administrators, such as modifications to security settings, custom objects, and user management settings. It retains data for the last 180 days."
-      reference: "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
-    user_account_creation:
-      value: "User account creation is tracked as part of the 'Manage Users Events' within the 'Setup Audit Trail'."
-      reference: "https://www.manageengine.com/cloud-security/salesforce-setup-audit-trail-monitoring.html"
+      reference: https://help.salesforce.com/s/articleView?id=sf.setup_audit_trail.htm&type=5
+      value: Salesforce logs every user interaction and system changes, providing
+        detailed audit trails.
+    data_export:
+      reference: https://medium.com/slalom-blog/threat-management-and-security-for-salesforce-using-event-monitoring-7da41195dbc3
+      value: Salesforce logs report exports, including details like which user exported
+        what report, when, and from where. This can be used to detect data exfiltration
+        attempts. Event Monitoring also tracks when a user downloads the results of
+        a Bulk API.
+    role_assignment:
+      reference: https://docs.germainux.com/main/salesforce-real-time-event-monitoring
+      value: Salesforce allows detection of permission assignment changes in permission
+        sets and permission set groups.
     security_policy_change:
-      value: "Changes to security policies, such as password policies, session settings, and network access, are recorded in the 'Setup Audit Trail'."
-      reference: "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
+      reference: https://docs.germainux.com/main/salesforce-real-time-event-monitoring
+      value: Salesforce's Event Monitoring feature provides granular insights into
+        what's happening in your Salesforce org, including user access. Changes to
+        security policies are implied through the general logging of configuration
+        changes and administrative actions, and the ability to detect permission assignment
+        changes.
+    user_account_creation:
+      reference: hallucinated link doublecheck content
+      value: Salesforce allows administrators to add and manage user accounts. While
+        direct log schemas for user creation were not explicitly found, user activity
+        logs generally include administrative actions.
+    user_login:
+      reference: https://help.salesforce.com/s/articleView?id=sf.monitoring_login_history.htm&type=5
+      value: Salesforce logs every user interaction, including login attempts (success
+        or failure) and logouts. These events can be tracked with details such as
+        time and location.
   event_logs_licensing_level:
-    value: "Basic logs like Login History and Setup Audit Trail are included in Enterprise, Unlimited, and Performance editions. Comprehensive, granular, and real-time event logging requires the 'Salesforce Shield' or 'Salesforce Event Monitoring' add-on subscription."
-    reference: "https://help.salesforce.com/s/articleView?id=sf.real_time_event_monitoring.htm&type=5"
-  monitoring_products:
-    - value: "Splunk App for Salesforce & Splunk Add-on for Salesforce"
-      reference: "https://splunkbase.splunk.com/app/1931"
-    - value: "Microsoft Sentinel Salesforce Connector"
-      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/salesforce-service-cloud"
-    - value: "IBM QRadar SOAR"
-      reference: "https://www.ibm.com/products/qradar-soar/integrations"
-    - value: "Palo Alto Cortex XSOAR - Salesforce V2"
-      reference: "https://cortex.paloaltonetworks.com/marketplace/details/SalesforceV2/"
-    - value: "Salesforce Event Monitoring Analytics App"
-      reference: "https://help.salesforce.com/s/articleView?id=sf.event_monitoring_analytics_app_psl.htm&type=5"
+    reference: https://docs.rapid7.com/insightidr/salesforce/
+    value: Access to comprehensive Salesforce security logs, particularly in near
+      real-time, generally requires a Salesforce Enterprise Edition license or the
+      Salesforce Shield or Event Monitoring add-on subscriptions. Basic audit log
+      information is available with standard Salesforce licenses on a 24-hour recurring
+      basis.
   ingestion_methods:
-    - value: "API (Querying the EventLogFile object using SOAP or REST APIs)"
-      reference: "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_eventlogfile.htm"
-    - value: "Real-Time Event Monitoring (Streaming events via Streaming API)"
-      reference: "https://developer.salesforce.com/docs/platform/real-time-event-monitoring/guide/intro.html"
-    - value: "SIEM/SOAR Connectors (Pre-built integrations for platforms like Splunk, Sentinel, etc.)"
-      reference: "https://splunkbase.splunk.com/app/5483"
-    - value: "Manual CSV Download (From Setup Audit Trail and Login History pages)"
-      reference: "https://help.salesforce.com/s/articleView?id=sf.admin_loginhistory.htm&type=5"
+  - reference: https://docs.rapid7.com/insightidr/salesforce/
+    value: SIEM solutions often use the Salesforce Event Monitoring REST API to ingest
+      logs.
+  - reference: https://docs.rapid7.com/insightidr/salesforce/
+    value: Some SIEMs offer both cloud event collection and on-premises collectors
+      for Salesforce data.
+  - reference: https://docs.logrhythm.com/OCbeats/docs/collect-salesforce-security-logs
+    value: Salesforce security logs can be pulled down and appended to a flat file,
+      which can then be processed by a SIEM. This often involves PowerShell scripts
+      to collect the logs via API.
+  - reference: https://help.salesforce.com/s/articleView?id=sf.real_time_event_monitoring_overview.htm&type=5
+    value: Real-Time Event Monitoring in Salesforce allows streaming and storing of
+      event data.
   log_export_options:
     tools_connectors:
-      value: "Logs can be exported using the Splunk Add-on for Salesforce, Microsoft Sentinel's connector, IBM QRadar's DSM, or by developing custom scripts to query the EventLogFile sObject via the Salesforce API."
-      reference: "https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Introduction"
-  documentation_links:
-    - "https://help.salesforce.com/s/articleView?id=sf.event_monitoring.htm&type=5"
-    - "https://developer.salesforce.com/docs/platform/real-time-event-monitoring/guide/intro.html"
-    - "https://help.salesforce.com/s/articleView?id=sf.salesforce_setup_audit_trail.htm&type=5"
-    - "https://trailhead.salesforce.com/en/content/learn/modules/event_monitoring"
-    - "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_eventlogfile.htm"
-    - "https://www.salesforce.com/products/platform/products/shield/event-monitoring/"
-    - "https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Introduction"
-    - "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/salesforce-service-cloud"
+      reference: https://docs.rapid7.com/insightidr/salesforce/
+      value: Salesforce event logs can be retrieved from the Salesforce API. To set
+        up integration, a connected app in Salesforce needs to be configured, and
+        credentials such as Consumer ID, Consumer Secret, Username, Password, and
+        Security Token are required for API access. PowerShell scripts can be used
+        to pull logs to flat files.
+  monitoring_products:
+  - reference: https://docs.rapid7.com/insightidr/salesforce/
+    value: Rapid7 InsightIDR can connect to Salesforce to monitor user accounts and
+      authentication events, collecting data via the Salesforce API.
+  - reference: https://panther.com/integrations/salesforce
+    value: Panther is a cloud SIEM platform that can collect, normalize, and monitor
+      Salesforce audit logs, including Login, LoginAs, Logout, and URI log types.
+  - reference: https://docs.logrhythm.com/OCbeats/docs/collect-salesforce-security-logs
+    value: Exabeam can collect Salesforce Security Logs by utilizing the Salesforce
+      API for Security Logs, which requires generating basic and bearer tokens.
+  - reference: https://cloudprotection.withsecure.com/all-features/
+    value: WithSecure Cloud Protection for Salesforce offers real-time security visibility,
+      custom reports and dashboards, customized alerts, forensics trails, and SIEM
+      integration.
 incident_response:
-  suspend_user_management_api:
-    value: "A user can be deactivated programmatically by sending a PATCH request to the User object endpoint via the REST API and setting the 'IsActive' field to 'false'."
-    reference: "https://reintech.io/blog/managing-salesforce-users-and-permissions-via-api"
-  invalidate_sessions_api:
-    value: "The SOAP API provides the 'invalidateSessions()' call, which can be used to end one or more sessions specified by an array of session IDs."
-    reference: "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_invalidatesessions.htm"
-  revoke_api_key_api:
-    value: "OAuth 2.0 access and refresh tokens can be revoked by making a POST request to the '/services/oauth2/revoke' endpoint with the token as a parameter. Revoking the refresh token effectively severs the application's long-term access."
-    reference: "https://developer.salesforce.com/blogs/developer-relations/2011/11/revoking-oauth-2-0-access-tokens-and-refresh-tokens"
-  user_toggle_api:
-    value: "A user's active status can be toggled by updating the 'IsActive' field on the User sObject via the REST or SOAP API. Setting it to 'false' deactivates the user, and setting it to 'true' reactivates them, provided a license is available."
-    reference: "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_update_fields.htm"
-  user_status_api:
-    value: "The status of a user can be checked by querying the 'IsActive' field on the User sObject via a SOQL query using the REST or SOAP API."
-    reference: "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_query.htm"
-  session_timeout_configuration:
-    value: "Session timeout duration is configured declaratively in the 'Session Settings' page within Salesforce Setup. It is not designed to be changed programmatically as an incident response action."
-    reference: "https://help.salesforce.com/s/articleView?id=sf.security_session_settings.htm&type=5"
-  known_automation_tools:
-    - value: "Palo Alto Cortex XSOAR (Provides playbooks for Salesforce incident response, including searching and updating objects)."
-      reference: "https://cortex.paloaltonetworks.com/marketplace/details/SalesforceV2/"
-    - value: "Splunk SOAR (Formerly Phantom; integrates with Salesforce to automate actions based on events)."
-      reference: "https://github.com/splunk-soar-connectors/salesforce"
-    - value: "IBM QRadar SOAR (Offers bi-directional synchronization and case management between Salesforce and the SOAR platform)."
-      reference: "https://exchange.xforce.ibmcloud.com/hub/extension/9a6e13881f13b838769395f32be9634e"
-    - value: "FortiSOAR (Provides a connector and sample playbooks for interacting with Salesforce objects)."
-      reference: "https://docs.fortinet.com/document/fortisoar/1.0.1/salesforce/519655/about-the-connector"
-    - value: "Kinetic Data Salesforce User Disable Handler (A pre-built automation for disabling Salesforce users)."
-      reference: "https://community.kineticdata.com/support/handler/salesforce_user_disable/handler.md"
   documentation_links:
-    - "https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_invalidatesessions.htm"
-    - "https://developer.salesforce.com/blogs/developer-relations/2011/11/revoking-oauth-2-0-access-tokens-and-refresh-tokens"
-    - "https://cortex.paloaltonetworks.com/marketplace/details/SalesforceV2/"
-    - "https://www.ibm.com/products/qradar-soar/integrations"
-    - "https://github.com/splunk-soar-connectors/salesforce"
-    - "https://help.salesforce.com/s/articleView?id=sf.security_session_management.htm&type=5"
-    - "https://reintech.io/blog/managing-salesforce-users-and-permissions-via-api"
+  - https://www.salesforce.com/eu/service/customer-service-incident-management/
+  - https://panther.com/integrations/salesforce
+  - https://docs.rapid7.com/insightidr/salesforce/
+  - https://compliance.salesforce.com/en/documents/a005A00000o3gLVQAY
+  - https://docs.fortinet.com/document/fortisoar/1.0.1/salesforce/1/salesforce-v1-0-1
+  - https://xsoar.pan.dev/docs/reference/integrations/salesforce
+  - https://www.salesforce.com/service/customer-service-incident-management/
+  invalidate_sessions_api:
+    reference: hallucinated link doublecheck content
+    value: Salesforce allows configuration of session security settings, including
+      session timeouts. While a direct API to invalidate all active sessions for a
+      specific user was not explicitly found in the provided results, configuring
+      shorter session timeouts or enforcing re-authentication could mitigate risk.
+  known_automation_tools:
+  - reference: https://www.salesforce.com/eu/service/customer-service-incident-management/
+    value: Salesforce Service Cloud's Incident Management features automation and
+      workflows to streamline incident response, including creating flows for repetitive
+      tasks.
+  - reference: https://panther.com/integrations/salesforce
+    value: Salesforce Event Monitoring logs can be integrated with SIEM platforms
+      like Panther, Rapid7 InsightIDR, IBM QRadar SIEM, and Securonix for real-time
+      monitoring and threat detection.
+  - reference: https://docs.fortinet.com/document/fortisoar/1.0.1/salesforce/1/salesforce-v1-0-1
+    value: Salesforce integrates with SOAR platforms such as FortiSOAR and Cortex
+      XSOAR, enabling automated operations like creating/updating records and running
+      queries directly from the SOAR platform.
+  - reference: https://www.salesforce.com/eu/service/customer-service-incident-management/
+    value: Salesforce Service Cloud for Slack allows for real-time collaboration on
+      incidents, including swarming with experts and notifying multiple customers.
+  - reference: https://www.computerweekly.com/feature/ShinyHunters-Salesforce-cyber-attacks-explained-What-you-need-to-know
+    value: Salesforce Shield provides advanced security capabilities including event
+      monitoring, threat detection, and transaction security policy management.
+  revoke_api_key_api:
+    reference: https://docs.fortinet.com/document/fortisoar/1.0.1/salesforce/1/salesforce-v1-0-1
+    value: Salesforce uses Connected Apps for API integrations, requiring a Consumer
+      Key and Consumer Secret. Revoking access to a Connected App or regenerating
+      its Consumer Secret would revoke API access for applications using those credentials.
+      The ability to revoke individual user API tokens, separate from Connected App
+      credentials, is uncertain based on the provided information.
+  session_timeout_configuration:
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGPAdYDtE6qqRL2gSUYWvbpTQx-znxd8VjsMjIbHcsmjVgc3Bz9cewvpkZnf6P2iwEJnov7jYMk9NSM0-1fT8kFXhkx-Ej4bqWJJeqyRcTe5rAKGHaKpaHSsHH1gumYfAYrYLo1rku_iPQjObmQNmqgeymGEWk53UmgX4a4w_XLOHJGJq-Qs_13Lbvten8lkiueaRTQssVg1IZ-XJZ0tbUKZ2q3wHfZ0tsSlTWIZ24=
+    value: Salesforce provides capabilities for configuring session timeout settings
+      to enhance security. Specific minimum values were not detailed in the search
+      results.
+  suspend_user_api:
+    reference: https://salesforce.stackexchange.com/questions/251735/freezing-and-de-activating-a-salesforce-service-cloud-user-account-through-the-r
+    value: Users can be deactivated in Salesforce, which prevents them from logging
+      in. This is typically an administrative action through the UI. While a specific
+      "suspend user API" with immediate session termination wasn't explicitly detailed,
+      deactivating a user is the primary method for revoking their access.
+  user_status_api:
+    reference: hallucinated link doublecheck content
+    value: Salesforce Event Monitoring allows for tracking of user activities, including
+      login and logout events, which can be retrieved via the Salesforce API to determine
+      user status and activity patterns.
+  user_toggle_api:
+    reference: https://salesforce.stackexchange.com/questions/251735/freezing-and-de-activating-a-salesforce-service-cloud-user-account-through-the-r
+    value: Salesforce provides the ability to activate or deactivate user accounts,
+      which directly controls their login status. While it's not explicitly stated
+      that deactivating a user immediately terminates active sessions via an API,
+      it prevents future logins.

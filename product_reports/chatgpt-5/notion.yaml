@@ -1,0 +1,265 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 SSO with Entra ID (Azure AD), Google, Okta, OneLogin, Rippling,
+      and custom IdPs; supports JIT provisioning and can enforce 'Only SAML SSO' login
+    reference: https://www.notion.com/help/saml-sso-configuration
+  sso_license_level_requirement:
+    value: Business and Enterprise plans include SAML SSO
+    reference: https://www.notion.com/pricing
+  scim_support:
+    value: yes — SCIM v2 endpoints (/scim/v2) for Users and Groups; guests not supported;
+      domain verification required for some attribute updates
+    reference: https://www.notion.com/zh-tw/help/provision-users-and-groups-with-scim
+  scim_licensing_level_requirement:
+    value: Enterprise plan only
+    reference: https://www.notion.com/zh-tw/help/provision-users-and-groups-with-scim
+  scim_authentication_mechanisms:
+    value: Bearer token (SCIM API token) over HTTPS; IdPs use Tenant URL + Secret
+      Token; OneLogin UI labels it 'SCIM Bearer Token'
+    reference: https://www.notion.com/help/set-up-identity-provider-for-scim
+  scim_authentication_acquisition_steps:
+    value: 1) In Notion, open Settings → organization (Manage organization) → General.
+      2) Open SCIM provisioning. 3) Copy an existing token or select Add token to
+      create a new SCIM API token. 4) Use Tenant URL https://www.notion.so/scim/v2
+      and the token in your IdP’s provisioning 'Admin Credentials' (e.g., Secret Token
+      / SCIM Bearer Token).
+    reference: https://www.notion.com/help/set-up-identity-provider-for-scim
+  user_management_api_support:
+    value: no — Notion’s public API exposes read-only user endpoints; provisioning
+      and de‑provisioning are via SCIM
+    reference: https://developers.notion.com/reference/user
+  user_management_api_licensing_level:
+    value: not applicable (no non‑SCIM user management API)
+    reference: https://developers.notion.com/reference/user
+  user_management_api_authentication_mechanisms:
+    value: not applicable (no non‑SCIM user management API to create/disable/delete
+      users)
+    reference: https://developers.notion.com/reference/user
+  user_management_api_authentication_acquisition_steps:
+    value: not applicable (no non‑SCIM user management API to obtain credentials for)
+    reference: https://developers.notion.com/reference/user
+  seat_costs:
+  - license_level: Business (per-seat pricing; guests are free within plan limits)
+    active:
+      value: Active members consume paid seats; billed per member per workspace with
+        monthly/annual reconciliation and prorations as described
+      reference: https://www.notion.com/help/billing
+    suspended_disabled:
+      value: Suspended users remain billable seats to any workspaces they are part
+        of
+      reference: https://www.notion.com/help/managed-users-dashboard
+    archived:
+      value: uncertain (no documented archived user state for billing)
+      reference: no evidence
+  - license_level: Enterprise (per-seat pricing; guests are free within plan limits)
+    active:
+      value: Active members consume paid seats; billed per member per workspace with
+        monthly/annual reconciliation and prorations as described
+      reference: https://www.notion.com/help/billing
+    suspended_disabled:
+      value: Suspended users remain billable seats to any workspaces they are part
+        of
+      reference: https://www.notion.com/help/managed-users-dashboard
+    archived:
+      value: uncertain (no documented archived user state for billing)
+      reference: no evidence
+  lifecycle_options:
+  - invited (workspace member invited)
+  - joined (member joined workspace)
+  - active
+  - suspended
+  - removed from workspace (via SCIM deactivate or admin removal)
+  - deleted (account deleted; content handling per docs)
+  rbac_support:
+    value: yes — workspace roles (owner, membership admin, member), permission groups,
+      and granular page/teamspace permissions
+    reference: https://www.notion.com/help/create-and-manage-groups
+  rbac_api_assignment:
+    value: 'yes — via SCIM: set workspace role using Notion User schema extension
+      role=owner|membership_admin|member; manage Groups and group membership via SCIM
+      /Groups endpoints'
+    reference: https://www.notion.com/zh-tw/help/provision-users-and-groups-with-scim
+  documentation_links:
+  - https://www.notion.com/help/saml-sso-configuration
+  - https://www.notion.com/help/set-up-identity-provider-for-saml-sso
+  - https://www.notion.com/zh-tw/help/provision-users-and-groups-with-scim
+  - https://www.notion.com/help/set-up-identity-provider-for-scim
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/notion-provisioning-tutorial
+  - https://support.google.com/a/answer/13063106
+  - https://www.okta.com/integrations/notion/
+  - https://onelogin.service-now.com/support?id=kb_article&sys_id=5fe1022b87938d50695f0f66cebb3546
+  - https://www.notion.com/pricing
+  - https://www.notion.com/help/domain-management
+  - https://www.notion.com/help/managed-users-dashboard
+  - https://www.notion.com/help/audit-log
+  - https://www.notion.com/help/add-security-and-compliance-integrations
+  - https://developers.notion.com/reference/user
+  - https://github.com/ConductorOne/baton-notion
+  - https://www.notion.so/integrations/onelogin
+  - https://www.notion.so/integrations/rippling
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Enterprise audit logs include account events for user login and logout,
+        with timestamps and (where available) IP address; SIEM webhooks expose user.login
+        and user.logout event types.
+      reference: https://www.notion.com/help/add-security-and-compliance-integrations
+    role_assignment:
+      value: Role and membership changes are logged, including workspace.permissions.member_role_updated
+        for role changes (member, membership admin, workspace owner) and teamspace.permissions.member_role_updated
+        for teamspace roles; group membership add/remove events are also included.
+      reference: https://www.notion.com/help/add-security-and-compliance-integrations
+    api_call:
+      value: uncertain—documentation enumerates integration-related events (e.g.,
+        integration added/removed, permissions updated) but does not document per-API-call
+        audit events; no explicit audit event for individual API requests was found.
+      reference: https://www.notion.com/help/add-security-and-compliance-integrations
+    data_export:
+      value: Audit logs record page.exported and workspace.content_exported events;
+        the audit log itself can be exported as CSV by organization owners for a selected
+        date range (up to one year), delivered via email with up to ~2 hours lag.
+      reference: https://www.notion.com/zh-cn/help/audit-log
+    configuration_change:
+      value: Multiple configuration and security-relevant changes are logged, including
+        toggles for public page sharing, guests, export allow/deny, teamspace settings,
+        SAML IdP metadata URL/XML added/updated/removed, and integration settings/permissions
+        updates.
+      reference: https://www.notion.com/help/add-security-and-compliance-integrations
+    user_account_creation:
+      value: Account lifecycle and workspace membership events are logged, including
+        member invited, member joined, member removed, guest removed, and membership
+        requests resolved.
+      reference: https://www.notion.com/zh-cn/help/audit-log
+    security_policy_change:
+      value: Security policy changes are captured, including enabling/disabling SAML
+        across the organization, enforcing SAML, HIPAA compliance enabled/disabled
+        (BAA), and settings such as disable guests or allow public page sharing.
+      reference: https://www.notion.com/zh-cn/help/audit-log
+  event_logs_licensing_level:
+    value: Access to audit logs and security/compliance (SIEM, DLP) integrations requires
+      the Enterprise plan, and only organization/workspace owners can configure and
+      export them.
+    reference: https://www.notion.com/help/audit-log
+  monitoring_products:
+  - value: Datadog Cloud SIEM—Notion integration imports workspace audit logs in near
+      real time; connection is configured in Notion Connections (Enterprise-only;
+      one Datadog instance per workspace).
+    reference: https://www.notion.com/integrations/datadog
+  - value: Panther SIEM—Ingests Notion audit logs via HTTP Source with HMAC authentication
+      (header x-notion-signature); setup documented with required fields.
+    reference: https://docs.panther.com/data-onboarding/supported-logs/notion
+  - value: Splunk—Supported via HTTP Event Collector (HEC); Notion sends webhook events
+      to Splunk Cloud or Enterprise using HEC URL and token.
+    reference: https://www.notion.com/help/add-security-and-compliance-integrations
+  - value: Sumo Logic—Supported via HTTPS Source; provide the HTTP Source URL in Notion
+      to receive audit events.
+    reference: https://www.notion.com/help/add-security-and-compliance-integrations
+  - value: RunReveal—Integration forwards Notion audit logs to RunReveal for search,
+      detection, and correlation.
+    reference: https://www.notion.so/integrations/runreveal
+  ingestion_methods:
+  - value: Webhook push to Splunk via HTTP Event Collector (HEC); use HEC URL and
+      token to receive JSON-formatted events.
+    reference: dubious claim, hallucinated reference
+  - value: Webhook push to Sumo Logic via HTTPS Source; post audit events to the HTTP
+      receiver endpoint.
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/http-source/logs-metrics/upload-logs/
+  - value: Webhook push to Panther via HTTP Source using HMAC authentication with
+      header x-notion-signature.
+    reference: https://docs.panther.com/data-onboarding/supported-logs/notion
+  - value: Native Datadog connection (no webhook URL/token required); once authorized,
+      Notion streams audit events to Datadog Cloud SIEM.
+    reference: https://docs.datadoghq.com/integrations/notion/
+  - value: Manual CSV export of the audit log from the admin UI; export up to one
+      year, delivered by email with a download link.
+    reference: https://www.notion.com/zh-cn/help/audit-log
+  - value: 'Public audit-log API access: uncertain—no official audit log API documented;
+      community reports indicate absence of such an API and reliance on CSV export
+      or SIEM webhooks.'
+    reference: https://www.reddit.com/r/Notion/comments/1c2212g
+  log_export_options:
+    tools_connectors:
+      value: 'Export options include: (a) SIEM connectors configured in Notion Connections
+        that push audit events over HTTP to supported partners (Datadog, Splunk HEC,
+        Sumo Logic HTTPS, Panther with HMAC), and (b) admin-initiated CSV exports
+        of the audit log. No evidence of FTP or direct download automation endpoints
+        was found.'
+      reference: https://www.notion.com/help/add-security-and-compliance-integrations
+  documentation_links:
+  - https://www.notion.com/help/audit-log
+  - https://www.notion.com/help/add-security-and-compliance-integrations
+  - https://docs.datadoghq.com/integrations/notion/
+  - https://docs.panther.com/data-onboarding/supported-logs/notion
+  - https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/http-source/logs-metrics/upload-logs/
+  - https://www.notion.com/integrations/datadog
+  - https://www.notion.so/integrations/runreveal
+  - https://www.notion.com/ja/help/audit-log
+  - https://www.reddit.com/r/Notion/comments/1c2212g
+  - https://splunkbase.splunk.com/app/6931
+  - https://www.notion.com/es-es/help/guides/notions-data-retention-settings
+  - https://www.notion.com/help/legal-holds
+  - https://github.com/Drakonis96/notybackup
+  - https://github.com/ronething/notion-db-exporter
+incident_response:
+  suspend_user_api:
+    value: uncertain- No public API documented to suspend users; suspension is available
+      via the Managed users dashboard (Enterprise) where admins can Suspend the user.
+    reference: https://www.notion.com/help/managed-users-dashboard
+  invalidate_sessions_api:
+    value: 'SCIM API deprovisioning logs a user out of all active sessions: DELETE
+      /scim/v2/Users/<id> or set active=false to remove from the workspace; per-user
+      and org-wide logouts are also available in the admin UI (Enterprise).'
+    reference: https://www.notion.com/help/provision-users-and-groups-with-scim
+  revoke_api_key_api:
+    value: Integration (API) keys can be revoked/rotated by clicking Refresh in the
+      integrations UI; no public endpoint is documented for programmatic revocation
+      or rotation.
+    reference: https://developers.notion.com/docs/best-practices-for-handling-api-keys
+  user_toggle_api:
+    value: Using SCIM you can toggle workspace membership via the standard active
+      attribute (PATCH/PUT /scim/v2/Users/<id>); removing a user logs out all active
+      sessions. UI-only suspension exists separately in Managed users.
+    reference: https://www.notion.com/help/provision-users-and-groups-with-scim
+  user_status_api:
+    value: 'Partial via SCIM: GET /scim/v2/Users/<id> exposes the active attribute
+      for workspace membership. No documented API field indicates the Managed users
+      ''suspended'' state.'
+    reference: https://www.notion.com/help/provision-users-and-groups-with-scim
+  session_timeout_configuration:
+    value: Enterprise Managed users control allows Session duration from 1 hour up
+      to 180 days, plus Log out all users and Reset passwords options.
+    reference: https://www.notion.com/help/managed-users-dashboard
+  known_automation_tools:
+  - value: Splunk SIEM integration to ingest Notion audit logs (Enterprise); app listing
+      describes importing audit logs for monitoring, alerting, and analysis.
+    reference: https://splunkbase.splunk.com/app/6931
+  - value: Datadog Cloud SIEM integration; Notion sends near real-time audit logs
+      after OAuth connection by a Workspace Owner (Enterprise).
+    reference: https://docs.datadoghq.com/integrations/notion/
+  - value: Panther SIEM integration; configure Notion connection to send audit events
+      to Panther HTTP Source with HMAC (Enterprise).
+    reference: https://docs.panther.com/data-onboarding/supported-logs/notion
+  - value: Sumo Logic Cloud SIEM integration; set up HTTPS Source and paste the HTTP
+      Source URL into Notion Connections (Enterprise).
+    reference: https://www.notion.com/en-gb/integrations/sumo-logic
+  - value: Notion SIEM partner setup guide covering Datadog, Splunk (HEC), Panther
+      (HMAC), and Sumo Logic webhook configuration (Enterprise).
+    reference: https://www.notion.com/help/add-security-and-compliance-integrations
+  - value: 'Torq SOAR connector: actions include Create/Query Database, List Users,
+      etc., and ability to trigger Torq workflows via Notion webhooks.'
+    reference: https://kb.torq.io/en/articles/9139755-notion
+  - value: 'Tines SOAR connector: authenticated actions to list users, query databases,
+      create pages/rows/comments for case management and automation around Notion.'
+    reference: https://www.tines.com/solutions/products/notion/
+  documentation_links:
+  - https://www.notion.com/help/audit-log
+  - https://www.notion.com/help/provision-users-and-groups-with-scim
+  - https://www.notion.com/help/managed-users-dashboard
+  - https://www.notion.com/help/add-security-and-compliance-integrations
+  - https://docs.datadoghq.com/integrations/notion/
+  - https://docs.panther.com/data-onboarding/supported-logs/notion
+  - https://www.notion.com/help/legal-holds
+  - https://developers.notion.com/docs/best-practices-for-handling-api-keys
+  - https://www.notion.com/help/add-and-manage-connections-with-the-api
+  - https://developers.notion.com/reference/intro

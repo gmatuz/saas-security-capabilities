@@ -1,0 +1,281 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 for Twilio Console; supports SP-initiated (PKCE) and IdP-initiated
+      flows (converted to SP), multiple SSO profiles, domain-based SSO enforcement;
+      NameID must be email; roles are not managed via SSO; encrypted SAML assertions
+      not supported.
+    reference: https://www.twilio.com/docs/iam/single-sign-on?display=embedded
+  sso_license_level_requirement:
+    value: Requires Twilio Editions (Administration, Security, or Enterprise).
+    reference: https://www.twilio.com/en-us/editions
+  scim_support:
+    value: yes (private beta) — SCIM 2.0 provisioning via Twilio Organizations Public
+      API (Private Beta); contact Twilio to enable.
+    reference: https://www.twilio.com/docs/iam/single-sign-on?display=embedded
+  scim_licensing_level_requirement:
+    value: uncertain
+    reference: no evidence
+  scim_authentication_mechanisms:
+    value: OAuth 2.0 client credentials (preview-iam Organizations SCIM endpoints).
+    reference: https://pkg.go.dev/github.com/twilio/twilio-go/rest/preview_iam/organization
+  scim_authentication_acquisition_steps:
+    value: 1) Request access to Twilio Organizations Public API with SCIM (Private
+      Beta) via Twilio Support/Account Executive; 2) After enablement, use OAuth 2.0
+      client credentials to obtain tokens and call preview-iam SCIM endpoints.
+    reference: https://www.twilio.com/docs/iam/single-sign-on?display=embedded
+  user_management_api_support:
+    value: no — no general non‑SCIM Users API for Console users (UI- and import-based
+      management only).
+    reference: https://stackoverflow.com/questions/57653506/rest-apis-to-manage-my-twilio-account-users
+  user_management_api_licensing_level:
+    value: n/a
+    reference: no evidence
+  user_management_api_authentication_mechanisms:
+    value: n/a
+    reference: no evidence
+  user_management_api_authentication_acquisition_steps:
+    value: n/a
+    reference: no evidence
+  seat_costs:
+  - license_level: Twilio Flex — per active user hour
+    active:
+      value: yes — $1 per active user hour (agents/supervisors/admins counted when
+        logged in to any activity other than Logout).
+      reference: https://www.twilio.com/en-us/flex/pricing
+    suspended_disabled:
+      value: no — users who have not logged in are not charged under the per‑hour
+        model.
+      reference: https://www.twilio.com/en-us/flex/pricing
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Twilio Flex — per named (monthly) user
+    active:
+      value: yes — $150 per named user per month; billed for the maximum number of
+        named (provisioned) users in the month (no mid‑month proration except initial
+        transition).
+      reference: https://www.twilio.com/en-us/flex/pricing
+    suspended_disabled:
+      value: likely yes — named seat billing charges for maximum provisioned users
+        in the month; no explicit exception found for disabled users.
+      reference: https://www.twilio.com/en-us/flex/pricing
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited
+  - pending
+  - managed_user
+  - independent_user
+  - removed_from_organization
+  - deleted
+  rbac_support:
+    value: yes — Role Based Access Control (RBAC) available (Public Beta) with built‑in
+      roles assignable at organization/account/subaccount scopes in Twilio Admin.
+    reference: https://www.twilio.com/docs/iam/access-control/overview
+  rbac_api_assignment:
+    value: yes — Role assignment management via Organizations API (preview_iam) endpoints
+      (Create/List/Delete RoleAssignments).
+    reference: https://pkg.go.dev/github.com/twilio/twilio-go/rest/preview_iam/organization
+  documentation_links:
+  - https://www.twilio.com/docs/iam/single-sign-on?display=embedded
+  - https://www.twilio.com/docs/iam/single-sign-on/configuring-okta-with-twilio-sso
+  - https://www.twilio.com/docs/iam/single-sign-on/configuring-sso-with-other-saml2-idp
+  - https://www.twilio.com/docs/iam/organizations/managed-users
+  - https://www.twilio.com/docs/iam/access-control/overview
+  - https://www.twilio.com/docs/iam/access-control/types-of-roles
+  - https://pkg.go.dev/github.com/twilio/twilio-go/rest/preview_iam/organization
+  - https://github.com/twilio/twilio-node/blob/main/CHANGES.md
+  - https://www.twilio.com/en-us/editions
+  - https://www.twilio.com/docs/usage/monitor-events
+  - https://www.twilio.com/en-us/flex/pricing
+  - https://www.twilio.com/docs/flex/admin-guide/setup/sso-configuration
+  - https://www.twilio.com/en-us/changelog/new-audit-events-for-voice-recordings-and-transcriptions-to-log-media-access
+  - https://www.twilio.com/ja-jp/blog/changelog-202301-jp
+  - https://www.twilio.com/docs/api/errors/25020
+  - https://www.twilio.com/docs/api/errors/25015
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Twilio records Console user login sessions as audit events of type user-session.created/updated/deleted
+        that include actor (user vs. account), source "web" or "api", and source_ip_address;
+        retrievable via the Monitor Events REST API.
+      reference: https://www.twilio.com/docs/usage/monitor-events
+    role_assignment:
+      value: uncertain — Twilio documents role assignments and Access Control, but
+        no explicit audit event type for role assignment changes is listed; such changes
+        may appear under generic user.updated events, but this is not confirmed.
+      reference: https://www.twilio.com/docs/iam/access-control/overview
+    api_call:
+      value: Security-audit Events capture actions taken via API (actor_type "account")
+        with resource, event_type, and source_ip_address; events can be filtered by
+        sourceIpAddress and retrieved using GET https://monitor.twilio.com/v1/Events.
+      reference: https://www.twilio.com/docs/usage/monitor-events
+    data_export:
+      value: Bulk export activities are audited; Monitor Events lists bulkexports.created/updated/deleted/downloaded
+        event types, allowing tracking of export creation and downloads.
+      reference: https://www.twilio.com/docs/usage/monitor-events
+    configuration_change:
+      value: Configuration and security setting changes are logged with event types
+        such as config.created/updated/deleted, security-settings.created/updated/deleted,
+        ip-access-control-list.updated, including actor and source IP metadata in
+        the event record.
+      reference: https://www.twilio.com/docs/usage/monitor-events
+    user_account_creation:
+      value: Administrative user lifecycle is audited with user.created/user.updated/user.deleted
+        event types available via the Monitor Events API.
+      reference: https://www.twilio.com/docs/usage/monitor-events
+    security_policy_change:
+      value: Changes to policies and security controls (e.g., data-policy.created/updated/deleted
+        and data-access-policy.updated) are captured as Monitor Events for audit purposes.
+      reference: https://www.twilio.com/docs/usage/monitor-events
+  event_logs_licensing_level:
+    value: Event Streams (primary streaming of Twilio events) is available at no additional
+      cost; you pay only for underlying Twilio product usage. Daily automatic BulkExport
+      scheduling requires Twilio Enterprise Edition (see log_export_options for details).
+    reference: https://www.twilio.com/docs/events
+  monitoring_products:
+  - value: Splunk Add-on for Twilio ingests Messages, Monitor Events, and Calls via
+      Twilio APIs to populate Splunk indexes and dashboards.
+    reference: https://apps.splunk.com/app/5673/
+  - value: Datadog integration processes Twilio logs with an out-of-the-box pipeline
+      and prepares them for Datadog Cloud SIEM to detect threats in Twilio event logs.
+    reference: https://www.datadoghq.com/blog/monitor-twilio-with-datadog/
+  - value: Google Chronicle lists a built-in parser for “Twilio Audit” log type, enabling
+      normalized ingestion and detection content for Twilio audit events.
+    reference: https://cloud.google.com/chronicle/docs/ingestion/parser-list/supported-default-parsers
+  - value: Cyderes provides a Twilio Audit parser mapping (including user-session.created
+      samples) to Unified Data Model fields for SIEM analytics.
+    reference: https://docs.cyderes.cloud/parser-knowledge-base/twilio_audit/
+  - value: Elastic (open-source) Twilio Event Streams integration to ingest Twilio
+      events via a webhook endpoint into Elasticsearch for dashboards and monitoring.
+    reference: https://github.com/slintab/twilio-elastic-integration
+  ingestion_methods:
+  - value: Event Streams — configure Sinks (webhook, Amazon Kinesis, Segment) and
+      Subscriptions for at-least-once delivery of Twilio events; supports multiple
+      sinks and provides schema/versioned event types with short retention (7 days
+      application logs, 23 days error logs).
+    reference: https://www.twilio.com/docs/events
+  - value: Monitor Events REST API — pull audit events via GET /v1/Events with filters
+      (StartDate/EndDate, eventType, resourceSid, actorSid, sourceIpAddress); note
+      only one non-date filter per request is supported.
+    reference: https://www.twilio.com/docs/usage/monitor-events
+  - value: BulkExport API — programmatically export daily GZIP JSON dumps of Messages,
+      Calls, Conferences, and Participants; supports webhooks/email on completion;
+      exported files are auto-removed after 7 days; Enterprise Edition enables daily
+      auto-exports.
+    reference: https://www.twilio.com/docs/usage/bulkexport
+  - value: Serverless Functions Logs API — retrieve Twilio Functions logs; retention
+      is 30 days, per-invocation output limited to last 3 KB, and endpoint rate-limited
+      to 5 RPS.
+    reference: https://www.twilio.com/docs/serverless/api/resource/logs
+  - value: Monitor Alerts API — fetch error/warning alerts via GET /v1/Alerts (logLevel,
+      date filters); queries older than 30 days are not supported.
+    reference: https://www.twilio.com/docs/usage/monitor-alert
+  - value: Twilio CLI Debugger streaming — use the @twilio/plugin-debugger to stream
+      live debugger log events for monitoring and troubleshooting.
+    reference: https://github.com/twilio/plugin-debugger/
+  log_export_options:
+    tools_connectors:
+      value: BulkExport provides downloadable GZIP JSON files for historical logs
+        (Messages, Calls, Conferences, Participants) with webhook/email notifications;
+        files auto-expire after 7 days. Daily automatic exports can be enabled for
+        Twilio Enterprise Edition via the ExportConfiguration API.
+      reference: https://www.twilio.com/docs/usage/bulkexport
+  documentation_links:
+  - https://www.twilio.com/docs/usage/monitor-events
+  - https://www.twilio.com/docs/events
+  - https://www.twilio.com/docs/events/event-types-list
+  - https://www.twilio.com/docs/events/event-streams/schema-resource
+  - https://www.twilio.com/docs/events/event-streams/sink-resource
+  - https://www.twilio.com/docs/events/event-streams/subscription
+  - https://www.twilio.com/docs/usage/bulkexport
+  - https://www.twilio.com/docs/serverless/api/resource/logs
+  - https://www.twilio.com/docs/usage/monitor-alert
+  - https://www.twilio.com/docs/iam/access-control/overview
+  - https://www.twilio.com/docs/iam/organizations/managed-users
+  - https://cloud.google.com/chronicle/docs/ingestion/parser-list/supported-default-parsers
+  - https://docs.cyderes.cloud/parser-knowledge-base/twilio_audit/
+  - https://apps.splunk.com/app/5673/
+  - https://www.datadoghq.com/blog/monitor-twilio-with-datadog/
+  - https://github.com/slintab/twilio-elastic-integration
+  - https://github.com/sgeddy/twilioCallLogs
+  - https://github.com/twilio/plugin-debugger/
+  - https://github.com/sociocs/twilio-viewer
+incident_response:
+  suspend_user_api:
+    value: uncertain — No public Twilio API is documented to suspend/disable individual
+      Twilio Console users. User lifecycle actions (invite/remove from accounts, delete
+      user, reset password, require 2FA) are performed via Twilio Admin UI for Managed
+      Users.
+    reference: https://www.twilio.com/docs/iam/organizations/managed-users
+  invalidate_sessions_api:
+    value: uncertain — No documented API to invalidate all Twilio Console sessions
+      for a user. For investigation, you can monitor audit events such as user-session.created/updated/deleted
+      via the Monitor Events REST API.
+    reference: https://www.twilio.com/docs/usage/monitor-events
+  revoke_api_key_api:
+    value: 'Auth Token rotation is supported via API: promote the secondary Auth Token
+      to primary (POST https://accounts.twilio.com/v1/AuthTokens/Promote), which revokes
+      the old token for future requests.'
+    reference: https://www.twilio.com/docs/iam/api/authtoken
+  user_toggle_api:
+    value: 'uncertain — No public API is documented to toggle a Console user’s active/suspended
+      status. At the account level you can suspend/close subaccounts via the REST
+      API to halt usage (note: in‑progress calls are not automatically ended).'
+    reference: https://twilio-iam-remake.readme.io/reference/subaccount-status
+  user_status_api:
+    value: uncertain — No public Users API is documented to fetch a Console user’s
+      active/suspended status. You can infer user activity/state changes using the
+      Monitor Events API (e.g., user.*, user-session.*, user-password.* events) for
+      auditing.
+    reference: https://www.twilio.com/docs/usage/monitor-events
+  session_timeout_configuration:
+    value: For Twilio Flex SSO, session TTL is governed by the IdP’s SessionNotOnOrAfter
+      setting. Twilio advises using a value greater than 1 hour (the default Flex
+      token TTL) to avoid unexpected logouts; shorter TTLs can interrupt active sessions.
+    reference: https://www.twilio.com/docs/flex/admin-guide/setup/sso-configuration
+  known_automation_tools:
+  - value: Monitor Events REST API — retrieve Twilio audit logs (who/what/when, source
+      IP), and filter by actorSid, eventType, resourceSid for investigations or SIEM
+      ingestion.
+    reference: https://www.twilio.com/docs/usage/monitor-events
+  - value: Event Streams Webhook/Kinesis/Segment — create sinks and subscriptions
+      to stream Twilio events to SIEM/SOAR/webhooks with at‑least‑once delivery.
+    reference: https://www.twilio.com/docs/events/webhook-quickstart
+  - value: BulkExport API — schedule daily exports (Enterprise Edition) or run custom
+      jobs to export Messages/Calls/Conferences/Participants; trigger webhooks on
+      completion for downstream ingestion.
+    reference: https://www.twilio.com/docs/usage/bulkexport
+  - value: Splunk Add‑on for Twilio — integrates Twilio Messages, Monitor Events,
+      and Calls APIs into Splunk via modular inputs and dashboards for security monitoring.
+    reference: https://splunkbase.splunk.com/app/5673
+  - value: Elastic integration (community) — Twilio Event Streams Integration for
+      Elasticsearch via an HTTP endpoint to ingest Twilio events into Elastic.
+    reference: https://github.com/slintab/twilio-elastic-integration
+  - value: Twilio Python SDK (twilio) — official API client for automations (e.g.,
+      deleting API keys, querying events, creating sinks).
+    reference: https://pypi.org/project/twilio/
+  - value: Twilio CLI — command‑line automation to manage resources and Event Streams
+      (e.g., api:events:v1:sinks:create), suitable for scripts and SOAR playbooks.
+    reference: https://www.twilio.com/docs/twilio-cli
+  - value: Event Streams Sink Resource API — programmatically create/delete sinks
+      (webhook/kinesis/segment) for event delivery.
+    reference: https://www.twilio.com/docs/events/event-streams/sink-resource
+  documentation_links:
+  - https://www.twilio.com/docs/usage/anti-fraud-developer-guide
+  - https://www.twilio.com/docs/usage/monitor-events
+  - https://www.twilio.com/docs/events
+  - https://www.twilio.com/docs/events/webhook-quickstart
+  - https://www.twilio.com/docs/usage/bulkexport
+  - https://www.twilio.com/docs/iam/api/authtoken
+  - https://www.twilio.com/docs/iam/api/secondary_authtoken
+  - https://www.twilio.com/docs/iam/api-keys
+  - https://www.twilio.com/docs/iam/api-keys/key-resource-v1
+  - https://twilio-iam-remake.readme.io/reference/subaccount-status
+  - https://www.twilio.com/docs/iam/organizations/managed-users
+  - https://splunkbase.splunk.com/app/5673
+  - https://github.com/slintab/twilio-elastic-integration
+  - https://www.twilio.com/docs/flex/admin-guide/setup/sso-configuration
+  - https://www.twilio.com/docs/events/event-streams/sink-resource
+  - https://www.twilio.com/docs/twilio-cli

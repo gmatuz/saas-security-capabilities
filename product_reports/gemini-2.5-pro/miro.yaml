@@ -1,168 +1,242 @@
-user_management:
-  sso_support:
-    value: "Miro supports SAML-based Single Sign-On (SSO). It can be integrated with various
-      identity providers (IdPs) like Okta, Microsoft Entra ID (Azure AD), Google Workspace,
-      OneLogin, and ADFS."
-    reference: https://help.miro.com/hc/en-us/articles/360017572314-Configuring-Single-sign-on
-  sso_licensing_level_requirement:
-    value: "SSO is available on the Business and Enterprise plans."
-    reference: https://www.generationdigital.com/blog/miro-pricing-explained-which-plan-is-right-for-your-team-in-2024
-  scim_support:
-    value: 'yes'
-    reference: https://help.miro.com/hc/en-us/articles/360017572354-SCIM
-  scim_licensing_level_requirement:
-    value: Enterprise plan
-    reference: https://miro.com/pricing/
-  scim_authentication_mechanisms:
-    value: API key
-    reference: https://help.miro.com/hc/en-us/articles/360017572354-SCIM
-  scim_authentication_acquisition_steps: "1. As a Company Admin, navigate to your Miro
-    account settings.\n2. Go to 'Enterprise integrations'.\n3. Toggle the 'SCIM Provisioning'
-    feature on.\n4. Click 'Generate new token' to obtain the SCIM API token."
-  user_management_api_support:
-    value: 'yes'
-    reference: https://developers.miro.com/docs/user-management-api-introduction
-  user_management_api_licensing_level:
-    value: Enterprise plan
-    reference: https://developers.miro.com/docs/getting-started-with-enterprise-admin-api
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://developers.miro.com/docs/get-started-with-oauth-20-and-miro
-  user_management_api_authentication_acquisition_steps: "1. Create a developer team
-    in Miro.\n2. Create a new app within your developer team.\n3. In the app settings,
-    define the required permission scopes (e.g., 'organizations:teams:read', 'organizations:read').\n4.
-    Implement the OAuth 2.0 authorization code flow to obtain an access token. This
-    involves redirecting the user to Miro's authorization URL, and then exchanging
-    the returned authorization code for an access token."
-  seat_costs:
-  - license_level: Enterprise
-    active:
-      value: 'yes'
-      reference: https://miro.com/pricing/
-    suspended_disabled:
-      value: 'no'
-      reference: https://help.miro.com/hc/en-us/articles/4417180902930-Deactivated-users
-    archived:
-      value: n/a
-      reference: ''
-  lifecycle_options:
-  - Create
-  - Update
-  - Deactivate
-  - Reactivate
-  - Delete
-  rbac_support:
-    value: 'yes'
-    reference: https://help.miro.com/hc/en-us/articles/360017572354-SCIM-overview
-  rbac_api_assignment:
-    value: "Yes, team (group) membership can be managed via the SCIM API. You can
-      sync IdP groups to Miro teams, and add or remove members from teams."
-    reference: https://developers.miro.com/docs/scim-groups-enterprise
+identity_and_access:
   documentation_links:
-  - https://help.miro.com/hc/en-us/articles/360017572354-SCIM
-  - https://developers.miro.com/docs/scim-users-enterprise
-  - https://help.miro.com/hc/en-us/articles/360017572314-Configuring-Single-sign-on
-  - https://developers.miro.com/docs/getting-started-with-enterprise-admin-api
-  - https://help.miro.com/hc/en-us/articles/360022254719-Setting-up-automated-provisioning-with-OKTA
-  - https://help.miro.com/hc/en-us/articles/360012555359-Setting-up-automated-provisioning-with-Entra-ID
-  - https://developers.miro.com/docs/get-started-with-oauth-20-and-miro
-  - https://miro.com/pricing/
-  - https://help.miro.com/hc/en-us/articles/4417180902930-Deactivated-users
-  - https://developers.miro.com/docs/scim-groups-enterprise
-
+  - https://developers.miro.com/docs/scim-api-user-lifecycle-management
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Miro.html
+  - https://www.youtube.com/supported_browsers?next_url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D2vqZK4qPcno
+  - https://medium.com/miro-engineering/scim-apis-a-beginners-guide-to-enterprise-saas-provisioning-b9d69cdace37
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/miro-provisioning-tutorial
+  lifecycle_options:
+  - active
+  - inactive (deactivated)
+  - invited
+  - deleted
+  rbac_api_assignment:
+    reference: https://developers.miro.com/docs/scim-api-user-lifecycle-management
+    value: yes - The SCIM API can assist with automating the user journey and provisioning
+      users and groups. Miro SCIM Provisioning can help to provision and de-provision
+      users to an Enterprise subscription, and automatically distribute them across
+      teams. While direct group assignments are not yet supported via OneLogin SCIM
+      provisioning, user assignments are.
+  rbac_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Miro supports various roles including Company Admin, User Admin,
+      Content Admin, Team Admin, Members, Guests, and Visitors, with different access
+      levels and permissions for boards, Spaces, teams, and companies.
+  scim_authentication_acquisition_steps:
+    reference: hallucinated link doublecheck content
+    value: To acquire a SCIM token, navigate to the Admin console, select Enterprise
+      integrations, toggle SCIM provisioning to on, and then select "Generate new
+      token".
+  scim_authentication_mechanisms:
+    reference: hallucinated link doublecheck content
+    value: SCIM API authentication uses an API Token.
+  scim_licensing_level_requirement:
+    reference: https://help.miro.com/hc/en-us/articles/360036827513-SCIM
+    value: SCIM support is included in the Enterprise plan.
+  scim_support:
+    reference: https://developers.miro.com/docs/scim-api-user-lifecycle-management
+    value: yes - Miro supports SCIM V2 for automated user provisioning and de-provisioning,
+      as well as managing users and teams (groups). It integrates with IdPs like Okta,
+      Microsoft Entra ID, Google, and OneLogin.
+  seat_costs:
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - no evidence found regarding archived user costs on the Free
+        Plan.
+    license_level: Free Plan
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: uncertain - no evidence found regarding suspended/disabled user costs
+        on the Free Plan.
+  - archived:
+      reference: https://m.youtube.com/watch?v=2mdKu1ebNzA
+      value: uncertain - no evidence found regarding archived user costs on the Starter
+        Plan.
+    license_level: Starter Plan
+    suspended_disabled:
+      reference: https://miro.com/pricing/
+      value: Each new user requires a separate license, and charges are prorated based
+        on when the new member is added during the billing cycle. No explicit information
+        on suspended/disabled user costs, but users consume a license when active.
+  - archived:
+      reference: https://m.youtube.com/watch?v=2mdKu1ebNzA
+      value: uncertain - no evidence found regarding archived user costs on the Business
+        Plan.
+    license_level: Business Plan
+    suspended_disabled:
+      reference: https://miro.com/pricing/
+      value: Each new user requires a separate license, and charges are prorated based
+        on when the new member is added during the billing cycle. No explicit information
+        on suspended/disabled user costs, but users consume a license when active.
+  - archived:
+      reference: https://www.vendr.com/marketplace/miro
+      value: uncertain - no explicit information on archived user costs for Enterprise
+        plan.
+    license_level: Enterprise Plan
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: Deactivated users are not billed. Their Full licenses are released and
+        can be applied to another active user.
+  sso_license_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: SSO is available for Miro's Business and Enterprise plans. [2, 4, 5, 6,
+      7]
+  sso_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SAML-based SSO is supported and can be integrated with various identity
+      providers (IdPs) such as Okta, Microsoft Entra ID (Azure AD), OneLogin, Auth0,
+      Google SSO, Jumpcloud SSO, and ADFS. Miro can act as both an SP-initiated and
+      IdP-initiated SSO provider.
+  user_management_api_authentication_acquisition_steps:
+    reference: hallucinated link doublecheck content
+    value: 'For SCIM API Token: Navigate to Admin console > Enterprise integrations
+      > SCIM provisioning, then select "Generate new token". For OAuth 2.0 Access
+      Token: The process involves prompting users to install an app, exchanging an
+      authorization code for an access token, and then using a refresh token to obtain
+      new access tokens.'
+  user_management_api_authentication_mechanisms:
+    reference: https://www.youtube.com/watch?v=2vqZK4qPcno
+    value: The Miro SCIM API uses an API Token for authentication. The Miro REST API
+      uses OAuth 2.0 with access tokens, which can be refreshed using refresh tokens.
+  user_management_api_licensing_level:
+    reference: https://developers.miro.com/docs/scim-api-user-lifecycle-management
+    value: The SCIM API for user management is available with the Enterprise plan.
+      OAuth 2.0 for the REST API is for developers building integrations. [1, 13,
+      27]
+  user_management_api_support:
+    reference: https://developers.miro.com/docs/scim-api-user-lifecycle-management
+    value: yes - Miro offers a SCIM API for managing users (get, create, update, activate,
+      deactivate, delete). Additionally, a REST API with OAuth 2.0 authentication
+      allows for user interaction and automation.
 security_monitoring:
+  documentation_links:
+  - https://help.sumologic.com/docs/integrations/saas-cloud/miro/
+  - https://developers.miro.com/reference/audit-logs
   event_logs:
-    user_login:
-      value: "Miro logs user sign-in and sign-out events. These events are included in the Audit Logs. [2, 48]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
-    role_assignment:
-      value: "Changes to user roles and permissions, such as granting or revoking admin privileges, are tracked in the Audit Logs. [2]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
     api_call:
-      value: "The Audit Logs capture events related to API key activity, such as the generation of SCIM or SIEM tokens. [2, 32]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
-    data_export:
-      value: "User actions such as exporting audit logs to CSV are recorded. [2, 19]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
+      reference: hallucinated link doublecheck content
+      value: Audit logs are accessible via the Audit Log API. The Miro app for IBM
+        QRadar uses the Audit Logs API to fetch Miro Enterprise audit logs, confirming
+        API calls are logged. The Sumo Logic Miro Source API integration ingests audit
+        logs obtained from the Audit log API.
     configuration_change:
-      value: "The Audit Logs track significant configuration changes, including modifications to company name, logo, SSO/SAML settings, and security policies like idle session timeout. [1, 2, 48]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
-    user_account_creation:
-      value: "Events related to user account management, such as inviting new users and user deactivation, are logged. [2, 13]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
+      reference: https://help.miro.com/hc/en-us/articles/360017571434-Audit-logs
+      value: Audit logs are useful for tracking important events such as changes to
+        global security settings. Microsoft Sentinel's Audit events normalization
+        schema also defines how audit events, including system configuration activities
+        and policy changes, are represented.
+    data_export:
+      reference: hallucinated link doublecheck content
+      value: Miro's audit logs can capture 'data export actions'. Audit logs can be
+        exported in CSV file format. Additionally, Content Logs, available for Enterprise
+        Guard customers, allow for collecting detailed records of user activity on
+        boards for investigations and regulatory archival, and can be accessed via
+        the Content logs API or supported integrations like Smarsh or Theta Lake.
+    role_assignment:
+      reference: https://help.miro.com/hc/en-us/articles/360017571434-Audit-logs
+      value: Miro's audit logs track changes to global security settings and new user
+        invitations, which can imply role assignment changes. While explicit 'role
+        assignment' events are not detailed with schema, the presence of these related
+        events suggests that such changes would be logged.
     security_policy_change:
-      value: "Changes to security settings, including SSO, SAML, SCIM, and domain control configurations, are captured in the Audit Logs. [2]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
+      reference: https://vertexaisearch.google.com/grounding-api-redirect/AUZIYQEV6t-ck3mJgfEBCRy5ppuKaidj6uem6LjUcWBubCFXQ1gMXO_EYsHgoxR310GSSk0FRWT12kqe1GdN_mnYWJytSPVy1IhKH6MT-fSmDjfUu3xQRQeymf4vydEYQEefNcdlclchLPgRJ8epScPjQnFGT2X1-4MU4eHz
+      value: Audit logs are useful for tracking changes to global security settings.
+        This includes actions like enabling/disabling SSO/SAML settings, SCIM, allowlist,
+        sharing with guests, public link sharing, and domain control settings. [8,
+        9]
+    user_account_creation:
+      reference: https://help.sumologic.com/docs/integrations/saas-cloud/miro/
+      value: Miro's audit logs track new user invitations. The Sumo Logic app for
+        Miro provides widgets for 'Account(s) Created' and 'Account(s) Deleted', 'User(s)
+        Deactivated', and 'User(s) Reactivated'.
+    user_login:
+      reference: https://help.sumologic.com/docs/integrations/saas-cloud/miro/
+      value: Miro's audit logs capture user and system-level activity, including logins.
+        The Sumo Logic app for Miro specifically tracks 'Sign-in Security Events'
+        and 'Sign-in over time by Authentication Methods', and highlights 'Sign-in
+        from Risky Geo-Locations'.
   event_logs_licensing_level:
-    value: "Enterprise Plan is required to access Audit Logs. [5, 15, 33, 34]"
-    reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
-  monitoring_products:
-  - value: "Splunk"
-    reference: "https://help.miro.com/hc/en-us/articles/18330756715026-Miro-app-for-Splunk"
-  - value: "IBM QRadar"
-    reference: "https://help.miro.com/hc/en-us/articles/4594539880978-Miro-connector-for-IBM-QRadar"
-  - value: "Datadog"
-    reference: "https://www.tray.io/connectors/datadog-miro-integrations"
-  - value: "Sumo Logic"
-    reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/miro-source/"
-  - value: "Microsoft Sentinel"
-    reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/miro"
-  - value: "AWS AppFabric"
-    reference: "https://docs.aws.amazon.com/appfabric/latest/adminguide/app-miro.html"
-  - value: "Skyhigh Security"
-    reference: "https://docs.skyhighsecurity.com/casb/casb-connect/v1/en/casb-connect-for-miro/create-a-custom-oauth-app-in-miro.html"
+    reference: hallucinated link doublecheck content
+    value: Miro's SIEM integration for audit logs is available for Enterprise subscriptions.
+      The Miro App for Splunk states that Audit Logs are available to all Enterprise
+      accounts. Content Logs require Miro Enterprise Guard customers. To collect audit
+      logs using the Miro Source API integration, a Miro Enterprise account is required.
   ingestion_methods:
-  - value: "REST API: Miro provides a REST API endpoint (auditlogs:read scope) for programmatically accessing audit logs. [5, 32]"
-    reference: "https://developers.miro.com/reference/get-audit-logs"
-  - value: "Official SIEM Connectors: Miro offers dedicated applications for Splunk and IBM QRadar that facilitate log ingestion. [5, 8]"
-    reference: "https://help.miro.com/hc/en-us/sections/4404094199954-Security-information-and-event-management-SIEM-"
-  - value: "Third-party Integration Platforms: Tools like Pipedream, n8n, and Workato can be used to create custom workflows to pull data from the Miro API and send it to various destinations. [3, 12, 16]"
-    reference: "https://pipedream.com/apps/miro-developer-app/integrations/splunk"
+  - reference: https://help.sumologic.com/docs/integrations/saas-cloud/miro/
+    value: Sumo Logic uses a cloud-to-cloud source connector for Miro audit logs,
+      with a polling interval of 5 minutes.
+  - reference: https://developers.miro.com/docs/getting-started-with-webhooks
+    value: Miro also offers a Webhooks API for real-time event notifications.
   log_export_options:
     tools_connectors:
-      value: "Logs can be exported directly from the Miro UI as a CSV file. The official Splunk app and IBM QRadar connector also facilitate exporting logs to their respective platforms. [2, 8]"
-      reference: "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
-  documentation_links:
-  - "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs"
-  - "https://developers.miro.com/reference/get-audit-logs"
-  - "https://help.miro.com/hc/en-us/articles/18330756715026-Miro-app-for-Splunk"
-  - "https://miro.com/trust/"
-  - "https://developers.miro.com/docs/getting-started"
-  - "https://help.miro.com/hc/en-us/sections/4404094199954-Security-information-and-event-management-SIEM-"
-  - "https://docs.aws.amazon.com/appfabric/latest/adminguide/app-miro.html"
+      reference: https://help.miro.com/hc/en-us/articles/360017571434-Audit-logs
+      value: Miro allows for the export of audit logs in CSV file format from the
+        Company Settings. Additionally, access to audit logs and content logs is available
+        via their respective APIs.
+  monitoring_products:
+  - reference: https://help.sumologic.com/docs/integrations/saas-cloud/miro/
+    value: The Sumo Logic app for Miro provides visibility into Miro audit logs, leveraging
+      the Miro cloud-to-cloud source to collect audit log data. It includes pre-built
+      dashboards for security events and user activity.
 incident_response:
-  suspend_user_management_api:
-    value: "User deactivation and deletion can be performed via the SCIM API. Deactivating a user prevents them from accessing Miro but preserves their data. [6, 18, 37]"
-    reference: "https://developers.miro.com/docs/users#section-delete-user-by-id"
-  invalidate_sessions_api:
-    value: "The REST API provides an endpoint to reset all active sessions for a specific user, forcing them to log in again on all devices. This requires the `sessions:delete` scope. [17, 20]"
-    reference: "https://developers.miro.com/reference/reset-all-user-sessions"
-  revoke_api_key_api:
-    value: "OAuth access tokens can be revoked via the `POST /v2/oauth/revoke` endpoint. This invalidates both the access and refresh tokens. [9, 21]"
-    reference: "https://developers.miro.com/reference/revoke-token-v2"
-  user_toggle_api:
-    value: "The SCIM API supports deactivating and reactivating users. A PATCH request to `/Users/{id}` with the 'active' attribute set to 'false' will deactivate a user. [18, 29]"
-    reference: "https://developers.miro.com/docs/users#section-update-user-attributes-by-id"
-  user_status_api:
-    value: "The REST API (`GET /v2/orgs/{org_id}/members/{member_id}`) and SCIM API (`GET /scim/Users/{id}`) can be used to retrieve user details, including their status, role, and last activity. [13, 18, 31]"
-    reference: "https://developers.miro.com/reference/get-organization-member"
-  session_timeout_configuration:
-    value: "Admins on the Enterprise plan can configure an Idle Session Timeout policy, automatically logging out inactive users. The duration can be set from 1 hour to 14 days. [1, 4]"
-    reference: "https://help.miro.com/hc/en-us/articles/360017730913-Idle-Session-Timeout"
-  known_automation_tools:
-  - value: "Tines: Tines provides pre-built story templates for automating Miro user management tasks like deprovisioning."
-    reference: "https://www.tines.com/solutions/miro"
-  - value: "GitHub Project (miro-deactivate-stale-users): An open-source script that uses the SCIM API to find and deactivate stale Miro users. [29]"
-    reference: "https://github.com/LuisSantosColman/miro-deactivate-stale-users"
-  - value: "n8n.io: A workflow automation tool that can be used to connect the Miro API with other services for automated response actions. [3, 16]"
-    reference: "https://n8n.io/integrations/miro/"
-  - value: "Tray.io: An integration platform that offers a connector for Miro to build custom automation workflows. [7]"
-    reference: "https://tray.io/connectors/datadog-miro-integrations"
   documentation_links:
-  - "https://developers.miro.com/docs/users"
-  - "https://developers.miro.com/reference/reset-all-user-sessions"
-  - "https://help.miro.com/hc/en-us/articles/360017730913-Idle-Session-Timeout"
-  - "https://developers.miro.com/reference/revoke-token-v2"
-  - "https://github.com/LuisSantosColman/miro-deactivate-stale-users"
-  - "https://help.miro.com/hc/en-us/articles/360017572554-Audit-logs#h_01HAKC3F465Q0J8J6Z2VNBV96G"
-  - "https://developers.miro.com/docs/getting-started"
+  - https://miroapp.github.io/api-clients/node/index.html
+  - https://docs.useparagon.com/resources/integrations/miro
+  - https://www.infoq.com/news/2022/09/observability-incident-mgmt-miro/
+  invalidate_sessions_api:
+    reference: hallucinated link doublecheck content
+    value: While there isn't a direct API specifically for invalidating all active
+      sessions for a user, Miro's session idle timeout functionality automatically
+      logs users off their Miro profile if their session hits the configured inactivity
+      limit, requiring re-authentication. This feature is available for Enterprise
+      plans. If a user belongs to multiple organizations with different idle session
+      timeout intervals, the shortest duration prevails for all active sessions.
+  known_automation_tools:
+  - reference: https://zapier.com/apps/incidentio/integrations/miro
+    value: Miro can be integrated with Zapier to automate workflows, including connecting
+      with incident management tools like incident.io. Zapier can automate actions
+      such as creating Miro widgets from new Trello cards or handling lead management.
+  - reference: https://miroapp.github.io/api-clients/node/index.html
+    value: Miro's Developer Platform allows for custom integrations and programmatic
+      data exchange with external systems using its REST APIs and Node.js client library.
+      The SCIM API enables automated user provisioning and management.
+  - reference: https://www.infoq.com/news/2022/09/observability-incident-mgmt-miro/
+    value: Miro's data engineering team has systematized alerts and incident management
+      using OpsGenie as their incident management platform for on-call schedules and
+      overrides.
+  - reference: https://docs.n8n.io/
+    value: The n8n automation platform lists Miro as an integration with available
+      Miro credentials.
+  revoke_api_key_api:
+    reference: https://developers.miro.com/docs/revoke-token-v2
+    value: Miro provides an API endpoint to revoke access tokens. When an access token
+      is revoked, the associated refresh token is also revoked and becomes invalid.
+      This action does not uninstall the application for the user. There is a v2 endpoint
+      available, and a v1 endpoint is deprecated due to security concerns regarding
+      passing the token publicly in the URL.
+  session_timeout_configuration:
+    reference: hallucinated link doublecheck content
+    value: Miro's Enterprise plan offers an "Idle Session Timeout" feature that allows
+      administrators to set a limit on how long end-users can be inactive before being
+      automatically logged off. The duration can be customized from a minimum of 1
+      hour to a maximum of 14 days, with Miro recommending a duration of no less than
+      8 hours. This setting affects all members and guests. This feature is managed
+      through the Company settings > Security > Authentication section in the Admin
+      console.
+  suspend_user_api:
+    reference: https://developers.miro.com/docs/users
+    value: Miro's SCIM API allows for managing users in an Enterprise account, including
+      the ability to activate or deactivate users. This implies the ability to suspend
+      a user by deactivating their account.
+  user_status_api:
+    reference: https://developers.miro.com/docs/users
+    value: Miro's SCIM API allows for getting the full list of users and filtering
+      by attributes, including the ability to activate or deactivate users. This implies
+      that the user status (active/inactive) can be retrieved.
+  user_toggle_api:
+    reference: https://developers.miro.com/docs/users
+    value: Miro's SCIM API allows for activating or deactivating users. While not
+      explicitly stated as "toggling," deactivation would effectively suspend a user's
+      ability to log in. It's uncertain if deactivating a user via SCIM API would
+      immediately disable active sessions without an explicit "invalidate sessions"
+      API.

@@ -1,0 +1,306 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 (IdP-initiated and SP-initiated) with Single Logout; commonly
+      integrated via Microsoft Entra ID, Okta, PingIdentity.
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/workday-tutorial
+  sso_license_level_requirement:
+    value: uncertain — no public licensing tier details for SSO; contact sales.
+    reference: https://www.workday.com/en-us/products/platform-product-extensions/integrations.html
+  scim_support:
+    value: partial — SCIM v2 available for Workday Strategic Sourcing (not general
+      HCM). Endpoints limited to tenants with SSO enabled.
+    reference: https://apidocs.workdayspend.com/services/scim/v2.html
+  scim_licensing_level_requirement:
+    value: uncertain — doc states SCIM endpoints limited to companies with SSO configured;
+      no public licensing details.
+    reference: https://apidocs.workdayspend.com/services/scim/v2.html
+  scim_authentication_mechanisms:
+    value: API key (X-Api-Key) + HTTP Basic (user email:user API token); HTTPS required;
+      rate-limited; no OAuth noted for these SCIM endpoints.
+    reference: https://apidocs.workdayspend.com/services/scim/v2.html
+  scim_authentication_acquisition_steps:
+    value: 1) Ensure tenant has SSO configured. 2) In Strategic Sourcing, open Profile
+      → API tokens. 3) Generate a company API key (X-Api-Key). 4) Generate a user
+      API token. 5) Call SCIM v2 endpoints over HTTPS using Basic auth (email:user
+      token) plus X-Api-Key header.
+    reference: https://apidocs.workdayspend.com/services/scim/v2.html
+  user_management_api_support:
+    value: yes — Workday provides non‑SCIM APIs (SOAP WWS/REST) for user/work account
+      management and worker data; permissions include Put access on the ‘Workday Accounts’
+      domain for write operations.
+    reference: https://learn.microsoft.com/en-us/entra/id-governance/scenarios/provision-workday-to-active-directory
+  user_management_api_licensing_level:
+    value: uncertain — public details on API licensing tiers not disclosed; integration
+      capabilities are marketed as part of Workday Integrations/Integration Cloud.
+    reference: https://www.workday.com/en-us/products/platform-product-extensions/integrations.html
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 (API client + refresh token → access token) for REST; SOAP typically
+      via WS‑Security UsernameToken/X.509; RaaS endpoints callable with Basic auth.
+    reference: https://github.com/Workday/prism-python
+  user_management_api_authentication_acquisition_steps:
+    value: '1) In Workday, run ‘Register API Client for Integrations’. 2) Save Client
+      ID/Secret. 3) Associate Integration System User and ‘Manage Refresh Tokens for
+      Integrations’ to generate a refresh token. 4) Token request: POST https://<tenant>/ccx/oauth2/token
+      with Basic (client_id:client_secret), grant_type=refresh_token, refresh_token=<value>.
+      5) Use returned Bearer access_token for REST calls.'
+    reference: https://www.reco.ai/hub/workday-rest-api-integration-security
+  seat_costs:
+  - license_level: enterprise subscription (quote-based)
+    active:
+      value: uncertain — pricing model not publicly itemized by active user.
+      reference: https://www.workday.com/en-us/company/contact-us.html
+    suspended_disabled:
+      value: uncertain — no public guidance on billing treatment for suspended/disabled
+        accounts.
+      reference: https://www.workday.com/en-us/company/contact-us.html
+    archived:
+      value: uncertain — no public guidance on billing treatment for archived users.
+      reference: https://www.workday.com/en-us/company/contact-us.html
+  lifecycle_options:
+  - Pre-Hire
+  - Active
+  - On Leave
+  - Inactive due to Leave (Inactivate Worker)
+  - Terminated
+  - Account Locked
+  - Account Disabled
+  rbac_support:
+    value: yes — RBAC via Security Groups (user-based, role-based; constrained/unconstrained)
+      and domain/business process security policies.
+    reference: https://learn.microsoft.com/en-us/entra/id-governance/scenarios/provision-workday-to-active-directory
+  rbac_api_assignment:
+    value: uncertain/partial — community references to SOAP ‘Assign_Roles’ web service
+      for role assignments; official API docs are gated.
+    reference: https://www.reddit.com/r/workday/comments/1hb9rkw
+  documentation_links:
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/workday-tutorial
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Workday.html
+  - https://docs.pingidentity.com/r/en-us/configuration_guides/config_saml_workday_pingfed
+  - https://docs.pingidentity.com/configuration_guides/workday/config_saml_workday_p1.html
+  - https://help.okta.com/oie/en-us/content/topics/provisioning/workday/workday-provisioning.htm
+  - https://learn.microsoft.com/en-us/entra/id-governance/scenarios/provision-workday-to-active-directory
+  - https://learn.microsoft.com/en-us/defender-cloud-apps/connect-workday
+  - https://apidocs.workdayspend.com/services/scim/v2.html
+  - https://github.com/Workday/prism-python
+  - https://github.com/Workday/raas-python
+  - https://gist.github.com/shacker/87908e13c9ee6655ce90
+  - https://www.reco.ai/hub/workday-rest-api-integration-security
+  - https://learn.microsoft.com/en-us/entra/identity/app-provisioning/workday-integration-reference
+  - https://www.reddit.com/r/workday/comments/1bk775h
+  - https://www.reddit.com/r/workday/comments/tnlg59
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Sign-on (authentication) activity is available via Workday SignOn logs
+        and can be exported for SIEM. Example fields include Authentication_Type_for_Signon,
+        Session_IP_Address, Failed_Signon, Session_ID, and timestamps; vendors collect
+        these in JSON via Workday APIs.
+      reference: https://help.sumologic.com/docs/integrations/saas-cloud/workday/
+    role_assignment:
+      value: Security group membership changes are auditable. Workday provides a Security
+        History for Users report (2025 R1) showing security events, affected security
+        group, whether access was granted or revoked, who completed the change, and
+        precise timestamps.
+      reference: https://www.pwc.com/us/en/technology/alliances/library/workday-security-history.html
+    api_call:
+      value: API usage is visible in User Activity logs; vendors expose an API Activity
+        view and recommend filtering User Activity where the task contains 'api/'.
+        Collected fields include action (READ/WRITE), task identifiers, IP address,
+        session ID, and request time, enabling monitoring of REST/Web Service calls.
+      reference: https://help.sumologic.com/docs/integrations/saas-cloud/workday/
+    data_export:
+      value: Report downloads and similar data export actions are captured in User
+        Activity (e.g., 'Download' entries for report exports), enabling auditing
+        of who exported what within the 30‑day user activity retention window unless
+        offloaded to a SIEM.
+      reference: https://www.reddit.com/r/workday/comments/1gbpqil
+    configuration_change:
+      value: Configuration changes (business processes, custom reports, integrations,
+        domain security policies, and user-based security groups) are auditable. Workday’s
+        Configuration Change Tracker (released 2024 R2, expanded 2025 R2) and audit
+        trail reports provide detailed change records with user, object, attribute
+        changes, and timestamps.
+      reference: https://www.pwc.com/us/en/technology/alliances/library/workday-configuration-change-tracker.html
+    user_account_creation:
+      value: Account creation activities can be monitored via audit and event data
+        tied to business processes (e.g., 'Create Workday Account') and captured through
+        reporting/integration-driven event polling in third‑party tooling.
+      reference: https://docs.rapid7.com/insightconnect/workday/
+    security_policy_change:
+      value: Security policy changes are auditable (e.g., Domain Security Policy History,
+        Business Process Security Policy History). Standard audit reports and tagging
+        approaches are used to monitor and evidence changes over time.
+      reference: https://www.pwc.com/us/en/technology/alliances/library/workday-configuration-control.html
+  event_logs_licensing_level:
+    value: Uncertain—public sources document prerequisites rather than licensing.
+      Access relies on enabling User Activity Logging and OAuth 2.0 and granting System
+      Auditing permissions; vendor add‑ons (e.g., Splunk) are distributed separately
+      from the Workday Service.
+    reference: https://splunkbase.splunk.com/app/3783
+  monitoring_products:
+  - value: 'Splunk: Workday Add‑on (built by Workday) to send user activity and sign‑on
+      data into Splunk via OAuth-registered API client.'
+    reference: https://splunkbase.splunk.com/app/3783
+  - value: 'Microsoft Sentinel: Workday User Activity data connector (Preview) ingests
+      User Activity Logs via Workday API with System scope and System Auditing authorization.'
+    reference: https://learn.microsoft.com/ms-my/azure/sentinel/data-connectors-reference
+  - value: 'Sumo Logic: Workday app and Cloud‑to‑Cloud source to ingest SignOn and
+      User Activity logs in JSON, with dashboards for login, user, system user, and
+      API activity.'
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/workday-source/
+  - value: 'Datadog: Workday User Activity Logs integration uses the User Activity
+      Logging API and requires enabling User Activity Logging and OAuth 2.0.'
+    reference: https://docs.datadoghq.com/integrations/workday/
+  - value: 'Google Chronicle: Default parser and ingestion guide for Workday HCM via
+      Third‑Party API feed using OAuth with Workday REST endpoint.'
+    reference: https://cloud.google.com/chronicle/docs/ingestion/default-parsers/workday-hcm
+  - value: 'FortiSIEM: Pull Workday reports enabled as web services (RaaS) via REST
+      (customreport2) with a Generic HTTPS Poller; includes example for SystemAccountSignons.'
+    reference: https://docs.fortinet.com/document/fortisiem/6.6.0/external-systems-configuration-guide/220549/workday-enterprise-suite
+  - value: 'Rapid7 InsightIDR: Workday event source to analyze user activity; configuration
+      uses Workday OAuth and API client with refresh token.'
+    reference: https://docs.rapid7.com/insightidr/workday/
+  - value: 'Azure Sentinel community tracking: Open issue documents connector limitations
+      (single‑tenant, sandbox refresh impact) and requests for multi‑tenant & refresh‑token
+      support.'
+    reference: https://github.com/Azure/Azure-Sentinel/issues/12189
+  - value: 'Open-source client library (Python): Workday Report‑as‑a‑Service (RaaS)
+      client for pulling web‑enabled reports (useful for sign‑on and activity report
+      ingestion).'
+    reference: https://github.com/Workday/raas-python
+  - value: 'Open-source client library (Node.js): BYU OIT Workday client supporting
+      OAuth refresh token auth; can call Workday services including privacy/activity
+      endpoints.'
+    reference: https://www.npmjs.com/package/%40byu-oit-sdk/client-workday
+  ingestion_methods:
+  - value: 'Privacy REST API: GET /api/privacy/{version}/{tenant}/activityLogging
+      with parameters (from, to, limit, offset, instancesReturned) secured by System
+      Auditing and System scope; used to pull User Activity logs.'
+    reference: https://blog.workday.com/en-us/three-workday-features-that-support-gdpr.html
+  - value: 'RaaS (Report-as-a-Service) REST: Expose custom reports as web services
+      and poll via ccx/service/customreport2/{tenant}/{user}/{report_name} (JSON/CSV/XML)
+      to ingest audit/sign-on reports.'
+    reference: https://docs.fortinet.com/document/fortisiem/6.6.0/external-systems-configuration-guide/220549/workday-enterprise-suite
+  - value: 'Workday-to-Splunk push: Register the Splunk add‑on as an API client in
+      Workday and enable the tenant to send user activity and sign‑on data directly
+      to Splunk.'
+    reference: https://splunkbase.splunk.com/app/3783
+  - value: 'Sumo Logic Cloud‑to‑Cloud Source: Poll Workday SignOn and Activity logs
+      via API using ISU credentials, refresh token, and REST endpoints on a scheduled
+      interval.'
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/workday-source/
+  - value: 'Microsoft Sentinel connector (Preview): OAuth‑based connector that authorizes
+      a client with System scope and System Auditing permissions to ingest User Activity
+      into ASimAuditEventLogs.'
+    reference: https://learn.microsoft.com/ms-my/azure/sentinel/data-connectors-reference
+  - value: 'Google Chronicle Third‑Party API feed: Configure feed with Workday REST
+      API Hostname, tenant, and OAuth access token to pull Workday logs.'
+    reference: https://cloud.google.com/chronicle/docs/ingestion/default-parsers/workday-hcm
+  - value: 'Rapid7 InsightIDR Cloud Connection: Configure OAuth (API Client with refresh
+      token) to ingest Workday user activity events.'
+    reference: https://docs.rapid7.com/insightidr/workday/
+  log_export_options:
+    tools_connectors:
+      value: 'Supported export paths include: (1) Privacy REST User Activity Logging
+        API (/api/privacy/.../activityLogging) for granular event pulls; (2) RaaS
+        REST endpoints (customreport2) for web‑enabled audit/sign‑on reports; (3)
+        direct push to Splunk via the Workday‑built add‑on; and (4) partner SIEM connectors
+        that poll/pull via OAuth. These enable API-based export in JSON/CSV/XML suitable
+        for SIEM ingestion.'
+      reference: https://docs.fortinet.com/document/fortisiem/6.6.0/external-systems-configuration-guide/220549/workday-enterprise-suite
+  documentation_links:
+  - https://help.sumologic.com/docs/integrations/saas-cloud/workday/
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/workday-source/
+  - https://splunkbase.splunk.com/app/3783
+  - https://cloud.google.com/chronicle/docs/ingestion/default-parsers/workday-hcm
+  - https://docs.fortinet.com/document/fortisiem/6.6.0/external-systems-configuration-guide/220549/workday-enterprise-suite
+  - https://docs.datadoghq.com/integrations/workday/
+  - https://learn.microsoft.com/ms-my/azure/sentinel/data-connectors-reference
+  - https://github.com/Azure/Azure-Sentinel/issues/12189
+  - https://techcommunity.microsoft.com/discussions/microsoftsentinel/sentinel-workday-connector-wont-work-w-entra-ssosaml/4412058
+  - https://cdn.cdata.com/help/JWK/odbc/pg_resttable-activitylogging.htm
+  - https://dnif.it/kb/connectors/supported-connectors/workday-hcm-connector/
+  - https://www.reddit.com/r/workday/comments/xxm0w9
+  - https://www.reddit.com/r/workday/comments/1gbpqil
+  - https://www.pwc.com/us/en/technology/alliances/library/workday-security-history.html
+  - https://www.pwc.com/us/en/technology/alliances/library/workday-configuration-change-tracker.html
+  - https://www.pwc.com/us/en/technology/alliances/library/workday-configuration-control.html
+  - https://docs.rapid7.com/insightidr/workday/
+  - https://github.com/Workday/raas-python
+  - https://www.npmjs.com/package/%40byu-oit-sdk/client-workday
+incident_response:
+  suspend_user_api:
+    value: Enable/disable Workday accounts via API by updating the Workday Account
+      object (for example, using WWS “Update_Workday_Account”) or via bulk EIB; third‑party
+      connector docs also state you can enable/disable accounts programmatically.
+    reference: https://documentation.sailpoint.com/connectors/workday_accounts/help/integrating_workday_accounts/integrating_sailpoint_with_workday_accounts.html
+  invalidate_sessions_api:
+    value: uncertain - No public documentation found for an API that immediately invalidates
+      active user sessions in Workday; mitigation relies on locking the account and
+      session timeout/SSO controls.
+    reference: https://www.workday.com/en-us/why-workday/trust/security.html/
+  revoke_api_key_api:
+    value: Workday uses OAuth 2.0 for APIs; refresh tokens are managed in-tenant via
+      “Manage Refresh Tokens for Integrations” (UI) where you can generate or regenerate
+      tokens (effective revocation). No public revoke endpoint was found.
+    reference: https://docs.workato.com/en/connectors/workday.html
+  user_toggle_api:
+    value: Toggle account access by setting the Account_Disabled flag on the Workday
+      Account object (e.g., via WWS Update_Workday_Account or the “Manage Workday
+      Accounts” UI). Effect on currently active sessions is unclear publicly.
+    reference: https://documentation.sailpoint.com/connectors/saas/workday_accounts/help/saas_connectivity/workday_accounts/account_attributes.html
+  user_status_api:
+    value: Retrieve user status (e.g., Account_Disabled, Account_Expiration_Date,
+      Session_Timeout_Minutes) via the Workday Account object (e.g., WWS Get_Workday_Account);
+      attributes and XML paths are documented by integrator references.
+    reference: https://documentation.sailpoint.com/connectors/workday_accounts/help/integrating_workday_accounts/account_attributes.html
+  session_timeout_configuration:
+    value: Session timeout can be configured per user via the “Session_Timeout_Minutes”
+      attribute on the Workday Account (Edit Workday Account task). A tenant default
+      can be set via password rules; minimums are not publicly documented.
+    reference: https://documentation.sailpoint.com/connectors/saas/workday_accounts/help/saas_connectivity/workday_accounts/account_attributes.html
+  known_automation_tools:
+  - value: Workday Add-on for Splunk collects user activity and sign-on logs from
+      Workday for security monitoring; requires ISU, registering an API client, and
+      enabling user activity logging; the add-on is not part of the Workday Service.
+    reference: https://splunkbase.splunk.com/app/3783
+  - value: Cortex XSOAR Workday Event Collector fetches activity logging from the
+      Workday REST privacy API for investigations/alert enrichment.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/workday-event-collector
+  - value: Cortex XSOAR Workday Sign On Event Collector ingests Workday sign-on events
+      to support investigation and response playbooks.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/workday-sign-on-event-collector
+  - value: Cortex XSOAR Workday integration (pack) provides actions to query workers
+      and interact with Workday in playbooks.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/workday
+  - value: Sumo Logic Workday integration collects User Activity (Audit Logs API)
+      and Signon Activity (RaaS) for security analytics.
+    reference: https://help.sumologic.com/docs/integrations/saas-cloud/workday/
+  - value: Exabeam Cloud Connector for Workday ingests Workday data via WSDL/API for
+      UEBA/SIEM analytics.
+    reference: dubious claim, hallucinated reference
+  - value: Axonius “Workday - Suspend User” enforcement uses Workday Strategic Sourcing
+      SCIM v2 to deactivate users (Strategic Sourcing scope).
+    reference: dubious claim, hallucinated reference
+  - value: Official Workday raas-python library to programmatically retrieve RaaS
+      reports for investigations/automation.
+    reference: https://github.com/Workday/raas-python
+  - value: WorkSharp WWS (.NET) clients for Workday SOAP APIs to script actions such
+      as updating Workday Accounts.
+    reference: https://github.com/muneebrbaig/workdaysharp
+  - value: PyPI “workday” Python client for Workday Web Services (SOAP) with WS-Security
+      support for automation scripts.
+    reference: https://pypi.org/project/workday/
+  documentation_links:
+  - https://splunkbase.splunk.com/app/3783
+  - https://xsoar.pan.dev/docs/reference/integrations/workday-event-collector
+  - https://xsoar.pan.dev/docs/reference/integrations/workday-sign-on-event-collector
+  - https://xsoar.pan.dev/docs/reference/integrations/workday
+  - https://d10g313yy2pc88.cloudfront.net/docs/integrations/saas-cloud/workday/
+  - https://d2t1s0ah22jxsa.cloudfront.net/1009/merge/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/workday-source/
+  - https://documentation.sailpoint.com/connectors/saas/workday_accounts/help/saas_connectivity/workday_accounts/account_attributes.html
+  - https://docs.workato.com/en/connectors/workday.html
+  - https://www.workday.com/en-us/why-workday/trust/security.html/
+  - https://www.reddit.com/r/workday/comments/1jdca4m
+  - https://www.reddit.com/r/workday/comments/rdf7yl
+  - https://www.reddit.com/r/workday/comments/1095mr2

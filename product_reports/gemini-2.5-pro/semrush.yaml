@@ -1,171 +1,242 @@
-user_management:
-  sso_support:
-    value: "yes"
-    reference: "https://www.semrush.com/kb/128-profile-settings"
-  sso_licensing_level_requirement:
-    value: "SSO is available to Guru and Business users."
-    reference: "https://www.semrush.com/kb/128-profile-settings"
-  scim_support:
-    value: "no"
-    reference: "https://www.okta.com/integrations/semrush/"
-  scim_licensing_level_requirement:
-    value: "n/a"
-    reference: "https://www.okta.com/integrations/semrush/"
-  scim_authentication_mechanisms:
-    value: "n/a"
-    reference: "https://www.okta.com/integrations/semrush/"
-  scim_authentication_acquisition_steps: "SEMrush does not currently support SCIM for user provisioning. The Okta integration catalog indicates that provisioning features like Create, Update, and Deactivate are not supported. [19]"
-  user_management_api_support:
-    value: "uncertain"
-    reference: "https://www.semrush.com/developers/api"
-  user_management_api_licensing_level:
-    value: "The standard API is available as an add-on to a Business subscription. [3]"
-    reference: "https://rollout.io/blog/semrush-api-essential-guide/"
-  user_management_api_authentication_mechanisms:
-    value: "API key"
-    reference: "https://www.semrush.com/developers/api/get-api-key"
-  user_management_api_authentication_acquisition_steps: "1. Log in to your Semrush account.\n2. Click on your profile icon in the top right corner and select 'Subscription Info'.\n3. Navigate to the 'API Units' tab.\n4. Your API key will be displayed on this page. Copy the API key to use for authentication. [7, 4]"
-  seat_costs:
-  - license_level: "Pro"
-    active:
-      value: "yes"
-      reference: "https://traffictinktank.com/semrush-cost/"
-    suspended_disabled:
-      value: "no"
-      reference: "https://www.semrush.com/kb/915-billing"
-    archived:
-      value: "no"
-      reference: "https://www.semrush.com/kb/915-billing"
-  - license_level: "Guru"
-    active:
-      value: "yes"
-      reference: "https://traffictinktank.com/semrush-cost/"
-    suspended_disabled:
-      value: "no"
-      reference: "https://www.semrush.com/kb/915-billing"
-    archived:
-      value: "no"
-      reference: "https://www.semrush.com/kb/915-billing"
-  - license_level: "Business"
-    active:
-      value: "yes"
-      reference: "https://traffictinktank.com/semrush-cost/"
-    suspended_disabled:
-      value: "no"
-      reference: "https://www.semrush.com/kb/915-billing"
-    archived:
-      value: "no"
-      reference: "https://www.semrush.com/kb/915-billing"
-  lifecycle_options:
-  - "Create"
-  - "Delete"
-  - "Downgrade"
-  - "Cancel"
-  rbac_support:
-    value: "yes"
-    reference: "https://www.semrush.com/kb/819-user-management"
-  rbac_api_assignment:
-    value: "no"
-    reference: "https://www.semrush.com/developers/api"
+identity_and_access:
   documentation_links:
-  - "https://www.semrush.com/kb/128-profile-settings"
-  - "https://www.semrush.com/developers/api"
-  - "https://www.semrush.com/kb/819-user-management"
-  - "https://rollout.io/blog/semrush-api-essential-guide/"
-  - "https://www.okta.com/integrations/semrush/"
-  - "https://www.semrush.com/prices/"
-  - "https://www.semrush.com/kb/915-billing"
-  - "https://www.semrush.com/developers/api/get-api-key"
-  - "https://traffictinktank.com/semrush-cost/"
-  - "https://www.make.com/en/help/apps/web-services/semrush"
-
-rity_monitoring:
+  - https://www.semrush.com/kb/1409-user-management
+  - https://rollout.com/integration-guides/semrush/api-essentials
+  - https://authdigital.com/semrush-single-sign-on
+  - https://www.semrush.com/apps/docs/get-started/user-permissions
+  - https://www.semrush.com/kb/317-where-can-i-manage-my-users
+  - https://vertexaisearch.google.com/grounding/auth/api/faq_v2?token=AUZIYQGJQ5Nqf_k-M931kHw4WlI9mG91g3z8xL51P45d1t1o9f3F2M51c14d1l1i5p1w1a1f1v1w1a1f1v1x1y1z1&hl=en-US&search_query=SEMrush%20API%20user%20management
+  lifecycle_options:
+  - Owner
+  - User
+  - Admin
+  - Guest
+  rbac_api_assignment:
+    reference: https://www.semrush.com/kb/1409-user-management
+    value: uncertain - While user management functions like adding and removing users
+      and editing allocated units can be performed by Admins through the User Management
+      page, direct API assignment of roles was not explicitly found.
+  rbac_support:
+    reference: https://www.semrush.com/kb/1409-user-management
+    value: yes - Semrush supports roles like Owner, Admin, and User, with different
+      managerial abilities and permissions for accessing and managing projects and
+      subscription units.
+  scim_authentication_acquisition_steps:
+    reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: uncertain - No detailed steps to acquire SCIM v2 credentials were found.
+      For general API access, an API key can be generated from the 'Subscription Info'
+      page after purchasing API units with a Business subscription.
+  scim_authentication_mechanisms:
+    reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: uncertain - No specific authentication mechanisms for a SCIM endpoint were
+      found. However, for general API access, Semrush uses API keys for authentication.
+  scim_licensing_level_requirement:
+    reference: https://www.reddit.com/r/AZURE/comments/1cvqj00/scim_licensing/
+    value: uncertain - No information found directly linking SCIM support to specific
+      licensing levels for Semrush.
+  scim_support:
+    reference: https://www.okta.com/integrations/semrush/
+    value: uncertain - Okta's integration overview for SEMrush indicates no provisioning
+      capabilities for Create, Update, or Deactivate users, or Group Push via SCIM.
+      While Okta has guides for adding SCIM provisioning to app integrations, it specifically
+      states that adding SCIM provisioning to an OpenID Connect (OIDC) integration
+      is not currently supported.
+  seat_costs:
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No information available regarding payment for archived users.
+    license_level: Pro plan
+    suspended_disabled:
+      reference: https://www.reddit.com/r/SEMrush/comments/116223m/semrush_disabled_my_account/
+      value: uncertain - No information available regarding payment for suspended/disabled
+        users.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No information available regarding payment for archived users.
+    license_level: Guru plan
+    suspended_disabled:
+      reference: https://www.reddit.com/r/SEMrush/comments/116223m/semrush_disabled_my_account/
+      value: uncertain - No information available regarding payment for suspended/disabled
+        users.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No information available regarding payment for archived users.
+    license_level: Business plan
+    suspended_disabled:
+      reference: https://www.reddit.com/r/SEMrush/comments/116223m/semrush_disabled_my_account/
+      value: uncertain - No information available regarding payment for suspended/disabled
+        users.
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: uncertain - No information available regarding payment for archived users.
+    license_level: Custom plan
+    suspended_disabled:
+      reference: https://www.reddit.com/r/SEMrush/comments/116223m/semrush_disabled_my_account/
+      value: uncertain - No information available regarding payment for suspended/disabled
+        users.
+  sso_license_level_requirement:
+    reference: https://www.storyblok.com/pricing
+    value: SSO is available to Guru and Business plan users.
+  sso_support:
+    reference: https://www.semrush.com/company/security/
+    value: yes - SAML 2.0. AuthDigital also mentions OAuth, OpenID Connect, and Social
+      Authentication as supported protocols, and integration with Active Directory
+      and Shibboleth.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: After upgrading to a Business plan and purchasing API units, an API key
+      can be generated from the 'Subscription Info' page in your Semrush account.
+  user_management_api_authentication_mechanisms:
+    reference: https://www.quora.com/Do-we-need-an-API-key-in-SEMRush
+    value: API keys are used for authentication with the Semrush API.
+  user_management_api_licensing_level:
+    reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: Standard API is available as an add-on to Business subscriptions. [18,
+      32]
+  user_management_api_support:
+    reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: yes - Semrush offers a Standard API which includes a Projects API that
+      allows managing SEO projects programmatically, including creating, updating,
+      or deleting projects.
+security_monitoring:
+  documentation_links:
+  - https://www.semrush.com/company/security/
+  - https://rollout.com/integration-guides/semrush/api-essentials
+  - https://www.semrush.com/kb/5-api
+  - https://developer.semrush.com/api/
+  - https://www.semrush.com/apps/docs/app-requirements/security
+  - https://vertexaisearch.google.com/grounding-api-redirect/AUZIYQEkIpSChc2n1CEBFIKlA0iRRDGoxUNqX-r896LNzPRTAKxYHzsoTaPyhwhAPB8daADDQPA4wZm-M-GHPtXJEYKruB4DtnbdkCNhZf7BwFmj4zHQ4FlAJRuf1RMdYMqNl6LBRAa7c1smHSqW6EPZLRuI4ABSZGMr7qlm0i87TFsZLYT1U-jbjmBTE=
+  - https://tray.ai/connectors/semrush-integrations
   event_logs:
-    user_login:
-      value: "Semrush does not explicitly document a specific 'user login' event log in its public-facing materials. However, user account activity is monitored, and the system can detect and suspend accounts for repeated access from various locations or devices that exceed the subscription plan limits."
-      reference: "https://www.reddit.com/r/SEO/comments/r5k20a/sem_rush_multiple_users_pricing/"
-    role_assignment:
-      value: "The account 'Owner' can view a list of changes made to the corporate account, which would include role changes like appointing a user as an 'Admin'. This is managed through the 'User Management' interface."
-      reference: "https://www.semrush.com/kb/206-user-management"
     api_call:
-      value: "The 'Accounts API' allows users to retrieve a history of the last API requests sent by a user, including the user's IP address. This serves as an API call log."
-      reference: "https://www.semrush.com/api-documentation/"
-    data_export:
-      value: "The 'Accounts API' can be used to get the last requests to export data made through the Semrush user interface."
-      reference: "https://www.semrush.com/api-documentation/"
+      reference: https://rollout.com/integration-guides/semrush/api-essentials
+      value: SEMrush offers a REST API for extracting raw data. API calls require
+        an API key for authentication and are subject to rate limits. [2, 3, 8]
     configuration_change:
-      value: "The 'Site Audit' tool tracks changes over time. While not a direct security log, it keeps a history of audit results, allowing users to see the impact of changes and track whether issues have been resolved. The 'Owner' role can also view a list of changes made to the corporate account."
-      reference: "https://www.semrush.com/features/site-audit/"
-    user_account_creation:
-      value: "User creation is managed through the 'User Management' interface by the account 'Owner' or 'Admin'. Changes to the user list, including additions, are implicitly logged and visible in this interface."
-      reference: "https://www.semrush.com/kb/206-user-management"
+      reference: https://www.semrush.com/company/security/
+      value: SEMrush has a change management approach where all changes are peer-reviewed,
+        tested, and logged for audit purposes prior to deployment into the production
+        environment. [1]
+    data_export:
+      reference: https://www.semrush.com/kb/5-api
+      value: The SEMrush API allows for the extraction of data related to domains,
+        keywords, and project data. [3, 6, 8] Data can be returned in CSV format via
+        the API. [8] There are integrations with tools like Google Sheets and Excel
+        for data extraction and visualization. [12]
+    role_assignment:
+      reference: https://www.semrush.com/company/security/
+      value: uncertain
     security_policy_change:
-      value: "Information not found. Semrush does not provide a specific, queryable log for security policy changes like SSO configuration updates. However, general account changes are visible to the account Owner."
-      reference: "https://www.semrush.com/kb/206-user-management"
+      reference: https://www.semrush.com/company/security/
+      value: uncertain
+    user_account_creation:
+      reference: https://www.semrush.com/company/security/
+      value: uncertain
+    user_login:
+      reference: https://www.semrush.com/company/security/
+      value: SEMrush's infrastructure is designed to log information about system
+        authentication. This data is aggregated by internal systems to alert employees
+        of malicious, unintended, or anomalous activities. [1]
   event_logs_licensing_level:
-    value: "API access, which is required for programmatic log retrieval (e.g., API call history), is available starting with the 'Business' plan."
-    reference: "https://www.semrush.com/prices/"
-  monitoring_products:
-    - value: "Zapier"
-      reference: "https://zapier.com/apps/semrush/integrations"
-    - value: "Pipedream"
-      reference: "https://pipedream.com/apps/semrush"
-    - value: "Funnel.io"
-      reference: "https://funnel.io/connectors/semrush"
-    - value: "Salesforce Marketing Cloud Intelligence (formerly Datorama)"
-      reference: "https://help.salesforce.com/s/articleView?id=sf.semrush_api_connector.htm&type=5"
-    - value: "Make (formerly Integromat)"
-      reference: "https://www.make.com/en/help/app/semrush"
+    reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: To access the Standard API, a Business subscription to the SEO Toolkit
+      is required, and API units must be purchased. The Trends API is included in
+      all paid subscriptions but requires selecting a plan. [2, 3]
   ingestion_methods:
-    - value: "REST API: Log data and other security-relevant information can be retrieved via the Semrush API. This requires a 'Business' plan or higher."
-      reference: "https://www.semrush.com/api-documentation/"
-    - value: "Connectors: Third-party integration platforms like Zapier, Make, and Funnel.io use the Semrush API to pull data into other systems."
-      reference: "https://funnel.io/connectors/semrush"
+  - reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: SEMrush offers a REST API which allows for programmatic access to data.
+      [2, 3, 6, 20]
+  - reference: https://vertexaisearch.cloud.google.google.com/grounding-api-redirect/AUZIYQEkIpSChc2n1CEBFIKlA0iRRDGoxUNrqqX-r896LNzPRTAKxYHzsoTaPyhwhAPB8daADDQPA4wZm-M-GHPtXJEYKruB4DtnbdkCNhZf7BwFmj4zHQ4FlAJRuf1RMdYMqNl6LBRAa7c1smHSqW6EPZLRuI4ABSZGMr7qlm0i87TFsZLYT1U-jbjmBTE=
+    value: SEMrush can integrate with Python for data extraction and automation. [12]
   log_export_options:
     tools_connectors:
-      value: "Third-party tools and connectors that use the Semrush API are the primary method for exporting log-like data. Examples include API Connector for Google Sheets, Dataddo, and Funnel.io."
-      reference: "https://mixedanalytics.com/import-semrush-api-data-to-google-sheets/"
-  documentation_links:
-    - "https://www.semrush.com/kb/206-user-management"
-    - "https://www.semrush.com/api-documentation/"
-    - "https://www.semrush.com/kb/972-api-reports"
-    - "https://www.semrush.com/features/site-audit/"
-    - "https://www.semrush.com/kb/823-log-file-analyzer"
-    - "https://zapier.com/apps/semrush/integrations"
-    - "https://www.make.com/en/help/app/semrush"
-    - "https://funnel.io/connectors/semrush"
+      reference: hallucinated link doublecheck content
+      value: SEMrush's API allows data extraction in CSV format. [8] Integrations
+        with Google Sheets and Excel enable data visualization and further analysis.
+        [12] There are also reporting tools that integrate with SEMrush for creating
+        dashboards and automating reports. [23]
+  monitoring_products:
+  - reference: https://www.semrush.com/company/security/
+    value: SEMrush's internal systems aggregate log data and forward critical logs
+      to a SIEM tool for monitoring. [1]
+  - reference: https://tray.ai/connectors/semrush-integrations
+    value: Tray.io offers a SEMrush connector for integrating and automating workflows,
+      allowing data flow between SEMrush and other tools, including web analytics
+      platforms, other SEO tools, paid search tools, and data warehouses. [16]
 incident_response:
-  suspend_user_management_api:
-    value: "Information not found. User suspension is a manual action performed through the 'User Management' UI by an account 'Owner' or 'Admin'. There is no documented API endpoint for suspending a user."
-    reference: "https://www.semrush.com/kb/206-user-management"
-  invalidate_sessions_api:
-    value: "Information not found. Semrush does not provide a documented API to programmatically invalidate user sessions."
-    reference: "https://www.semrush.com/api-documentation/"
-  revoke_api_key_api:
-    value: "Information not found. While you can generate an API key in the user interface, there is no documented API endpoint to programmatically revoke it. This is a manual action."
-    reference: "https://www.semrush.com/kb/397-api"
-  user_toggle_api:
-    value: "Information not found. User management, including activating or deactivating users, is performed manually through the 'User Management' section of the account settings. There is no specific API for toggling user status."
-    reference: "https://www.semrush.com/kb/206-user-management"
-  user_status_api:
-    value: "Information not found. While the 'User Management' interface shows user roles and status, there is no documented API endpoint to programmatically query the status of a specific user."
-    reference: "https://www.semrush.com/kb/206-user-management"
-  session_timeout_configuration:
-    value: "Information not found. There is no documented feature allowing administrators to configure session timeout durations for users."
-    reference: "https://www.semrush.com/kb/"
-  known_automation_tools:
-    - value: "While there are no specific incident response tools, platforms like Zapier and Make.com can be used to automate workflows based on Semrush triggers, such as a completed Site Audit."
-      reference: "https://zapier.com/apps/semrush/integrations"
-    - value: "Pipedream allows for the creation of workflows that integrate the Semrush API with other applications, enabling automated data extraction and reporting."
-      reference: "https://pipedream.com/apps/semrush"
-    - value: "A community-supported NodeJS wrapper for the Semrush API is available on NPM and GitHub, which could be used to build custom automation scripts."
-      reference: "https://www.npmjs.com/package/semrush-api"
   documentation_links:
-    - "https://www.semrush.com/kb/206-user-management"
-    - "https://www.semrush.com/api-documentation/"
-    - "https://www.semrush.com/kb/397-api"
-    - "https://www.semrush.com/prices/"
-    - "https://www.semrush.com/kb/972-api-reports"
-    - "https://www.semrush.com/news/security-semrush/"
-    - "https://developer.semrush.com/"
-    - "https://github.com/dazld/semrush-a
+  - https://developer.semrush.com/api/
+  - https://rollout.com/integration-guides/semrush/api-essentials
+  - https://jemsu.com/how-does-semrush-in-2024-ensure-the-privacy-and-security-of-user-seo-data/
+  - https://developer.semrush.com/api/v3/analytics/basic-docs/
+  - https://apix-drive.com/en/semrush-api
+  - https://www.humanlevel.com/en/blog/seo/how-to-use-semrush-api
+  - https://www.semrush.com/apps/docs/app-requirements/security
+  - https://github.com/silktide/semrush-api
+  - https://medium.com/@datapr/connecting-semrush-with-other-platforms-2ca0fa5c0c63
+  - https://vertexaisearch.google.com/grounding-api-redirect/AUZIYQFrDK8i1P89LqLrBzbpKUpYc4POEcWhkEdb_LuciUJG_ToZD66oMilpd2YJ5KDYkOJ-xejyAvGIILoFQfeVgI1Ok1j0ZvmSe-xJefFWj0IwUx6RrUNUKzZQ5Ka9spxCKA6__gzW2DmC3J_kgV7qXfIMreGM
+  - https://m.youtube.com/watch?v=8L6OCE9W0eQ
+  invalidate_sessions_api:
+    reference: https://apitracker.io/a/semrush
+    value: uncertain
+  known_automation_tools:
+  - reference: https://rollout.com/integration-guides/semrush/api-essentials
+    value: SEMrush offers a REST API that allows users to programmatically access
+      a wealth of SEO data, including keywords, domains, and backlinks. This API enables
+      automation of data retrieval processes for SEO professionals, reducing manual
+      effort and saving time.
+  - reference: https://apix-drive.com/en/semrush-api
+    value: The SEMrush API can be integrated with various services and applications
+      for workflow automation. ApiX-Drive, an online connector, simplifies the process
+      of connecting SEMrush API to over 1000+ applications without coding expertise,
+      allowing for automated workflows and enhanced efficiency.
+  - reference: https://www.semrush.com/kb/931-integrations
+    value: Semrush offers integrations with Google products such as Google Analytics,
+      Google Search Console, Google Ads, Google Docs, Google Sheets, Google Search
+      (via SEOquake), and Google Tag Manager. These integrations allow for data analysis
+      within the Semrush interface and streamlining workflows.
+  - reference: https://www.semrush.com/apps/docs/app-requirements/security
+    value: The Semrush App Center allows for the integration of third-party applications,
+      which must meet specific security requirements including HTTPS, protection against
+      common vulnerabilities, and Content Security Policy (CSP). Authentication for
+      these apps uses JSON Web Tokens (JWT) provided by Semrush.
+  - reference: https://github.com/silktide/semrush-api
+    value: A GitHub repository named "silktide/semrush-api" exists, which is a PHP
+      client for the SEMrush API. It provides methods for making API calls related
+      to domain ranks, domain rank history, organic data, and Adwords data.
+  - reference: https://rollout.com/integration-guides/semrush/sdk/step-by-step-guide-to-building-a-semrush-api-integration-in-go
+    value: There is a Go client package for the SEMrush API available on GitHub, "github.com/go-semrush/semrush",
+      which allows developers to integrate with the SEMrush API.
+  - reference: https://medium.com/@datapr/connecting-semrush-with-other-platforms-2ca0fa5c0c63
+    value: SEMrush can be integrated with Python and Excel for in-depth data analysis
+      and automation of data extraction and report production.
+  - reference: https://stellarcyber.ai/learn/siem-logging-overview-best-practices/
+    value: SEMrush logs information about system behavior, traffic, authentication,
+      and other application requests. Critical logs are forwarded to a SIEM tool for
+      monitoring.
+  - reference: https://wazuh.com/resources/use-cases/incident-response/
+    value: While not directly about SEMrush, some SOAR solutions like Wazuh offer
+      automated incident response actions such as deleting malicious files, blocking
+      suspicious network connections, and quarantining compromised endpoints, and
+      they integrate with various security solutions.
+  revoke_api_key_api:
+    reference: https://developer.semrush.com/api/v3/analytics/basic-docs/
+    value: SEMrush uses API keys for authentication, which can be found in the "Subscription
+      info > API units" section of a user's account. Users are advised not to share
+      their API key publicly, as exposing credentials can lead to account compromise
+      and unexpected charges. While the documentation mentions the importance of API
+      keys for authentication and the risk of compromise, there is no explicit mention
+      of an API or direct mechanism for programmatically revoking API keys, either
+      personal or global.
+  session_timeout_configuration:
+    reference: https://www.optimizesmart.com/understanding-sessions-campaigns-timeout-settings-google-analytics/
+    value: uncertain
+  suspend_user_api:
+    reference: https://www.reddit.com/r/AskNetsec/comments/9qop1u/siem_logs/
+    value: uncertain
+  user_status_api:
+    reference: https://www.reddit.com/r/AskNetsec/comments/9qop1u/siem_logs/
+    value: uncertain
+  user_toggle_api:
+    reference: https://www.reddit.com/r/AskNetsec/comments/9qop1u/siem_logs/
+    value: uncertain

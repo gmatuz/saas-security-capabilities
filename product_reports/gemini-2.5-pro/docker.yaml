@@ -1,164 +1,319 @@
-user_management:
-  sso_support:
-    value: Docker supports Single Sign-On (SSO) via SAML 2.0 and OpenID Connect (OIDC)
-      with providers like Azure AD and Okta. [1, 3]
-    reference: https://docs.docker.com/security/for-admins/single-sign-on/sso-providers/
-  sso_licensing_level_requirement:
-    value: Docker Business [5, 6, 7, 9]
-    reference: https://www.docker.com/pricing/
-  scim_support:
-    value: 'yes'
-    reference: https://docs.docker.com/security/for-admins/scim/
-  scim_licensing_level_requirement:
-    value: Docker Business [5, 7, 9]
-    reference: https://www.docker.com/pricing/
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://docs.docker.com/security/for-admins/scim/
-  scim_authentication_acquisition_steps: "1. Sign in to the Docker Admin Console.\n2.
-    Select your organization or company.\n3. Navigate to the 'SSO & SCIM' section.\n4.
-    In the SSO connections table, find your configured SSO connection.\n5. Select
-    the Actions icon (three dots) and choose 'Setup SCIM'.\n6. Copy the generated
-    'API Token'. This token is the bearer token used for SCIM authentication. [2]"
-  user_management_api_support:
-    value: 'yes'
-    reference: https://docs.docker.com/docker-hub/api/latest/
-  user_management_api_licensing_level:
-    value: The ability to manage organization members and teams via the API is available
-      on all plans that support organizations (Team and Business plans). [7]
-    reference: https://www.docker.com/pricing/
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://docs.docker.com/docker-hub/api/latest/#authentication
-  user_management_api_authentication_acquisition_steps: "1. Sign in to Docker Hub.\n2.
-    Click on your username in the top-right corner and select 'Account Settings'.\n3.
-    Navigate to the 'Security' tab.\n4. Click on 'New Access Token'.\n5. Provide
-    a description for the token.\n6. Set the desired permissions (e.g., 'Read, Write,
-    Delete').\n7. Click 'Generate' to create the token.\n8. Copy the generated token.
-    This is your Personal Access Token (PAT) for API authentication. [22]"
-  seat_costs:
-  - license_level: Docker Business
-    active:
-      value: 'yes'
-      reference: https://www.docker.com/pricing/
-    suspended_disabled:
-      value: uncertain
-      reference: The documentation specifies that with SCIM, deactivating a user in
-        the IdP can deactivate them in Docker. [12] However, it does not explicitly
-        state if this frees up a paid seat. Typically, deactivating a user means they
-        cannot log in but may still occupy a seat until fully removed.
-    archived:
-      value: n/a
-      reference: The concept of an 'archived' user state separate from 'deactivated'
-        or 'removed' is not mentioned in the Docker documentation.
-  lifecycle_options:
-  - create
-  - read
-  - update
-  - deactivate
-  - remove
-  rbac_support:
-    value: 'yes'
-    reference: https://docs.docker.com/security/for-admins/roles-and-permissions/
-  rbac_api_assignment:
-    value: 'yes'
-    reference: https://docs.docker.com/docker-hub/api/latest/#tag/teams/paths/~1v2~1orgs~1%7Borg%7D~1teams~1%7Bteam_slug%7D~1members/post
+identity_and_access:
   documentation_links:
-  - https://docs.docker.com/security/for-admins/single-sign-on/
   - https://docs.docker.com/security/for-admins/scim/
-  - https://docs.docker.com/docker-hub/api/latest/
-  - https://docs.docker.com/security/for-admins/roles-and-permissions/
+  - https://docs.docker.com/security/
   - https://www.docker.com/pricing/
-  - https://docs.docker.com/security/for-admins/sso-providers/azure-ad/
-  - https://docs.docker.com/security/for-admins/sso-providers/okta/
-  - https://docs.docker.com/security/for-admins/scim/okta/
-  - https://docs.docker.com/security/for-admins/scim/azure-ad/
-  - https://docs.docker.com/security/for-admins/user-provisioning/
+  - https://github.com/docker/roadmap/issues/261
+  lifecycle_options:
+  - Creating users
+  - Updating user profiles
+  - Removing and deactivating users
+  - Re-activating users
+  - Group mapping
+  - Active
+  - Deactivated (through SCIM)
+  rbac_api_assignment:
+    reference: https://docs.docker.com/security/for-admins/scim/
+    value: uncertain - While Docker supports SCIM for group mapping and user provisioning,
+      direct API for assigning specific roles and rights for RBAC beyond SCIM's group
+      mapping capabilities is not clearly documented as a separate feature.
+  rbac_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Docker organizations have roles (Member, Editor, Owner, Company Owner)
+      that control permissions for repositories, teams, and organization settings.
+      Teams provide an additional level of permissions, simplifying access management.
+  scim_authentication_acquisition_steps:
+    reference: https://docs.docker.com/security/for-admins/scim/#enable-scim-in-docker
+    value: 1. Sign in to Docker Home. 2. Select Admin Console, then SSO and SCIM.
+      3. In the SSO connections table, select the Actions icon for your connection,
+      then select Setup SCIM. 4. Copy the SCIM Base URL and API Token.
+  scim_authentication_mechanisms:
+    reference: https://docs.docker.com/security/for-admins/scim/#enable-scim-in-docker
+    value: API Token (Bearer Token). SCIM Base URL and API Token are provided by Docker
+      Home for configuration with the IdP.
+  scim_licensing_level_requirement:
+    reference: https://www.docker.com/blog/new-scim-capabilities-for-docker-business/
+    value: Docker Business subscription. SCIM capabilities are available for Docker
+      Business customers.
+  scim_support:
+    reference: https://docs.docker.com/security/for-admins/scim/
+    value: yes - SCIM V2. Docker supports SCIM for automated user provisioning and
+      de-provisioning, synchronization of team memberships, and profile updates. It
+      works by keeping the Docker organization in sync with your identity provider.
+      It requires SSO to be configured first. SCIM only manages users provisioned
+      through your identity provider after SCIM is enabled; it cannot remove users
+      manually added before SCIM setup.
+  seat_costs:
+  - archived:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for archived
+        users at this level.
+    license_level: Docker Personal (Free)
+    suspended_disabled:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for suspended/disabled
+        users at this level.
+  - archived:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for archived
+        users at this level.
+    license_level: Docker Pro ($9/user/month annually, $11/user/month monthly)
+    suspended_disabled:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for suspended/disabled
+        users at this level.
+  - archived:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for archived
+        users at this level.
+    license_level: Docker Team ($15/user/month annually, $16/user/month monthly)
+    suspended_disabled:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for suspended/disabled
+        users at this level.
+  - archived:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for archived
+        users at this level.
+    license_level: Docker Business ($24/user/month annually, sold on annual basis)
+    suspended_disabled:
+      reference: https://www.docker.com/legal/docker-subscription-service-agreement/
+      value: uncertain - No explicit information found regarding costs for suspended/disabled
+        users at this level.
+  sso_license_level_requirement:
+    reference: https://www.docker.com/pricing/
+    value: Docker Business subscription. A new $21/month Business subscription, increasing
+      to $24 per user per month (annual basis), adds centralized management, single
+      sign-on, and enhanced security.
+  sso_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SAML, OIDC, OAuth 2.0. Docker supports Service Provider Initiated
+      (SP-initiated) SSO flow. Users must sign in to Docker Hub or Docker Desktop
+      to initiate the SSO authentication process. SSO can be configured for an entire
+      company or for a single organization with a Docker Business subscription. It
+      also supports integration with Microsoft Entra ID (Azure AD).
+  user_management_api_authentication_acquisition_steps:
+    reference: https://docs.docker.com/docker-hub/api/latest/#personal-access-token-pat
+    value: uncertain - No explicit information found on steps to acquire credentials
+      for a non-SCIM user management API. For PATs used for CLI access, users need
+      to generate them.
+  user_management_api_authentication_mechanisms:
+    reference: https://docs.docker.com/docker-hub/api/latest/#authentication
+    value: uncertain - No explicit information on authentication mechanisms for a
+      non-SCIM user management API was found. For general CLI access, Personal Access
+      Tokens (PATs) are used.
+  user_management_api_licensing_level:
+    reference: https://www.docker.com/pricing/
+    value: uncertain - No explicit information found on licensing levels for a non-SCIM
+      user management API. SCIM, which handles user provisioning, is available for
+      Docker Business.
+  user_management_api_support:
+    reference: https://github.com/docker/roadmap/issues/261
+    value: uncertain - Docker primarily promotes SCIM for automated user lifecycle
+      management. There is an open issue on GitHub from 2021 requesting a programmatic
+      way to add/remove users for lower tiers, suggesting that a dedicated, non-SCIM
+      user management API for bulk operations might not be widely available or easily
+      accessible beyond SCIM.
 security_monitoring:
+  documentation_links:
+  - https://www.subrosacyber.com/en/blog/docker-siem
+  - https://www.sumologic.com/integrations/docker/
+  - https://www.elastic.co/blog/getting-started-with-the-elastic-stack-and-docker-compose
+  - https://github.com/deviantony/docker-elk
+  - https://medium.com/@kanishkashakya/integrating-siem-tools-with-devops-using-kubernetes-docker-and-terraform-c71c1b18d227
+  - https://medium.com/@SOCFortress/building-an-open-source-siem-stack-with-docker-a-step-by-step-guide-2661d47879e9
+  - https://docs.docker.com/engine/security/
+  - https://www.docker.com/products/docker-enterprise/
   event_logs:
-    user_login:
-      value: "Successful and failed user login events are logged in the Activity Log. Docker Hub also enforces lockouts after 10 failed attempts in 5 minutes."
-      reference: "https://docs.docker.com/security/general-faqs/"
-    role_assignment:
-      value: "Changes to a user's role within an organization (e.g., promoting to owner, changing to member) are recorded in the Activity Log."
-      reference: "https://docs.docker.com/docker-hub/activity-logs/"
     api_call:
-      value: "The Activity Log records events initiated via the API, such as repository creation, team management, and user invitations. The Audit Log API provides detailed access to these events."
-      reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Audit-Logs"
-    data_export:
-      value: "The action of exporting the member list in a Docker Business organization is an auditable event. Direct export of the audit log itself via the UI is not specified, but access via API is logged."
-      reference: "https://www.docker.com/blog/announcing-docker-hub-export-members/"
+      reference: https://docs.docker.com/engine/api/
+      value: Uncertain. While Docker's API is used to interface with the platform,
+        specific details or schemas for auditing API calls to Docker's business or
+        administrative APIs were not explicitly found. However, monitoring tools can
+        collect data from the Docker Engine API.
     configuration_change:
-      value: "Changes to organization settings, such as repository privacy, team permissions, and billing information, are captured in the Activity Log."
-      reference: "https://docs.docker.com/docker-hub/activity-logs/"
-    user_account_creation:
-      value: "Invitations sent to new users to join an organization and the subsequent acceptance are logged events. Creation of users is implicit in the 'Invite member' and 'Add member' log entries."
-      reference: "https://docs.docker.com/docker-hub/activity-logs/"
+      reference: https://docs.docker.com/config/daemon/
+      value: Docker logs are essential for auditing and compliance efforts, which
+        include a full record of configuration changes. The Docker daemon's logging
+        level can be configured to 'info' to capture events. Tools like Sumo Logic
+        can monitor configuration information obtained using Docker's Inspect API.
+    data_export:
+      reference: https://docs.docker.com/engine/reference/commandline/export/
+      value: Uncertain. No specific information regarding audit logs for data export
+        actions from Docker was found in the provided search results. Data export
+        from Docker itself (e.g., container images, volumes) is a common operation,
+        but the logging of such actions for security auditing is not detailed.
+    role_assignment:
+      reference: https://www.docker.com/products/docker-enterprise/
+      value: Uncertain. While Docker Enterprise supports role-based access control
+        (RBAC), specific details about the availability and schema of audit logs for
+        role assignments were not found.
     security_policy_change:
-      value: "Changes to security-related settings, such as SSO configuration or access permissions for teams, are recorded as events in the audit log."
-      reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Audit-Logs"
+      reference: https://docs.docker.com/engine/security/
+      value: Docker logs can be used to monitor changes in application settings and
+        ensure security policy and regulatory requirements are met. Docker provides
+        security guardrails and allows for tailored security settings. While not explicitly
+        detailed as a 'security policy change' log, the ability to monitor configuration
+        changes suggests that changes to security policies, if implemented as configurations,
+        would be logged.
+    user_account_creation:
+      reference: https://www.docker.com/products/docker-enterprise/
+      value: Uncertain. Docker offers enterprise-level security features and configurable
+        security settings. Docker Enterprise provides features like single sign-on.
+        However, no explicit documentation on audit logs for the creation of B2B administrative
+        user accounts was found.
+    user_login:
+      reference: https://www.docker.com/products/docker-enterprise/
+      value: Uncertain. While Docker provides security features like single sign-on
+        and role-based access control, explicit documentation on the schema and availability
+        of user login audit logs for business users (e.g., administrative users of
+        Docker Enterprise) was not found in the search results. Docker does offer
+        'security events auditing' as an enterprise-grade feature.
   event_logs_licensing_level:
-    value: "Docker Team or Docker Business"
-    reference: "https://docs.docker.com/docker-hub/activity-logs/"
-  monitoring_products:
-    - value: "Panther"
-      reference: "https://panther.com/docs/panther-log-source-integrations/docker/"
-    - value: "Wazuh"
-      reference: "httpshttps://wazuh.com/blog/container-security/docker-security-monitoring-with-wazuh/"
-    - value: "Sysdig"
-      reference: "https://sysdig.com/blog/container-forensics-incident-response/"
-    - value: "Splunk"
-      reference: "https://splunkbase.splunk.com/app/1723"
-    - value: "Microsoft Sentinel"
-      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/docker-container-monitoring-solution"
+    reference: https://www.docker.com/products/docker-enterprise/
+    value: The search results indicate that 'enterprise management features' and 'enterprise-grade
+      security features' are available for Docker, which would typically imply a need
+      for a specific licensing level (e.g., Docker Enterprise) to access advanced
+      security and auditing capabilities. However, a direct statement linking specific
+      security logging capabilities to a particular licensing level was not explicitly
+      found, beyond the general mention of enterprise features.
   ingestion_methods:
-    - value: "REST API"
-      reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Audit-Logs/operation/GetAuditLogs"
-    - value: "Docker logging drivers (for Docker Engine)"
-      reference: "https://docs.docker.com/config/containers/logging/configure/"
-    - value: "Fluentd/Fluent Bit agents (for Docker Engine)"
-      reference: "https://docs.fluentd.org/container-deployment/docker-container"
+  - reference: https://docs.docker.com/config/containers/logging/configure/
+    value: Docker can be configured to forward its logs to a SIEM solution by tweaking
+      Docker's logging driver settings. Supported logging drivers include syslog,
+      json-file, fluentd, or splunk.
+  - reference: https://docs.docker.com/engine/reference/logging/
+    value: Docker logging driver plugins extend Docker's logging capabilities, allowing
+      logs to be sent to cloud-based services like Sumo Logic.
+  - reference: https://medium.com/@kanishkashakya/integrating-siem-tools-with-devops-using-kubernetes-docker-and-terraform-c71c1b18d227
+    value: SIEM tools can collect container logs using Fluentd, Filebeat, or Logstash.
+  - reference: https://docs.docker.com/engine/api/
+    value: The Docker Engine API can be used to collect metrics from Docker containers.
+  - reference: https://docs.docker.com/config/containers/logging/splunk/
+    value: For Splunk integration, Docker can be told to use the 'splunk' logging
+      driver, which is built into Docker from version 1.10.
   log_export_options:
     tools_connectors:
-      value: "Logs can be exported programmatically via the official Docker Hub REST API. For Docker Business, a list of organization members can be exported to a CSV file."
-      reference: "https://docs.docker.com/docker-hub/api/latest/"
-  documentation_links:
-    - "https://docs.docker.com/docker-hub/activity-logs/"
-    - "https://docs.docker.com/docker-hub/api/latest/"
-    - "https://www.docker.com/blog/announcing-docker-hub-export-members/"
-    - "https://docs.docker.com/security/general-faqs/"
-    - "https://www.docker.com/products/docker-scout/"
-    - "https://docs.docker.com/engine/security/"
+      reference: https://docs.docker.com/config/containers/logging/configure/
+      value: Docker provides various logging drivers (e.g., local-file, syslog, Fluentd,
+        Elasticsearch) to configure how Docker containers generate and send their
+        logs. The `daemon.json` file can be configured to send logs to a syslog server.
+        Docker also supports integrating with Prometheus by exposing metrics on a
+        specific address.
+  monitoring_products:
+  - reference: https://www.sumologic.com/integrations/docker/
+    value: Sumo Logic offers an integration for Docker containers that provides real-time
+      monitoring of the Docker infrastructure, including stats, events, and container
+      logs. It also allows for troubleshooting issues and setting alerts on abnormal
+      container or application behavior.
+  - reference: https://prometheus.io/docs/prometheus/latest/getting_started/
+    value: Prometheus is a monitoring and alerting toolkit that can integrate with
+      Docker to monitor containerized applications effectively, collecting metrics
+      such as CPU usage, memory consumption, network traffic, and disk I/O. [3, 4,
+      9, 13, 15]
 incident_response:
-  suspend_user_management_api:
-    value: "There is no direct 'suspend' API. The remediation action is to remove a member from the organization, which revokes their access. This can be done via an undocumented API endpoint: DELETE /v2/orgs/{orgName}/members/{dockerUserName}/."
-    reference: "https://github.com/docker/roadmap/issues/261"
-  invalidate_sessions_api:
-    value: "Web UI sessions expire automatically after 24 hours. For accounts using SSO, session timeout can be configured via a SAML attribute from the IdP. For API access, revoking a Personal Access Token (PAT) invalidates its session."
-    reference: "https://docs.docker.com/security/general-faqs/"
-  revoke_api_key_api:
-    value: "Personal Access Tokens (PATs) can be revoked (deleted) via the Docker Hub API using the endpoint: DELETE /v2/access-tokens/{uuid}."
-    reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Personal-Access-Tokens/operation/DeleteAccessToken"
-  user_toggle_api:
-    value: "A user's access can be toggled by removing them from an organization and then re-adding them. For API keys, a Personal Access Token can be deactivated and reactivated via the API endpoint: PATCH /v2/access-tokens/{uuid}."
-    reference: "https://docs.docker.com/docker-hub/api/latest/#tag/Personal-Access-Tokens/operation/UpdateAccessToken"
-  user_status_api:
-    value: "The status of organization members can be retrieved by listing members in a team or organization. The 'Export Members' feature for Docker Business also includes user status. An undocumented endpoint GET /v2/orgs/{orgName}/members/ can be used."
-    reference: "https://github.com/docker/roadmap/issues/261"
-  session_timeout_configuration:
-    value: "Web UI session timeout is fixed at 24 hours by default. For organizations using SSO, the timeout can be configured via a SAML attribute ('Docker session minutes') provided by the Identity Provider."
-    reference: "https://docs.docker.com/security/general-faqs/"
-  known_automation_tools:
-    - value: "TheHive Project (via API integration)"
-      reference: "https://hub.docker.com/r/thehiveproject/thehive"
-    - value: "Iris - Incident Response Platform (via API integration)"
-      reference: "https://github.com/dfir-iris/iris-web"
-    - value: "Generic SOAR Platforms (Splunk SOAR, Palo Alto XSOAR, etc.) using REST API connectors."
-      reference: "https://docs.docker.com/docker-hub/api/latest/"
   documentation_links:
-    - "https://docs.docker.com/docker-hub/api/latest/#tag/Personal-Access-Tokens"
-    - "https://docs.docker.com/engine/reference/commandline/login/"
-    - "https://docs.docker.com/docker-hub/access-tokens/"
-    - "https://docs.docker.com/docker-hub/organizations/manage-members/"
-    - "https://github.com/docker/roadmap/issues/261"
-    - "https://docs.docker.com/subscription/service-terms/"
+  - https://medium.com/@cloud_tips/docker-incident-response-eed1df1dc00c
+  - https://www.sysdig.com/learn-cloud-native/what-is-container-forensics-and-incident-response
+  - https://www.darktrace.com/blog
+  - https://docker-docs.uclv.cu/compliance/reference/800-53/ir/
+  - https://authenticone.com/docker-security/
+  - https://www.sentinelone.com/cybersecurity-101/cloud-security/docker-container-security-best-practices/
+  - https://xsoar.pan.dev/docs/integrations/docker
+  - https://panther.com/integrations/docker
+  - https://www.altexsoft.com/blog/incident-response-tools/
+  - https://docs.fortinet.com/document/fortisoar/7.6.2/deployment-guide/391103/deploying-fortisoar-on-a-docker-platform
+  - https://community.ibm.com/community/user/blogs/roseann-guttierrez1/2024/03/27/soar-integration-101
+  - https://www.docker.com/blog/automating-your-containers-security-scanning/
+  - https://thenewstack.io/chaos-to-control-3-steps-for-automating-incident-management/
+  - https://github.com/kierangilliam/soar
+  invalidate_sessions_api:
+    reference: https://help.nextcloud.com/t/configure-session-timeout-for-web-interface-in-docker/147158
+    value: Uncertain. Direct APIs for invalidating user sessions within Docker (e.g.,
+      Docker Hub sessions) are not explicitly detailed in the search results for incident
+      response. Session timeout configurations can be set for applications running
+      within Docker containers, but this is an application-specific configuration,
+      not a general Docker platform feature for its own users. For example, for a
+      Nextcloud instance in Docker, session lifetime can be configured.
+  known_automation_tools:
+  - reference: https://authenticone.com/docker-security/
+    value: 'Wazuh: An open-source solution for compliance, integrity monitoring, threat
+      detection, and incident response. It can be used in a Docker container and integrates
+      with SIEM functionalities for continuous monitoring of Docker logs and anomaly
+      detection.'
+  - reference: https://www.altexsoft.com/blog/incident-response-tools/
+    value: 'MISP (Malware Information Sharing Platform): A threat intelligence platform
+      that can be deployed in a Docker container and offers a REST API for automation
+      and data sharing.'
+  - reference: https://docs.strangebee.com/thehive/download/
+    value: 'TheHive: A scalable incident response platform that can be deployed in
+      a Docker container or with Linux machines. It''s designed for case and alert
+      management, enabling real-time collaboration among analysts and integration
+      with SIEMs and MISP.'
+  - reference: https://www.altexsoft.com/blog/incident-response-tools/
+    value: 'GRR Rapid Response: An open-source incident response framework that can
+      be used in a Docker container to perform live, remote forensic analyses and
+      threat hunting. It comprises a client and a server with an API endpoint and
+      web-based GUI.'
+  - reference: https://www.altexsoft.com/blog/incident-response-tools/
+    value: 'MozDef: A set of microservices that can be used in a Docker container
+      and in combination with Elasticsearch as a SIEM. It''s designed to automate
+      interfacing with security tools through API and includes automation for incident
+      handling.'
+  - reference: https://www.admin-magazin.de/Artikel/Response-Automation-mit-Shuffle
+    value: 'Shuffle (SOAR Platform): A SOAR platform that can be deployed using Docker
+      and serves as a central orchestration tool to automate workflows, connect security
+      tools, and streamline incident response processes.'
+  - reference: https://docs.tracecat.com/self-host/docker-compose
+    value: 'Tracecat: An open-source SOAR alternative that provides an all-in-one
+      automation platform (workflows, tables, cases) for security and IT teams, deployable
+      locally using Docker Compose.'
+  - reference: https://docs.fortinet.com/document/fortisoar/7.6.2/deployment-guide/391103/deploying-fortisoar-on-a-docker-platform
+    value: 'FortiSOAR: A commercial SOAR solution that can be deployed on Docker platforms,
+      including Docker Engine and Amazon Elastic Kubernetes (EKS) cluster.'
+  - reference: https://xsoar.pan.dev/docs/integrations/docker
+    value: 'Cortex XSOAR: Allows the use of custom Docker images to execute integration
+      actions, making it possible to incorporate third-party libraries for enhanced
+      automation.'
+  - reference: https://panther.com/integrations/docker
+    value: 'Panther: A cloud-native SIEM that offers flexible detection-as-code principles
+      (using Python) and integrates with a variety of alert destinations and SOAR
+      platforms for remediation options.'
+  - reference: https://www.docker.com/blog/automating-your-containers-security-scanning/
+    value: 'Docker''s native Snyk integration: Provides continuous security scanning
+      for vulnerabilities in container images, including base image fix recommendations
+      and identification of problematic Dockerfile lines.'
+  revoke_api_key_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. The search results do not provide specific API endpoints or
+      documentation for programmatically revoking API keys related to Docker users
+      (e.g., Docker Hub personal access tokens or global keys) as a direct incident
+      response capability. Docker itself provides features like 'Docker Content Trust'
+      for verifying image authenticity and using 'Docker Secrets' for secure storage
+      of sensitive data like API keys, which are preventative measures.
+  session_timeout_configuration:
+    reference: https://community.atlassian.com/forums/Confluence-questions/Confluence-user-session-time-on-Docker/qaq-p/1997083
+    value: Session timeout for applications running within Docker containers can be
+      configured by modifying relevant configuration files, such as `config.php` for
+      Nextcloud or `web.xml` for Jenkins, and mounting these files into the Docker
+      container. For example, the `sys.sessionTimeout` environment variable can be
+      used when running an Application Configurator container to set a timeout in
+      milliseconds.
+  suspend_user_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. Direct APIs for suspending users of Docker (e.g., Docker Hub
+      users) as a specific incident response action are not explicitly documented
+      or highlighted in the search results. Incident response in Docker primarily
+      focuses on container and host-level security, and external SIEM/SOAR tools are
+      used for broader security orchestration.
+  user_status_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. The provided search results do not indicate a direct API within
+      Docker to check if its users (e.g., Docker Hub users) are active, suspended,
+      or disabled. The focus is on monitoring container and host activities. [no evidence]
+  user_toggle_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. There is no clear evidence in the search results of an API within
+      Docker to toggle user status (active/suspended/disabled) that would also disable
+      active sessions. Incident response discussions focus on container and host-level
+      actions. [no evidence]

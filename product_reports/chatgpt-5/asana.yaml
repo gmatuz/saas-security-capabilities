@@ -1,0 +1,313 @@
+identity_and_access:
+  sso_support:
+    value: yes – SAML 2.0 SSO via common IdPs (Okta, OneLogin, Microsoft Entra ID/Azure
+      AD, etc.) and Google SSO; configuration and requirements are documented by Asana
+      (SAML requires Enterprise, Google SSO can be enforced).
+    reference: https://asana.com/ru/guide/help/premium/authentication
+  sso_license_level_requirement:
+    value: 'SAML SSO: Enterprise. Google SSO: available to Premium (now Starter) and
+      Enterprise orgs per Asana guide.'
+    reference: https://asana.com/ru/guide/help/premium/authentication
+  scim_support:
+    value: yes – SCIM 2.0 (Users and Groups/Teams endpoints; deprovisioning via active=false/DELETE;
+      Groups map to Teams).
+    reference: https://developers.asana.com/docs/scim
+  scim_licensing_level_requirement:
+    value: Enterprise (pricing lists “Expedited user set up with SCIM” and “Service
+      accounts” under Enterprise; Enterprise+ adds Audit Log API and other controls).
+    reference: https://asana.com/pricing?gspk=ZXJpbmdpYnNvbjkxOTM&gsxid=6Pdq18FwAvJW
+  scim_authentication_mechanisms:
+    value: Service Account token (Bearer) only; SCIM endpoints are not available via
+      OAuth.
+    reference: https://forum.asana.com/t/scim-api-access-in-postman/741703
+  scim_authentication_acquisition_steps:
+    value: 1) Super Admin opens Admin Console > Apps > Service Accounts; 2) Click
+      “Add Service Account”; 3) Choose scopes (e.g., SCIM provisioning) and Save;
+      4) Copy the generated token; 5) Use token as Bearer when configuring your IdP’s
+      SCIM provisioning client.
+    reference: https://developers.asana.com/docs/authentication
+  user_management_api_support:
+    value: 'yes (non‑SCIM) – invite/add user to an org/workspace and remove/deprovision
+      via REST: POST /workspaces/{workspace_gid}/addUser and POST /workspaces/{workspace_gid}/removeUser;
+      team membership add/remove endpoints also exist.'
+    reference: https://github.com/Asana/node-asana/blob/master/docs/WorkspacesApi.md
+  user_management_api_licensing_level:
+    value: unclear – Asana’s public API docs list addUser/removeUser but do not state
+      plan gating for these endpoints.
+    reference: https://github.com/Asana/python-asana/blob/master/README.md
+  user_management_api_authentication_mechanisms:
+    value: Personal Access Token (PAT), OAuth 2.0, or Service Account token (Enterprise)
+      depending on use case; PAT/OAuth for standard endpoints, Service Account for
+      org‑wide/admin and restricted endpoints.
+    reference: https://developers.asana.com/docs/authentication
+  user_management_api_authentication_acquisition_steps:
+    value: 'PAT: create in Developer Console and use as Bearer. OAuth: register app
+      in Developer Console and implement OAuth 2.0 flow; share app with target workspaces.
+      Service Account: Admin Console > Apps > Service Accounts > Add Service Account
+      to generate token.'
+    reference: https://developers.asana.com/docs/authentication
+  seat_costs:
+  - license_level: Personal (free)
+    active: not applicable (no paid seats)
+    suspended_disabled:
+      value: not applicable
+      reference: https://asana.com/pricing?gspk=ZXJpbmdpYnNvbjkxOTM&gsxid=6Pdq18FwAvJW
+    archived:
+      value: not applicable (no archived‑user concept; free tier)
+      reference: https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user-from-an-organization-and-what-to-do-beforehand/202645
+  - license_level: Starter
+    active: charged per paid member seat (tiered pricing per Asana plan)
+    suspended_disabled:
+      value: Yes, you can pause a member’s license (for paid organizations); paused
+        users do not count toward paid seats per Audit Log event domain_user_billing_paused.
+      reference: https://developers.asana.com/docs/audit-log-events
+    archived:
+      value: unclear – Asana supports deprovision or pause; no documented archived‑user
+        state.
+      reference: https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user-from-an-organization-and-what-to-do-beforehand/202645
+  - license_level: Advanced
+    active: charged per paid member seat (tiered pricing per Asana plan)
+    suspended_disabled:
+      value: Yes, you can pause a member’s license (for paid organizations); paused
+        users do not count toward paid seats.
+      reference: https://developers.asana.com/docs/audit-log-events
+    archived:
+      value: unclear – no archived‑user state documented; use pause or deprovision.
+      reference: https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user-from-an-organization-and-what-to-do-beforehand/202645
+  - license_level: Enterprise
+    active: charged per paid member seat; Enterprise adds SAML, SCIM, Service Accounts.
+    suspended_disabled:
+      value: Yes – pause license available for paid organizations; paused users do
+        not count toward paid seats.
+      reference: https://developers.asana.com/docs/audit-log-events
+    archived:
+      value: unclear – no archived‑user state documented; use pause or deprovision.
+      reference: https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user-from-an-organization-and-what-to-do-beforehand/202645
+  - license_level: Enterprise+
+    active: charged per paid member seat; adds Audit Log API/SIEM, EKM, etc.
+    suspended_disabled:
+      value: Yes – pause license available for paid organizations; paused users do
+        not count toward paid seats.
+      reference: https://developers.asana.com/docs/audit-log-events
+    archived:
+      value: unclear – no archived‑user state documented; use pause or deprovision.
+      reference: https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user-from-an-organization-and-what-to-do-beforehand/202645
+  lifecycle_options:
+  - invited (user_invited via audit log; invite via API addUser)
+  - active (SCIM active=true)
+  - deprovisioned/zombified (SCIM active=false, DELETE /Users/:id; user_deprovisioned
+    in audit log)
+  - reprovisioned (user_reprovisioned in audit log)
+  - paused (license/billing pause for paid orgs)
+  rbac_support:
+    value: yes – organization roles (Super Admin/Admin/Billing), team admins, and
+      project‑level roles (admin/editor/commenter/viewer); permissions managed via
+      Admin Console and memberships.
+    reference: https://developers.asana.com/reference/project-memberships
+  rbac_api_assignment:
+    value: partial – project roles can be created/updated via /memberships (admin/editor/commenter;
+      viewer coming per changelog); team admin assignment not currently supported
+      via API.
+    reference: https://forum.asana.com/t/new-api-endpoints-for-project-memberships/753512
+  documentation_links:
+  - https://asana.com/ru/guide/help/premium/authentication
+  - https://developers.asana.com/docs/scim
+  - https://asana.com/pricing?gspk=ZXJpbmdpYnNvbjkxOTM&gsxid=6Pdq18FwAvJW
+  - https://forum.asana.com/t/scim-api-access-in-postman/741703
+  - https://developers.asana.com/docs/authentication
+  - https://github.com/Asana/node-asana/blob/master/docs/WorkspacesApi.md
+  - https://github.com/Asana/python-asana/blob/master/README.md
+  - https://developers.asana.com/reference/project-memberships
+  - https://developers.asana.com/reference/team-memberships
+  - https://forum.asana.com/t/new-api-endpoints-for-project-memberships/753512
+  - https://forum.asana.com/t/pause-member-api-method/873388
+  - https://forum.asana.com/t/freeze-or-suspend-an-account-rather-than-delete-is-it-possible/73199
+  - https://developers.asana.com/docs/audit-log-events
+  - https://developers.asana.com/reference/audit-log-api
+  - https://asana.com/apps/okta
+  - https://asana.com/apps/entraid
+  - https://support.google.com/a/answer/7405574
+  - https://github.com/MicrosoftDocs/entra-docs/blob/main/docs/identity/saas-apps/asana-provisioning-tutorial.md
+  - https://asana.com/apps/google-security
+  - https://forum.asana.com/t/remove-offboard-deprovision-or-pause-a-user-from-an-organization-and-what-to-do-beforehand/202645
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Available via the Audit Log API. Login events include user_login_succeeded,
+        user_login_failed, and user_logged_out; records contain actor details (name,
+        email, gid) and are retained 90 days.
+      reference: https://developers.asana.com/docs/audit-log-events
+    role_assignment:
+      value: Role change events are emitted and include user_workspace_admin_role_changed,
+        user_division_admin_role_changed, and user_team_admin_role_changed.
+      reference: https://developers.asana.com/docs/audit-log-events
+    api_call:
+      value: uncertain — Published Audit Log event types cover app/PAT authorization
+        and admin/user actions but do not document per-API-call logging; no event
+        type for generic 'API call' found.
+      reference: https://developers.asana.com/docs/audit-log-events
+    data_export:
+      value: Export-related events are logged, including workspace_export_started,
+        project_csv_export_started, object_export_started, workspace_audit_log_export_started,
+        reporting_export_started, and attachment_downloaded.
+      reference: https://developers.asana.com/docs/audit-log-events
+    configuration_change:
+      value: Admin/Security configuration changes are logged, e.g., workspace_saml_settings_changed,
+        workspace_google_sso_settings_changed, workspace_password_requirements_changed,
+        workspace_ip_allowlist_enabled/disabled/changed, workspace_require_two_factor_auth_enabled/disabled,
+        and many other admin settings.
+      reference: https://developers.asana.com/docs/audit-log-events
+    user_account_creation:
+      value: User lifecycle events are logged, including user_invited (new user added/auto-joined),
+        user_deprovisioned, user_reprovisioned; service_account_created is also logged.
+      reference: https://developers.asana.com/docs/audit-log-events
+    security_policy_change:
+      value: Security policy changes are logged, including workspace_password_requirements_changed,
+        workspace_require_two_factor_auth_enabled/disabled, workspace_saml_settings_changed,
+        workspace_google_sso_settings_changed, workspace_ip_allowlist_enabled/disabled/changed,
+        PAT settings changes, and similar admin policy events.
+      reference: https://developers.asana.com/docs/audit-log-events
+  event_logs_licensing_level:
+    value: Access to Audit Log API requires a Service Account on Enterprise+ (or legacy
+      Legacy Enterprise), and Asana notes Enterprise domains with the Compliance Management
+      Add-on can also access it. Authentication is via a Service Account personal
+      access token; audit logs retained 90 days.
+    reference: https://developers.asana.com/docs/audit-log-events
+  monitoring_products:
+  - value: 'Splunk: Asana for Splunk app ingests Audit Log API data, CIM-compatible,
+      for Splunk Enterprise/Cloud.'
+    reference: https://splunkbase.splunk.com/app/5736
+  - value: 'Asana app listing for Splunk: vendor guide to automate audit log ingestion,
+      alerting, and visualization.'
+    reference: https://asana.com/apps/splunk
+  - value: 'Sumo Logic: Cloud-to-Cloud Asana Source polls the Asana Audit Logs API
+      using a Service Account token.'
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/asana-source
+  - value: 'Datadog: Asana Audit Logs integration collects audit logs using Workspace
+      ID and Service Account PAT (Enterprise+).'
+    reference: https://docs.datadoghq.com/integrations/asana/
+  - value: 'Panther: SIEM integration to ingest/normalize Asana Audit Logs and provide
+      detections.'
+    reference: https://panther.com/integrations/logs/asana/
+  ingestion_methods:
+  - value: 'REST API polling: GET /workspaces/{workspace_gid}/audit_log_events with
+      filters (start_at, end_at, event_type, actor_type, etc.); read-only, paginated;
+      90‑day retention.'
+    reference: https://developers.asana.com/reference/getauditlogevents
+  - value: 'CSV export from Admin Console (Enterprise): Super admins can export audit
+      log events to CSV from the Security tab.'
+    reference: https://forum.asana.com/t/is-there-a-way-to-bring-historical-data-from-a-project-from-asana-api/533931
+  - value: 'Splunk App connector: Asana-built Splunk app leverages the Audit Log API
+      for automated ingestion.'
+    reference: https://splunkbase.splunk.com/app/5736
+  - value: 'Sumo Logic C2C Source: Connector that polls Asana Audit Logs API every
+      5 minutes using Service Account credentials.'
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/asana-source
+  - value: 'Datadog integration: Configure Asana Workspace ID and Service Account
+      PAT to forward audit logs to Datadog.'
+    reference: https://docs.datadoghq.com/integrations/asana/
+  - value: Official SDKs as API clients — Python package 'asana' includes AuditLogAPIApi.get_audit_log_events
+      for programmatic retrieval.
+    reference: https://pypi.org/project/asana/
+  - value: Official Node.js SDK includes AuditLogAPIApi.getAuditLogEvents for programmatic
+      retrieval.
+    reference: https://github.com/Asana/node-asana/blob/master/docs/AuditLogAPIApi.md
+  - value: Official C# or Java SDKs expose the audit_log_events endpoint for ingestion
+      in .NET/Java environments.
+    reference: https://github.com/Asana/asana-csharp-gen
+  log_export_options:
+    tools_connectors:
+      value: Exports via the Audit Log API (programmatic) and Admin Console CSV export
+        (logged as workspace_audit_log_export_started). Partner SIEM connectors (Splunk,
+        Sumo Logic, Datadog) use the API for ingestion.
+      reference: https://developers.asana.com/docs/audit-log-events
+  documentation_links:
+  - https://developers.asana.com/reference/audit-log-api
+  - https://developers.asana.com/reference/getauditlogevents
+  - https://developers.asana.com/docs/audit-log-events
+  - https://developers.asana.com/docs/authentication
+  - https://forum.asana.com/t/announcing-asana-s-audit-log-api/140140
+  - https://forum.asana.com/t/authenticating-audit-log-api-with-oauth-2-0-for-enterprise-account/146432
+  - https://asana.com/apps/splunk
+  - https://splunkbase.splunk.com/app/5736
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/asana-source
+  - https://docs.datadoghq.com/integrations/asana/
+  - https://panther.com/integrations/logs/asana/
+  - https://www.postman.com/asana-team/asana-s-public-workspace/folder/lykjete/audit-log-api
+  - https://pypi.org/project/asana/
+  - https://github.com/Asana/node-asana/blob/master/docs/AuditLogAPIApi.md
+  - https://github.com/Asana/asana-csharp-gen
+  - https://developers-legacy.asana.com/docs/overview-of-app-components
+incident_response:
+  suspend_user_api:
+    value: 'SCIM 2.0: Super Admins on Enterprise domains can deprovision (“zombify”)
+      a user by setting active=false via PUT/PATCH /Users/:id; DELETE /Users/:id also
+      deprovisions. Only Service Accounts may access SCIM.'
+    reference: https://developers.asana.com/docs/scim
+  invalidate_sessions_api:
+    value: uncertain - No documented endpoint to “log out” a user or invalidate all
+      sessions; community guidance states the API has no concept of logging out. Tokens
+      naturally expire and deauthorization is managed via app/token management rather
+      than a session API.
+    reference: https://forum.asana.com/t/endpoint-to-revoke-access-token/29791?utm_source=openai))
+  revoke_api_key_api:
+    value: OAuth refresh tokens can be programmatically revoked via POST https://app.asana.com/-/oauth_revoke
+      (sends client_id, client_secret, token=refresh_token); this invalidates associated
+      access tokens. Access-token-only revocation is rejected.
+    reference: https://developers.asana.com/docs/oauth
+  user_toggle_api:
+    value: SCIM 2.0 supports toggling a user’s ability to access Asana by updating
+      the user and setting active=false (deprovision) and later active=true (reprovision)
+      via PUT/PATCH /Users/:id.
+    reference: https://developers.asana.com/docs/scim
+  user_status_api:
+    value: SCIM GET /Users and GET /Users/:id return user records including the active
+      boolean indicating whether the user is active vs. deprovisioned in Asana.
+    reference: https://developers.asana.com/docs/scim
+  session_timeout_configuration:
+    value: For SAML SSO, Super Admins can configure SAML session timeout in the Admin
+      Console between 1 hour and 30 days.
+    reference: https://support.platinumpartner.com.au/support/solutions/articles/65000187403-authentication-and-access-management-options-for-paid-plans
+  known_automation_tools:
+  - value: Asana for Splunk app (SIEM) ingests Asana Audit Log API into Splunk with
+      CIM-compatible dashboards and alerting for investigation/response workflows.
+    reference: https://splunkbase.splunk.com/app/5736
+  - value: Sumo Logic Asana Source and App ingest Asana Audit Logs and provide dashboards
+      and searches to detect logins, content exports, and security setting changes.
+    reference: https://help.sumologic.com/docs/integrations/saas-cloud/asana/
+  - value: Cortex XSOAR “Asana Connect” integration exposes commands (e.g., asana-get-project,
+      asana-create-task) for SOAR playbooks to create and query Asana artifacts during
+      incidents.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/asana-connect
+  - value: Panther SIEM Asana integration parses/normalizes Asana Audit Logs, enabling
+      detections and investigations for security teams.
+    reference: https://panther.com/integrations/logs/asana/
+  - value: Microsoft Power Automate Asana connector provides actions (e.g., create
+      task, get task/project) to automate response workflows tied to security tooling
+      in the Microsoft ecosystem.
+    reference: https://learn.microsoft.com/en-us/connectors/asana/
+  - value: Tines actions and auth guide for Asana enable building bespoke incident
+      automations (create/update/delete tasks, webhooks) via HTTP with Asana credentials.
+    reference: https://explained.tines.com/en/articles/8852008-asana-authentication-guide
+  - value: Asana Python SDK (pip asana) official client suitable for automation/investigation
+      scripts, supports token auth and API endpoints including audit-log reads.
+    reference: https://pypi.org/project/asana/
+  - value: Asana Node.js SDK (npm asana) official JS client for building automation
+      that reads/writes Asana data from SOAR/IR tooling.
+    reference: https://www.npmjs.com/package/asana
+  documentation_links:
+  - https://developers.asana.com/reference/audit-log-api
+  - https://developers.asana.com/docs/audit-log-events
+  - https://developers.asana.com/reference/getauditlogevents
+  - https://developers.asana.com/docs/scim
+  - https://developers.asana.com/docs/oauth
+  - https://developers.asana.com/docs/personal-access-token
+  - https://asana.com/apps/splunk
+  - https://splunkbase.splunk.com/app/5736
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/asana-source/
+  - https://xsoar.pan.dev/docs/reference/integrations/asana-connect
+  - https://developers.asana.com/docs/python
+  - https://github.com/Asana/node-asana
+  - https://developers.asana.com/docs/authentication
+  - https://developers-legacy.asana.com/docs/overview-of-app-components
+  - https://forum.asana.com/t/auto-logout-more-rigorous-remove-auto-log-out/34861/32

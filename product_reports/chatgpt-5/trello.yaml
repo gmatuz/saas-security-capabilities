@@ -1,0 +1,305 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 via Atlassian Guard Standard (formerly Atlassian Access)
+      for Atlassian Cloud/Trello; OIDC/OpenID Connect is not supported for Cloud SSO.
+      Supported IdPs include Okta, Azure AD, OneLogin, Ping, Google Cloud, AD FS,
+      etc.
+    reference: https://support.atlassian.com/provisioning-users/docs/supported-identity-providers/
+  sso_license_level_requirement:
+    value: Atlassian Guard Standard subscription required to enforce SSO for Trello;
+      Guard Standard is included with Trello Enterprise licenses.
+    reference: https://support.atlassian.com/trello/docs/configure-sso-for-trello-with-atlassian-guard/
+  scim_support:
+    value: yes — SCIM 2.0 provisioning via Atlassian Guard Standard for Atlassian-managed
+      accounts (supports Trello when linked to an Atlassian organization).
+    reference: https://support.atlassian.com/provisioning-users/docs/understand-user-provisioning/
+  scim_licensing_level_requirement:
+    value: Atlassian Guard Standard subscription required for SCIM user provisioning.
+    reference: https://support.atlassian.com/migration/docs/recommendations-for-scim-provisioning/
+  scim_authentication_mechanisms:
+    value: Bearer token — Directory API key (SCIM base URL + API key) used as OAuth2-style
+      Bearer in Authorization header.
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/intro/
+  scim_authentication_acquisition_steps:
+    value: 1) Go to admin.atlassian.com and select your organization. 2) Security
+      > Identity providers, open the relevant Directory. 3) In User provisioning,
+      select Set up (or the menu) and Regenerate API key. 4) Copy the Directory base
+      URL and API key. 5) Use the API key as a Bearer token with the SCIM base URL
+      when configuring your IdP or calling the API.
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/intro/
+  user_management_api_support:
+    value: yes — Trello REST API supports workspace/enterprise/board membership management
+      (invite, add/remove, deactivate/reactivate members; set membership type).
+    reference: https://developer.atlassian.com/cloud/trello/rest/api-group-organizations/
+  user_management_api_licensing_level:
+    value: uncertain — general REST APIs are public; enterprise-specific endpoints
+      require an Enterprise context. No explicit licensing matrix for API availability
+      found.
+    reference: no evidence
+  user_management_api_authentication_mechanisms:
+    value: API key + user token (query params or Authorization header); optional OAuth
+      1.0. Tokens created via Trello authorization flow.
+    reference: https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Create a Power-Up, then open https://trello.com/power-ups/admin. 2)
+      Open your Power-Up > API Key tab and Generate a new API Key. 3) Click the Token
+      link to authorize and obtain a user token. 4) Use key and token to call the
+      REST API.
+    reference: https://support.atlassian.com/trello/docs/getting-started-with-trello-rest-api/
+  seat_costs:
+  - license_level: Standard (Workspace)
+    active:
+      value: Billable seats include all Workspace members and multi-board guests.
+      reference: https://support.atlassian.com/trello/docs/how-billing-works-with-trello-premium-and-standard/
+    suspended_disabled:
+      value: Deactivated Workspace members do not consume a license in Standard/Premium.
+      reference: https://support.atlassian.com/trello/docs/what-is-a-deactivated-user/
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Premium (Workspace)
+    active:
+      value: Billable seats include all Workspace members and multi-board guests;
+        CSV export available at this tier.
+      reference: https://support.atlassian.com/trello/docs/how-billing-works-with-trello-premium-and-standard/
+    suspended_disabled:
+      value: Deactivated Workspace members do not consume a license in Standard/Premium.
+      reference: https://support.atlassian.com/trello/docs/what-is-a-deactivated-user/
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Enterprise
+    active:
+      value: Billable members are active licensed Enterprise members; stats box shows
+        billable members as active members of upgraded Workspaces.
+      reference: https://support.atlassian.com/trello/docs/member-management-dashboard-stats-box/
+    suspended_disabled:
+      value: Revoking/removing an Enterprise license (deactivate) frees the seat;
+        deactivated members appear in Enterprise admin but are not licensed.
+      reference: https://support.atlassian.com/trello/docs/managing-licensed-members-on-the-enterprise-admin-dashboard/
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited (board/Workspace invite) — ‘Invited Members’ status
+  - active (normal member)
+  - observer (read-only board member; Premium)
+  - deactivated (Workspace)
+  - deactivated (Atlassian managed account)
+  - licensed Enterprise member
+  - free managed account (unlicensed, managed via claimed domain)
+  rbac_support:
+    value: yes — Roles/permissions include Enterprise admin, Workspace admin/members,
+      Board admin/members, and Observer (read-only) with documented capabilities and
+      restrictions.
+    reference: https://support.atlassian.com/trello/docs/changing-permissions-on-a-board/
+  rbac_api_assignment:
+    value: 'yes — Examples: make Enterprise admin via PUT /enterprises/{id}/admins/{idMember};
+      deactivate/reactivate enterprise/workspace members; board and workspace membership
+      changes via REST.'
+    reference: https://developer.atlassian.com/cloud/trello/rest/api-group-enterprises/
+  documentation_links:
+  - https://support.atlassian.com/trello/docs/configure-sso-for-trello-with-atlassian-guard/
+  - https://support.atlassian.com/provisioning-users/docs/supported-identity-providers/
+  - https://support.atlassian.com/security-and-access-policies/docs/configure-saml-single-sign-on-with-an-identity-provider/
+  - https://support.atlassian.com/provisioning-users/docs/understand-user-provisioning/
+  - https://developer.atlassian.com/cloud/admin/user-provisioning/rest/intro/
+  - https://developer.atlassian.com/cloud/trello/scim/
+  - https://developer.atlassian.com/cloud/trello/scim/authorization/
+  - https://developer.atlassian.com/cloud/trello/rest/api-group-organizations/
+  - https://developer.atlassian.com/cloud/trello/rest/api-group-boards/
+  - https://support.atlassian.com/trello/docs/what-is-a-deactivated-user/
+  - https://support.atlassian.com/trello/docs/multi-board-guests/
+  - https://support.atlassian.com/trello/docs/enterprise-admin-dashboard/
+  - https://support.atlassian.com/organization-administration/docs/track-organization-activities-from-the-audit-log/
+  - https://support.atlassian.com/provisioning-users/docs/configure-user-provisioning-with-okta/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/atlassian-cloud-provisioning-tutorial
+  - https://confluence.atlassian.com/cloudkb/onelogin-configure-and-manage-scim-group-syncing-1488591017.html
+  - https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/
+  - https://support.atlassian.com/trello/docs/getting-started-with-trello-rest-api/
+  - https://community.developer.atlassian.com/t/how-to-fetch-the-organization-members-emails/87050
+  - https://community.atlassian.com/t5/Trello-questions/Can-Trello-logs-be-exported-to-splunk/qaq-p/1431705
+  - https://github.com/mathopoulos/Trello-Enterprise-Admin-Bulk-Deactivate-Inactive-Users
+  - https://github.com/MrRefactoring/trello.js/
+  - https://github.com/adunkman/node-trello
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Trello does not expose product-level login events to customers; board/Workspace
+        exports and activity do not include login details. Login-related events must
+        be sourced from Atlassian organization audit logs rather than Trello product
+        logs.
+      reference: https://community.atlassian.com/t5/Trello-questions/Can-Trello-logs-be-exported-to-splunk/qaq-p/1431705
+    role_assignment:
+      value: Trello Enterprise Admin Dashboard provides an Audit Log that includes
+        membership changes and Enterprise-wide permission settings; logs can be exported
+        to Google Sheets.
+      reference: https://support.atlassian.com/trello/docs/enterprise-admin-dashboard/
+    api_call:
+      value: Trello states all API calls and application logs are retained internally
+        for at least 45 days for Atlassian’s operational/security use; these logs
+        are not exposed to customers.
+      reference: https://trello.com/ru/legal/security
+    data_export:
+      value: Export options exist (board JSON; Premium/Enterprise CSV; Workspace export
+        with optional attachments ZIP). Documentation does not state that a security/audit
+        event is recorded when exports are performed; availability of export audit
+        events is uncertain.
+      reference: https://support.atlassian.com/trello/docs/exporting-data-from-trello/
+    configuration_change:
+      value: Enterprise Admin Audit Log captures Enterprise-wide configuration actions
+        such as permission settings and Power-Up administration and allows export
+        to Google Sheets.
+      reference: https://support.atlassian.com/trello/docs/enterprise-admin-dashboard/
+    user_account_creation:
+      value: Uncertain – Atlassian’s organization audit log tracks user-account related
+        activities at the org level (e.g., user accounts category), but Trello-specific
+        product audit entries for account creation aren’t documented.
+      reference: https://support.atlassian.com/organization-administration/docs/track-organization-activities-from-the-audit-log/
+    security_policy_change:
+      value: Changes to organization security policies are recorded in the Atlassian
+        organization audit log under the Security policies category (org-level, not
+        Trello product-level).
+      reference: https://support.atlassian.com/organization-administration/docs/track-organization-activities-from-the-audit-log/
+  event_logs_licensing_level:
+    value: Trello Enterprise includes an Enterprise Admin Audit Log (exportable to
+      Google Sheets). Organization-level audit logging (with optional streaming via
+      webhook) is managed under Atlassian Guard; webhook streaming requires Atlassian
+      Guard Premium or eligible Enterprise plans for other Atlassian apps. Trello-specific
+      product audit streaming is not documented.
+    reference: https://support.atlassian.com/trello/docs/enterprise-admin-dashboard/
+  monitoring_products:
+  - value: Splunkbase ‘Trello App for Splunk’ (archived) – depended on a Trello Add-On
+      to ingest board/list/card/member data for reporting within Splunk.
+    reference: https://apps.splunk.com/app/4237/
+  - value: 'CloudQuery integration advertises syncing Trello API data to Splunk (source:
+      Trello; destination: Splunk) via configuration-driven ETL.'
+    reference: https://hub.cloudquery.io/export-data/trello/splunk
+  - value: Pipedream connectors – Trello triggers (e.g., new/moved/updated card) to
+      Splunk actions (HEC/event ingestion), enabling near-real-time forwarding of
+      Trello events.
+    reference: https://pipedream.com/apps/trello/integrations/splunk
+  - value: n8n workflow integration page for Splunk and Trello – low-code workflow
+      to forward Trello events to Splunk or orchestrate monitoring automations.
+    reference: https://n8n.io/integrations/splunk/and/trello/
+  - value: Splunk Community ‘Trello Add-On’ description – modular inputs to call Trello
+      APIs and ingest boards/lists/cards/labels/members/checklists.
+    reference: https://community.splunk.com/t5/c-oqeym24965/Trello%2BAdd-On/pd-p/4141
+  ingestion_methods:
+  - value: Atlassian organization audit log webhooks – stream org-level audit events
+      (JSON) to a third-party HTTP endpoint (e.g., SIEM) with retry semantics; requires
+      appropriate plan.
+    reference: https://support.atlassian.com/security-and-access-policies/docs/learn-more-about-audit-log-webhooks/
+  - value: Atlassian Organizations REST API Events – poll or query org-level audit
+      log events (/v1/orgs/{orgId}/events, /events-stream) for ingestion.
+    reference: https://developer.atlassian.com/cloud/admin/organization/rest/api-group-events/
+  - value: Trello REST API – Board Actions endpoint to pull change events on boards
+      (e.g., addMemberToBoard, updateCard).
+    reference: https://developer.atlassian.com/cloud/trello/rest/api-group-boards/
+  - value: Trello Webhooks – register webhooks on boards/lists/cards to receive HTTP
+      callbacks on updates for streaming into a collector.
+    reference: https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/
+  - value: Trello export – Board/Workspace export to JSON/CSV, with optional attachments
+      ZIP on Workspace export (manual or scheduled via some third-party Power-Ups).
+    reference: https://support.atlassian.com/trello/docs/exporting-data-from-trello/
+  - value: Trello Enterprise Admin Audit Log – export Enterprise admin activities
+      to Google Sheets, which can then be programmatically fetched for ingestion.
+    reference: https://support.atlassian.com/trello/docs/enterprise-admin-dashboard/
+  log_export_options:
+    tools_connectors:
+      value: Native export options include board JSON, Premium/Enterprise CSV, and
+        Workspace export with optional attachments ZIP. These provide bulk data for
+        downstream processing; additional programmatic collection is via the Trello
+        REST API and webhooks (see ingestion methods).
+      reference: https://support.atlassian.com/trello/docs/exporting-data-from-trello/
+  documentation_links:
+  - https://trello.com/ru/legal/security
+  - https://support.atlassian.com/trello/docs/exporting-data-from-trello/
+  - https://developer.atlassian.com/cloud/trello/rest/api-group-boards/
+  - https://developer.atlassian.com/cloud/trello/rest/api-group-actions/
+  - https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/
+  - https://support.atlassian.com/trello/docs/enterprise-admin-dashboard/
+  - https://support.atlassian.com/organization-administration/docs/track-organization-activities-from-the-audit-log/
+  - https://developer.atlassian.com/cloud/admin/organization/rest/api-group-events/
+  - https://support.atlassian.com/security-and-access-policies/docs/learn-more-about-audit-log-webhooks/
+  - https://community.developer.atlassian.com/t/get-actions-of-a-board-chronology/49363
+  - https://community.atlassian.com/t5/Trello-questions/Can-Trello-logs-be-exported-to-splunk/qaq-p/1431705
+  - https://jira.atlassian.com/browse/TRELLO-67
+  - https://support.atlassian.com/trello/docs/opening-the-command-log/
+incident_response:
+  suspend_user_api:
+    value: Atlassian SCIM user provisioning API supports deactivating (deprovisioning)
+      a managed user in Atlassian Cloud; DELETE /scim/directory/{directoryId}/Users/{userId}
+      deactivates the user, which applies across Atlassian apps including Trello (requires
+      Atlassian Guard/SCIM).
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/
+  invalidate_sessions_api:
+    value: No documented Atlassian Cloud/Trello API to programmatically reset/invalidate
+      user sessions; an Atlassian suggestion (ACCESS-1644) requests such an API, indicating
+      it does not exist today.
+    reference: https://jira.atlassian.com/browse/ACCESS-1644
+  revoke_api_key_api:
+    value: Trello API tokens can be revoked via API using DELETE /1/tokens/{token};
+      when deleted, the token immediately loses access (users can also revoke from
+      UI).
+    reference: https://developer.atlassian.com/cloud/trello/rest/api-group-tokens/
+  user_toggle_api:
+    value: Enterprise administrators can deactivate a Trello Enterprise member (license
+      removal) from the Enterprise Admin Dashboard; deactivation removes access and
+      terminates related SSO sessions so the user is logged out.
+    reference: https://trello.com/pt-BR/guide/enterprise/admins-dashboard
+  user_status_api:
+    value: Atlassian SCIM User APIs expose the ‘active’ attribute on users and allow
+      GET /scim/directory/{directoryId}/Users/{userId} to check if a user is active
+      vs. deactivated.
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/api-group-users/
+  session_timeout_configuration:
+    value: Idle web session duration is configured in Atlassian authentication policies
+      for managed accounts; default is 30 days if not set, and admins can adjust it
+      per policy.
+    reference: https://support.atlassian.com/security-and-access-policies/docs/update-idle-session-duration/
+  known_automation_tools:
+  - value: Cortex XSOAR Trello integration pack (commands to list boards/lists, create/update
+      cards, etc.) enabling playbooks that take Trello actions as part of incident
+      workflows.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/trello
+  - value: Splunk Webhooks Input app supports Trello webhook compatibility (added
+      HEAD handling) to ingest Trello webhook events into Splunk for investigation/alerting.
+    reference: https://apps.splunk.com/app/3308/
+  - value: Atlassian Organizations Events API provides programmatic access to organization
+      audit logs (query/poll) for SIEM ingestion and automation.
+    reference: dubious claim, hallucinated reference
+  - value: Trello Enterprise Audit Log REST endpoint GET /1/enterprises/{id}/auditlog
+      returns Enterprise audit actions; useful for investigation and export.
+    reference: https://developer.atlassian.com/cloud/trello/rest/api-group-enterprises/#api-enterprises-id-auditlog-get
+  - value: py-trello (PyPI) – Python client wrapper for Trello REST API to automate
+      investigative and response actions (e.g., remove members from boards, move/archive
+      cards).
+    reference: https://pypi.org/project/py-trello/
+  - value: trello.js (npm) – JavaScript/TypeScript client for Trello API (Node/browser)
+      to script Trello response actions in SOAR/custom automations.
+    reference: https://www.npmjs.com/package/trello.js/v/1.2.3
+  - value: trello-java-wrapper – Java library for Trello API (available via Maven
+      Central) to integrate Trello actions into JVM-based automation.
+    reference: https://github.com/taskadapter/trello-java-wrapper
+  - value: trobot – Node.js Trello webhook/bot toolkit and CLI to manage webhooks
+      and respond to Trello events programmatically.
+    reference: https://github.com/karlpokus/trobot
+  documentation_links:
+  - https://support.atlassian.com/trello/docs/revoking-a-trello-token/
+  - https://developer.atlassian.com/cloud/trello/guides/rest-api/authorization/
+  - https://developer.atlassian.com/cloud/trello/rest/api-group-boards/
+  - https://developer.atlassian.com/cloud/trello/rest/api-group-organizations/
+  - https://developer.atlassian.com/cloud/trello/rest/api-group-enterprises/
+  - https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/
+  - https://support.atlassian.com/security-and-access-policies/docs/authentication-policy-settings-for-your-organizations/
+  - https://support.atlassian.com/security-and-access-policies/docs/update-idle-session-duration/
+  - https://support.atlassian.com/security-and-access-policies/docs/reset-sessions-for-external-users/
+  - https://support.atlassian.com/trello/docs/enterprise-admin-dashboard/
+  - https://trello.com/en/guide/enterprise/admins-dashboard
+  - https://support.atlassian.com/organization-administration/docs/track-organization-activities-from-the-audit-log/
+  - https://support.atlassian.com/security-and-access-policies/docs/view-audit-log-activities/
+  - https://developer.atlassian.com/cloud/admin/organization/rest/api-group-events/
+  - https://support.atlassian.com/security-and-access-policies/docs/learn-more-about-audit-log-webhooks/
+  - https://support.atlassian.com/trello/docs/configure-sso-for-trello-with-atlassian-guard/
+  - https://support.atlassian.com/provisioning-users/docs/configure-user-provisioning-with-an-identity-provider/

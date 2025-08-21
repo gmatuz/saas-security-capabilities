@@ -1,162 +1,279 @@
-user_management:
-  sso_support:
-    value: "yes"
-    reference: "https://help.figma.com/hc/en-us/articles/360039206514-SAML-SSO-with-Microsoft-Entra-ID"
-  sso_licensing_level_requirement:
-    value: "Figma's Organization or Enterprise plans are required for SSO. [16, 31]"
-    reference: "https://www.cloudeagle.ai/blog/figma-pricing-guide"
-  scim_support:
-    value: "yes"
-    reference: "https://help.figma.com/hc/en-us/articles/360052352133-Set-up-automatic-provisioning-via-SCIM"
-  scim_licensing_level_requirement:
-    value: "SCIM is available on the Enterprise plan. [3]"
-    reference: "https://help.vanta.com/hc/en-us/articles/4405373305495-Connecting-Vanta-and-Figma"
-  scim_authentication_mechanisms:
-    value: "API key"
-    reference: "https://help.figma.com/hc/en-us/articles/360052352133-Set-up-automatic-provisioning-via-SCIM"
-  scim_authentication_acquisition_steps: "1. Open Figma in the file browser and select Admin in the sidebar.\n2. Select the Settings tab.\n3. In the 'Login and provisioning' section, click SCIM provisioning.\n4. Click 'Generate API token'.\n5. Copy the generated API token. This token is the Bearer Token used for SCIM authentication. [2]"
-  user_management_api_support:
-    value: "yes"
-    reference: "https://www.figma.com/developers/api"
-  user_management_api_licensing_level:
-    value: "API access is available on all plans, but rate limits vary by plan (Starter, Professional, Organization, Enterprise). [34]"
-    reference: "https://www.cobalt.com/blog/figma-api"
-  user_management_api_authentication_mechanisms:
-    value: "Authentication token"
-    reference: "https://help.figma.com/hc/en-us/articles/8338349272343-Manage-personal-access-tokens"
-  user_management_api_authentication_acquisition_steps: "1. From the file browser, click your account menu in the top-left corner and select 'Settings'.\n2. Select the 'Security' tab.\n3. Scroll to the 'Personal access tokens' section.\n4. Click 'Generate new token'.\n5. Enter a name for your token, assign the desired scopes, and press Return/Enter.\n6. Copy the generated token. This will be your only opportunity to do so. [9]"
-  seat_costs:
-  - license_level: "Organization"
-    active:
-      value: "yes"
-      reference: "https://www.cloudeagle.ai/blog/figma-pricing-guide"
-    suspended_disabled:
-      value: "no"
-      reference: "https://help.figma.com/hc/en-us/articles/360039206514-SAML-SSO-with-Microsoft-Entra-ID"
-    archived:
-      value: "uncertain"
-      reference: "https://help.figma.com/hc/en-us/articles/360039206514-SAML-SSO-with-Microsoft-Entra-ID"
-  - license_level: "Enterprise"
-    active:
-      value: "yes"
-      reference: "https://www.cloudeagle.ai/blog/figma-pricing-guide"
-    suspended_disabled:
-      value: "no"
-      reference: "https://help.figma.com/hc/en-us/articles/360039206514-SAML-SSO-with-Microsoft-Entra-ID"
-    archived:
-      value: "uncertain"
-      reference: "https://help.figma.com/hc/en-us/articles/360039206514-SAML-SSO-with-Microsoft-Entra-ID"
-  lifecycle_options:
-  - "Create"
-  - "Update"
-  - "Deactivate (Suspend)"
-  - "Remove"
-  rbac_support:
-    value: "yes"
-    reference: "https://help.figma.com/hc/en-us/articles/4405396618519-Manage-workspaces-and-billing-groups-via-SCIM-in-Okta"
-  rbac_api_assignment:
-    value: "Yes, role and group assignments can be managed via SCIM. [15, 23]"
-    reference: "https://help.figma.com/hc/en-us/articles/4405396618519-Manage-workspaces-and-billing-groups-via-SCIM-in-Okta"
+identity_and_access:
   documentation_links:
-  - "https://help.figma.com/hc/en-us/articles/360052352133-Set-up-automatic-provisioning-via-SCIM"
-  - "https://www.figma.com/developers/api"
-  - "https://help.figma.com/hc/en-us/articles/360039206514-SAML-SSO-with-Microsoft-Entra-ID"
-  - "https://www.okta.com/integrations/figma/"
-  - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/figma-provisioning-tutorial"
-  - "https://help.figma.com/hc/en-us/articles/8338349272343-Manage-personal-access-tokens"
-  - "https://help.figma.com/hc/en-us/articles/4405396618519-Manage-workspaces-and-billing-groups-via-SCIM-in-Okta"
-  - "https://help.figma.com/hc/en-us/articles/7932688941079-Manage-seats-via-SCIM-using-Microsoft-Entra-ID"
-  - "https://help.figma.com/hc/en-us/articles/12396340448151-Manage-seats-via-SCIM-using-Okta"
-  - "https://www.postman.com/figma/workspace/figma-public-workspace/documentation/13364714-38148f33-3162-43cb-802d-30a473e157c1"
+  - https://help.figma.com/hc/en-us/articles/360048787534-Set-up-automatic-provisioning-via-SCIM
+  - https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+  - https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM-using-Okta
+  - https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM-using-Microsoft-Entra-ID
+  - https://www.figma.com/developers/api#access-tokens
+  - https://www.figma.com/developers/apps
+  - https://www.okta.com/integrations/figma/
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/figma-provisioning-tutorial
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/figma-tutorial
+  lifecycle_options:
+  - active
+  - deactivated
+  - invited
+  rbac_api_assignment:
+    reference: https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+    value: yes - Role assignment can be managed via SCIM, particularly for user licenses
+      on the Enterprise plan. Okta integration for SCIM can manage groups, and changes
+      are reflected in Figma.
+  rbac_support:
+    reference: https://help.figma.com/hc/en-us/articles/360039970673-Team-permissions
+    value: yes - Figma supports various admin roles (Team admins, Workspace admins,
+      Billing group admins, Organization admins) with different permissions. Team
+      admins manage members and permissions for their team. Organization admins can
+      adjust login and provisioning settings (including SAML SSO and SCIM), manage
+      seats, remove people, and control access to products and features. Workspace
+      admins and Billing group admins have more limited roles, primarily for managing
+      workspaces and billing groups respectively.
+  scim_authentication_acquisition_steps:
+    reference: https://help.figma.com/hc/en-us/articles/360048514653-Set-up-automatic-provisioning-via-SCIM
+    value: 1. Open Figma in the file browser and select Admin in the sidebar. 2. Select
+      the Settings tab and navigate to the Login and provisioning section. 3. Click
+      SCIM provisioning. 4. Click Generate API token. 5. Copy the API token value.
+      6. Find your Tenant ID in the SAML SSO section to construct the SCIM base URL
+      (https://www.figma.com/scim/v2/[tenantID]).
+  scim_authentication_mechanisms:
+    reference: https://figma-gov.com/developers/api
+    value: API Token (Bearer Token)
+  scim_licensing_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: Organization and Enterprise plans. Managing seat types via SCIM is only
+      available on the Enterprise plan.
+  scim_support:
+    reference: https://help.figma.com/hc/en-us/articles/360048514653-Set-up-automatic-provisioning-via-SCIM
+    value: yes - SCIMv2 is supported for automatic provisioning, including importing
+      and deactivating users, and managing members' seat types. Figma provides a detailed
+      SCIM API reference.
+  seat_costs:
+  - archived:
+      reference: https://blog.logrocket.com/ux-design/understanding-figma-billing-new-payment-structure/
+      value: uncertain - The search results do not explicitly state whether archived
+        users on the Professional plan incur costs.
+    license_level: Professional
+    suspended_disabled:
+      reference: https://blog.logrocket.com/ux-design/understanding-figma-billing-new-payment-structure/
+      value: uncertain - The search results do not explicitly state whether suspended
+        or disabled users on the Professional plan incur costs. However, discussions
+        about SCIM provisioning for seat management on Organization and Enterprise
+        plans suggest active management of paid seats.
+  - archived:
+      reference: https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+      value: uncertain - The search results do not explicitly state whether archived
+        users on the Organization plan incur costs.
+    license_level: Organization
+    suspended_disabled:
+      reference: https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+      value: uncertain - The search results do not explicitly state whether suspended
+        or disabled users on the Organization plan incur costs. SCIM can manage seat
+        types, implying control over billing status for members.
+  - archived:
+      reference: https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+      value: uncertain - The search results do not explicitly state whether archived
+        users on the Enterprise plan incur costs.
+    license_level: Enterprise
+    suspended_disabled:
+      reference: https://help.figma.com/hc/en-us/articles/360048787534-Manage-seats-via-SCIM
+      value: uncertain - The search results indicate that SCIM on the Enterprise plan
+        allows for setting seat types and managing billing status, implying control
+        over whether suspended/disabled users incur costs, but it doesn't explicitly
+        state if they always do or don't. A Reddit discussion suggests managing licenses
+        via custom attributes when using Okta for provisioning, implying potential
+        for fine-grained control over which users are assigned paid seats.
+  sso_license_level_requirement:
+    reference: https://www.youtube.com/watch?v=Tra8Mc1FIU0
+    value: Organization and Enterprise plans.
+  sso_support:
+    reference: https://help.figma.com/hc/en-us/articles/360040532333-Guide-to-SAML-SSO
+    value: yes - SAML with supported providers (Google Workspace, Okta, OneLogin,
+      Microsoft Entra ID) or custom SAML SSO. Supports both Identity Provider (IdP)
+      initiated and Service Provider (SP) initiated configurations. Just-In-Time (JIT)
+      provisioning is supported for creating and updating users during SAML SSO.
+  user_management_api_authentication_acquisition_steps:
+    reference: hallucinated link doublecheck content
+    value: 'For SCIM API Token: 1. Open Figma in the file browser and select Admin
+      in the sidebar. 2. Select the Settings tab and navigate to the Login and provisioning
+      section. 3. Click SCIM provisioning. 4. Click Generate API token. 5. Copy the
+      API token value. For Personal Access Token: 1. Sign in to your Figma account.
+      2. Visit https://www.figma.com/developers/api#access-tokens or from the file
+      browser, click the account menu and select Settings, then the Security tab.
+      3. Click ''+ Get personal access token'' or ''Generate new token''. 4. Enter
+      a name and assign scopes (if applicable). 5. Copy the generated token. For OAuth
+      client credentials (for activity log tracking on Enterprise plan): 1. Go to
+      https://www.figma.com/developers/apps. 2. Click ''Create new app''. 3. Enter
+      app name, website URL, and upload logo. 4. Copy Client ID and Client secret.
+      5. Select OAuth2.0 and add redirect URLs.'
+  user_management_api_authentication_mechanisms:
+    reference: hallucinated link doublecheck content
+    value: API Token (for SCIM), Personal Access Token (for general API access), OAuth
+      (for enterprise plan activity log tracking).
+  user_management_api_licensing_level:
+    reference: hallucinated link doublecheck content
+    value: Uncertain for non-SCIM user management API. SCIM provisioning and management
+      of user licenses through SCIM API are available on the Organization and Enterprise
+      plans, with seat type management being Enterprise-only. Personal Access Tokens
+      can be generated on any account, but their utility for general user management
+      outside of SCIM for business users is unclear from the search results.
+  user_management_api_support:
+    reference: https://figma-gov.com/developers/api
+    value: yes - Figma provides a SCIM API for user and group management. Additionally,
+      Personal Access Tokens can be used to grant access to Figma API for third-party
+      integrations, although it's noted they allow access to all files and data without
+      restriction.
 security_monitoring:
+  documentation_links:
+  - https://figmareleases.blogspot.com/2022/10/activity-logs-api.html
+  - https://figma-gov.com/developers/api
+  - https://www.youtube.com/watch?v=p4Hbt9Y0PKg
   event_logs:
-    user_login:
-      value: "Figma logs user login events. The activity log shows the team member's name, email, date, time, and IP address for each event."
-      reference: "https://help.figma.com/hc/en-us/articles/360060132194-View-and-export-activity-logs"
-    role_assignment:
-      value: "Role changes are logged. The Activity Logs API can return events for changes to a user's paid status (`org_user_account_type_change`). SCIM integration also manages user roles and seat types."
-      reference: "https://www.figma.com/developers/api#activity_logs-endpoints"
     api_call:
-      value: "While direct logging of every API call is not explicitly documented in the activity log event list, the activity log does record events initiated via the API, such as user creation or deletion. The API itself is the mechanism to pull these logs."
-      reference: "https://www.figma.com/developers/api#activity_logs-endpoints"
-    data_export:
-      value: "The activity log records when a user requests a CSV export of the activity logs."
-      reference: "https://www.youtube.com/watch?v=1F23-26mU3g"
+      reference: https://figmareleases.blogspot.com/2022/10/activity-logs-api.html
+      value: Figma provides an Activity Logs API that allows organization admins to
+        programmatically access their organization's activity log events. The Figma
+        REST API is based on the REST structure and supports authentication via access
+        tokens and OAuth2. [1, 2, 10]
     configuration_change:
-      value: "The activity log tracks changes made by organization admins to organization-level settings, including changes to the idle session timeout policy."
-      reference: "https://help.figma.com/hc/en-us/articles/4405389599255-Set-an-idle-session-timeout"
-    user_account_creation:
-      value: "User creation and deletion events are logged. The Activity Logs API provides specific event types for `org_user_create` and `org_user_delete`."
-      reference: "https://www.figma.com/developers/api#activity_logs-endpoints"
+      reference: hallucinated link doublecheck content
+      value: Activity logs track any changes made to team administration and settings,
+        as well as changes made by organization admins to organization-level settings.
+        [2]
+    data_export:
+      reference: hallucinated link doublecheck content
+      value: Activity logs record when people access, copy, and share files. [2] Organization
+        admins can also export a copy of their activity log to CSV format. [2] By
+        default, Figma allows all users with View Only access to share and export
+        files. [13]
+    role_assignment:
+      reference: hallucinated link doublecheck content
+      value: Activity logs track changes made to team, project, and file permissions,
+        as well as changes made by organization admins to organization-level settings.
+        [2]
     security_policy_change:
-      value: "Changes to security settings, such as session timeout policies, are recorded in the activity log."
-      reference: "https://help.figma.com/hc/en-us/articles/4405389599255-Set-an-idle-session-timeout"
+      reference: hallucinated link doublecheck content
+      value: Activity logs track changes made to team, project, and file permissions,
+        as well as changes made by organization admins to organization-level settings.
+        Figma offers security features such as setting idle session timeouts, setting
+        expiration on public links, restricting guest access, and restricting access
+        to content from outside the organization. [2, 3]
+    user_account_creation:
+      reference: https://figma-gov.com/developers/api
+      value: The Figma API includes endpoints to manage user lifecycle, leveraging
+        SCIM endpoints. These allow for creating new objects, overwriting objects,
+        modifying objects, and removing objects. [10]
+    user_login:
+      reference: https://help.figma.com/hc/en-us/articles/360040449533-View-and-export-activity-logs
+      value: Figma's activity logs track when members and guests access organization
+        files and resources. However, Figma does not record login events for guests
+        of the organization, nor does it track when a member closes a browser window
+        or exits Figma without logging out. [2]
   event_logs_licensing_level:
-    value: "Enterprise Plan"
-    reference: "https://help.figma.com/hc/en-us/articles/360060132194-View-and-export-activity-logs"
-  monitoring_products:
-    - value: "Splunk (via API)"
-      reference: "https://www.postman.com/figma/workspace/figma-public-workspace/documentation/1549688-29341f17-3628-4069-9540-cc5b77a2842c"
-    - value: "Datadog (via API)"
-      reference: "https://docs.datadoghq.com/integrations/figma/"
-    - value: "SumoLogic (via API)"
-      reference: "https://help.sumologic.com/docs/send-data/hosted-collectors/http-source/logs-metrics/"
-    - value: "Microsoft Sentinel (via API)"
-      reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/custom-logs-via-log-analytics-agent"
-    - value: "Google Workspace"
-      reference: "https://support.google.com/a/answer/10352936?hl=en"
+    reference: https://figmareleases.blogspot.com/2022/10/activity-logs-api.html
+    value: The Activity Logs API is available on the Enterprise plan. Activity logs
+      for viewing in the Admin console are available on Organization and Enterprise
+      plans. [1, 2]
   ingestion_methods:
-    - value: "REST API: The Activity Logs API provides programmatic access to your organization's activity logs."
-      reference: "https://www.figma.com/developers/api#activity_logs-endpoints"
-    - value: "Webhooks: Figma webhooks allow developers to receive real-time notifications about events in files and projects."
-      reference: "https://www.figma.com/developers/api#webhooks-v2-endpoints"
-    - value: "Manual Export: Organization admins can export activity logs as a CSV file from the Admin panel."
-      reference: "https://help.figma.com/hc/en-us/articles/360060132194-View-and-export-activity-logs"
+  - reference: https://figmareleases.blogspot.com/2022/10/activity-logs-api.html?m=1
+    value: Figma provides an Activity Logs API for programmatic access to activity
+      log events. [1, 2]
+  - reference: https://rollout.com/integration-guides/figma/api-essentials
+    value: Figma also supports webhooks, which allow developers to receive real-time
+      notifications about events occurring in their Figma files and projects. [22]
   log_export_options:
     tools_connectors:
-      value: "Figma provides a REST API that can be used to build custom connectors for SIEM tools. Identity providers like Okta, Entra ID, and Google Workspace have pre-built connectors that leverage Figma's SCIM API for user provisioning, which indirectly logs user lifecycle events."
-      reference: "https://help.figma.com/hc/en-us/articles/1500006399101-Set-up-automatic-provisioning-via-SCIM"
-  documentation_links:
-    - "https://help.figma.com/hc/en-us/articles/360060132194-View-and-export-activity-logs"
-    - "https://www.figma.com/developers/api#activity_logs-endpoints"
-    - "https://www.figma.com/developers/api"
-    - "https://help.figma.com/hc/en-us/articles/1500006399101-Set-up-automatic-provisioning-via-SCIM"
-    - "https://www.postman.com/figma/workspace/figma-public-workspace/documentation/1549688-29341f17-3628-4069-9540-cc5b77a2842c"
-    - "https://github.com/figma/rest-api-spec"
+      reference: https://figmareleases.blogspot.com/2022/10/activity-logs-api.html
+      value: Figma offers an Activity Logs API for programmatic access to activity
+        logs. [1] There are also NPM packages like 'figma-api' and 'figma-js' that
+        act as JavaScript client-side implementations of the Figma REST API. [24,
+        33] Some services like Pipedream allow integrating Rhombus API with Figma
+        API to post comments on new audit records. [28]
+  monitoring_products:
+  - reference: https://m.youtube.com/watch?v=p4Hbt9Y0PKg
+    value: Figma leverages Snowflake to centralize security data and ingest logs from
+      various sources like AWS, Okta, and Google, using tools like Panther for ingestion.
+      [12]
+  - reference: https://www.notion.com/integrations/all
+    value: Notion, a platform that can integrate with Figma, offers a Splunk integration
+      to monitor and analyze Notion logs. [9]
+  - reference: https://material.security/case-study/figma
+    value: Figma partnered with Material Security to secure their email and productivity
+      suite and streamline security operations, providing automated detection and
+      remediation for phishing attacks. [14]
+  - reference: https://semgrep.dev/
+    value: Semgrep, an application security platform, is used by Figma's security
+      team to get actionable security feedback and rule analytics. [19]
+  - reference: https://asana.com/apps
+    value: Asana offers an integration with Splunk to automate audit log ingestion,
+      alerting, and visualization for Asana. [20]
 incident_response:
-  suspend_user_management_api:
-    value: "Yes, via SCIM API. Figma supports SCIM for managing user lifecycle, which includes deactivating (suspending) users. This is typically managed through an Identity Provider (IdP) like Okta, Entra ID, or Google Workspace."
-    reference: "https://help.figma.com/hc/en-us/articles/1500006399101-Set-up-automatic-provisioning-via-SCIM"
-  invalidate_sessions_api:
-    value: "Partially. While there isn't a direct API endpoint to invalidate a specific user session token, organization admins on the Enterprise plan can set a global idle session timeout. When a user is deactivated via SCIM, their sessions are effectively invalidated."
-    reference: "https://help.figma.com/hc/en-us/articles/4405389599255-Set-an-idle-session-timeout"
-  revoke_api_key_api:
-    value: "No direct API endpoint is documented for programmatically revoking a personal access token. Tokens must be revoked manually through the user's settings page."
-    reference: "https://help.figma.com/hc/en-us/articles/8085703774231-Manage-personal-access-tokens#Revoke_a_token"
-  user_toggle_api:
-    value: "Yes, the SCIM API allows for deactivating and reactivating users, which effectively toggles their access to the Figma organization."
-    reference: "https://developers.figma.com/scim/"
-  user_status_api:
-    value: "Yes, the SCIM API can be used to read the status of users, including whether their account is active or deactivated."
-    reference: "https://developers.figma.com/scim/#get-a-list-of-users"
-  session_timeout_configuration:
-    value: "Yes, organization admins on the Enterprise plan can configure a custom idle session timeout, ranging from 12 hours to 14 days."
-    reference: "https://help.figma.com/hc/en-us/articles/4405389599255-Set-an-idle-session-timeout"
-  known_automation_tools:
-    - value: "Okta Lifecycle Management"
-      reference: "https://www.okta.com/integrations/figma/"
-    - value: "Microsoft Entra ID"
-      reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/figma-provisioning-tutorial"
-    - value: "Google Workspace"
-      reference: "https://support.google.com/a/answer/10352936?hl=en"
-    - value: "JumpCloud"
-      reference: "https://jumpcloud.com/support/sso-with-figma"
-    - value: "miniOrange"
-      reference: "https://www.miniorange.com/figma-provisioning"
   documentation_links:
-    - "https://developers.figma.com/scim/"
-    - "https://help.figma.com/hc/en-us/articles/1500006399101-Set-up-automatic-provisioning-via-SCIM"
-    - "https://help.figma.com/hc/en-us/articles/4405389599255-Set-an-idle-session-timeout"
-    - "https://help.figma.com/hc/en-us/articles/360039828554-Manage-team-members-and-permissions"
-    - "https://www.figma.com/developers/api"
-    - "https://help.figma.com/hc/en-us/articles/8085703774231-Manage-personal-access-tokens"
+  - https://figma-gov.com/developers/api
+  - https://rollout.com/integration-guides/figma/api-essentials
+  - https://help.figma.com/hc/en-us/sections/20833164749719-Manage-security-features
+  - https://www.newline.co/courses/newline-guide-to-react-component-design-systems-with-figmagic/how-to-use-the-figma-api-and-read-figma-documents
+  invalidate_sessions_api:
+    reference: hallucinated link doublecheck content
+    value: Figma allows organization admins to set an idle session timeout to log
+      inactive users out. This can be configured between 12 hours and 14 days. [1]
+      However, there is no direct API documentation found for programmatically invalidating
+      specific user sessions.
+  known_automation_tools:
+  - reference: https://material.security/case-study/figma
+    value: Material Security is a security solution that Figma partnered with to secure
+      their email and productivity suite and streamline security operations, specifically
+      for automated detection and remediation of phishing attacks. [10]
+  - reference: https://m.youtube.com/watch?v=p4Hbt9Y0PKg
+    value: Snowflake, combined with ecosystem partners like Panther, is used by Figma's
+      security team to centralize security data, ingest logs from various providers
+      (AWS, Okta, Google), and enable faster investigations with lower false positive
+      rates through automated processes. [14]
+  - reference: https://docs.n8n.io/
+    value: n8n offers a Figma Trigger (Beta) for workflow automation. [19]
+  - reference: https://automator.community/
+    value: Automator for Figma is a plugin that serves as a low-code platform to automate
+      Figma tasks with over 100 actions. [15, 27]
+  - reference: https://rollout.com/integration-guides/figma/api-essentials
+    value: Figma has a REST API, and webhooks are available for real-time notifications
+      about events in Figma files and projects. [3]
+  - reference: https://docs.anthropic.com/en/docs/claude-code/mcp
+    value: Claude Code can connect to Figma through the Model Context Protocol (MCP)
+      to access designs and automate workflows, such as updating email templates based
+      on new Figma designs. [42]
+  - reference: https://www.notion.com/integrations/all
+    value: Notion integrates with Figma to view designs directly in Notion pages and
+      databases and can be used for log collection and incident response. [43]
+  revoke_api_key_api:
+    reference: https://forum.figma.com/ask-the-community-7/how-to-revoke-an-oauth-token-from-my-app-20892
+    value: Figma provides the ability to revoke personal access tokens through the
+      UI. [2, 12] Revocations are instant. [2] OAuth tokens also expire by default
+      after 90 days and require refreshing with a refresh token. [2] A user can revoke
+      an OAuth token previously granted to a Figma application, and this action is
+      captured in the activity log. [2] While the UI allows revocation, specific API
+      endpoints for programmatically revoking personal access tokens or OAuth tokens
+      were not explicitly found in the developer documentation. An issue related to
+      revoking OAuth tokens from an app via a POST request returning a 404 error was
+      found in the Figma forum. [40]
+  session_timeout_configuration:
+    reference: hallucinated link doublecheck content
+    value: Figma allows organization admins on the Enterprise plan to set an idle
+      session timeout from 12 hours to 14 days. By default, it's 21 days. This feature
+      logs inactive users out across all platforms. Figma's activity log captures
+      changes to this policy and when members are logged out due to a timeout. [1]
+  suspend_user_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. Figma offers a SCIM 2.0 API that can be used to remove users
+      from an organization, which instantly frees the seat, logs the user out, and
+      blocks their access to all teams, projects, and files. This is equivalent to
+      suspending a user. [20]
+  user_status_api:
+    reference: https://www.figma.com/developers/api
+    value: No evidence. The Figma API supports read access to files, images, file
+      versions, users, comments, team projects and project files. [2] However, specific
+      API endpoints for querying user status (active, suspended, disabled) were not
+      found in the available documentation.
+  user_toggle_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. Figma's SCIM 2.0 API can remove users from an organization,
+      which logs them out and blocks access. [20] This acts as a disable function.
+      There is no explicit mention of an API to simply "toggle" a user's active/suspended
+      status while retaining their account within the organization.

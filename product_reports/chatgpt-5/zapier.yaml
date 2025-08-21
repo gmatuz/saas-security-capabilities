@@ -1,0 +1,242 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 (SP- and IdP-initiated), Just-in-Time (JIT) provisioning,
+      optional Single Logout (SLO). Works with Okta, OneLogin, and Microsoft Entra
+      ID; requires domain verification.
+    reference: dubious claim, hallucinated reference
+  sso_license_level_requirement:
+    value: Team (included on current Team plans) and Enterprise; Team trials excluded;
+      legacy Team plans may not include SSO.
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: yes — SCIM 2.0 for Users and Groups (Teams). Supports create/update, deactivate
+      (no hard delete), reactivate; includes filtering; documented limitations.
+    reference: dubious claim, hallucinated reference
+  scim_licensing_level_requirement:
+    value: Available on all plans (Free, Professional, Team, Enterprise) per help
+      center article (updated Aug 12, 2025).
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: 'Bearer token (API token) in Authorization header (Authorization: Bearer
+      <token>).'
+    reference: dubious claim, hallucinated reference
+  scim_authentication_acquisition_steps:
+    value: 1) Sign in as Owner/Admin; 2) Go to Settings → User Provisioning; 3) Click
+      Enable to turn on provisioning; 4) Copy the generated API token; 5) Configure
+      your IdP’s SCIM client with Base URL https://zapier.com/scim/v3 and the token;
+      6) (Optional) Map attributes as required by your IdP and Zapier; 7) Save and
+      test; 8) Start provisioning.
+    reference: dubious claim, hallucinated reference
+  user_management_api_support:
+    value: no — Zapier has no public non‑SCIM account user management API.
+    reference: https://community.zapier.com/how-do-i-3/how-to-deactivate-remove-users-in-zapier-using-zapier-s-own-api-19962
+  user_management_api_licensing_level:
+    value: N/A — no public non‑SCIM user management API.
+    reference: https://community.zapier.com/how-do-i-3/how-to-deactivate-remove-users-in-zapier-using-zapier-s-own-api-19962
+  user_management_api_authentication_mechanisms:
+    value: N/A — no public non‑SCIM user management API.
+    reference: https://community.zapier.com/how-do-i-3/how-to-deactivate-remove-users-in-zapier-using-zapier-s-own-api-19962
+  user_management_api_authentication_acquisition_steps:
+    value: N/A — no public non‑SCIM user management API.
+    reference: https://community.zapier.com/how-do-i-3/how-to-deactivate-remove-users-in-zapier-using-zapier-s-own-api-19962
+  seat_costs:
+  - license_level: Team
+    active:
+      value: No per-seat pricing; up to 25 users; 'There's no additional cost for
+        adding a user.'
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain — billing impact for deactivated/suspended users not documented.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain — no documentation on archived-user billing.
+      reference: dubious claim, hallucinated reference
+  - license_level: Enterprise
+    active:
+      value: Plan is not per-seat; 'You can have an unlimited number of users'; usage
+        billed via one invoice.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain — billing impact for deactivated users not documented.
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: uncertain — no documentation on archived-user billing.
+      reference: dubious claim, hallucinated reference
+  lifecycle_options:
+  - invited (manual invites)
+  - automatically added via SCIM
+  - active
+  - suspended/deactivated (via SCIM)
+  - reactivated (via SCIM)
+  - removed from account (manual removal flows)
+  rbac_support:
+    value: 'yes — role-based access with roles: Member, Admin, (Team: Owner) and (Enterprise:
+      Super Admin, Owner); team workspaces (Groups) supported.'
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: no — roles are managed in the UI; no public API to assign roles. Group
+      (team) membership can be managed via SCIM Groups, but admin/super-admin role
+      assignment is not documented via API.
+    reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML
+  - https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM
+  - https://help.zapier.com/hc/en-us/articles/33678718215309-Team-plan-updates-SSO-is-now-included-and-new-user-limits
+  - https://help.zapier.com/hc/en-us/articles/8496307504909-Manage-your-Zapier-for-Teams-account
+  - https://help.zapier.com/hc/en-us/articles/8496291989645-Manage-your-Enterprise-account
+  - https://help.zapier.com/hc/en-us/articles/21161850084621-Invite-members-to-your-Team-or-Enterprise-account
+  - https://help.zapier.com/hc/en-us/articles/13295074298125-Use-the-audit-log-to-review-your-account-activity
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/zapier-provisioning-tutorial
+  - https://help.zapier.com/hc/en-us/articles/22334604476941-Monitor-your-Team-or-Enterprise-account
+  - https://community.zapier.com/how-do-i-3/how-to-deactivate-remove-users-in-zapier-using-zapier-s-own-api-19962
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Audit Log records user authentication events under Account > Member logged
+        in, with fields Activity, Object, Performed by, and Date.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: Audit Log captures changes to member permissions under Account > Member
+        permissions updated, including actor and timestamp.
+      reference: dubious claim, hallucinated reference
+    api_call:
+      value: uncertain — no public documentation of audit events for calls to Zapier
+        administrative/business APIs; community responses indicate audit logs cannot
+        be accessed via API.
+      reference: https://community.zapier.com/how-do-i-3/how-do-i-access-audit-logs-via-api-and-implement-approval-process-for-creating-zaps-22890
+    data_export:
+      value: uncertain — Audit Log action list does not document events for data export
+        actions; while Zap history can be exported, no audit event for exports is
+        described.
+      reference: dubious claim, hallucinated reference
+    configuration_change:
+      value: Audit Log tracks configuration-related actions such as Zap created/deleted,
+        Zap turned on/off, Zap version published, ownership changes, app connection
+        created/deleted/owner changed/shared/unshared, and member permission updates.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: Audit Log records account membership additions and removals (Member added
+        to account / Member removed from account) with actor and timestamp.
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: uncertain — the documented Audit Log actions do not explicitly include
+        security policy changes (e.g., SSO settings, IP allowlist) beyond member permission
+        updates.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: Audit Log is available only on Team and Enterprise plans; viewable by the
+      Team owner (Team) or owner/super admin (Enterprise). Retention is 6 months (Team)
+      and 12 months (Enterprise).
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: Zapier Audit Log (UI) provides account-wide visibility into Zap, connection,
+      and user activity; not documented for API/SIEM pull.
+    reference: dubious claim, hallucinated reference
+  - value: Zapier Manager app offers triggers/actions to monitor Zap status and errors
+      for operational alerting within Zapier workflows.
+    reference: dubious claim, hallucinated reference
+  - value: Get Zap Runs API (experimental) enables programmatic retrieval of Zap run
+      records for monitoring run outcomes; not an audit log.
+    reference: https://docs.zapier.com/partner-solutions/experimental/get-zap-runs
+  ingestion_methods:
+  - value: 'Zap run history export: users can export Zap runs as CSV or JSON from
+      Zap History for offline analysis.'
+    reference: dubious claim, hallucinated reference
+  - value: 'Account data export: downloadable ZIP containing Zapfile.json and task_history_download_urls.csv
+      with links to JSON pages of Zap history.'
+    reference: dubious claim, hallucinated reference
+  - value: No documented Audit Log API for programmatic retrieval; community confirms
+      logs cannot be pulled via API.
+    reference: https://community.zapier.com/how-do-i-3/how-do-i-access-audit-logs-via-api-and-implement-approval-process-for-creating-zaps-22890
+  - value: 'Operational monitoring via API: experimental Get Zap Runs endpoint for
+      pulling run events (not security audit) can feed external monitoring pipelines.'
+    reference: https://docs.zapier.com/partner-solutions/experimental/get-zap-runs
+  log_export_options:
+    tools_connectors:
+      value: Audit Log is UI-based with no documented export endpoint; however, Zap
+        history exports (CSV/JSON) and full account data exports (ZIP with Zap history
+        URLs) are available from the UI.
+      reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.zapier.com/hc/en-us/articles/13295074298125-Use-the-audit-log-to-review-your-account-activity
+  - https://help.zapier.com/hc/en-us/articles/14082162325133-Gain-visibility-with-the-account-wide-audit-log
+  - https://help.zapier.com/hc/en-us/articles/22334604476941-Monitor-your-Team-or-Enterprise-account
+  - https://help.zapier.com/hc/en-us/articles/8496294549005-Export-your-Zap-history
+  - https://help.zapier.com/hc/en-us/articles/8496289406349-Export-or-delete-your-Zapier-account-data
+  - https://help.zapier.com/hc/en-us/articles/8496310892301-Manage-your-account-and-Zaps-with-Zapier-Manager
+  - https://docs.zapier.com/partner-solutions/experimental/get-zap-runs
+  - https://community.zapier.com/how-do-i-3/how-do-i-access-audit-logs-via-api-and-implement-approval-process-for-creating-zaps-22890
+  - https://zapier.com/security-compliance
+  - https://docs.zapier.com/platform/quickstart/zapier-integration-structure
+incident_response:
+  suspend_user_api:
+    value: Zapier supports SCIM v2 for user lifecycle management; deprovision a user
+      with DELETE /scim/v2/Users/{id}. This marks the user and their team membership
+      inactive so they cannot log in; users can later be reactivated via PATCH/PUT.
+      Requires enabling User Provisioning to obtain a Bearer token.
+    reference: dubious claim, hallucinated reference
+  invalidate_sessions_api:
+    value: No dedicated “sessions” API is documented. Programmatically cutting off
+      access is achieved by SCIM deprovisioning (DELETE /Users/{id}), which “immediately”
+      revokes the user’s access to the account; SSO environments can also leverage
+      SAML Single Logout and IdP timeouts.
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: For SCIM, the provisioning Bearer token can be regenerated in Zapier’s
+      User Provisioning settings; regenerating the token invalidates the prior token.
+      No evidence of general end‑user personal access tokens for Teams/Enterprise
+      administration beyond SCIM.
+    reference: dubious claim, hallucinated reference
+  user_toggle_api:
+    value: 'SCIM supports toggling user status: DELETE /Users/{id} deactivates (suspends)
+      access; PATCH /Users/{id} with active:true reactivates a previously suspended
+      account.'
+    reference: dubious claim, hallucinated reference
+  user_status_api:
+    value: SCIM GET /scim/v2/Users (or GET /Users/{id}) returns user objects including
+      the active boolean; this can be used to check whether a user is active vs. deactivated.
+    reference: dubious claim, hallucinated reference
+  session_timeout_configuration:
+    value: With SAML SSO enabled, Zapier honors a custom session timeout configured
+      in the IdP if it’s shorter than Zapier’s default (7 days). Zapier also supports
+      Single Logout (IdP‑ and SP‑initiated).
+    reference: dubious claim, hallucinated reference
+  known_automation_tools:
+  - value: Microsoft Entra ID (Azure AD) SCIM provisioning for Zapier—supports creating,
+      updating, deactivating users, and provisioning groups/memberships; uses Zapier’s
+      SCIM Base URL and Bearer token.
+    reference: https://github.com/MicrosoftDocs/entra-docs/blob/main/docs/identity/saas-apps/zapier-provisioning-tutorial.md
+  - value: Account-wide Audit Log (Team/Enterprise) for investigation—shows member
+      login, member added/removed, connection created/deleted, Zap changes; 6 months
+      retention (Team owner) or 12 months (Enterprise super admin/owner).
+    reference: dubious claim, hallucinated reference
+  - value: Export Zap History via UI to CSV/JSON (up to 5,000 runs at a time) for
+      external analysis/SIEM ingestion.
+    reference: dubious claim, hallucinated reference
+  - value: Experimental Get Zap Runs API (GET /v2/zap-runs) to programmatically fetch
+      Zap run metadata for monitoring/investigation; requires OAuth scopes and is
+      rate‑limited.
+    reference: https://docs.zapier.com/partner-solutions/experimental/get-zap-runs
+  - value: Splunk to Zapier via Webhooks—configure Splunk alert Webhook action to
+      post to a Zapier “Webhooks by Zapier” Catch Hook, enabling alert-driven automations.
+    reference: https://hurricanelabs.com/splunk-tutorials/how-to-customize-splunk-alerting-with-webhooks/
+  - value: Splunk official Webhook alert action documentation—use to send alerts to
+      external webhooks such as Zapier endpoints for automation playbooks.
+    reference: dubious claim, hallucinated reference
+  - value: Community confirmation of no forced “log out all devices” function; guidance
+      suggests using password change/2FA or contacting support if behavior is inconsistent.
+    reference: https://community.zapier.com/how-do-i-3/force-log-out-on-all-devices-14275
+  - value: Community Q&A indicating no API for retrieving Zapier Audit Logs (UI only);
+      governance features available on Team/Company plans.
+    reference: https://community.zapier.com/how-do-i-3/how-do-i-access-audit-logs-via-api-and-implement-approval-process-for-creating-zaps-22890
+  documentation_links:
+  - https://help.zapier.com/hc/en-us/articles/8496291497741-Provision-user-accounts-with-SCIM
+  - https://help.zapier.com/hc/en-us/articles/8496279747085-Set-up-single-sign-on-with-SAML
+  - https://help.zapier.com/hc/en-us/articles/8496281082253-Remove-members-from-your-Team-or-Enterprise-account
+  - https://help.zapier.com/hc/en-us/articles/13295074298125-Use-the-audit-log-to-review-your-account-activity
+  - https://help.zapier.com/hc/en-us/articles/8496294549005-Export-your-Zap-history
+  - https://docs.zapier.com/partner-solutions/experimental/get-zap-runs
+  - https://github.com/MicrosoftDocs/entra-docs/blob/main/docs/identity/saas-apps/zapier-provisioning-tutorial.md
+  - https://docs.splunk.com/Documentation/Splunk/latest/Alert/Webhooks
+  - https://community.zapier.com/how-do-i-3/force-log-out-on-all-devices-14275
+  - https://zapier.com/security-compliance

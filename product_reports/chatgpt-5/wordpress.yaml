@@ -1,0 +1,296 @@
+identity_and_access:
+  sso_support:
+    value: 'yes — via plugins: SAML 2.0 (e.g., SAML SSO), OAuth/OIDC (e.g., OAuth
+      client/IdP integrations), and Kerberos/NTLM for intranet AD; WordPress core
+      does not include SSO, these are added by plugins.'
+    reference: https://plugins.miniorange.com/wordpress/
+  sso_license_level_requirement:
+    value: 'Plugin-dependent. Example: miniOrange SAML SSO offers paid plans (Standard,
+      Premium, Enterprise, All-Inclusive) with features varying by plan.'
+    reference: https://plugins.miniorange.com/wordpress-single-sign-on-sso
+  scim_support:
+    value: 'yes — via plugin; SCIM User Provisioning plugin exposes a SCIM endpoint
+      to create/update/deprovision WordPress users; notes: Schema Discovery not supported.'
+    reference: https://plugins.miniorange.com/wordpress-scim-user-provisioning
+  scim_licensing_level_requirement:
+    value: 'Plugin-dependent. Example: miniOrange SCIM User Provisioning plans — Free
+      (create/update), Premium (adds delete/deprovision), Enterprise (adds group mapping
+      & audit logs).'
+    reference: https://plugins.miniorange.com/wordpress-user-provisioning
+  scim_authentication_mechanisms:
+    value: Bearer token (plugin provides SCIM Base URL and Bearer token to configure
+      in the IdP).
+    reference: https://plugins.miniorange.com/wordpress-scim-user-provisioning
+  scim_authentication_acquisition_steps:
+    value: 1) Install/activate the SCIM User Provisioning plugin; 2) In wp-admin,
+      open the SCIM Configuration tab; 3) Select your IdP; 4) Copy the SCIM Base URL
+      and Bearer token shown by the plugin; 5) Configure these in your IdP’s SCIM
+      app; 6) (Optional) Set deprovision mode, attribute mapping, and audit options.
+    reference: https://plugins.miniorange.com/wordpress-scim-user-provisioning
+  user_management_api_support:
+    value: yes — WordPress REST API supports user CRUD (list/get/create/update/delete)
+      at /wp/v2/users and related endpoints.
+    reference: dubious claim, hallucinated reference
+  user_management_api_licensing_level:
+    value: No paid license required (WordPress core is GPLv2+; REST API is part of
+      core).
+    reference: dubious claim, hallucinated reference
+  user_management_api_authentication_mechanisms:
+    value: Application Passwords over HTTPS using HTTP Basic (recommended); cookie
+      auth for logged-in browser sessions; alternative methods via plugins (OAuth
+      1.0a, JWT).
+    reference: dubious claim, hallucinated reference
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Log in to wp-admin as a user allowed to create app passwords; 2) Navigate
+      to Users → Edit User; 3) In the Application Passwords section, generate a new
+      application password; 4) Use it with HTTPS Basic Auth for REST calls (e.g.,
+      curl --user 'username:app_password' https://host/wp-json/wp/v2/users?context=edit).
+    reference: dubious claim, hallucinated reference
+  seat_costs:
+  - license_level: Self-hosted (WordPress.org GPL)
+    suspended_disabled:
+      value: no per-user seat cost (not licensed per seat).
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: no per-user seat cost (not licensed per seat).
+      reference: dubious claim, hallucinated reference
+    active:
+      value: no per-user seat cost (not licensed per seat).
+      reference: dubious claim, hallucinated reference
+  lifecycle_options:
+  - registered/active
+  - deleted (user removal)
+  - 'multisite: spammed user (blocked)'
+  - 'multisite: pending/invited activation'
+  rbac_support:
+    value: yes — core roles and capabilities (Super Admin, Administrator, Editor,
+      Author, Contributor, Subscriber) with capability-based permissions; custom roles/capabilities
+      supported.
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: yes — roles can be set via REST API when updating a user (roles field)
+      subject to permissions checks.
+    reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://developer.wordpress.org/rest-api/reference/users/
+  - https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
+  - https://developer.wordpress.org/rest-api/reference/application-passwords/
+  - https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/
+  - https://developer.wordpress.org/cli/commands/user/
+  - https://wpcli.dev/docs/user
+  - https://developer.wordpress.org/cli/commands/user/application-password/
+  - https://developer.wordpress.org/plugins/users/roles-and-capabilities/
+  - https://auth0.com/docs/customize/integrations/cms/wordpress-plugin/configure-login-by-auth0
+  - https://github.com/auth0/wordpress
+  - https://plugins.miniorange.com/wordpress-single-sign-on-sso
+  - https://wordpress.org/plugins/miniorange-saml-20-single-sign-on/
+  - https://plugins.miniorange.com/azure-ad-single-sign-on-wordpress-sso-oauth-openid-connect
+  - https://www.wpo365.com/feature/single-sign-on/
+  - https://wordpress.org/plugins/ldap-login-for-intranet-sites/
+  - https://plugins.miniorange.com/wordpress-scim-user-provisioning
+  - https://plugins.miniorange.com/wordpress-user-provisioning
+  - https://wordpress.org/plugins/scim-user-provisioning/
+  - https://wordpress.org/plugins/wp-security-audit-log/
+  - https://wordpress.org/plugins/wp-admin-audit/
+  - https://developer.wordpress.org/reference/functions/wp_authenticate_spam_check/
+  - https://core.trac.wordpress.org/ticket/33209
+  - https://wordpress.org/about/license/
+  - https://github.com/WP-API/node-wpapi
+  - https://mvnrepository.com/artifact/com.afrozaar.wordpress/wp-api-v2-client-java
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Not built into WordPress core; user login, logout, and failed login attempts
+        can be captured via the Simple History plugin, which logs user logins/logouts
+        and failed logins (including IP) and exposes them in the WordPress admin.
+      reference: https://cor.wordpress.org/plugins/simple-history/
+    role_assignment:
+      value: Role changes are not logged by core; WP Activity Log records user profile
+        changes including role changes and attributes each event with user, role,
+        time, and source IP.
+      reference: dubious claim, hallucinated reference
+    api_call:
+      value: Core provides a REST API but no built‑in audit trail of calls; the open‑source
+        plugin wp-rest-api-log logs WordPress REST API (v2) requests/responses and
+        exposes an API endpoint to retrieve the log entries as JSON.
+      reference: https://github.com/petenelson/wp-rest-api-log
+    data_export:
+      value: Core privacy tools support personal data export; Simple History logs
+        these actions (when an export request is added, approved by the user, downloaded
+        by an admin, or emailed), providing an audit trail of privacy data exports.
+      reference: dubious claim, hallucinated reference
+    configuration_change:
+      value: Configuration changes are not audited by core; WP Admin Audit tracks
+        settings updates across WordPress (general, writing, reading, discussion,
+        media, permalink, privacy) and records who changed what and when.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: Account creation is not logged by core; WP Activity Log records user
+        registration/creation and related user profile events with timestamp, actor,
+        and source IP.
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: uncertain — WordPress core has no single 'security policy' object; plugins
+        such as WP Admin Audit and WP Activity Log log security‑relevant setting changes
+        (e.g., default role, privacy/permalink settings) and role/capability changes,
+        but no unified core audit for policy changes exists.
+      reference: https://co.wordpress.org/plugins/wp-admin-audit/
+  event_logs_licensing_level:
+    value: 'WordPress core has no paid tier for logs. SIEM/streaming integrations
+      generally require plugin licensing: WP Activity Log Premium/Enterprise enables
+      real‑time mirroring to external log systems (e.g., Syslog, AWS CloudWatch, Loggly,
+      Papertrail) and external database storage; the free edition logs events locally.'
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: 'WP Activity Log (Melapress): comprehensive WordPress/MultiSite activity
+      logging with Premium/Enterprise options for SIEM mirroring (Syslog, CloudWatch,
+      Loggly, Papertrail) and external DB storage.'
+    reference: dubious claim, hallucinated reference
+  - value: 'Simple History: lightweight audit log for core events including user logins/failed
+      logins, user/profile changes, option changes, and privacy data export/erasure;
+      supports CSV/JSON export.'
+    reference: dubious claim, hallucinated reference
+  - value: 'WP Admin Audit: activity log focused on security/admin events (logins,
+      settings updates, plugin/theme installs/updates, role and user changes) with
+      premium options for notifications and offsite log replication.'
+    reference: dubious claim, hallucinated reference
+  - value: 'coreActivity: free plugin logging 180+ event types across WordPress core
+      (users, options, plugins, themes, REST API, privacy, multisite) with instant/digest
+      notifications.'
+    reference: dubious claim, hallucinated reference
+  - value: 'Logtivity: SaaS activity logging for WordPress; plugin forwards site events
+      to the Logtivity service for centralized monitoring and alerting.'
+    reference: dubious claim, hallucinated reference
+  - value: 'Stream (archived): historical open‑source plugin that logged admin/user
+      actions across core and popular plugins; includes WP‑CLI querying support.'
+    reference: https://github.com/wp-plugins/stream/blob/master/readme.md
+  - value: 'wp-rest-api-log (GitHub): logs REST API requests/responses and provides
+      an endpoint to access log entries, useful for auditing API activity.'
+    reference: https://github.com/petenelson/wp-rest-api-log
+  ingestion_methods:
+  - value: Real‑time mirroring from WordPress to external log/SIEM backends (Syslog,
+      AWS CloudWatch, Loggly, Papertrail) using WP Activity Log Premium/Enterprise.
+    reference: dubious claim, hallucinated reference
+  - value: Export audit records to CSV/JSON from Simple History for batch ingestion
+      into SIEMs or data lakes.
+    reference: https://github.com/bonny/WordPress-Simple-History/blob/main/CHANGELOG.md
+  - value: Retrieve REST API call logs via the wp-rest-api-log plugin’s JSON endpoint
+      for programmatic ingestion.
+    reference: https://github.com/petenelson/wp-rest-api-log
+  - value: File‑based PHP error logging via WP_DEBUG_LOG to wp-content/debug.log (or
+      a custom path), enabling pickup by log shippers/agents.
+    reference: dubious claim, hallucinated reference
+  - value: Send logs/events directly to Splunk via HTTP Event Collector (HEC) or forward
+      server access logs via Universal Forwarder, per Splunk community guidance.
+    reference: https://community.splunk.com/t5/Getting-Data-In/How-to-send-log-from-Wordpress-or-PHP-website-to-Splunk/td-p/470599
+  log_export_options:
+    tools_connectors:
+      value: 'Plugins provide export/connectors rather than core: WP Activity Log
+        Premium/Enterprise can mirror the WordPress activity log in real time to external
+        systems (Syslog, AWS CloudWatch, Loggly, Papertrail) and also export reports
+        (CSV/HTML); Simple History supports CSV/JSON export for manual transfer.'
+      reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
+  - https://cor.wordpress.org/plugins/simple-history/
+  - https://wordpress.org/plugins/wp-security-audit-log/
+  - https://co.wordpress.org/plugins/wp-admin-audit/
+  - https://wordpress.org/plugins/coreactivity/
+  - https://github.com/bonny/WordPress-Simple-History/blob/main/CHANGELOG.md
+  - https://github.com/petenelson/wp-rest-api-log
+  - https://github.com/wp-plugins/stream/blob/master/readme.md
+  - https://community.splunk.com/t5/Getting-Data-In/How-to-send-log-from-Wordpress-or-PHP-website-to-Splunk/td-p/470599
+  - https://melapress.com/support/kb/wp-activity-log-mirror-wordpress-activity-logs-loggly/
+incident_response:
+  suspend_user_api:
+    value: 'Single-site: uncertain—no built‑in “suspend user” state or API is documented
+      in core. Multisite: users can be programmatically marked as spam (spammer) which
+      blocks authentication, e.g., via WP‑CLI `wp user spam`. ([developer.wordpress.org](https://developer.wordpress.org/cli/commands/user/spam/?utm_source=chatgpt.com))'
+    reference: https://developer.wordpress.org/cli/commands/user/spam/
+  invalidate_sessions_api:
+    value: 'Yes (via automation/CLI and in code). WP‑CLI supports destroying all or
+      specific sessions for a user: `wp user session destroy <user> --all`. Core session
+      manager (`WP_Session_Tokens`) also exposes methods to destroy sessions. ([developer.wordpress.org](https://developer.wordpress.org/cli/commands/user/session/destroy/?utm_source=chatgpt.com))'
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: Yes. WordPress Application Passwords (core since 5.6) expose REST endpoints
+      to list, create, update, and delete (revoke) per‑user application passwords;
+      you can also DELETE all for a user. ([developer.wordpress.org](https://developer.wordpress.org/rest-api/reference/application-passwords/?utm_source=chatgpt.com))
+    reference: dubious claim, hallucinated reference
+  user_toggle_api:
+    value: No dedicated core “toggle suspend” API. You can change or remove roles
+      (e.g., `WP_User::set_role( '' )`) to remove privileges, but ending active sessions
+      requires explicitly destroying sessions (see `wp_ajax_destroy_sessions()` behavior
+      used by the admin UI’s “Log Out Everywhere Else”). Multisite can “spam” a user
+      to prevent login. ([developer.wordpress.org](https://developer.wordpress.org/reference/classes/wp_user/set_role/?utm_source=chatgpt.com))
+    reference: dubious claim, hallucinated reference
+  user_status_api:
+    value: The REST API Users controller (`/wp/v2/users`) supports retrieving and
+      updating users (including their roles); there is no built‑in ‘suspended’ status
+      in single‑site—status is represented via roles/capabilities. ([developer.wordpress.org](https://developer.wordpress.org/reference/classes/wp_rest_users_controller/))
+    reference: dubious claim, hallucinated reference
+  session_timeout_configuration:
+    value: Default auth cookie lifetime is 2 days, or 14 days when “Remember Me” is
+      checked. The `auth_cookie_expiration` filter allows customization of the duration.
+      ([developer.wordpress.org](https://developer.wordpress.org/reference/functions/wp_set_auth_cookie/?utm_source=chatgpt.com))
+    reference: dubious claim, hallucinated reference
+  known_automation_tools:
+  - value: 'WP‑CLI: Force logout/invalidate sessions during incident response via
+      `wp user session destroy --all` (can also list sessions). Useful for immediate
+      containment. ([developer.wordpress.org](https://developer.wordpress.org/cli/commands/user/session/destroy/?utm_source=chatgpt.com))'
+    reference: dubious claim, hallucinated reference
+  - value: 'WP‑CLI: Manage Application Passwords (create/list/delete/—all) for a user
+      to rapidly revoke API access tokens during a compromise. ([developer.wordpress.org](https://developer.wordpress.org/cli/commands/user/application-password/?utm_source=chatgpt.com))'
+    reference: dubious claim, hallucinated reference
+  - value: 'WordPress REST API Application Passwords: programmatic token lifecycle
+      (GET/POST/DELETE endpoints) for revocation and audit automation. Useful for
+      SOAR playbooks. ([developer.wordpress.org](https://developer.wordpress.org/rest-api/reference/application-passwords/?utm_source=chatgpt.com))'
+    reference: dubious claim, hallucinated reference
+  - value: 'WP Webhooks (plugin): emits triggers on user events (e.g., user login/register/update/delete)
+      and accepts actions to create/update users—enables webhook‑based SOAR integrations.
+      ([wordpress.org](https://wordpress.org/plugins/wp-webhooks/))'
+    reference: dubious claim, hallucinated reference
+  - value: 'WP Activity Log (plugin, integrations module): mirrors WordPress activity
+      logs in real time to third‑party services (e.g., Loggly) for SIEM/SOAR ingestion;
+      includes filtering. Licensing note: mirroring/integrations are premium features.
+      ([melapress.com](https://melapress.com/support/kb/wp-activity-log-mirror-wordpress-activity-logs-loggly/?utm_source=chatgpt.com))'
+    reference: dubious claim, hallucinated reference
+  - value: 'Jeepers Peepers: WP Syslog (plugin): logs user and admin events (logins,
+      plugin activate/deactivate, file uploads) directly to syslog for external SIEM
+      correlation. ([wordpress.org](https://wordpress.org/plugins/jeepers-peepers/?utm_source=chatgpt.com))'
+    reference: https://wordpress.org/plugins/jeepers-peepers/
+  - value: 'WP‑CLI security integrity checks: `wp core verify-checksums` and `wp plugin
+      verify-checksums` to detect core/plugin tampering during investigations. ([developer.wordpress.org](https://developer.wordpress.org/cli/commands/core/verify-checksums/?utm_source=chatgpt.com))'
+    reference: dubious claim, hallucinated reference
+  - value: 'Node.js client library: @wordpress/api-fetch – official utility to make
+      REST API requests from JS; can be used by custom responders/agents. ([npmjs.com](https://www.npmjs.com/package/%40wordpress/api-fetch?utm_source=chatgpt.com))'
+    reference: https://www.npmjs.com/package/%40wordpress/api-fetch
+  - value: 'Node.js client library: wp-api-client – WordPress REST API client for
+      Node; helpful for building incident response scripts. ([npmjs.com](https://www.npmjs.com/package/wp-api-client?utm_source=chatgpt.com))'
+    reference: https://www.npmjs.com/package/wp-api-client
+  - value: 'Python client library: wp-api-client – Python WordPress REST API client
+      supporting Application Passwords, Basic Auth, OAuth1; suitable for SOAR playbooks.
+      ([pypi.org](https://pypi.org/project/wp-api-client/?utm_source=chatgpt.com))'
+    reference: https://pypi.org/project/wp-api-client/
+  - value: 'GitHub (automation aid): wp-cli/checksum-command – verifies integrity
+      of core/plugins; assists IR triage for file modifications. ([github.com](https://github.com/wp-cli/checksum-command?utm_source=chatgpt.com))'
+    reference: https://github.com/wp-cli/checksum-command
+  - value: 'GitHub (automation aid): eriktorsner/wp-checksum – WP‑CLI package to verify
+      checksums for themes/plugins and diff against originals. ([github.com](https://github.com/eriktorsner/wp-checksum?utm_source=chatgpt.com))'
+    reference: https://github.com/eriktorsner/wp-checksum
+  documentation_links:
+  - https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
+  - https://developer.wordpress.org/rest-api/reference/application-passwords/
+  - https://developer.wordpress.org/cli/commands/user/session/
+  - https://developer.wordpress.org/reference/classes/wp_session_tokens/
+  - https://developer.wordpress.org/reference/functions/wp_ajax_destroy_sessions/
+  - https://developer.wordpress.org/cli/commands/core/verify-checksums/
+  - https://developer.wordpress.org/reference/classes/wp_rest_users_controller/
+  - https://developer.wordpress.org/reference/functions/wp_set_auth_cookie/
+  - https://developer.wordpress.org/advanced-administration/security/hardening/
+  - https://developer.wordpress.org/cli/commands/user/spam/
+  - https://wordpress.org/plugins/wp-webhooks/
+  - https://melapress.com/support/kb/wp-activity-log-mirroring-activity-log-documentation/
+  - https://melapress.com/support/kb/wp-activity-log-mirror-wordpress-activity-log-log-file/
+  - https://melapress.com/support/kb/wp-activity-log-getting-started-integrations-external-databases-third-party-services/
+  - https://learn.microsoft.com/en-us/answers/questions/1442002/data-collector-from-wordpress-website-to-microsoft

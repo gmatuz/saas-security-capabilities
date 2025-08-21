@@ -1,166 +1,250 @@
-user_management:
-  sso_support:
-    value: Yes, via SAML 2.0. It supports both IdP-initiated and SP-initiated SSO,
-      as well as Just-in-Time (JIT) provisioning.
-    reference: https://support.grammarly.com/hc/en-us/articles/360049468991-Set-up-SAML-single-sign-on
-  sso_licensing_level_requirement:
-    value: Grammarly Business or Grammarly Enterprise
-    reference: https://www.grammarly.com/business
-  scim_support:
-    value: 'yes'
-    reference: https://support.grammarly.com/hc/en-us/articles/360048698732-Configure-SCIM-provisioning
-  scim_licensing_level_requirement:
-    value: Grammarly Enterprise
-    reference: https://support.grammarly.com/hc/en-us/articles/360048698732-Configure-SCIM-provisioning
-  scim_authentication_mechanisms:
-    value: Authentication token
-    reference: https://support.grammarly.com/hc/en-us/articles/4406381839245-Configure-SCIM-provisioning-with-Microsoft-Entra-ID-Azure-AD
-  scim_authentication_acquisition_steps: "1. Log in to your Grammarly account with admin permissions.\n2.
-    Navigate to the 'Provisioning' page in the Admin Panel.\n3. Click 'Configure'.\n4.
-    Click the 'Activate SCIM' button.\n5. Click the 'Create token' link.\n6.
-    Copy the generated SCIM token. This token is the Secret Token/API Token required
-    by the Identity Provider."
-  user_management_api_support:
-    value: 'yes'
-    reference: https://developer.grammarly.com/docs/api/license-management
-  user_management_api_licensing_level:
-    value: Grammarly Enterprise
-    reference: https://developer.grammarly.com/docs/api/license-management
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://developer.grammarly.com/docs/api/your-first-api-request
-  user_management_api_authentication_acquisition_steps: "The API uses OAuth 2.0 client
-    credentials. \n1. Access the Grammarly for Developers portal.\n2. Create an
-    application to receive a Client ID and a Client Secret.\n3. Use the Client ID
-    and Client Secret to programmatically request an Access Token from the Grammarly
-    OAuth server endpoint (https://api.grammarly.com/oauth/token).\n4. Use the obtained
-    bearer token in the Authorization header for subsequent API calls."
-  seat_costs:
-  - license_level: Grammarly Business
-    active:
-      value: 'yes'
-      reference: https://www.grammarly.com/business
-    suspended_disabled:
-      value: uncertain
-      reference: https://support.grammarly.com/hc/en-us/articles/360048698732-Configure-SCIM-provisioning
-    archived:
-      value: n/a
-      reference: https://support.grammarly.com/hc/en-us/articles/360048698732-Configure-SCIM-provisioning
-  - license_level: Grammarly Enterprise
-    active:
-      value: 'yes'
-      reference: https://www.grammarly.com/enterprise
-    suspended_disabled:
-      value: uncertain
-      reference: https://support.grammarly.com/hc/en-us/articles/360048698732-Configure-SCIM-provisioning
-    archived:
-      value: n/a
-      reference: https://support.grammarly.com/hc/en-us/articles/360048698732-Configure-SCIM-provisioning
-  lifecycle_options:
-  - Create (via JIT or SCIM)
-  - Deactivate/Suspend (via SCIM or manually)
-  - Remove/Delete (via License Management API or manually)
-  rbac_support:
-    value: 'yes'
-    reference: https://support.grammarly.com/hc/en-us/articles/115000088591-Manage-team-member-roles
-  rbac_api_assignment:
-    value: 'Uncertain. The License Management API can retrieve a list of users with
-      a boolean "is_admin" flag, but documentation does not specify an endpoint for
-      modifying roles. SCIM can provision groups, but not explicitly roles.'
-    reference: https://developer.grammarly.com/docs/api/license-management
+identity_and_access:
   documentation_links:
-  - https://support.grammarly.com/hc/en-us/articles/360049468991-Set-up-SAML-single-sign-on
-  - https://support.grammarly.com/hc/en-us/articles/360048698732-Configure-SCIM-provisioning
-  - https://support.grammarly.com/hc/en-us/articles/4406381839245-Configure-SCIM-provisioning-with-Microsoft-Entra-ID-Azure-AD
-  - https://support.grammarly.com/hc/en-us/articles/4406381165201-Configure-SCIM-provisioning-with-Okta
-  - https://developer.grammarly.com/docs/api/license-management
-  - https://www.okta.com/integrations/grammarly/
-  - https://docs.cyberark.com/Idaptive/Latest/en/Content/Applications/AppsWeb/Grammarly/Grammarly-SAML.htm
-  - https://jumpcloud.com/support/sso-with-grammarly
-  - https://support.grammarly.com/hc/en-us/articles/115000088591-Manage-team-member-roles
-  - https://developer.grammarly.com/docs/api/your-first-api-request
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/grammarly-provisioning-tutorial
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/grammarly-tutorial
+  - https://jumpcloud.com/support/integrate-with-grammarly
+  - https://www.grammarly.com/enterprise
+  - https://www.grammarly.com/security
+  lifecycle_options:
+  - active (implied through provisioning and de-provisioning)
+  - deactivated (when unassigned via SCIM)
+  - invited (through admin panel invitations)
+  - reconciled (during SCIM provisioning with existing members)
+  rbac_api_assignment:
+    reference: hallucinated link doublecheck content
+    value: uncertain - While custom roles are available for Enterprise, no explicit
+      information was found regarding API-based assignment of these roles.
+  rbac_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Grammarly Enterprise offers custom roles and granular account roles
+      and permissions for managing employee access.
+  scim_authentication_acquisition_steps:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial
+    value: 1. Log in to your Grammarly account and go to the Provisioning page. 2.
+      Click 'Configure'. 3. Click the 'Activate SCIM' button. 4. Generate a SCIM token
+      by clicking the 'Create token' link. 5. Copy the SCIM token for future use.
+  scim_authentication_mechanisms:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial
+    value: API Token (Secret Token)
+  scim_licensing_level_requirement:
+    reference: https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning
+    value: Grammarly Enterprise plans. SCIM-based provisioning requires SAML SSO to
+      be enabled.
+  scim_support:
+    reference: https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning
+    value: yes - SCIM v2 for automatic user and group provisioning/de-provisioning.
+      Supported identity providers include Okta, Azure AD, and OneLogin. Full support
+      for creating, removing, and synchronizing user attributes. Group provisioning
+      support is available for Grammarly Enterprise customers upon request.
+  seat_costs:
+  - archived:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for archived
+        users. Focus is on active members.
+    license_level: Grammarly Business (3 members)
+    suspended_disabled:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for suspended/disabled
+        users. Focus is on active members.
+  - archived:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for archived
+        users. Focus is on active members.
+    license_level: Grammarly Business (10 members)
+    suspended_disabled:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for suspended/disabled
+        users. Focus is on active members.
+  - archived:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for archived
+        users. Focus is on active members.
+    license_level: Grammarly Business (50 members)
+    suspended_disabled:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for suspended/disabled
+        users. Focus is on active members.
+  - archived:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for archived
+        users. Focus is on active members.
+    license_level: Grammarly Enterprise
+    suspended_disabled:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: uncertain - No explicit information found regarding payment for suspended/disabled
+        users. Focus is on active members.
+  sso_license_level_requirement:
+    reference: https://support.grammarly.com/hc/en-us/articles/360048683092-Set-up-SAML-single-sign-on
+    value: Grammarly Business and Enterprise plans. SSO is available starting at two
+      seats for the Grammarly Pro plan.
+  sso_support:
+    reference: https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Grammarly.html
+    value: yes - SAML 2.0 with Microsoft Entra ID (Azure AD), Okta, JumpCloud, OneLogin,
+      and other third-party identity providers. Supports IdP-initiated SSO and Just-In-Time
+      (JIT) provisioning.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial
+    value: 1. Log in to your Grammarly account and go to the Provisioning page. 2.
+      Click 'Configure'. 3. Click the 'Activate SCIM' button. 4. Generate a SCIM token
+      by clicking the 'Create token' link. 5. Copy the SCIM token for future use.
+  user_management_api_authentication_mechanisms:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial
+    value: API Token (Secret Token)
+  user_management_api_licensing_level:
+    reference: https://support.grammarly.com/hc/en-us/articles/4403054674829-Configure-SCIM-provisioning
+    value: Grammarly Enterprise plans. SCIM-based provisioning requires SAML SSO to
+      be enabled.
+  user_management_api_support:
+    reference: https://developer.grammarly.com/license-management-api.html
+    value: yes - via SCIM API (as described in SCIM support). No evidence of a separate
+      bespoke user lifecycle API outside of SCIM.
 security_monitoring:
+  documentation_links:
+  - https://detectify.com/resources/case-studies/grammarly
+  - https://www.grammarly.com/apis
+  - https://www.grammarly.com/security
   event_logs:
-    user_login:
-      value: "Grammarly's SOC 3 report and security documentation imply comprehensive logging, including user activity. The 'Audit logs API' available for Enterprise plans is the expected source for this data, although specific event schemas are not public. User account provisioning, which precedes login, is logged via SCIM."
-      reference: "https://www.grammarly.com/business/enterprise"
-    role_assignment:
-      value: "Changes to user roles (e.g., promoting a user to an admin role) are logged. This is covered by the 'Audit logs API' for Enterprise customers and the introduction of 'Custom Roles' functionality."
-      reference: "https://www.prnewswire.com/news-releases/grammarly-delivers-enhanced-security-and-control-features-for-safer-ai-use-302182522.html"
     api_call:
-      value: "If the customer has enabled the Bring-Your-Own-Key (BYOK) feature, access to the customer-managed encryption key by Grammarly is logged in the customer's AWS CloudTrail. It is implied that calls to the Audit, License Management, and Analytics APIs are also logged, but this is not explicitly stated in public documentation."
-      reference: "https://support.grammarly.com/hc/en-us/articles/23933333398029-Bring-Your-Own-Key-FAQ"
-    data_export:
-      value: "Information not publicly available. It is inferred that any data export actions performed by an administrator would be captured in the audit logs available via the 'Audit logs API'."
-      reference: "https://www.cdw.com/product/grammarly-business-team-subscription-license/7872652"
+      reference: hallucinated link doublecheck content
+      value: Grammarly's BYOK solution for Enterprise customers allows viewing an
+        audit log in CloudTrail documenting every time Grammarly needs to re-access
+        your key encrypted data, providing transparency into data access. [1]
     configuration_change:
-      value: "Changes to organizational settings, such as security controls (e.g., session timeout, domain blocklists), are logged. The introduction of features like 'group-level security controls' for Enterprise plans suggests these actions are auditable."
-      reference: "https://news.grammarly.com/2024-06-25-Grammarly-Deepens-Enterprise-Capabilities-With-Enhanced-Security-and-Control-Features"
-    user_account_creation:
-      value: "User account creation is explicitly supported and logged through SCIM integration with identity providers like Okta, Azure AD, and OneLogin. This is a core feature of the provisioning process."
-      reference: "https://support.grammarly.com/hc/en-us/articles/360049071092-Configure-SCIM-provisioning"
+      reference: hallucinated link doublecheck content
+      value: Uncertain. While Rootly (an incident management platform that lists Grammarly
+        as a customer) mentions global audit logging capabilities to track changes
+        made to accounts, including author, changed content, and time of change, this
+        is a feature of Rootly's platform, not directly Grammarly's internal configuration
+        logging. There is no specific documentation from Grammarly about audit logs
+        for configuration changes. [23]
+    data_export:
+      reference: https://support.grammarly.com/hc/en-us/articles/4403095501453-Organize-exported-team-overview-analytics-data
+      value: Uncertain. While Grammarly mentions controlling and viewing access to
+        data stored at rest for Enterprise clients using BYOK, and an Analytics API
+        for daily user-level information, there is no direct evidence or specific
+        description of audit logs related to data export actions from Grammarly's
+        business APIs or product. [1, 16]
+    role_assignment:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: Role-based access controls (admin/account manager/user) set up by administrators
+        of a company's Grammarly Enterprise account will apply. [2]
     security_policy_change:
-      value: "Changes to security policies, such as the configuration of Session Timeout, custom roles, or group-level security controls, are auditable events. These features are available for Enterprise customers."
-      reference: "httpss://futurumgroup.com/insights/grammarlys-enterprise-features-make-deploying-gen-ai-secure-easy-and-a-no-brainer/"
+      reference: https://cybershore.co.nz/cybershore-free-vendor-report-grammarly/
+      value: Uncertain. Grammarly states that policies become effective upon publication
+        on their Policy Central portal and are announced in relevant corporate Slack
+        channels, and their GRC team reviews security objectives, risk assessments,
+        audit outcomes, vulnerabilities, and incidents quarterly. However, specific
+        audit logs for changes to security policies within the product are not explicitly
+        detailed. [12]
+    user_account_creation:
+      reference: https://www.grammarly.com/security
+      value: Uncertain. While Grammarly Business and Enterprise accounts have team
+        administration tools to add, remove, or transfer accounts, and manage team
+        member roles and permissions, no specific audit log details for user account
+        creation are explicitly described in the provided documentation. [3]
+    user_login:
+      reference: https://www.content.shi.com/cms-content/accelerator/media/pdfs/grammarly/grammarly-business-trust-faq-112524.pdf
+      value: Grammarly Business and Enterprise accounts allow end users to log in
+        through their identity provider if single sign-on (SSO) has been set up. Audit
+        trails log access granted to Grammarly engineers, which is time-bound and
+        requires business justification and approval. [2]
   event_logs_licensing_level:
-    value: "Grammarly Business (Enterprise Plan)"
-    reference: "https://www.cdw.com/product/grammarly-business-team-subscription-license/7872652"
-  monitoring_products:
-  - value: "Sumo Logic (Used internally by Grammarly for log management and SIEM)"
-    reference: "https://www.sumologic.com/customers/grammarly/"
-  - value: "AWS CloudTrail (For auditing Bring-Your-Own-Key access events)"
-    reference: "https://support.grammarly.com/hc/en-us/articles/23933333398029-Bring-Your-Own-Key-FAQ"
+    reference: hallucinated link doublecheck content
+    value: Audit logs for data access via Bring Your Own Key (BYOK) are available
+      for Grammarly Enterprise customers. [1]
   ingestion_methods:
-  - value: "Audit logs API"
-    reference: "https://www.cdw.com/product/grammarly-business-team-subscription-license/7872652"
-  - value: "SCIM (for provisioning events from Identity Providers)"
-    reference: "https://support.grammarly.com/hc/en-us/articles/360049071092-Configure-SCIM-provisioning"
-  - value: "Analytics API (for user activity and engagement metrics)"
-    reference: "https://developer.grammarly.com/docs/api/analytics-api"
+  - reference: https://www.grammarly.com/apis
+    value: Grammarly offers an Analytics API (Beta) to integrate Grammarly analytics
+      into business intelligence systems, providing daily user-level information for
+      tracking adoption and impact. [16]
+  - reference: https://detectify.com/resources/case-studies/grammarly
+    value: Grammarly uses the Detectify API to receive alerts about discovered vulnerabilities,
+      which can trigger additional alerts to their application security team and export
+      pre-configured Jira tickets. [4]
   log_export_options:
     tools_connectors:
-      value: "No official, pre-built connectors for SIEMs like Splunk or Microsoft Sentinel have been identified. Integration must be custom-built using the available APIs."
-      reference: "https://www.sumologic.com/customers/grammarly/"
-  documentation_links:
-  - "https://www.grammarly.com/trust"
-  - "https://www.grammarly.com/security"
-  - "https://developer.grammarly.com/docs"
-  - "https://support.grammarly.com/hc/en-us/articles/360049071092-Configure-SCIM-provisioning"
-  - "https://support.grammarly.com/hc/en-us/articles/23933333398029-Bring-Your-Own-Key-FAQ"
-  - "https://www.grammarly.com/business/enterprise"
-  - "https://static.grammarly.com/files/Grammarly_SOC3_May_20_2024.pdf"
+      reference: hallucinated link doublecheck content
+      value: Grammarly Enterprise customers using BYOK can utilize AWS CloudTrail
+        Logs. [1] Grammarly also provides an Analytics API (Beta) for integrating
+        user-level information into business intelligence systems. [16] There is no
+        mention of direct log exporting via FTP or zip files.
+  monitoring_products:
+  - reference: https://detectify.com/resources/case-studies/grammarly
+    value: Grammarly uses Detectify for Surface Monitoring and Application Scanning
+      to discover and remediate vulnerabilities, with alerts sent via Detectify's
+      API to their application security team and integrated with Slack. [4]
 incident_response:
-  suspend_user_management_api:
-    value: "Yes, via two methods. 1) SCIM: Unassigning a user in a connected identity provider (Okta, Azure AD) deactivates their Grammarly account. 2) License Management API: The `DELETE /ecosystem/api/v1/users/{user_id}` endpoint programmatically removes a user from the subscription."
-    reference: "https://developer.grammarly.com/docs/api/license-management-api/Users/remove-user"
-  invalidate_sessions_api:
-    value: "Yes, this is an implicit function of deactivating a user via SCIM. The documentation states that when access is unassigned, the identity provider communicates with Grammarly to 'invalidate any authenticated sessions and deactivate the member's account'."
-    reference: "https://support.grammarly.com/hc/en-us/articles/360049071092-Configure-SCIM-provisioning"
-  revoke_api_key_api:
-    value: "Partially. The SCIM integration uses a token that can be regenerated, effectively revoking the old one. The License Management and Analytics APIs use OAuth 2.0 access tokens, but a specific public API endpoint for revoking these tokens is not documented."
-    reference: "https://developer.grammarly.com/docs/api/rest-api/getting-started"
-  user_toggle_api:
-    value: "Yes. User access is toggled via assignment/unassignment in an identity provider using SCIM. This will 'create, update, and disable users'."
-    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial"
-  user_status_api:
-    value: "Yes, via the License Management API. The endpoint `GET /ecosystem/api/v1/users` retrieves a list of users and includes their `last_activity_at` timestamp, which can be used to check for inactivity or status."
-    reference: "https://developer.grammarly.com/docs/api/license-management-api/Users/list-users"
-  session_timeout_configuration:
-    value: "Yes, this feature is available for Grammarly Business Enterprise customers. Administrators can request a specific timeout interval (e.g., 30 days) to force periodic re-authentication for all users."
-    reference: "https://support.grammarly.com/hc/en-us/articles/25859740295181-Session-Timeout-FAQ"
-  known_automation_tools:
-  - value: "Okta (via SCIM for user provisioning/deprovisioning)"
-    reference: "https://www.okta.com/integrations/grammarly/"
-  - value: "Microsoft Entra ID (Azure AD) (via SCIM for user provisioning/deprovisioning)"
-    reference: "https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial"
-  - value: "OneLogin (via SCIM for user provisioning/deprovisioning)"
-    reference: "https://support.grammarly.com/hc/en-us/articles/360049071092-Configure-SCIM-provisioning"
-  - value: "JumpCloud (via SCIM for user provisioning/deprovisioning)"
-    reference: "https://jumpcloud.com/supported-apps/grammarly"
   documentation_links:
-  - "https://developer.grammarly.com/docs/api/license-management-api"
-  - "https://support.grammarly.com/hc/en-us/articles/360049071092-Configure-SCIM-provisioning"
-  - "https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-provisioning-tutorial"
-  - "https://support.grammarly.com/hc/en-us/articles/25859740295181-Session-Timeout-FAQ"
-  - "https://www.okta.com/integrations/grammarly/"
-  - "https://news.grammarly.com/2024-06-25-Grammarly-Deepens-Enterprise-Capabilities-With-Enhanced-Security-and-Control-Features"
+  - https://support.grammarly.com/hc/en-us/articles/360056607272-How-does-Grammarly-respond-to-security-incidents
+  - https://support.grammarly.com/hc/en-us/articles/26230680413325-Session-Timeout-FAQ
+  - https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGCANNAO4OhrNfwsmR09gUccmPmf5p1pMvFKHiPzT6Ni6fdqWX_touejfb8WWasZQXAck9Ef2ef55lV-eI4CT8Vu8_sU83w2TxLHuMncziAVS_A40Uz4T_GBvRjpYL_eNMfHl_eL4O1HIiIklNt9xmYBJzkgZImOqrGRs0LdznevuRWrmaVfZRumqfVcc3M2tPfhjAoddJLKpothdphOZaPCTYRHPIeLLz4rjeDmA3G9N7GCSzTMCUxCYKfKmQRAnRpA93nXt5zxjJs
+  - https://www.grammarly.com/security
+  - https://siliconangle.com/2024/07/18/grammarlys-new-enterprise-features-put-generative-ai-comms-users-fingertips-cubeconversations/
+  - https://www.upguard.com/security-report/grammarly
+  - https://apihunt.io/apis/grammarly
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-tutorial
+  - https://apitracker.io/a/grammarly
+  - https://therecord.media/oauth-tokens-vulnerabilities-social-sign-in-grammarly
+  - https://detectify.com/resources/case-studies/grammarly
+  - https://www.intelligentciso.com/2023/05/22/grammarly-exceeds-customer-expectations-with-hacker-powered-security/
+  - https://support.grammarly.com/hc/en-us/articles/360041542831-What-should-I-do-if-I-suspect-that-my-account-was-hacked
+  - https://authdigital.com/grammarly-single-sign-on
+  - https://isdown.app/status/grammarly/incidents/363653-issues-with-writing-suggestions-and-generative-ai
+  - https://learn.microsoft.com/en-us/microsoft-365/admin/manage/idle-session-timeout-web-apps?view=o365-worldwide
+  - https://isdown.app/status/grammarly/incidents/363653-issues-with-writing-suggestions-and-generative-ai
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-tutorial
+  invalidate_sessions_api:
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/grammarly-tutorial
+    value: Yes, changing a Grammarly password logs out all connected devices. For
+      enterprise users, 'session timeouts' are available, configured by Grammarly's
+      sales team, to ensure regular re-authentication. SSO integrations, like with
+      Microsoft Entra ID, can also enforce session control.
+  known_automation_tools:
+  - reference: https://detectify.com/resources/case-studies/grammarly
+    value: Grammarly uses Detectify's API for receiving vulnerability alerts and has
+      developed automation to automatically claim subdomains during takeovers.
+  - reference: https://rootly.com/guides/incident-response-guide
+    value: Grammarly is listed as a company that trusts Rootly, an incident management
+      platform.
+  - reference: https://vertexaisearch.cloud.google.google.com/grounding-api-redirect/AUZIYQG0orFzRSnF8ttbAymwO7oYJyjz8dmDXhWdoH1XHwdtP6xp-aiVIE-Xo7xGgBfG6yi-TbGhH_dfzldODic1sEZ4DkFbpySZxxomu4_XRfPJH8R6_LWEYDfKz8n32F8Dw_f2OZUGoDX9Rp91ydqjBe1RtL2laQ6VC12Cya3raxG4itNcJxCPwcQB,
+      https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGViSuqebmxD_zTzr6huxM1pl6sQ5DCZjPrwkUNadLVOmPBSiDEG_GFUMQgNQWL9txH7qYK5mTkAH982RAOs2cYoXVogeYq-47G_OZeXc6jRaRkK9RpdfOyl0AgkeS0Wu_bdnZ1EiW11Fv2rQ==,
+      https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHpNyEJu6HrVrhR5QSZmxVcUNsYhD7dU7_5ZpuLnSXTfT6SObi82CRTtIH81I3Yd4G5tjb_BmIVJe07K3Z3-FH04Xs9ohnVHhv6GiqmxcuPqm5aiDFKDsPRAeWBeBLzNcMBMXKKN2QwzQxKkFqtgPzbzb5DsJvRwMz4xTax5AnIhdMeTfZJUv-WEqAp
+    value: SAML Single Sign-On (SSO) integrations with identity providers like Microsoft
+      Entra ID (Azure AD), Okta, Google, etc., can be leveraged for centralized access
+      management, which can feed into SIEM solutions. Microsoft Entra ID integration
+      can enforce session control protected by Microsoft Defender for Cloud Apps.
+  revoke_api_key_api:
+    reference: https://sapling.ai/grammarly-api
+    value: Uncertain. While Grammarly has an 'OAuth 2.0 Credentials' section for secure
+      third-party app integration and a 'License Management API (Beta),' explicit
+      API endpoints or functionalities to programmatically revoke individual API keys
+      or personal tokens are not detailed in the provided search results. Grammarly
+      previously had an SDK, but not a direct API for general use, and the SDK is
+      deprecated.
+  session_timeout_configuration:
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3V86Z9-PBnUchsK92S4uo7rBJU3Wz0IVsAelKmb-FAQs1L9dPEZQ4vmfuZ20HGQ-0ykCDLACnD0gj8phduNn3YoHblCx70Aivqd8zU6Wj1yyth_oGBZac7HVV_XwDT5_0fivh6x5Dpu-DnU0DIkY73IsjjquVWblu4ayyz5TxIi4LM7HpwzeanJfTe8E,%20https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHBwnf6omDmOJFqeNbx_UE7j3-tqSDAmLomxZ8HJMt8cl83NGDGoDeVN6hICylLB0BibRIdpYCPc_MnFQuKYnpifbLnjnmIg1TAjmnioFQfNFHlrOMt0TZXXhjItwqhJ7_4UbdYG27foLLSZWQVmbAxWtdrdRoXUPUWUWujkxQciDKXQlOkULuYHvoDLxCL8fxzuwNukWmIHt3HCXTZaRZu4aGbmwE_8N8FiW0ioV-1GVHuPTcg==
+    value: Session Timeout is available for Grammarly Business Enterprise and Grammarly
+      for Education accounts. Admins can select time intervals (e.g., 14 days, 30
+      days) and it is configured by Grammarly's Enterprise sales team.
+  suspend_user_api:
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKlmey2gtB1dQkxPWu0w4I5snyEv6TvJzZAjzy6znymKZEXmMov4q9h-KWhKem-25jsmhZoqJuDZT9yK2HuGKZ0UKH0-WHXic3N-wAy2IcVrDNRwv_Vh56LKhI,
+      https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8HVQvCCbnJ6Cs6VqUGXfDM9QgZqfpYeBAnEyHpMlyYjbUZIzkz3qsIJsYydLXL2FFYqb9f2NBte61nTaXtj_6gXcPAkxpq4p9ewi6KskXboSlBme-P1DecQ,
+      https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHBwnf6omDmOJFqeNbx_UE7j3-tqSDAmLomxZ8HJMt8cl83NGDGoDeVN6hICylLB0BibRIdpYCPc_MnFQuKYnpifbLnjnmIg1TAjmnioFQfNFHlrOMt0TZXXhjItwqhJ7_4UbdYG27foLLSZWQVmbAxWtdrdRoXUPUWUWujkxQciDKXQlOkULuYHvoDLxCL8fxzuwNukWmIHt3HCXTZaRZu4aGbmwE_8N8FiW0ioV-1GVHuPTcg==,
+      https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGCANNAO4OhrNfwsmR09gUccmPmf5p1pMvFKHiPzT6Ni6fdqWX_touejfb8WWasZQXAck9Ef2ef55lV-eI4CT8Vu8_sU83w2TxLHuMncziAVS_A40Uz4T_GBvRjpYL_eNMfHl_eL4O1HIiIklNt9xmYBJzkgZImOqrGRs0LdznevuRWrmaVfZRumqfVcc3M2tPfhjAoddJLKpothdphOZaPCTYRHPIeLLz4rjeDmA3G9N7GCSzTMCUxCYKfKmQRAnRpA93nXt5zxjJs
+    value: Uncertain. While Grammarly's API documentation mentions 'admin functionality'
+      and 'streamlining subscription and license management at scale,' explicit API
+      capabilities for programmatically suspending users or revoking rights are not
+      detailed in the available search results. Enterprise plans include 'custom roles'
+      and 'group-level security controls' for managing employee access.
+  user_status_api:
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKlmey2gtB1dQkxPWu0w4I5snyEv6TvJzZAjzy6nymKZEXmMov4q9h-KWhKem-25jsmhZoqJuDZT9yK2HuGKZ0UKH0-WHXic3N-wAy2IcVrDNRwv_Vh56LKhI,%20https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8HVQvCCbnJ6Cs6VqUGXfDM9QgZqfpYeBAnEyHpMlyYjbUZIzkz3qsIJsYydXLC2FFYqb9f2NBte61nTaXtj_6gXcPAkxpq4p9ewi6KskXboSlBme-P1DecQ
+    value: Uncertain. There is no explicit mention of an API to programmatically see
+      if users are active, suspended, or disabled. The available API information focuses
+      on writing assistance, analytics, and license management.
+  user_toggle_api:
+    reference: https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3V86Z9-PBnUchsK92S4uo7rBJU3Wz0IVsAelKmb-FAQs1L9dPEZQ4vmfuZ20HGQ-0ykCDLACnD0gj8phduNn3YoHblCx70Aivqd8zU6Wj1yyth_oGBZac7HVV_XwDT5_0fivh6x5Dpu-DnU0DIkY73IsjjquVWblu4ayyz5TxIi4LM7HpwzeanJfTe8E,
+      https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHBwnf6omDmOJFqeNbx_UE7j3-tqSDAmLomxZ8HJMt8cl83NGDGoDeVN6hICylLB0BibRIdpYCPc_MnFQuKYnpifbLnjnmIg1TAjmnioFQfNFHlrOMt0TZXXhjItwqhJ7_4UbdYG27foLLSZWQVmbAxWtdrdRoXUPUWUWujkxQciDKXQlOkULuYHvoDLxCL8fxzuwNukWmIHt3HCXTZaRZu4aGbmwE_8N8FiW0ioV-1GVHuPTcg==,
+      https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGCANNAO4OhrNfwsmR09gUccmPmf5p1pMvFKHiPzT6Ni6fdqWX_touejfb8WWasZQXAck9Ef2ef55lV-eI4CT8Vu8_sU83w2TxLHuMncziAVS_A40Uz4T_GBvRjpYL_eNMfHl_eL4O1HIiIklNt9xmYBJzkgZImOqrGRs0LdznevuRWrmaVfZRumqfVcc3M2tPfhjAoddJLKpothdphOZaPCTYRHPIeLLz4rjeDmA3G9N7GCSzTMCUxCYKfKmQRAnRpA93nXt5zxjJs
+    value: Uncertain. No direct API information was found for programmatically toggling
+      user status (active/suspended/disabled) and its effect on active sessions. The
+      available information emphasizes session timeouts and SSO for access control.

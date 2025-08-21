@@ -1,0 +1,293 @@
+identity_and_access:
+  sso_support:
+    value: yes — supports SAML 2.0, OpenID Connect (OIDC on OAuth 2.0), and JWT for
+      team members (admins/agents) and end users; multiple SSO configs can be assigned
+      and a primary SSO can be set
+    reference: https://support.zendesk.com/hc/en-us/articles/4408883587226-Single-sign-on-SSO-options-in-Zendesk
+  sso_license_level_requirement:
+    value: Available on Suite Team, Growth, Professional, Enterprise, Enterprise Plus
+      and Support Team, Professional, Enterprise
+    reference: https://support.zendesk.com/hc/en-us/articles/4408887505690-Enabling-SAML-single-sign-on
+  scim_support:
+    value: no — Zendesk does not support SCIM
+    reference: https://support.zendesk.com/hc/en-us/articles/8966513066138-Does-Zendesk-support-SCIM
+  scim_licensing_level_requirement:
+    value: N/A — SCIM not supported
+    reference: https://support.zendesk.com/hc/en-us/articles/8966513066138-Does-Zendesk-support-SCIM
+  scim_authentication_mechanisms:
+    value: N/A — SCIM not supported
+    reference: https://support.zendesk.com/hc/en-us/articles/8966513066138-Does-Zendesk-support-SCIM
+  scim_authentication_acquisition_steps:
+    value: N/A — SCIM not supported
+    reference: https://support.zendesk.com/hc/en-us/articles/8966513066138-Does-Zendesk-support-SCIM
+  user_management_api_support:
+    value: yes — Users API supports create, update (incl. suspend), delete, and bulk
+      create/update
+    reference: https://developer.zendesk.com/api-reference/ticketing/users/users/
+  user_management_api_licensing_level:
+    value: API available across plans with differing rate limits (Support Team/Professional/Enterprise
+      and Suite Team/Growth/Professional/Enterprise/Enterprise Plus)
+    reference: https://developer.zendesk.com/api-reference/introduction/rate-limits/
+  user_management_api_authentication_mechanisms:
+    value: API token (Basic auth with email/token), OAuth 2.0 Bearer; password auth
+      deprecated and removed by Dec 31, 2025
+    reference: https://support.zendesk.com/hc/en-us/articles/8843683464346-Important-update-Password-access-for-APIs-will-soon-be-removed
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Admin Center > Apps and integrations > APIs > API tokens; 2) Ensure
+      Token access is on; 3) Click Add API token; 4) Copy and store the token; 5)
+      Use email/token with API requests
+    reference: https://support.zendesk.com/hc/en-us/articles/4408889192858-Managing-API-token-access-to-the-Zendesk-API
+  seat_costs:
+  - license_level: Suite Team
+    active:
+      value: 'yes — billed per active agent seat: $55/agent/month (annual) or $69
+        (monthly)'
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — suspended agents still occupy a paid seat; downgrade agent to end
+        user to release seat
+      reference: https://support.zendesk.com/hc/en-us/articles/4408889293978-Suspending-a-user?page=2&per_page=30
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Suite Growth
+    active:
+      value: 'yes — billed per active agent seat: $89/agent/month (annual) or $115
+        (monthly)'
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — suspended agents still occupy a paid seat; downgrade agent to end
+        user to release seat
+      reference: https://support.zendesk.com/hc/en-us/articles/4408889293978-Suspending-a-user?page=2&per_page=30
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Suite Professional
+    active:
+      value: 'yes — billed per active agent seat: $115/agent/month (annual) or $149
+        (monthly)'
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — suspended agents still occupy a paid seat; downgrade agent to end
+        user to release seat
+      reference: https://support.zendesk.com/hc/en-us/articles/4408889293978-Suspending-a-user?page=2&per_page=30
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Suite Enterprise
+    active:
+      value: 'yes — billed per active agent seat: $169/agent/month (annual) or $219
+        (monthly)'
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — suspended agents still occupy a paid seat; downgrade agent to end
+        user to release seat
+      reference: https://support.zendesk.com/hc/en-us/articles/4408889293978-Suspending-a-user?page=2&per_page=30
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Support Team/Professional/Enterprise
+    active:
+      value: 'yes — billed per active agent seat: $19/$55/$115 per agent/month (annual)
+        or $25/$69/$149 (monthly)'
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — suspended agents still occupy a paid seat; downgrade agent to end
+        user to release seat
+      reference: https://support.zendesk.com/hc/en-us/articles/4408889293978-Suspending-a-user?page=2&per_page=30
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited (welcome/verification email flows available)
+  - active (can sign in)
+  - suspended (cannot sign in; tickets routed to suspended queue)
+  - deleted (end users can be deleted; agents can be removed/downgraded)
+  rbac_support:
+    value: yes — standard roles plus Custom Agent Roles (Enterprise plan or above)
+      for granular permissions
+    reference: https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/
+  rbac_api_assignment:
+    value: yes — assign roles via Users API by setting role and custom_role_id when
+      creating or updating users
+    reference: https://developer.zendesk.com/api-reference/ticketing/users/users/
+  documentation_links:
+  - https://support.zendesk.com/hc/en-us/articles/4408883587226-Single-sign-on-SSO-options-in-Zendesk
+  - https://support.zendesk.com/hc/en-us/articles/4408882188570-Managing-single-sign-on-SSO-configurations
+  - https://support.zendesk.com/hc/en-us/articles/4408887505690-Enabling-SAML-single-sign-on
+  - https://support.zendesk.com/hc/en-us/articles/8966513066138-Does-Zendesk-support-SCIM
+  - https://developer.zendesk.com/api-reference/ticketing/users/users/
+  - https://developer.zendesk.com/documentation/api-basics/working-with-data/importing-users-with-the-zendesk-api/
+  - https://support.zendesk.com/hc/en-us/articles/4408889192858-Managing-API-token-access-to-the-Zendesk-API
+  - https://developer.zendesk.com/api-reference/introduction/security-and-auth/
+  - https://developer.zendesk.com/api-reference/introduction/rate-limits/
+  - https://support.zendesk.com/hc/en-us/articles/4408889293978-Suspending-a-user?page=2&per_page=30
+  - https://support.zendesk.com/hc/en-us/articles/4408821737498-Deleting-end-users?page=1&per_page=30
+  - https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/
+  - https://developer.zendesk.com/documentation/api-basics/working-with-data/exporting-access-logs/
+  - https://developer.zendesk.com/documentation/api-basics/best-practices/audit-logs/
+  - https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/zendesk-tutorial
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/zendesk-provisioning-tutorial
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Zendesk.html
+  - https://pypi.org/project/zenpy/
+  - https://www.npmjs.com/package/node-zendesk
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Zendesk Audit Logs record admin/agent sign-ins with fields such as action=login,
+        actor_id, actor_name, source_type=user, change_description indicating login
+        method, ip_address, and created_at; retrievable via /api/v2/audit_logs with
+        filters.
+      reference: https://developer.zendesk.com/documentation/api-basics/best-practices/audit-logs/
+    role_assignment:
+      value: Role changes are captured in Audit Logs; example entries include change_description
+        like 'Role changed from Administrator to End User' along with actor_id, source_label
+        (user), ip_address, and created_at; accessible via GET /api/v2/audit_logs
+        with filtering.
+      reference: https://developer.zendesk.com/api-reference/ticketing/account-configuration/audit_logs/
+    api_call:
+      value: Access Logs API provides a 90-day record of what agents/admins accessed,
+        including HTTP method, REST path or GraphQL operation, user_id, ip_address,
+        timestamp, and user agent; available via GET /api/v2/access_logs (requires
+        Advanced Data Privacy and Protection add-on).
+      reference: https://developer.zendesk.com/api-reference/ticketing/account-configuration/access_logs/
+    data_export:
+      value: Audit log activity types include 'Exported'; entries capture time, actor,
+        ip_address, item, and details; Admin Center allows exporting audit logs to
+        CSV.
+      reference: https://support.zendesk.com/hc/en-us/articles/4408828001434-Viewing-the-audit-log-for-changes-to-your-account
+    configuration_change:
+      value: 'Account setting/configuration changes (e.g., ''Security: Session expiration'')
+        are logged in Audit Logs with fields such as source_type=account_setting,
+        source_label, change_description, actor_name, created_at; retrievable and
+        filterable via /api/v2/audit_logs.'
+      reference: https://developer.zendesk.com/documentation/api-basics/best-practices/audit-logs/
+    user_account_creation:
+      value: Audit Log captures updates to existing users; activities related to creating
+        new users are not captured (no creation events in the audit log).
+      reference: https://support.zendesk.com/hc/en-us/articles/4408828001434-Viewing-the-audit-log-for-changes-to-your-account
+    security_policy_change:
+      value: Security policy changes (for example, session expiration settings) appear
+        in Audit Logs as account_setting events with descriptive change_description
+        and are retrieved via /api/v2/audit_logs with date/source filters.
+      reference: https://developer.zendesk.com/documentation/api-basics/best-practices/audit-logs/
+  event_logs_licensing_level:
+    value: Audit Log is available on Support Enterprise and All Suites Enterprise
+      or Enterprise Plus plans (visible in Admin Center > Account > Logs > Audit log).
+    reference: https://support.zendesk.com/hc/en-us/articles/4408828001434-Viewing-the-audit-log-for-changes-to-your-account
+  monitoring_products:
+  - value: Sumo Logic Zendesk Source polls the Zendesk Audit Logs API (default 5‑minute
+      interval) and ingests audit events into Sumo for dashboards/monitoring.
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/zendesk-source/
+  - value: Panther (cloud SIEM) ingests Zendesk Audit Logs by querying the Zendesk
+      Support API; docs note availability for Enterprise/Enterprise Plus; includes
+      schema and setup guidance.
+    reference: https://docs.panther.com/data-onboarding/supported-logs/zendesk
+  - value: Datadog Zendesk integration can collect audit logs and provides Cloud SIEM
+      out-of-the-box detection rules that operate on Zendesk audit logs (e.g., API
+      token creation).
+    reference: https://docs.datadoghq.com/integrations/zendesk/
+  ingestion_methods:
+  - value: 'REST API (Audit Logs): GET /api/v2/audit_logs supports filters by action,
+      actor_id, source_type/source_id, ip_address, and created_at; cursor or offset
+      pagination.'
+    reference: https://developer.zendesk.com/api-reference/ticketing/account-configuration/audit_logs/
+  - value: 'REST API (Access Logs): GET /api/v2/access_logs returns method, path/GraphQL,
+      user_id, ip_address, timestamp; 90‑day retention; 50 requests/min endpoint limit;
+      requires ADPP add‑on.'
+    reference: https://developer.zendesk.com/api-reference/ticketing/account-configuration/access_logs/
+  - value: 'CSV export (Audit Log): From Admin Center > Account > Logs > Audit log,
+      you can email a CSV export of current/filtered audit entries.'
+    reference: https://support.zendesk.com/hc/en-us/articles/4408828001434-Viewing-the-audit-log-for-changes-to-your-account
+  - value: 'SIEM source polling: Sumo Logic Zendesk Source collects audit logs via
+      API at a configurable polling interval.'
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/zendesk-source/
+  log_export_options:
+    tools_connectors:
+      value: 'Audit Logs: JSON via the Audit Logs API and CSV via Admin Center export;
+        Access Logs: JSON via the Access Logs API (ADPP add‑on required).'
+      reference: https://support.zendesk.com/hc/en-us/articles/4408828001434-Viewing-the-audit-log-for-changes-to-your-account
+  documentation_links:
+  - https://developer.zendesk.com/api-reference/ticketing/account-configuration/audit_logs/
+  - https://developer.zendesk.com/api-reference/ticketing/account-configuration/access_logs/
+  - https://developer.zendesk.com/documentation/api-basics/best-practices/audit-logs/
+  - https://developer.zendesk.com/documentation/api-basics/working-with-data/exporting-access-logs/
+  - https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/
+  - https://developer.zendesk.com/documentation/ticketing/reference-guides/ticket-audit-events-reference/
+  - https://developer.zendesk.com/api-reference/introduction/security-and-auth/
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/zendesk-source/
+  - https://docs.panther.com/data-onboarding/supported-logs/zendesk
+  - https://docs.datadoghq.com/integrations/zendesk/
+  - https://developer.zendesk.com/api-reference/introduction/rate-limits/
+  - https://www.postman.com/zendesk-redback/zendesk-public-api/request/gz4b0l3/list-audit-logs
+  - https://support.zendesk.com/hc/en-us/community/posts/4408868252442-Include-User-Profile-Changes-in-Audit-Log
+  - https://support.zendesk.com/hc/en-us/community/posts/4534180501146-The-Audit-Log-is-not-an-actual-audit-log-due-to-wrong-actor-names
+incident_response:
+  suspend_user_api:
+    value: Zendesk Users API supports programmatically suspending a user by setting
+      the user object's "suspended" attribute to true via PUT /api/v2/users/{user_id}.
+      Suspended users cannot sign in; admins and appropriately-permissioned agents
+      can call this endpoint.
+    reference: https://developer.zendesk.com/api-reference/ticketing/users/users/
+  invalidate_sessions_api:
+    value: Zendesk Sessions API allows listing sessions and terminating them; DELETE
+      /api/v2/users/{user_id}/sessions deletes all sessions for that user and signs
+      them out.
+    reference: https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/
+  revoke_api_key_api:
+    value: API tokens (account-level) are managed in Admin Center (Apps and integrations
+      > APIs > API tokens) where admins can view, add, deactivate/reactivate, and
+      delete tokens; no programmatic API to revoke/delete API tokens is documented.
+      Zendesk suggests using OAuth access tokens as an alternative.
+    reference: https://developer.zendesk.com/api-reference/introduction/security-and-auth/
+  user_toggle_api:
+    value: User enable/disable can be controlled by toggling the Users API "suspended"
+      boolean (PUT /api/v2/users/{user_id}). Documentation states suspended users
+      cannot sign in; it does not state that existing sessions are ended, so use the
+      Sessions API to terminate active sessions if needed.
+    reference: https://developer.zendesk.com/api-reference/ticketing/users/users/
+  user_status_api:
+    value: Retrieve user objects via the Users API (e.g., GET /api/v2/users/{user_id})
+      to inspect the "suspended" field (and other properties) to determine whether
+      the user is currently suspended (cannot sign in) versus active.
+    reference: https://developer.zendesk.com/api-reference/ticketing/users/users/
+  session_timeout_configuration:
+    value: Session expiration/idle timeout is configurable in Admin Center > Account
+      > Security > Advanced. By default, sessions expire after 8 hours of inactivity;
+      admins can set different expiration periods for team members vs. end users.
+    reference: https://support.zendesk.com/hc/fr/articles/4408832533274-Utilisation-et-personnalisation-des-param%C3%A8tres-d-expiration-de-session
+  known_automation_tools:
+  - value: Cortex XSOAR "Zendesk v2" integration supports user/ticket operations (e.g.,
+      zendesk-user-update including the suspended flag) and bi-directional mirroring
+      workflows for incident automation.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/zendesk-v2
+  - value: Splunk SOAR (formerly Phantom) "Zendesk" app enables ticket management
+      and automation actions (create/update/list/search tickets) from SOAR playbooks.
+    reference: https://splunkbase.splunk.com/app/5946
+  - value: Splunk On-Call bi-directional integration guide with Zendesk using Triggers/Targets
+      and webhooks; includes examples to update Zendesk ticket status from On-Call
+      acknowledgements.
+    reference: https://help.splunk.com/en/splunk-cloud-platform/alert-and-respond/splunk-on-call/integrations-with-splunk-on-call/zendesk-integration-for-splunk-on-call
+  - value: node-zendesk – maintained Node.js client library for Zendesk APIs, suitable
+      for building custom investigation/response automations.
+    reference: https://github.com/blakmatrix/node-zendesk
+  - value: Zenpy – Python wrapper for Zendesk (Support/Chat/Guide) APIs to script
+      investigations (e.g., search audits, update users) and responses.
+    reference: https://github.com/facetoe/zenpy
+  - value: go-zendesk – Go client libraries for Zendesk APIs useful in automation
+      services or serverless responders.
+    reference: https://github.com/nukosuke/go-zendesk
+  documentation_links:
+  - https://developer.zendesk.com/api-reference/ticketing/users/users/
+  - https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/
+  - https://developer.zendesk.com/api-reference/introduction/security-and-auth/
+  - https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_tokens/
+  - https://developer.zendesk.com/documentation/api-basics/authentication/revoking-oauth-token/
+  - https://support.zendesk.com/hc/fr/articles/4408832533274-Utilisation-et-personnalisation-des-param%C3%A8tres-d-expiration-de-session
+  - https://developer.zendesk.com/documentation/api-basics/best-practices/audit-logs/
+  - https://xsoar.pan.dev/docs/reference/integrations/zendesk-v2
+  - https://splunkbase.splunk.com/app/5946
+  - https://help.splunk.com/en/splunk-cloud-platform/alert-and-respond/splunk-on-call/integrations-with-splunk-on-call/zendesk-integration-for-splunk-on-call
+  - https://github.com/blakmatrix/node-zendesk
+  - https://github.com/facetoe/zenpy

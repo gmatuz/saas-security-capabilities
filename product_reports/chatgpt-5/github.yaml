@@ -1,0 +1,326 @@
+identity_and_access:
+  sso_support:
+    value: 'yes — SSO options on GitHub Enterprise Cloud: (a) SAML SSO for enterprises
+      and organizations that use personal accounts; (b) OIDC SSO for Enterprise Managed
+      Users (only with Microsoft Entra ID). ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/organizations/managing-saml-single-sign-on-for-your-organization?utm_source=chatgpt.com))'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/iam-configuration-reference/saml-configuration-reference
+  sso_license_level_requirement:
+    value: SAML SSO requires GitHub Enterprise Cloud for the organization/enterprise.
+      OIDC SSO is available only for Enterprise Managed Users (EMU) on GitHub Enterprise
+      Cloud. ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/organizations/managing-saml-single-sign-on-for-your-organization?utm_source=chatgpt.com))
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: 'yes — two SCIM implementations: (1) Organizations with SAML SSO can use
+      SCIM to provision/deprovision organization membership (not for EMU or enterprise-level
+      accounts); (2) EMU enterprises use SCIM v2 to provision managed user accounts.
+      ([docs.github.com](https://docs.github.com/articles/about-scim?utm_source=chatgpt.com))'
+    reference: https://docs.github.com/articles/about-scim
+  scim_licensing_level_requirement:
+    value: Organization-level SCIM requires GitHub Enterprise Cloud with SAML SSO;
+      EMU SCIM requires an Enterprise Managed Users enterprise on GitHub Enterprise
+      Cloud. ([docs.github.com](https://docs.github.com/articles/about-scim?utm_source=chatgpt.com))
+    reference: https://docs.github.com/articles/about-scim
+  scim_authentication_mechanisms:
+    value: 'Org SCIM endpoints: OAuth 2.0 Bearer (e.g., GitHub App user/installation
+      tokens) or PAT (classic) with admin:org scope and SAML authorization; EMU SCIM:
+      personal access token (classic) for the setup user with scim:enterprise scope.
+      ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/rest/scim/scim?utm_source=chatgpt.com))'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/rest/scim/scim
+  scim_authentication_acquisition_steps:
+    value: 'EMU (SCIM via REST): 1) Configure EMU authentication (SAML or OIDC). 2)
+      As the SHORT-CODE_admin setup user, enable Open SCIM configuration in Enterprise
+      > Identity provider > Single sign‑on configuration. 3) Create a PAT (classic)
+      for the setup user with scim:enterprise scope. 4) Use the SCIM v2 REST endpoints
+      (/scim/v2/enterprises/{enterprise}/Users and /Groups) with the token. ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/provisioning-user-accounts-with-scim/provisioning-users-and-groups-with-scim-using-the-rest-api?utm_source=chatgpt.com))'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/provisioning-users-and-groups-with-scim-using-the-rest-api
+  user_management_api_support:
+    value: yes (for organization membership and roles) — REST endpoints support inviting/removing
+      members, setting org role, managing teams and repo permissions. Creating/deleting
+      GitHub.com user accounts is not supported via REST; account provisioning for
+      EMU is via SCIM only (user creation endpoints exist only on GitHub Enterprise
+      Server). ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/members?utm_source=chatgpt.com))
+    reference: https://docs.github.com/en/rest/orgs/members
+  user_management_api_licensing_level:
+    value: uncertain — GitHub REST API access is generally available; some capabilities
+      (e.g., organization roles and certain enterprise policies) are Enterprise Cloud
+      features. No explicit separate license requirement for basic org membership
+      APIs is stated. ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/organization-roles?utm_source=chatgpt.com))
+    reference: https://docs.github.com/en/rest/orgs/organization-roles
+  user_management_api_authentication_mechanisms:
+    value: GitHub App tokens, fine‑grained personal access tokens (GA as of 2025‑03‑18),
+      and PAT (classic); for SAML‑protected orgs, tokens/keys must be SSO‑authorized.
+      ([github.blog](https://github.blog/changelog/2025-03-18-fine-grained-pats-are-now-generally-available?utm_source=chatgpt.com),
+      [docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on?utm_source=chatgpt.com))
+    reference: https://github.blog/changelog/2025-03-18-fine-grained-pats-are-now-generally-available
+  user_management_api_authentication_acquisition_steps:
+    value: 'Fine‑grained PAT: 1) User profile > Settings > Developer settings > Personal
+      access tokens > Fine‑grained tokens. 2) Generate new token; set name, expiration,
+      resource owner (user/org), repository access, and required org/repo permissions.
+      3) If accessing an org, request or obtain org approval. 4) For SAML‑enabled
+      orgs, ensure the token is SSO‑authorized (fine‑grained PATs authorize during
+      creation). ([docs.github.com](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token?utm_source=chatgpt.com))'
+    reference: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
+  seat_costs:
+  - license_level: Enterprise Cloud
+    active:
+      value: yes — active org members, owners, outside collaborators (private/internal),
+        and dormant users consume a license.
+      reference: https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing
+    suspended_disabled:
+      value: Managed user accounts that are suspended do not consume a license.
+      reference: https://docs.github.com/en/enterprise-cloud@latest/billing/managing-the-plan-for-your-github-account/about-per-user-pricing
+    archived:
+      value: uncertain — no official billing reference for an 'archived user' state
+        on GitHub.com; not documented.
+      reference: dubious claim, hallucinated reference
+  - license_level: Team
+    active:
+      value: yes — Team plan bills per user (members, outside collaborators on private
+        repos) in the organization.
+      reference: https://docs.github.com/billing/reference/license-consumption
+    suspended_disabled:
+      value: uncertain — Team orgs do not document a user 'suspension' state on GitHub.com
+        (suspension is documented for EMU/Server); no billing exemption documented.
+      reference: https://docs.github.com/billing/reference/license-consumption
+    archived:
+      value: uncertain — no official billing reference for an 'archived user' state
+        on GitHub.com; not documented.
+      reference: https://docs.github.com/billing/reference/license-consumption
+  lifecycle_options:
+  - 'Organization invitation: pending invite (expires after 7 days unless SCIM‑generated).
+    ([docs.github.com](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization?utm_source=chatgpt.com))'
+  - 'Organization member: active. ([docs.github.com](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization?utm_source=chatgpt.com))'
+  - 'Organization membership: removed (via API or UI). ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/members?utm_source=chatgpt.com))'
+  - 'EMU managed user: provisioned/active (via SCIM). ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/provisioning-user-accounts-with-scim/provisioning-users-and-groups-with-scim-using-the-rest-api?utm_source=chatgpt.com))'
+  - 'EMU managed user: disabled (soft‑deprovisioned/suspended) and reactivated (SCIM
+    active=false/true). ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/provisioning-user-accounts-with-scim/provisioning-users-and-groups-with-scim-using-the-rest-api?utm_source=chatgpt.com))'
+  - 'EMU managed user: hard‑deprovisioned (deleted). ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/provisioning-user-accounts-with-scim/provisioning-users-and-groups-with-scim-using-the-rest-api?utm_source=chatgpt.com))'
+  rbac_support:
+    value: yes — enterprise roles (enterprise owner, billing manager, member, guest
+      collaborator), organization roles (owner, member, billing manager, custom org
+      roles), teams and repository roles (read/triage/write/maintain/admin). ([docs.github.com](https://docs.github.com/en/github/setting-up-and-managing-your-enterprise/roles-in-an-enterprise?utm_source=chatgpt.com))
+    reference: https://docs.github.com/en/github/setting-up-and-managing-your-enterprise/roles-in-an-enterprise
+  rbac_api_assignment:
+    value: yes — REST supports assigning organization roles to users/teams and managing
+      team/repository permissions; org membership role (admin/member) is also configurable
+      via API. ([docs.github.com](https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/organization-roles?utm_source=chatgpt.com))
+    reference: https://docs.github.com/en/rest/orgs/organization-roles
+  documentation_links:
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/configuring-oidc-for-enterprise-managed-users
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/configuring-saml-single-sign-on-for-enterprise-managed-users
+  - https://docs.github.com/articles/about-scim
+  - https://docs.github.com/en/enterprise-cloud%40latest/rest/scim/scim
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/provisioning-user-accounts-with-scim/provisioning-users-and-groups-with-scim-using-the-rest-api
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-with-okta
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/github-enterprise-managed-user-oidc-provisioning-tutorial
+  - https://docs.github.com/en/enterprise-cloud%40latest/organizations/organizing-members-into-teams/synchronizing-a-team-with-an-identity-provider-group
+  - https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/members
+  - https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/organization-roles
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+  - https://docs.github.com/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/displaying-ip-addresses-in-the-audit-log-for-your-enterprise
+  - https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/audit-log-events-for-your-organization
+  - https://github.com/octokit/rest.js
+  - https://octokit.github.io/rest.js/v19/
+  - https://pygithub.readthedocs.io/en/stable/github.html
+  - https://github.com/integrations/terraform-provider-github
+  - https://www.hashicorp.com/blog/managing-github-with-terraform
+  - https://docs.github.com/en/enterprise-cloud%40latest/organizations/managing-saml-single-sign-on-for-your-organization/configuring-saml-single-sign-on-and-scim-using-okta
+  - https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
+security_monitoring:
+  event_logs:
+    user_login:
+      value: User sign-ins are captured as user.login events in the personal Security
+        log, with fields such as user_agent, user_id, actor_id, @timestamp, and created_at;
+        these user events can surface to enterprise audit logs when using Enterprise
+        Managed Users. Authentication-related events (e.g., failed_login, two_factor_challenge_*),
+        device recognition, and logout are also enumerated.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: Organization role changes are audited via org.update_member (member ↔
+        owner) and include fields like permission/old_permission, actor, user, org,
+        @timestamp, and created_at, enabling detection of privilege changes.
+      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise
+    api_call:
+      value: API request auditing is available via api.request events, which include
+        request_method, url_path, status_code, token_id/hashed_token, programmatic_access_type,
+        and more; these events are only available through audit log streaming and
+        must be enabled in enterprise audit log settings.
+      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise
+    data_export:
+      value: Audit logs can be exported as JSON or CSV from the UI; exported records
+        include keys such as action, actor, user, org, repo, created_at, and data.*
+        fields. Git events can also be exported (JSON only) but exclude browser/API-initiated
+        merges; retention for Git events is seven days.
+      reference: https://docs.github.com/articles/reviewing-the-audit-log-for-your-organization
+    configuration_change:
+      value: Security and configuration changes are audited with detailed org.* events
+        (e.g., org.update_actions_settings, org.update_default_repository_permission,
+        ip_allow_list.*). Each event lists standardized fields (actor, action, operation_type,
+        @timestamp, created_at, org, org_id, request_id, user_agent, etc.).
+      reference: https://docs.github.com/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/audit-log-events-for-your-organization
+    user_account_creation:
+      value: Administrative membership events are captured, including org.invite_member
+        (invitation) and org.add_member (member joined). These contain identifiers
+        such as invitation_id, user, user_id, org, actor, and timestamps to track
+        onboarding.
+      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise
+    security_policy_change:
+      value: Security policy toggles are audited, including org.enable_two_factor_requirement
+        and org.enable_saml (and corresponding disable events), providing visibility
+        into enforcement of SSO and 2FA at the organization level with actor, issuer/sso_url,
+        and timing fields.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: Viewing audit logs in the org/enterprise UI is available to org owners
+      and enterprise owners respectively. Programmatic access (REST/GraphQL) to the
+      organization audit log requires GitHub Enterprise Cloud; streaming is an enterprise
+      feature configured at the enterprise account level.
+    reference: https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
+  monitoring_products:
+  - value: 'Splunk Add-on for GitHub Enterprise Cloud: modular input collects audit
+      log events (polls API) and ships to Splunk; dashboards available via companion
+      GitHub App for Splunk.'
+    reference: https://github.com/splunk/github-audit-log-monitoring-add-on-for-splunk
+  - value: 'Microsoft Sentinel data connector: polls GitHub Enterprise Cloud organization-level
+      audit log into table GitHubAuditData; requires GitHub PAT and supports GHEC
+      only.'
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/github-enterprise-audit-log
+  - value: 'Elastic Integration for GitHub: ingests audit logs via GitHub API, Azure
+      Event Hubs, or S3/SQS from streaming; documents required token scopes and exported
+      ECS fields.'
+    reference: https://www.elastic.co/docs/reference/integrations/github
+  - value: 'Datadog GitHub integration: collects Audit Records via GitHub Audit Log
+      Streaming (recommended) and repository/webhook telemetry; Datadog provides Cloud
+      SIEM rules that evaluate streamed audit logs.'
+    reference: https://docs.datadoghq.com/integrations/github/
+  - value: 'Google Chronicle (Google Security Operations) parser: supports ingestion
+      and parsing of GitHub audit logs in JSON, mapping to UDM.'
+    reference: https://cloud.google.com/chronicle/docs/ingestion/default-parsers/github
+  - value: 'Sumo Logic integration guidance: for GitHub Enterprise audit logs, stream
+      to Amazon S3 or Azure Event Hubs and ingest via corresponding Sumo collectors.'
+    reference: https://help.sumologic.com/docs/integrations/app-development/github/
+  - value: 'GitHub ghec-audit-log-cli (open source): Node-based CLI to query organization
+      audit logs (v3 or v4) and forward to systems like Elastic, Splunk, or Sentinel.'
+    reference: https://github.com/github/ghec-audit-log-cli
+  ingestion_methods:
+  - value: 'REST API – Organization audit log: GET /orgs/{org}/audit-log with filtering,
+      pagination, and response example; returns audited events with standardized fields.'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/orgs#get-the-audit-log-for-an-organization
+  - value: 'REST API – Enterprise audit log: GET /enterprises/{enterprise}/audit-log
+      (requires enterprise admin and read:audit_log scope; documented rate limits
+      and pagination).'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/rest/enterprise-admin/audit-log
+  - value: 'Audit log streaming (Enterprise Cloud): native sinks include Amazon S3,
+      Azure Blob Storage, Azure Event Hubs, Google Cloud Storage, Splunk HEC, and
+      Datadog. Streams deliver compressed JSON (at-least-once) with health checks
+      and optional multi-endpoint preview.'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+  - value: 'Exports via UI: org/enterprise owners can export audit log to JSON/CSV
+      (and Git events to JSON) with documented keys; Git events export excludes browser/API-initiated
+      merges.'
+    reference: https://docs.github.com/articles/reviewing-the-audit-log-for-your-organization
+  - value: 'GraphQL access to organization audit logs (Enterprise Cloud): orgs can
+      interact with audit logs via GraphQL for web events (not Git events) as documented.'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
+  log_export_options:
+    tools_connectors:
+      value: Export options include on-demand JSON/CSV downloads from the UI and programmatic
+        retrieval via REST; enterprise streaming can deliver continuous JSON to S3,
+        Azure Blob, GCS, Splunk HEC, Azure Event Hubs, and Datadog for SIEM ingestion.
+      reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+  documentation_links:
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise
+  - https://docs.github.com/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/audit-log-events-for-your-organization
+  - https://docs.github.com/en/enterprise-cloud%40latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
+  - https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/orgs?apiVersion=2022-11-28
+  - https://docs.github.com/en/enterprise-cloud%40latest/rest/enterprise-admin/audit-log
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+  - https://docs.github.com/en/enterprise-cloud%40latest/authentication/keeping-your-account-and-data-secure/security-log-events
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/exporting-audit-log-activity-for-your-enterprise
+  - https://github.blog/changelog/2025-01-13-audit-log-streaming-of-api-requests-is-generally-available/
+  - https://github.com/splunk/github-audit-log-monitoring-add-on-for-splunk
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/github-enterprise-audit-log
+  - https://www.elastic.co/docs/reference/integrations/github
+  - https://docs.datadoghq.com/integrations/github/
+  - https://cloud.google.com/chronicle/docs/ingestion/default-parsers/github
+  - https://help.sumologic.com/docs/integrations/app-development/github/
+  - https://github.com/github/ghec-audit-log-cli
+  - https://www.reddit.com/r/github/comments/18tpqek
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/about-the-audit-log-for-your-enterprise
+  - https://docs.github.com/en/enterprise-cloud%40latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/audit-log-events-for-your-organization#orgsso_response
+incident_response:
+  suspend_user_api:
+    value: GitHub Enterprise Server (GHES) site administrators can programmatically
+      suspend and unsuspend user accounts via the Enterprise Admin REST API (PUT/DELETE
+      /users/{username}/suspended); note LDAP/SCIM-managed users cannot be suspended/unsuspended
+      via this API.
+    reference: https://docs.github.com/en/enterprise-server@3.15/rest/enterprise-admin/users
+  invalidate_sessions_api:
+    value: uncertain - No documented public API to revoke a member’s SAML/SSO web
+      sessions; org/enterprise owners can only revoke active SAML sessions via the
+      GitHub web UI.
+    reference: https://github.com/orgs/community/discussions/45562
+  revoke_api_key_api:
+    value: 'Organization owners can review and revoke personal access tokens: fine‑grained
+      PATs can be reviewed/revoked (UI) and via REST endpoints callable by GitHub
+      Apps; classic PATs can be viewed/revoked only when SAML SSO is required (via
+      SAML authorization removal).'
+    reference: https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/reviewing-and-revoking-personal-access-tokens-in-your-organization
+  user_toggle_api:
+    value: GHES supports toggling user status via Enterprise Admin REST (suspend/unsuspend).
+      Suspended users cannot sign in or push/pull; the restriction takes effect immediately.
+    reference: https://docs.github.com/enterprise/admin/articles/suspended-users
+  user_status_api:
+    value: uncertain - Suspended state is exposed with restrictions; e.g., GraphQL
+      field user.suspendedAt requires site_admin scope on GHES. For organization access
+      state, orgs can check if a user is blocked via REST, but a general “active vs
+      suspended” user status API for non-site-admins is not documented.
+    reference: https://github.com/orgs/community/discussions/77087
+  session_timeout_configuration:
+    value: On GitHub Enterprise Cloud, SAML session duration defaults to 24 hours
+      unless the IdP asserts SessionNotOnOrAfter; GitHub honors customized durations
+      (recommend minimum 4 hours) per the SAML configuration reference.
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/iam-configuration-reference/saml-configuration-reference
+  known_automation_tools:
+  - value: GitHub Enterprise Audit Log Monitoring Add‑On for Splunk – modular input
+      to fetch GitHub Enterprise Cloud audit log events into Splunk.
+    reference: https://apps.splunk.com/app/5595/
+  - value: Microsoft Sentinel “GitHub Enterprise Audit Log” data connector – ingests
+      GitHub audit logs for detection/investigation in Sentinel.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/github-enterprise-audit-log
+  - value: GitHub audit log streaming – native streaming of enterprise audit/Git events
+      to providers incl. Splunk, Azure Blob/Event Hubs, Datadog, GCS, S3.
+    reference: https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+  - value: Splunk SOAR GitHub app/connector – SOAR actions for org/users/repos (e.g.,
+      list users, add/remove members/collaborators, list events/issues).
+    reference: https://classic.splunkbase.splunk.com/app/5792/
+  - value: Cortex XSOAR GitHub integration – uses PAT or GitHub App; includes actions
+      for issues/PRs, branches, content retrieval (usable in playbooks).
+    reference: https://xsoar.pan.dev/docs/reference/integrations/git-hub
+  - value: Octokit REST.js (npm) – official GitHub REST API client for JavaScript/TypeScript
+      used to build bespoke response automations.
+    reference: https://github.com/octokit/rest.js/
+  - value: PyGithub (pip) – Python client for the GitHub REST API suitable for IR
+      automation scripts and investigations.
+    reference: https://pygithub.readthedocs.io/en/stable/
+  - value: hub4j/github-api (Maven) – Java client for GitHub API, commonly used to
+      automate org/user/repo administration tasks.
+    reference: https://hub4j.github.io/github-api/dependency-info.html
+  - value: go-github (Go) – Go library for accessing the GitHub v3 API for automation
+      tooling.
+    reference: https://github.com/google/go-github
+  documentation_links:
+  - https://docs.github.com/en/enterprise-cloud%40latest/rest/orgs/blocking
+  - https://docs.github.com/en/rest/orgs/members
+  - https://docs.github.com/en/enterprise-cloud%40latest/organizations/granting-access-to-your-organization-with-saml-single-sign-on/viewing-and-managing-a-members-saml-access-to-your-organization
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/managing-iam/iam-configuration-reference/saml-configuration-reference
+  - https://docs.github.com/en/enterprise-cloud%40latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/github-enterprise-audit-log
+  - https://apps.splunk.com/app/5595/
+  - https://classic.splunkbase.splunk.com/app/5792/
+  - https://xsoar.pan.dev/docs/reference/integrations/git-hub
+  - https://docs.github.com/en/rest/orgs/personal-access-tokens
+  - https://docs.github.com/en/rest/apps/oauth-applications
+  - https://docs.github.com/en/rest/credentials/revoke
+  - https://docs.github.com/en/enterprise-server%403.15/rest/enterprise-admin/users

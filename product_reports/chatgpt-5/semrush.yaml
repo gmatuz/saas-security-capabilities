@@ -1,0 +1,276 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML SSO (enable via Semrush support); Google SSO option mentioned;
+      specific IdPs not documented
+    reference: https://help.semrush.com/FAQ/en/articles/8263319-how-do-i-change-my-login-method
+  sso_license_level_requirement:
+    value: Guru and Business plans support SSO
+    reference: https://www.semrush.com/kb/1012-profile-settings
+  scim_support:
+    value: unclear — no Semrush docs mention SCIM; only Analytics/Projects APIs are
+      documented
+    reference: dubious claim, hallucinated reference
+  scim_licensing_level_requirement:
+    value: unclear
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: unclear
+    reference: https://www.semrush.com/kb/5-api
+  scim_authentication_acquisition_steps:
+    value: unclear
+    reference: https://www.semrush.com/kb/5-api
+  user_management_api_support:
+    value: no — only Analytics and Projects APIs are provided; no user lifecycle endpoints
+      documented
+    reference: https://www.semrush.com/kb/5-api
+  user_management_api_licensing_level:
+    value: not applicable
+    reference: https://www.semrush.com/kb/5-api
+  user_management_api_authentication_mechanisms:
+    value: not applicable
+    reference: https://www.semrush.com/kb/5-api
+  user_management_api_authentication_acquisition_steps:
+    value: not applicable
+    reference: https://www.semrush.com/kb/5-api
+  seat_costs:
+  - license_level: Pro — additional user seat $45/month
+    active:
+      value: yes — additional users are billed per seat
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — removing a user does not remove the paid additional seat; you must
+        contact Support to remove limits
+      reference: https://www.semrush.com/kb/1409-user-management
+    archived:
+      value: unclear — no archived-user state documented
+      reference: https://www.semrush.com/kb/1409-user-management
+  - license_level: Guru — additional user seat $80/month
+    active:
+      value: yes — additional users are billed per seat
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — removing a user does not remove the paid additional seat; you must
+        contact Support to remove limits
+      reference: https://www.semrush.com/kb/1409-user-management
+    archived:
+      value: unclear — no archived-user state documented
+      reference: https://www.semrush.com/kb/1409-user-management
+  - license_level: Business — additional user seat $100/month
+    active:
+      value: yes — additional users are billed per seat
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: yes — removing a user does not remove the paid additional seat; you must
+        contact Support to remove limits
+      reference: https://www.semrush.com/kb/1409-user-management
+    archived:
+      value: unclear — no archived-user state documented
+      reference: https://www.semrush.com/kb/1409-user-management
+  - license_level: Non‑SEO toolkit subscriptions (App Center/Social/Local/Ads/Content
+      only) — additional user seat $20/month
+    active:
+      value: yes — additional users are billed per seat
+      reference: https://www.semrush.com/kb/1409-user-management
+    suspended_disabled:
+      value: yes — removing a user does not remove the paid additional seat; you must
+        contact Support to remove limits
+      reference: https://www.semrush.com/kb/1409-user-management
+    archived:
+      value: unclear — no archived-user state documented
+      reference: https://www.semrush.com/kb/1409-user-management
+  lifecycle_options:
+  - invited (pending acceptance)
+  - active user
+  - admin (role assignment)
+  - guest (asset-level access)
+  - removed/deleted from subscription
+  rbac_support:
+    value: 'yes — roles documented: Owner, Admin, User, Guest; project-level Viewer/Editor
+      permissions'
+    reference: https://www.semrush.com/kb/1409-user-management
+  rbac_api_assignment:
+    value: no — no API documented to assign roles/rights; only Analytics/Projects
+      APIs exist
+    reference: https://www.semrush.com/kb/5-api
+  documentation_links:
+  - https://help.semrush.com/FAQ/en/articles/8263319-how-do-i-change-my-login-method
+  - https://www.semrush.com/kb/1012-profile-settings
+  - https://www.semrush.com/kb/1409-user-management
+  - https://www.semrush.com/kb/317-where-can-i-manage-my-users
+  - https://help.semrush.com/FAQ/en/articles/5065271-how-to-allocate-user-limits-on-a-corporate-account
+  - https://help.semrush.com/FAQ/en/articles/6501933-how-do-i-make-a-user-an-admin
+  - https://help.semrush.com/FAQ/en/articles/8851292-how-can-i-check-the-activity-under-my-account
+  - https://www.semrush.com/kb/5-api
+  - https://developer.semrush.com/
+  - https://help.semrush.com/FAQ/en/articles/5084981-what-is-semrush-api
+  - https://www.semrush.com/blog/what-in-the-world-is-api-and-how-do-i-use-it/
+  - https://learn.microsoft.com/en-us/entra/external-id/customers/how-to-register-saml-app
+  - https://help.okta.com/oie/en-us/content/topics/apps/apps-about-saml.htm
+  - https://help.semrush.com/FAQ/en/articles/5508705-how-many-users-are-included-in-each-of-the-plans
+  - https://www.semrush.com/kb/1411-secure-transparency-team-account
+  - https://github.com/storerjeremy/python-semrush
+  - https://github.com/DigitalRockers/semrush
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Semrush provides an Activity log that records account-level events including
+        user logins. The log is accessible under Profile > Activity log, and in corporate
+        (multi-user) accounts under User Management. No public schema is documented.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: Changes to users' roles are captured in the Activity log under User Management
+        for team (corporate) accounts.
+      reference: https://www.semrush.com/kb/1411-secure-transparency-team-account
+    api_call:
+      value: API calls made with your Semrush API key are logged in the Query Log.
+        The UI includes an 'Export' control on the API tab to download API history;
+        no formal event schema is published.
+      reference: https://www.semrush.com/kb/249-query-logs
+    data_export:
+      value: The Query Log includes records of 'exports' performed in Semrush. This
+        provides visibility into export actions; detailed log field schema is not
+        documented.
+      reference: https://www.semrush.com/kb/249-query-logs
+    configuration_change:
+      value: Configuration-related activities such as password changes, invitations,
+        and changes to usage limits are recorded in the Activity log; exact field
+        schema is not published.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: For corporate accounts, the Activity Log tracks user management lifecycle
+        events (e.g., invitations, users joining or leaving the account), which evidences
+        administrative user additions/removals.
+      reference: https://www.semrush.com/news/270968-semrush-corporate-plans-create-your-own-product/
+    security_policy_change:
+      value: uncertain — Documentation confirms Activity log entries for logins, password
+        changes, and reactivation; there is no published evidence that changes to
+        security policies (e.g., enabling/disabling 2FA, account security settings)
+        are logged.
+      reference: https://www.semrush.com/kb/1411-secure-transparency-team-account
+  event_logs_licensing_level:
+    value: Viewing your own Activity and Query logs is available via Profile. For
+      multi-user visibility (subuser Activity/Query logs), a corporate (multi-user)
+      account is required; the help article does not state an additional paid add‑on
+      specifically for audit logs. No separate licensing for logs is documented.
+    reference: dubious claim, hallucinated reference
+  monitoring_products:
+  - value: Semrush Activity Log (built-in UI) — shows logins, password changes, invitations,
+      role changes for account/corporate contexts; no native SIEM connector is documented.
+    reference: https://www.semrush.com/kb/1411-secure-transparency-team-account
+  - value: Semrush Query Log (built-in UI) — lists queries, API calls, and exports;
+      supports exporting API history from the API tab.
+    reference: https://www.semrush.com/kb/249-query-logs
+  - value: Unofficial Python client for Semrush Analytics API — suitable for analytics
+      data retrieval; no evidence of endpoints for Activity/Query Log export, so not
+      a security log client.
+    reference: https://github.com/storerjeremy/python-semrush
+  - value: Unofficial Node.js client for Semrush API (node-semrush / semrush-api)
+      — analytics-only; no documented support for security/audit logs.
+    reference: https://github.com/ithinkdancan/node-semrush
+  ingestion_methods:
+  - value: 'Manual export from Query Log: the API tab in Query Log provides an ''Export''
+      button to download API history for offline processing.'
+    reference: https://www.semrush.com/kb/249-query-logs
+  - value: Semrush Standard/Projects/Trends APIs via API key (Business tier add‑on)
+      provide analytics/project data access; no documented endpoints for Activity
+      or Query Log export.
+    reference: https://www.semrush.com/kb/5-api
+  - value: No official SIEM/webhook/syslog connectors are listed among Semrush’s supported
+      integrations, implying custom collection would rely on manual exports or bespoke
+      scripts.
+    reference: https://pt.semrush.com/kb/931-integrations
+  log_export_options:
+    tools_connectors:
+      value: The Query Log UI supports exporting API history via an in‑app control;
+        Activity log export is not documented. Outside of logs, Semrush tools commonly
+        support CSV/XLSX/PDF exports, but no FTP or streaming export options are documented
+        for logs.
+      reference: https://www.semrush.com/kb/249-query-logs
+  documentation_links:
+  - https://www.semrush.com/kb/249-query-logs
+  - https://help.semrush.com/FAQ/en/articles/8851292-how-can-i-check-the-activity-under-my-account
+  - https://www.semrush.com/kb/1411-secure-transparency-team-account
+  - https://www.semrush.com/kb/1409-user-management
+  - https://www.semrush.com/kb/5-api
+  - https://pt.semrush.com/kb/931-integrations
+  - https://help.semrush.com/FAQ/en/articles/8658818-limits-faq
+  - https://help.semrush.com/FAQ/en/articles/8680389-exporting-reports
+  - https://www.semrush.com/kb/1130-security
+  - https://github.com/storerjeremy/python-semrush
+  - https://github.com/ithinkdancan/node-semrush
+  - https://github.com/DigitalRockers/semrush
+  - https://github.com/atiklabs/go-semrush
+  - https://github.com/Reeska/semrush
+  - https://github.com/remibacha/SEMrushR
+incident_response:
+  suspend_user_api:
+    value: Uncertain — no public Semrush API documented to suspend/deactivate users.
+      Admins can remove users via the User Management UI (Owner/Admin role can Add/Remove
+      users).
+    reference: https://www.semrush.com/kb/1409-user-management
+  invalidate_sessions_api:
+    value: Uncertain — no documentation of an API to invalidate user sessions. Semrush
+      describes accounts being auto-disabled by security systems and re-enabled after
+      password reset; no session kill controls are documented.
+    reference: https://help.semrush.com/FAQ/en/articles/5265853-why-is-my-account-disabled
+  revoke_api_key_api:
+    value: Uncertain — documentation shows how to locate the API key and warns not
+      to share it; no public method to revoke/rotate keys is documented.
+    reference: https://www.semrush.com/kb/92-api-key
+  user_toggle_api:
+    value: Uncertain — no public API to toggle a user's status. Account owners/admins
+      can remove users via the UI; API docs cover analytics/projects only.
+    reference: https://www.semrush.com/kb/1409-user-management
+  user_status_api:
+    value: Uncertain — no public API to query user status. Investigation via UI Activity
+      log shows logins, password changes, reactivation; Query log shows tool/API requests.
+    reference: dubious claim, hallucinated reference
+  session_timeout_configuration:
+    value: Uncertain — no documentation found on configurable session timeout values.
+      Related guidance covers login issues, account disablement, and password reset—not
+      session timeout settings.
+    reference: dubious claim, hallucinated reference
+  known_automation_tools:
+  - value: Zapier Semrush integration — automation triggers/actions for Site Audit
+      (e.g., trigger on 'Completed Site Audit', create/re-crawl campaigns); can be
+      used to orchestrate Semrush workflows (not IR-specific).
+    reference: https://zapier.com/apps/semrush/integrations/airops
+  - value: Tray.io Semrush connector (with Splunk via universal connector) — provides
+      Semrush operations (get keywords, backlinks, etc.) and generic HTTP/webhook
+      to push data toward SIEM like Splunk; marketing data automation, not security
+      IR.
+    reference: https://tray.ai/connectors/semrush-splunk-integrations
+  - value: Pipedream workflows — example page showing Okta API + Semrush API in one
+      workflow; demonstrates orchestrating Semrush API calls with identity events
+      (no Semrush IR endpoints).
+    reference: https://pipedream.com/apps/okta/integrations/semrush
+  - value: Listing Management API — official Semrush API for bulk location data updates;
+      demonstrates authenticated write operations to Semrush (not user/security admin).
+    reference: https://www.semrush.com/kb/1420-listing-management-api
+  - value: python-semrush (GitHub) — Python wrapper for Semrush API v3; useful for
+      automating data pulls and custom scripts (analytics/projects only).
+    reference: https://github.com/storerjeremy/python-semrush
+  - value: semrush-api (npm) — Node.js client exposing Semrush API endpoints for automation
+      scripts; analytics use cases, not account security.
+    reference: https://www.npmjs.com/package/semrush-api
+  - value: semrush_ruby (GitHub) — Ruby client for Semrush API (e.g., backlinks endpoints);
+      can be embedded in bespoke automation.
+    reference: https://github.com/capitalist/semrush_ruby
+  - value: SEMrushR (GitHub) — R package to query Semrush via API; supports analytics
+      pulls for data workflows.
+    reference: https://github.com/remibacha/SEMrushR
+  documentation_links:
+  - https://www.semrush.com/kb/1409-user-management
+  - https://help.semrush.com/FAQ/en/articles/8851292-how-can-i-check-the-activity-under-my-account
+  - https://help.semrush.com/FAQ/en/articles/7046826-what-is-two-factor-authentication
+  - https://www.semrush.com/kb/1012-profile-settings
+  - https://help.semrush.com/FAQ/en/articles/8263319-how-do-i-change-my-login-method
+  - https://help.semrush.com/FAQ/en/articles/5128203-how-to-disconnect-a-google-account-from-semrush
+  - https://www.semrush.com/kb/5-api
+  - https://www.semrush.com/kb/92-api-key
+  - https://help.semrush.com/FAQ/en/articles/9833277-trends-api-faq
+  - https://www.semrush.com/kb/1420-listing-management-api
+  - https://www.semrush.com/company/legal/terms-of-service
+  - https://www.semrush.com/company/legal/privacy-policy/
+  - https://help.semrush.com/FAQ/en/articles/5265853-why-is-my-account-disabled
+  - https://developer.semrush.com/

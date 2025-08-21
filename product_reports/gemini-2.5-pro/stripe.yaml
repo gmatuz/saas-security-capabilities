@@ -1,159 +1,323 @@
-user_management:
-  sso_support:
-    value: "Yes, Stripe supports Single Sign-On (SSO) via SAML 2.0. This allows team members to sign in through an Identity Provider (IdP). It supports both IdP-initiated and Service Provider-initiated SSO."
-    reference: https://stripe.com/docs/security/single-sign-on
-  sso_licensing_level_requirement:
-    value: "SSO is an enterprise feature. While the documentation does not explicitly name a 'plan', it is consistently referred to as a feature for larger organizations and requires enabling before use, implying it's not on by-default or free-tier plans."
-    reference: https://stripe.com/docs/security/single-sign-on
-  scim_support:
-    value: "yes"
-    reference: https://stripe.com/docs/scim-provisioning
-  scim_licensing_level_requirement:
-    value: "SCIM is available for accounts that have enabled Single Sign-On (SSO), which is an enterprise feature. The documentation refers to it as being in 'private preview' but provides full setup instructions."
-    reference: https://stripe.com/docs/scim-provisioning
-  scim_authentication_mechanisms:
-    value: "Authentication token"
-    reference: https://stripe.com/docs/scim-provisioning
-  scim_authentication_acquisition_steps: "1. Before you can enable SCIM provisioning, you must first enable Single Sign-On (SSO).\n2. In the Stripe Dashboard, navigate to Settings > Team and Security > SCIM provisioning.\n3. Click 'Enable'.\n4. Stripe will generate a SCIM endpoint URL and a SCIM API key.\n5. Copy the SCIM API key. This key is used as a Bearer Token in the 'Authorization' header for API requests to the SCIM endpoint."
-  user_management_api_support:
-    value: "uncertain"
-    reference: https://stripe.com/docs/api
-  user_management_api_licensing_level:
-    value: "Stripe's core API access is not tied to a specific licensing level. However, there is no specific 'Team Member Management API'. User management is either done through the Dashboard UI, or for enterprise customers, via SCIM. API functionality is focused on the platform's financial products (customers, payments, etc.), not internal team members."
-    reference: https://stripe.com/docs/api
-  user_management_api_authentication_mechanisms:
-    value: "API key"
-    reference: https://stripe.com/docs/api/authentication
-  user_management_api_authentication_acquisition_steps: "Stripe's API uses secret API keys for authentication, passed as a Bearer token. To acquire a key:\n1. Go to the Stripe Dashboard.\n2. For developers, navigate to the 'Developers' section, then 'API Keys'.\n3. You can find your standard 'Secret key' here. It is recommended to create a restricted key for specific access.\n4. Click 'Create restricted key'.\n5. Name the key and grant it the minimum required permissions for its purpose.\n6. Click 'Create key' and the key will be revealed."
-  seat_costs:
-  - license_level: "Standard"
-    active:
-      value: "n/a"
-      reference: https://stripe.com/pricing
-    suspended_disabled:
-      value: "n/a"
-      reference: https://stripe.com/pricing
-    archived:
-      value: "n/a"
-      reference: https://stripe.com/pricing
-  - license_level: "Enterprise"
-    active:
-      value: "n/a"
-      reference: https://stripe.com/pricing
-    suspended_disabled:
-      value: "n/a"
-      reference: https://stripe.com/pricing
-    archived:
-      value: "n/a"
-      reference: https://stripe.com/pricing
-  lifecycle_options:
-  - create
-  - invite
-  - update
-  - deprovision (delete)
-  - deactivate
-  rbac_support:
-    value: "yes"
-    reference: https://stripe.com/docs/user-roles
-  rbac_api_assignment:
-    value: "Yes, role assignments can be passed via SAML attribute statements during SSO login. For SCIM-provisioned users, roles are assigned upon their first login via SAML. There isn't a separate API endpoint to manage roles; it's integrated with the SSO/SCIM process."
-    reference: https://stripe.com/docs/scim-provisioning
+identity_and_access:
   documentation_links:
-  - https://stripe.com/docs/scim-provisioning
-  - https://stripe.com/docs/security/single-sign-on
-  - https://stripe.com/docs/user-roles
-  - https://stripe.com/docs/api/authentication
-  - https://stripe.com/docs/organizations/managing-access
-  - https://support.okta.com/help/s/article/Resolving-Role-Update-Issues-with-Okta-and-Stripe-SSO-Integration?language=en_US
-  - https://stripe.com/docs/connect/iam-for-platforms
-  - https://docs.authentik.io/integrations/sources/saml/integrations/stripe/
-
+  - https://stripe.com/docs/api/customers
+  - https://stripe.com/docs/api/persons
+  - https://stripe.com/docs/api/accounts
+  - https://stripe.com/pricing
+  - https://stripe.com/docs/security
+  - https://stripe.com/docs/api
+  lifecycle_options:
+  - invited
+  - active
+  - deprovisioned/removed
+  - deleted (for customers/accounts, not necessarily dashboard users immediately via
+    API unless SCIM is enabled for immediate deprovisioning)
+  rbac_api_assignment:
+    reference: https://integrations.goauthentik.io/platforms/stripe/
+    value: yes - When using SAML SSO with an IdP, roles can be assigned through IdP
+      attribute statements using prefixes like Stripe-Role-{accountID} or Stripe-Role-{org-id}.
+  rbac_support:
+    reference: https://dev.to/propelauth/recreating-stripes-roles-in-propelauth-mgh
+    value: yes - Stripe supports granular Dashboard roles. When using SSO, granular
+      user roles can be assigned through the IdP. There are 14 defined roles plus
+      the 'Owner' role. Examples of roles include Administrator, IAM Administrator,
+      Super Administrator, Connect Onboarding Analyst, Transfer Analyst, Developer,
+      Identity Analyst, and Identity View Only. The IAM Administrator role can invite,
+      edit, and remove team members, and create and manage user groups. [1, 5, 10,
+      22, 39]
+  scim_authentication_acquisition_steps:
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+    value: 'To enable SCIM provisioning: From the Team and security settings page,
+      go to SCIM provisioning and click Enable. Copy your SCIM endpoint URL and SCIM
+      API key to your IdP or SCIM client. For Entra ID, use `https://access.stripe.com/scim/v2`
+      for Tenant URL and your SCIM API key for Secret token. For Okta, use `https://access.stripe.com/scim/v2`
+      for SCIM connector base URL and `email` for Unique identifier field for users. '
+  scim_authentication_mechanisms:
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+    value: SCIM API key.
+  scim_licensing_level_requirement:
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+    value: uncertain - The documentation states SCIM support is in private preview
+      but does not specify any licensing level requirements.
+  scim_support:
+    reference: https://docs.stripe.com/get-started/account/sso/scim
+    value: yes - Stripe adheres to the SCIM 2.0 protocol for automatic user provisioning
+      and deprovisioning. It supports provisioning a user (not groups) to Stripe (POST
+      /scim/v2/Users) and push new users and profile updates. This feature is in private
+      preview.
+  seat_costs:
+  - archived:
+      reference: https://stripe.com/pricing
+      value: Stripe does not charge per user or 'seat' for its core payment processing
+        services; pricing is generally transaction-based.
+    license_level: Standard Payments Pricing
+    suspended_disabled:
+      reference: https://stripe.com/pricing
+      value: Stripe does not charge per user or 'seat' for its core payment processing
+        services; pricing is generally transaction-based.
+  - archived:
+      reference: https://www.hostmerchantservices.com/articles/stripe-fees-a-pricing-guide-to-stripe/
+      value: uncertain - The Express pricing mentions '$2 monthly per active user
+        account' but does not specify if archived users incur costs.
+    license_level: Express (for platforms)
+    suspended_disabled:
+      reference: https://www.hostmerchantservices.com/articles/stripe-fees-a-pricing-guide-to-stripe/
+      value: $2 monthly per active user account. This suggests a per-user cost for
+        platforms using Stripe Express, but it does not specify if suspended/disabled
+        users incur costs.
+  sso_license_level_requirement:
+    reference: https://docs.stripe.com/get-started/account/orgs/sso
+    value: uncertain - The documentation does not explicitly state a specific license
+      level requirement for SSO, but it implies that it's available for businesses
+      that operate across multiple Stripe accounts and use SSO, suggesting it might
+      be part of an enterprise-level offering or organization feature.
+  sso_support:
+    reference: https://docs.stripe.com/get-started/account/sso
+    value: yes - Stripe specifically supports Security Assertion Markup Language (SAML)
+      2.0. Any identity provider that supports SAML 2.0 works with Stripe. It supports
+      IdP-initiated and Service Provider-initiated SSO, Just-In-Time account creation,
+      and granular Dashboard roles assignment through the IdP. SSO can be configured
+      to be mandated for all users or allow sign-in using SSO or email and password.
+      Supported IdPs include Auth0, Entra ID (formerly Azure AD), Google Workspace,
+      Okta, and OneLogin.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://insiders.stripe.dev/t/programmatic-way-of-getting-users-and-roles-for-audit/3744
+    value: uncertain - No evidence of a specific user management API beyond SCIM,
+      thus no acquisition steps can be provided.
+  user_management_api_authentication_mechanisms:
+    reference: https://docs.stripe.com/api/authentication
+    value: uncertain - No evidence of a specific user management API beyond SCIM,
+      thus no authentication mechanism information can be provided. Stripe's main
+      APIs use API keys.
+  user_management_api_licensing_level:
+    reference: https://insiders.stripe.dev/t/programmatic-way-of-getting-users-and-roles-for-audit/3744
+    value: uncertain - No evidence of a specific user management API beyond SCIM,
+      thus no licensing information can be provided.
+  user_management_api_support:
+    reference: https://insiders.stripe.dev/t/programmatic-way-of-getting-users-and-roles-for-audit/3744
+    value: uncertain - While Stripe has APIs for managing customers and account persons,
+      there is no explicit 'user management API' for managing team members (users
+      logging into the Stripe Dashboard) separate from SCIM. A Stripe Insiders post
+      from 2024-12-13 indicates that there is no user management or SCIM API to get
+      a list of users for audit and compliance reporting.
 security_monitoring:
+  documentation_links:
+  - https://stripe.com/docs/security
+  - https://stripe.com/docs/api/events
+  - https://stripe.com/docs/api/events/types
+  - https://stripe.com/docs/api/events
+  - https://stripe.com/docs/api/events
+  - https://stripe.com/docs/security
+  - https://stripe.com/docs/api/events/types
+  - https://stripe.com/docs/security
+  - https://stripe.com/docs/api/events
+  - https://stripe.com/docs/security
+  - https://stripe.com/docs/security
+  - https://stripe.com/docs/security
+  - https://stripe.com/docs/api/events/types
+  - https://stripe.com/docs/security
   event_logs:
-    user_login:
-      value: "Stripe logs sensitive account activities, including logins. These events are available in the 'Security History' section of the Stripe Dashboard. The logs note if logins are from usual devices and IP addresses and also track failed attempts. Specific event types for success or failure are not publicly detailed but are part of the general audit trail."
-      reference: "https://stripe.com/docs/security/stripe#access-restriction-and-auditing"
-    role_assignment:
-      value: "Changes to team member roles and permissions are logged. These events can be viewed in the 'Security History' of the account. Administrators can view the security history for all team members. The specific event name is not publicly documented, but it falls under the 'Team' action category."
-      reference: "https://stripe.com/docs/organizations/managing-access#view-security-history"
     api_call:
-      value: "All API requests are logged and can be viewed in the 'Logs' section of the Developers Dashboard. These logs include the request and response details, which are useful for debugging and monitoring. Additionally, Stripe uses 'canonical log lines' internally for monitoring, which capture key characteristics of each request."
-      reference: "https://stripe.com/dev/logging-and-monitoring"
-    data_export:
-      value: "The action of exporting data, such as transaction reports or customer lists, from the Dashboard is a logged event. These activities are recorded in the account's 'Security History'."
-      reference: "https://stripe.com/docs/security/stripe#access-restriction-and-auditing"
+      reference: https://docs.stripe.com/development/dashboard/request-logs
+      value: Stripe logs API requests for your account. This includes API calls made
+        manually via the Stripe CLI, when user actions in your app or website result
+        in an API call, when calling an API directly with the Stripe CLI, and when
+        modifying Stripe resources in the Dashboard. These API calls are logged on
+        the Logs page in the Developers Dashboard. You can filter API request logs
+        by API version, error type, error code, and other filters such as an IP address,
+        or by resource ID. Users can only access request logs created within the last
+        15 months from the Dashboard. [4, 15]
     configuration_change:
-      value: "Changes to sensitive account information, such as bank account details, are recorded in the audit logs. These are visible in the 'Security History' section of the Dashboard."
-      reference: "https://stripe.com/docs/security/stripe#access-restriction-and-auditing"
-    user_account_creation:
-      value: "Actions related to team management, such as inviting a new team member, are logged. These events are captured in the 'Security History' and can be filtered by the 'Team' category."
-      reference: "https://stripe.com/docs/organizations/managing-access#view-security-history"
+      reference: https://stripe.com/docs/security
+      value: Audit logs contain records of important account changes and activity.
+        [1] Changes to SaaS prices are available in agency audit logs. If a SaaS price
+        or product is deleted, it will be logged as a Stripe plan deletion. Changes
+        to the SAS configurator, such as pricing, trial days, credits, and snapshots,
+        are also logged in the agency audit logs. The audit logs show details of what
+        was changed and who performed the action. [9]
+    data_export:
+      reference: https://stripe.com/docs/security
+      value: Users can export historical information from the logs. [1]
+    role_assignment:
+      reference: https://stripe.com/docs/security
+      value: From the Dashboard, users can assign different detailed roles to enable
+        least-privilege access for their employees. Security-related changes such
+        as Members being added to groups or permission changes are included in audit
+        trails. [1, 35]
     security_policy_change:
-      value: "Changes to an account's security settings, such as modifying two-factor authentication (2FA) requirements, are logged in the 'Security History'."
-      reference: "https://stripe.com/docs/organizations/managing-access#view-security-history"
+      reference: https://stripe.com/docs/security
+      value: Stripe's documentation broadly states that audit logs contain records
+        of 'important account changes and activity' and 'security-related changes'.
+        While a specific schema or detailed list of security policy changes that are
+        logged is not explicitly provided, these general statements suggest that such
+        changes would be included in the audit logs. [1, 35]
+    user_account_creation:
+      reference: https://stripe.com/docs/security
+      value: When your Identity Provider (IdP) or SCIM client provisions new team
+        members to Stripe, they automatically appear in your list of team members.
+        When deprovisioned, their access is immediately revoked and they are removed
+        from the list. [33] While direct information on explicit logging of B2B user
+        account creation (beyond SCIM provisioning) and their schema is not detailed,
+        the general statement about 'important account changes' and the SCIM provisioning
+        functionality suggest its existence. [1]
+    user_login:
+      reference: https://stripe.com/docs/security
+      value: Stripe provides audit logs of important account changes and activity
+        in their security history. These audit logs contain records of sensitive account
+        activity, like logging in. Stripe monitors logins and notes if they're from
+        the same or usual devices, if they're from consistent IP addresses, and failed
+        attempts. For time-sensitive activities, such as logins from unknown IPs and
+        devices, automatic notifications are sent. [1]
   event_logs_licensing_level:
-    value: "Access to security and event logs in the Stripe Dashboard is available to all users, with visibility dependent on their assigned role (e.g., Administrators can see all history). There is no specific license tier required for this core functionality."
-    reference: "https://stripe.com/docs/organizations/managing-access"
-  monitoring_products:
-    - value: "Datadog: Stripe events can be sent to Datadog as logs via webhooks for monitoring and analysis. [1]"
-      reference: "https://docs.datadoghq.com/integrations/stripe/"
-    - value: "Splunk: Stripe has a partnership with Splunk and uses it internally for monitoring. [24] Splunk offers the 'Stripe for SAP Digital Payments app' and can be integrated to pull data via the Stripe API for monitoring and automation. [8]"
-      reference: "httpss://stripe.com/customers/splunk"
-    - value: "Zapier: Can be used as an intermediary to connect Stripe events to various monitoring and alerting tools, including Datadog. [22]"
-      reference: "https://zapier.com/apps/datadog/integrations/stripe"
-    - value: "n8n: An open-source workflow automation tool that can connect Stripe and Splunk [10] or Stripe and Datadog [12] to build custom monitoring workflows."
-      reference: "https://n8n.io/integrations/splunk-stripe/"
-    - value: "Pipedream: An integration platform that allows for the creation of serverless workflows reacting to Stripe events and integrating with monitoring tools like Datadog. [13]"
-      reference: "https://pipedream.com/apps/datadog/integrations/stripe"
+    reference: https://stripe.com/docs/security
+    value: No specific licensing level is mentioned as a requirement for accessing
+      security audit logs in the provided documentation. Access to audit logs appears
+      to be a standard feature for Stripe users. [1, 4, 15]
   ingestion_methods:
-    - value: "Webhooks: Stripe's primary mechanism for sending real-time event notifications to external systems, such as SIEMs or custom applications. Users can configure webhook endpoints to listen for specific event types. [37]"
-      reference: "https://stripe.com/docs/webhooks"
-    - value: "API Polling: Events can be retrieved by polling the `/v1/events` API endpoint. This method allows fetching a list of events up to 30 days old. [20]"
-      reference: "https://stripe.com/docs/api/events/list"
-    - value: "Manual CSV Export: Users can manually export transaction data, including payments, refunds, and fees, from the Stripe Dashboard as a CSV file for analysis. [30, 31]"
-      reference: "https://support.stripe.com/questions/exporting-payment-data"
+    reference: https://stripe.com/docs/api/events
+    value:
+    - Stripe creates Event objects when the state of an API resource changes, and
+      these can be accessed via an API. You can retrieve an individual event or a
+      list of events from the API for 30 days. [32]
+    - Stripe sends webhook events, which are notifications covering various transactions
+      and interactions, such as payment events and subscription management. Webhook
+      endpoints should use HTTPS. [6]
+    - Stripe logs API requests, which are accessible from the Developers Dashboard
+      for up to 15 months. [4, 15]
+    - Stripe Dot Dev Blog mentions 'Event destinations' as a topic, suggesting mechanisms
+      for routing events. [5]
+    - A GitHub issue indicates a desire for direct raw request/response logging for
+      auditing purposes beyond what the Stripe dashboard logs provide, suggesting
+      the current API might not expose raw request/response data in a granular enough
+      fashion for all audit needs. [3]
   log_export_options:
     tools_connectors:
-      value: "Stripe provides native integrations with partners like Datadog and Splunk. [1, 8] Open-source tools also exist on GitHub to facilitate data export, such as a tool to download all PDF invoices in bulk. [44]"
-      reference: "https://github.com/dunglas/stripe-invoice-exporter"
-  documentation_links:
-    - "https://stripe.com/docs/security/stripe"
-    - "https://stripe.com/docs/webhooks"
-    - "https://stripe.com/docs/api/events"
-    - "https://stripe.com/docs/organizations/managing-access"
-    - "https://stripe.com/dev/logging-and-monitoring"
-    - "https://docs.datadoghq.com/integrations/stripe/"
-    - "https://stripe.com/customers/splunk"
+      reference: https://stripe.com/docs/security
+      value: Users can export historical information from the logs in the Stripe Dashboard.
+        [1]
+  monitoring_products:
+    reference: https://docs.datadoghq.com/integrations/stripe/
+    value:
+    - Stripe events can be integrated with AWS CloudWatch Log Groups via Amazon EventBridge
+      for enhanced monitoring, enabling real-time tracking and analysis of Stripe
+      transactions. [5]
+    - Microsoft Sentinel can be used for SIEM and SOAR (Security Orchestration, Automation,
+      and Response) solutions, and Stripe OLT offers services to deploy Microsoft
+      Sentinel into a tenant to enable alerts and detect malicious activity related
+      to Microsoft 365 environments. [7, 14]
+    - Monitoring tools like Sentry or New Relic can be implemented to capture real-time
+      errors and performance metrics when processing incoming webhook notifications.
+      [6]
+    - Zapier provides enterprise-grade security with SOC 2 compliance, audit logs,
+      analytics, and real-time alerts, offering central oversight and full transparency
+      for automation activity, including potentially with Stripe integrations. [29]
 incident_response:
-  suspend_user_management_api:
-    value: "Stripe does not provide a direct API endpoint to suspend a team member. The action must be performed manually through the Dashboard by navigating to Settings > Team, selecting the member, and removing them."
-    reference: "https://stripe.com/docs/organizations/managing-access#remove-a-team-member"
-  invalidate_sessions_api:
-    value: "There is no direct API to invalidate a team member's dashboard session. However, for customer-facing checkout processes, a Checkout Session can be explicitly expired using the API via `POST /v1/checkout/sessions/{SESSION_ID}/expire`. [11, 46] This prevents the customer from completing the payment."
-    reference: "https://stripe.com/docs/api/checkout/sessions/expire"
-  revoke_api_key_api:
-    value: "Stripe does not offer an API endpoint to revoke or delete API keys. This action must be performed manually through the Developers Dashboard by clicking the menu next to the key and selecting 'Delete key...'. [6, 7]"
-    reference: "https://stripe.com/docs/keys#delete-an-api-key"
-  user_toggle_api:
-    value: "There is no API functionality to temporarily disable or toggle a team member's access. Access management, including removal, must be done through the Stripe Dashboard UI."
-    reference: "https://stripe.com/docs/organizations/managing-access"
-  user_status_api:
-    value: "There is no public API to check the status (e.g., active, suspended) of a team member."
-    reference: "https://stripe.com/docs/api"
-  session_timeout_configuration:
-    value: "Session duration for the Stripe Dashboard is not configurable by administrators. For customer-facing Checkout Sessions, an expiration time can be set via the `expires_at` parameter upon creation, which must be between 30 minutes and 24 hours from the current time. [11, 19]"
-    reference: "https://stripe.com/docs/payments/checkout/manage-limited-inventory#set-an-expiration-time"
-  known_automation_tools:
-    - value: "AWS Secrets Manager: Can be used to build a comprehensive solution for managing and automatically rotating Stripe API keys, including monitoring and alerting through CloudTrail and CloudWatch. [34]"
-      reference: "https://stripe.com/blog/developer-office-hours/securing-stripe-api-keys-in-aws"
-    - value: "n8n: This tool can be used to create custom workflows to automate incident response-related tasks, such as triggering alerts in other systems based on Stripe events. [10]"
-      reference: "https://n8n.io/"
-    - value: "Appsmith: Can be used to build internal tools with granular access control to manage Stripe data and actions, like a refund approval workflow, without giving direct Stripe access. [15]"
-      reference: "https://www.appsmith.com/blog/automate-refunds-with-stripe-api-and-appsmith-workflows"
   documentation_links:
-    - "https://stripe.com/docs/keys"
-    - "https://stripe.com/docs/api/checkout/sessions/expire"
-    - "https://stripe.com/docs/organizations/managing-access"
-    - "https://stripe.com/blog/developer-office-hours/securing-stripe-api-keys-in-aws"
-    - "https://stripe.com/docs/security/guide"
-    - "https://stripe.com/docs/disputes/prevention"
+  - https://speakerdeck.com/amyngyn/big-red-button-how-stripe-automates-incident-management-sf-women-in-infrastructure
+  - https://docs.stripe.com/api/disputes
+  - https://docs.stripe.com/stripe-apps/api-authentication
+  - https://www.powerhouse-legal.com/blog/prevent-stripe-hack-protect-stripe-account
+  - https://noda.live/articles/is-stripe-safe
+  - https://paymentsplugin.com/blog/stripe-api-keys/
+  - https://docs.stripe.com/api/authentication
+  - https://docs.stripe.com/security
+  - https://retool.com/blog/incident-response-tools-stripe
+  - https://docs.stripe.com/security/guide
+  - https://deliveredsocial.com/how-to-invite-team-members-to-access-your-stripe-account/
+  - https://howtorotate.com/docs/tutorials/stripe/
+  - https://wpsimplepay.com/how-stripe-radar-protects-you-from-fraud-and-how-to-use-it/
+  - https://stackoverflow.com/questions/20736146/understanding-stripes-api-authentication
+  - https://www.postman.com/stripedev/dc426c90-799a-452c-a261-7f9925e005d1/request/ss8mn4b/retrieve-a-dispute
+  - https://support.cheqdin.com/support/solutions/articles/48001233134-how-to-revoke-or-deactivate-stripe-api-integration-with-cheqdin-
+  - https://support.stripe.com/questions/what-are-stripe-api-keys-and-how-to-find-them
+  - https://docs.themeisle.com/article/2097-configuring-the-stripe-api-keys
+  - https://synder.com/blog/stripe-secure-payment-method/
+  - https://vertexaisearch.google.com/grounding-api-redirect/AUZIYQHWWJO9dJjsp0c_PZ0VSzcBiFqc8-TQGCEKXe1Yt4FLHBWgDJWZthNOA3q3dY_5S0nI9ZJzF1J6JWkjez7lBP0ZzuUK1BFPmJPxkgh51_-c4u6L
+  - https://dev.to/stripe/learn-how-stripe-authentication-works-in-8-minutes-45di
+  - https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1tiH6LfVVFrjTzBHFxxJmDk3IpIlxPnoRdmEnC8cLenu1CTTmqVwgJJmr31YFvuS1DaXwyurF7fIvPYEDD5qtym-_NuHZqBR4YyBHnxHzw_P3N8ZARMJ29HZBNpmDiIxRmAQ2UHNGKN2D1INxezGmNaBK
+  - https://paymentcloudinc.com/blog/is-stripe-safe/
+  - https://insiders.stripe.dev/t/updating-your-stripe-plugin-security/2659
+  - https://moldstud.com/articles/p-essential-stripe-security-features-for-protecting-customer-data
+  invalidate_sessions_api:
+    reference: https://stripe.com/docs/api/authentication
+    value: Stripe documentation does not explicitly mention an API to invalidate specific
+      user sessions or force a logout for a user. However, for compromised API keys,
+      it is possible to revoke or 'roll' them, which essentially invalidates the old
+      key [6, 22, 45]. Additionally, organizations can enforce two-factor authentication
+      (2FA) for all team members to enhance security [4, 27], which could be a preventative
+      measure against unauthorized session access. There are also indications that
+      if an app's privileges are revoked, it can lead to API keys not matching and
+      access being denied [46].
+  known_automation_tools:
+  - reference: https://stripe.com/radar
+    value: Stripe Radar is an AI and machine learning-based fraud detection tool built
+      into Stripe that analyzes transaction data in real-time to identify and block
+      fraudulent activities [3, 9, 14, 23, 29]. It can be customized with rules and
+      filters [3, 23, 29] and integrates with other Stripe products like Checkout
+      [29].
+  - reference: https://speakerdeck.com/amyngyn/big-red-button-how-stripe-automates-incident-management-sf-women-in-infrastructure
+    value: Stripe developed an internal tool called 'Big Red Button' (BRB) to automate
+      routine incident management tasks like sending emails, creating JIRA tickets,
+      opening Slack channels, and sending pages [7, 19]. This tool was designed to
+      be simple and fast for reporting incidents, allowing responders to focus on
+      mitigation [7, 19].
+  - reference: https://stripe.com/docs/api/disputes
+    value: Stripe allows programmatic management of disputes using its API, including
+      uploading evidence and receiving dispute events via webhooks [8, 10, 43]. This
+      capability can be leveraged for automated dispute response, with tools like
+      Pabbly Connect mentioned in a YouTube video for setting up automated workflows
+      [43].
+  - reference: https://slashdot.org/software/incident-management/for-stripe/
+    value: Some third-party incident management software solutions, like HSI Donesafe,
+      are advertised as working with Stripe to streamline incident handling, capturing,
+      monitoring, and resolving occurrences through real-time analytics and automated
+      processes [31].
+  - reference: https://stripe.com/docs/api/authentication
+    value: Stripe's API keys can be managed programmatically, and services can limit
+      IP addresses that can send API requests using restricted keys [1, 6]. This capability,
+      combined with auditing API request logs, can aid in monitoring for suspicious
+      activities [1].
+  revoke_api_key_api:
+    reference: https://stripe.com/docs/api/authentication
+    value: Yes, it is possible to programmatically revoke API keys. Stripe allows
+      users to create, delete, and rotate secret and restricted API keys through the
+      Dashboard [6, 15, 17, 45]. When a key is deleted, any code using that key can
+      no longer make API calls [6]. 'Rolling' a key revokes the existing key and generates
+      a new replacement [45, 22]. Stripe also proactively scans the internet for leaked
+      API keys and advises users to roll them if found [18]. For integration security,
+      Stripe introduced Restricted API Keys (RAK) and OAuth 2.0, which allow for defining
+      specific, limited permissions for integrations, reducing the risk if a key is
+      compromised [5, 11, 13, 28, 32]. Publishable keys cannot be deleted [6].
+  session_timeout_configuration:
+    reference: https://stripe.com/docs/security
+    value: Uncertain. Stripe's documentation highlights the importance of two-factor
+      authentication (2FA) for securing accounts [4, 12, 27, 28, 41] and recommends
+      signing out of shared computers [27]. However, specific configurable session
+      timeout values or an API to manage them are not detailed in the provided search
+      results. Best practices for API implementation do suggest using HTTPS for all
+      communication and regularly updating software and libraries to patch vulnerabilities
+      [2].
+  suspend_user_api:
+    reference: hallucinated link doublecheck content
+    value: Stripe does not appear to offer a direct API to suspend a user account.
+      However, administrators can manage team members, including adding or removing
+      them and changing their roles, which can restrict access to the Stripe account
+      itself [4, 21, 24, 34, 35]. This management is done through the Dashboard's
+      Team and security settings [4].
+  user_status_api:
+    reference: hallucinated link doublecheck content
+    value: Stripe's documentation focuses on managing team member roles and access
+      within the dashboard [4, 21, 24, 34], indicating whether a user has active permissions
+      to log in and perform actions. Administrators can view all members across an
+      organization or account and change their assigned roles [4]. There is no direct
+      API mentioned for querying a user's 'active' versus 'suspended/disabled' login
+      status in the same way one might check an external identity provider.
+  user_toggle_api:
+    reference: hallucinated link doublecheck content
+    value: Uncertain. While there isn't explicit documentation about an API to 'toggle'
+      a user's status between active/suspended and how that affects active sessions,
+      Stripe provides mechanisms to manage team member access and roles [4, 21, 24,
+      34]. This allows administrators to remove or change a user's role, effectively
+      restricting their access to the Stripe account [4]. If a user's access is removed,
+      they would no longer be able to log in or perform actions within the account
+      [4, 21].

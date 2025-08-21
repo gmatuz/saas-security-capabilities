@@ -1,0 +1,318 @@
+identity_and_access:
+  sso_support:
+    value: yes — supports SAML 2.0 and OpenID Connect (OIDC) for SSO with external
+      IdPs (for example Microsoft Entra ID/Azure AD); configuration uses Single Sign-On
+      Settings and My Domain; Delegated Authentication option also exists.
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/salesforce-tutorial
+  sso_license_level_requirement:
+    value: uncertain — Salesforce release-update notes referencing SAML framework
+      changes call out Enterprise, Unlimited, and Developer editions; no single canonical
+      matrix found stating SSO availability per edition.
+    reference: https://applicationperfection.com/2024/06/12/migrate-to-a-multiple-configuration-saml-framework-release-update/
+  scim_support:
+    value: uncertain — no official Salesforce inbound SCIM v2 documentation located;
+      major IdPs (Microsoft Entra) document provisioning to Salesforce via Salesforce
+      APIs (username+token/OAuth) rather than SCIM.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/salesforce-provisioning-tutorial
+  scim_licensing_level_requirement:
+    value: uncertain
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/salesforce-provisioning-tutorial
+  scim_authentication_mechanisms:
+    value: uncertain — third‑party guide shows OAuth 2.0 to Salesforce SCIM endpoint
+      (/services/scim/v2) using client credentials and a Connected App (Consumer Key/Secret).
+    reference: https://docs.secureauth.com/2404/en/configure-scim-provisioning-for-salesforce.html
+  scim_authentication_acquisition_steps:
+    value: 'uncertain — example flow (third‑party): 1) In Salesforce, create a Connected
+      App and collect Consumer Key/Secret; 2) Use Salesforce OAuth token endpoint
+      (/services/oauth2/token) with client credentials; 3) Point SCIM server to https://<yourdomain>/services/scim/v2.'
+    reference: https://docs.secureauth.com/2404/en/configure-scim-provisioning-for-salesforce.html
+  user_management_api_support:
+    value: yes — Salesforce exposes REST, SOAP, and Bulk APIs to CRUD sObjects and
+      manage access; user access can be analyzed/managed via PermissionSet and related
+      objects (e.g., PermissionSetAssignment).
+    reference: https://developer.salesforce.com/blogs/2024/04/accessing-object-data-with-salesforce-platform-apis
+  user_management_api_licensing_level:
+    value: Web Services API included with Enterprise and higher; Pro Suite requires
+      an add‑on ($25/user/month as listed); see pricing page for details.
+    reference: https://www.salesforce.com/sales/pricing/
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 (client credentials flow for server‑to‑server; web server flow
+      for user‑context); JWT‑based access tokens supported; username‑password flow
+      discouraged.
+    reference: https://developer.salesforce.com/blogs/2023/03/using-the-client-credentials-flow-for-easier-api-authentication/
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Setup → App Manager → New Connected App; 2) Enable OAuth Settings (select
+      scopes, set callback if using user flows); 3) Save and view Consumer Key/Secret;
+      4) Approve app policies (e.g., Admin pre‑approved) and assign to integration
+      user; 5) Use OAuth endpoints to obtain tokens.
+    reference: https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm
+  seat_costs:
+  - license_level: Pro Suite
+    active:
+      value: $100 USD/user/month (billed annually) — per official pricing.
+      reference: https://www.salesforce.com/sales/pricing/
+    suspended_disabled:
+      value: Deactivating a user frees the user license for reassignment; freezing
+        only blocks login and does not free the license (admin guidance).
+      reference: https://www.merfantz.com/blog/how-to-deactivate-and-freeze-a-user-in-salesforce/
+    archived:
+      value: uncertain — Salesforce user records aren’t archived; common states are
+        Active, Frozen, Deactivated; no official 'archived user' state found.
+      reference: https://www.merfantz.com/blog/how-to-deactivate-and-freeze-a-user-in-salesforce/
+  - license_level: Enterprise
+    active:
+      value: $175 USD/user/month (billed annually) — per official pricing.
+      reference: https://www.salesforce.com/sales/pricing/
+    suspended_disabled:
+      value: Deactivating frees license; freezing does not free license (admin guidance).
+      reference: https://help.salesforce.com/s/articleView?id=000386671&type=1
+    archived:
+      value: uncertain — no documented 'archived user' state.
+      reference: https://trailhead.salesforce.com/content/learn/modules/data_security/data_security_org
+  - license_level: Unlimited
+    active:
+      value: $350 USD/user/month (billed annually) — per official pricing.
+      reference: https://www.salesforce.com/sales/pricing/
+    suspended_disabled:
+      value: Deactivation frees license; freezing only blocks login (admin guidance).
+      reference: https://www.merfantz.com/blog/how-to-deactivate-and-freeze-a-user-in-salesforce/
+    archived:
+      value: uncertain — no documented 'archived user' state.
+      reference: https://www.merfantz.com/blog/how-to-deactivate-and-freeze-a-user-in-salesforce/
+  lifecycle_options:
+  - active
+  - frozen
+  - locked
+  - deactivated
+  rbac_support:
+    value: yes — RBAC via Profiles, Permission Sets, Permission Set Groups, Roles;
+      permissions are modeled on PermissionSet and related objects (e.g., ObjectPermissions,
+      SetupEntityAccess); assignments tracked on PermissionSetAssignment.
+    reference: https://developer.salesforce.com/blogs/2021/05/boost-security-by-auditing-your-privileged-users-with-soql
+  rbac_api_assignment:
+    value: yes — roles/permissions can be managed via API by creating/updating records
+      such as PermissionSetAssignment; access to setup entities can be queried via
+      SetupEntityAccess with joins to PermissionSetAssignment.
+    reference: https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_setupentityaccess.htm
+  documentation_links:
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/salesforce-tutorial
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/salesforce-provisioning-tutorial
+  - https://help.okta.com/oie/en-us/Content/Topics/Provisioning/Salesforce/sfdc-configure-provisioning-REST
+  - https://developer.salesforce.com/blogs/2023/03/using-the-client-credentials-flow-for-easier-api-authentication/
+  - https://developer.salesforce.com/blogs/2024/02/invoke-rest-apis-with-the-salesforce-integration-user-and-oauth-client-credentials
+  - https://trailhead.salesforce.com/content/learn/projects/build-a-connected-app-for-api-integration/create-a-connected-app
+  - https://trailhead.salesforce.com/es/content/learn/modules/connected-app-basics/connected-app-basics-sso
+  - https://developer.salesforce.com/devcenter/integration-apis
+  - https://developer.salesforce.com/blogs/2024/04/accessing-object-data-with-salesforce-platform-apis
+  - https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_setupentityaccess.htm
+  - https://developer.salesforce.com/blogs/2021/05/boost-security-by-auditing-your-privileged-users-with-soql
+  - https://docs.secureauth.com/2404/en/configure-scim-provisioning-for-salesforce.html
+  - https://www.salesforce.com/sales/pricing/
+  - https://www.reddit.com/r/salesforce/comments/105dgz9
+  - https://www.reddit.com/r/salesforce/comments/176chrx
+security_monitoring:
+  event_logs:
+    user_login:
+      value: 'Salesforce records user login activity in multiple places: (a) LoginHistory
+        object (queryable via SOQL; retention commonly limited to ~6 months), useful
+        for basic login outcomes; (b) Event Monitoring EventLogFile event type ''Login''
+        (downloadable CSV via API/ELF Browser) for detailed audit of login activity;
+        and (c) Real-Time Event Monitoring ''LoginEvent'' stream/object for near-real-time
+        login events via the streaming/Pub/Sub API.'
+      reference: https://salesforce.stackexchange.com/questions/100566/how-to-query-all-the-historical-data-of-loginhistory-object
+    role_assignment:
+      value: Administrative changes to user roles and related access (e.g., 'changedroleforuser')
+        are captured in Setup Audit Trail and can be queried via the SetupAuditTrail
+        object; entries include action, section, and a human-readable Display string
+        showing what changed.
+      reference: https://docs.kratapps.com/setup-audit-trail/reference/
+    api_call:
+      value: 'API usage is auditable: Event Monitoring tracks application programming
+        interface (API) calls as an event type in EventLogFile, enabling post-event
+        analysis of API activity; Real-Time Event Monitoring also covers API-related
+        activity for near-real-time visibility.'
+      reference: https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_intro
+    data_export:
+      value: Report exports are explicitly logged via the 'ReportExport' EventLogFile
+        type, with CSV fields such as USER_ID and URI that enable attribution; administrators
+        can download these log files via the ELF Browser, cURL, or Python. Additionally,
+        Setup Audit Trail tracks 'Data export requests' from Setup for governance
+        visibility.
+      reference: https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_download/
+    configuration_change:
+      value: Configuration and administrative changes in Setup (profiles, permission
+        sets, session policies, connected apps, etc.) are logged in Setup Audit Trail
+        and can be ingested; Elastic’s Salesforce module documents the SetupAuditTrail
+        fields commonly used for SIEM ingestion (delegate_user, section, display,
+        etc.).
+      reference: https://www.elastic.co/guide/en/beats/filebeat/8.19/exported-fields-salesforce.html
+    user_account_creation:
+      value: Administrative creation/activation/deactivation of B2B users is recorded
+        in Setup Audit Trail with actions such as 'createduser', 'activateduser',
+        and 'deactivateduser', which can be queried from the SetupAuditTrail object
+        for audit purposes.
+      reference: https://docs.kratapps.com/setup-audit-trail/reference/
+    security_policy_change:
+      value: Security-related setup changes (e.g., password policies, session settings,
+        SAML/IdP config, named credentials, Shield Platform Encryption setup) are
+        included in Setup Audit Trail’s tracked items and can be reviewed and exported
+        for SIEM ingestion.
+      reference: https://salesforce.stackexchange.com/questions/191200/what-cannot-be-tracked-in-setup-audit-trail
+  event_logs_licensing_level:
+    value: 'Event Monitoring licensing: Developer Edition includes all log types with
+      1-day retention at no cost. Enterprise/Unlimited/Performance Editions include
+      limited event types (e.g., Insecure External Assets, Login, Logout, API Total
+      Usage) with 1-day retention; access to all EventLogFile types and longer retention
+      (up to 1 year) requires purchasing Event Monitoring (often via Salesforce Shield).
+      Real-Time Event Monitoring requires Salesforce Shield or the Event Monitoring
+      add-on.'
+    reference: https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_intro
+  monitoring_products:
+  - value: Splunk Add-on for Salesforce collects EventLogFile data and SOQL outputs
+      via REST; supports hourly/daily EventLogFile collection intervals and OAuth
+      authentication.
+    reference: https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Configureinputsv2monitor
+  - value: Datadog Salesforce integration ingests EventLogFile via ELF API and Real-Time
+      Event Monitoring streams (via Pub/Sub API) to enable security monitoring and
+      Cloud SIEM detections.
+    reference: https://docs.datadoghq.com/integrations/salesforce/
+  - value: Elastic Filebeat Salesforce module ingests Login/Logout (ELF or real-time
+      objects), Apex (ELF), and SetupAuditTrail (real-time object) via REST API with
+      configurable polling intervals.
+    reference: https://www.elastic.co/docs/current/integrations/salesforce
+  - value: Sumo Logic Salesforce app analyzes Event Monitoring logs (APEX, API performance,
+      logins, report activity, setup audit); requires Salesforce Event Monitoring
+      add-on for complete coverage.
+    reference: https://help.sumologic.com/docs/integrations/saas-cloud/salesforce/
+  - value: 'IBM QRadar Salesforce DSM: parses many EventLogFile types; some event
+      types may be unsupported out-of-the-box and require custom mappings.'
+    reference: https://www.ibm.com/support/pages/node/6566491
+  - value: Google Chronicle (Google Security Operations) provides a Salesforce parser
+      for logs (CSV/JSON/LEEF), commonly sourced via S3/AppFlow pipelines.
+    reference: https://cloud.google.com/chronicle/docs/ingestion/default-parsers/salesforce
+  ingestion_methods:
+  - value: Batch retrieval of EventLogFile via REST API (download zipped CSV BLOBs)
+      or direct download using the ELF Browser; supported automation with cURL/Python
+      scripts.
+    reference: https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_download/
+  - value: Near real-time streaming via Real-Time Event Monitoring over Platform Events
+      using the Pub/Sub API (gRPC) for subscribing to standard event streams like
+      LoginEvent.
+    reference: https://developer.salesforce.com/docs/platform/pub-sub-api/guide/intro.html?trk=public_post_comment-text
+  - value: 'SIEM add-ons/agents: Splunk Add-on for Salesforce pulls EventLogFile and
+      SOQL outputs on a schedule (hourly/daily) using REST OAuth.'
+    reference: https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Setupv2
+  - value: Elastic Agent/Filebeat Salesforce input collects EventLogFile (historical)
+      and Object-based (real-time) events (Login/Logout/Apex/SetupAuditTrail) via
+      REST.
+    reference: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-salesforce.html
+  - value: 'Event Relay / AppFlow to AWS EventBridge: relay standard platform events
+      and (where enabled) event streams to AWS targets for downstream SIEM/processing.'
+    reference: https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas-salesforce.html
+  log_export_options:
+    tools_connectors:
+      value: 'Export options include: (1) Direct download of EventLogFile CSVs via
+        the in-org ELF Browser; (2) Programmatic export via REST API (BLOB CSV) using
+        cURL or Python; (3) Real-Time Event Monitoring streams consumable via Pub/Sub
+        API clients; and (4) Integrations that relay platform events to AWS EventBridge
+        (via Event Relay/AppFlow) for downstream storage/processing. No vendor documentation
+        indicates native FTP exports; exports rely on API/streaming and web download.'
+      reference: https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_download/
+  documentation_links:
+  - https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_intro
+  - https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_query/
+  - https://trailhead.salesforce.com/content/learn/modules/event_monitoring/event_monitoring_download/
+  - https://trailhead.salesforce.com/content/learn/modules/realtime-event-monitoring/get-to-know-realtime-events-and-transaction-security/
+  - https://developer.salesforce.com/docs/platform/pub-sub-api/guide/intro.html?trk=public_post_comment-text
+  - https://trailhead.salesforce.com/content/learn/modules/event-log-objects-quick-look/query-event-log-data-for-security-and-performance-insights
+  - https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Configureinputsv2monitor
+  - https://docs.datadoghq.com/integrations/salesforce/
+  - https://www.elastic.co/docs/current/integrations/salesforce
+  - https://help.sumologic.com/docs/integrations/saas-cloud/salesforce/
+  - https://www.ibm.com/support/pages/node/6566491
+  - https://cloud.google.com/chronicle/docs/ingestion/default-parsers/salesforce
+  - https://salesforce.stackexchange.com/questions/245381/discrepancies-between-downloaded-setup-audit-trail-and-setupaudittrail-query
+  - https://salesforce.stackexchange.com/questions/100566/how-to-query-all-the-historical-data-of-loginhistory-object
+  - https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas-salesforce.html
+  - https://github.com/GSA/SF-Event-Monitoring-Log-Retrieval
+  - https://github.com/abisek/salesforce-elf-browser
+  - https://github.com/newrelic/newrelic-salesforce-exporter
+incident_response:
+  suspend_user_api:
+    value: 'Salesforce supports two programmatic “suspension” options: (a) deactivate
+      a user by updating the User record’s IsActive field via API, and (b) freeze/unfreeze
+      login by updating the UserLogin record’s IsFrozen field via API. The Stack Exchange
+      answer confirms using User.IsActive (deactivate) and UserLogin.IsFrozen (freeze)
+      through the API.'
+    reference: https://salesforce.stackexchange.com/questions/251735/freezing-and-de-activating-a-salesforce-service-cloud-user-account-through-the-rest-api
+  invalidate_sessions_api:
+    value: Programmatic invalidation is available for OAuth tokens issued to connected
+      apps using Salesforce’s OAuth revocation endpoint (/services/oauth2/revoke).
+      Revoking a refresh token invalidates all associated access tokens. For active
+      UI sessions, freezing or deactivating a user immediately terminates their access
+      on next transaction; use freeze/deactivate APIs in tandem with token revocation
+      for incident response.
+    reference: https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-revoking-tokens.html
+  revoke_api_key_api:
+    value: Salesforce does not use “personal API keys” for Sales Cloud access. Access
+      is via OAuth tokens (and, in some auth flows, per‑user security tokens used
+      with username/password). You can programmatically revoke OAuth access/refresh
+      tokens using the revocation endpoint (/services/oauth2/revoke). No official
+      evidence found for an API to reset a user’s legacy “security token”; that reset
+      is typically UI-driven.
+    reference: https://developer.salesforce.com/blogs/2011/11/revoking-oauth-2-0-access-tokens-and-refresh-tokens
+  user_toggle_api:
+    value: You can toggle login capability by PATCHing User.IsActive (true/false)
+      to activate/deactivate, or by updating UserLogin.IsFrozen (true/false) to block/unblock
+      logins without changing license status. The referenced Q&A documents both fields
+      for API control.
+    reference: https://salesforce.stackexchange.com/questions/251735/freezing-and-de-activating-a-salesforce-service-cloud-user-account-through-the-rest-api
+  user_status_api:
+    value: 'You can query login status via API: retrieve User.IsActive (active vs.
+      deactivated) and query UserLogin.IsFrozen for freeze status using standard REST
+      sObject/Query endpoints described in Salesforce’s REST guidance.'
+    reference: https://developer.salesforce.com/blogs/2024/04/accessing-object-data-with-salesforce-platform-apis
+  session_timeout_configuration:
+    value: Session timeout is configured in Setup > Session Settings (and can be overridden
+      per Profile). Documentation indicates selectable timeouts between 15 minutes
+      and 24 hours, with “last active session time” evaluated halfway through the
+      timeout window (for example, a 30‑minute timeout checks for activity at 15 minutes).
+    reference: https://trailhead.salesforce.com/content/learn/modules/secure-salesforce-configuration/run-health-check
+  known_automation_tools:
+  - value: Splunk Add‑on for Salesforce – collects Event Log Files and SOQL output
+      from Salesforce via REST APIs for SIEM workflows; supports configuring “Salesforce
+      Event Log” inputs (hourly/daily).
+    reference: https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Configureinputsv2monitor
+  - value: Cortex XSOAR Salesforce v2 integration – SOAR connector that can query
+      objects (SOQL), update sObjects (e.g., set User.IsActive or UserLogin.IsFrozen),
+      and mirror cases; includes salesforce-update-object command.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/salesforce-v2
+  - value: Splunk SOAR (Cloud/On‑prem) Salesforce app/connector – supports actions
+      like run query, get/update object; can automate deactivation by updating User.IsActive
+      and freeze via UserLogin.
+    reference: https://github.com/splunk-soar-connectors/salesforce
+  - value: simple‑salesforce (Python) – open‑source REST client for Salesforce; supports
+      CRUD and SOQL/SOSL; commonly used to automate investigations and account actions
+      in scripts.
+    reference: https://github.com/simple-salesforce/simple-salesforce
+  - value: jsforce (Node.js) – open‑source Salesforce API library (REST, Bulk, Tooling,
+      Metadata, SOAP); enables incident automation playbooks and scripts in JavaScript.
+    reference: https://www.npmjs.com/package/jsforce
+  - value: “The Freezer” Visualforce/JS (open source gist) – example UI/script that
+      queries UserLogin and sets IsFrozen to freeze/defrost users in bulk.
+    reference: https://gist.github.com/keirbowden/7292906
+  - value: Apex bulk freeze/unfreeze scripts (open source gists) – Execute Anonymous
+      samples that select UserLogin records and set IsFrozen in batches for rapid
+      lockout.
+    reference: https://gist.github.com/Katulka/016811a6eca7b700184a3e3a32d71587
+  documentation_links:
+  - https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-revoking-tokens.html
+  - https://developer.salesforce.com/blogs/2011/11/revoking-oauth-2-0-access-tokens-and-refresh-tokens
+  - https://salesforce.stackexchange.com/questions/251735/freezing-and-de-activating-a-salesforce-service-cloud-user-account-through-the-rest-api
+  - https://salesforce.stackexchange.com/questions/250005/freeze-user-who-is-logged-in
+  - https://manualzz.com/doc/o/px5vt/set-up-and-maintain-your-salesforce-organization-session-security
+  - https://docs.splunk.com/Documentation/AddOns/latest/Salesforce/Configureinputsv2monitor
+  - https://xsoar.pan.dev/docs/reference/integrations/salesforce-v2
+  - https://github.com/splunk-soar-connectors/salesforce
+  - https://developer.salesforce.com/blogs/2024/04/accessing-object-data-with-salesforce-platform-apis
+  - https://www.npmjs.com/package/jsforce

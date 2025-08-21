@@ -1,0 +1,285 @@
+identity_and_access:
+  sso_support:
+    value: yes - SAML 2.0 SSO (both SP-initiated and IdP-initiated). Preconfigured
+      IdPs include Okta, Ping Identity, OneLogin, Google Workspace, etc.; requires
+      SAML assertions with email NameID and signed SAML response.
+    reference: https://help.dropbox.com/security/supported-identity-providers
+  sso_license_level_requirement:
+    value: SSO available for Dropbox Advanced, Business Plus, and Enterprise team
+      plans.
+    reference: https://help.dropbox.com/security/sso-admin
+  scim_support:
+    value: no - Dropbox does not expose a public SCIM (v2) endpoint; provisioning
+      is via Dropbox Business API or partner connectors.
+    reference: https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/Does-Dropbox-business-supports-SCIM/td-p/627063
+  scim_licensing_level_requirement:
+    value: not applicable (no public SCIM).
+    reference: https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/Does-Dropbox-business-supports-SCIM/td-p/627063
+  scim_authentication_mechanisms:
+    value: not applicable (no public SCIM).
+    reference: https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/Does-Dropbox-business-supports-SCIM/td-p/627063
+  scim_authentication_acquisition_steps:
+    value: not applicable (no public SCIM).
+    reference: https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/Does-Dropbox-business-supports-SCIM/td-p/627063
+  user_management_api_support:
+    value: 'yes - Dropbox Business API (team endpoints) supports user lifecycle: list
+      (/2/team/members/list), bulk invite (/2/team/members/add with new_members array
+      and send_welcome_email), suspend/unsuspend, remove, recover, and profile updates;
+      groups and group membership management.'
+    reference: https://developers.dropbox.com/dbx-team-administration-guide
+  user_management_api_licensing_level:
+    value: API access documented for Dropbox Standard, Advanced, and Enterprise teams
+      (API rate limits and data transport limits apply).
+    reference: https://help.dropbox.com/plans/large-deployments
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 bearer tokens. Supports team tokens and user tokens; team apps
+      can act on members via Dropbox-API-Select-User and on admins via Dropbox-API-Select-Admin
+      headers.
+    reference: https://www.dropbox.com/developers/reference/auth-types
+  user_management_api_authentication_acquisition_steps:
+    value: '1) Register an app in the Dropbox App Console and configure required scopes;
+      2) Implement OAuth 2.0 authorization (code or PKCE), sending users/admins to
+      https://www.dropbox.com/oauth2/authorize; 3) Exchange code at https://api.dropboxapi.com/oauth2/token
+      to obtain access/refresh tokens; 4) Call Business API endpoints with Authorization:
+      Bearer <token> (and Select-User/Admin headers as needed).'
+    reference: https://developers.dropbox.com/oauth-guide
+  seat_costs:
+  - license_level: Standard — listed pricing page (example shown with current promotion
+      on page).
+    active:
+      value: yes — active users consume a license.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+    suspended_disabled:
+      value: yes — suspended users continue to occupy a user license.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+    archived:
+      value: not applicable — Dropbox user lifecycle states are invited, active, suspended,
+        deleted, disconnected (no 'archived' state documented).
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+  - license_level: Advanced — pricing shown on plans comparison page.
+    active:
+      value: yes — active users consume a license.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+    suspended_disabled:
+      value: yes — suspended users continue to occupy a user license.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+    archived:
+      value: not applicable — no 'archived' user state documented.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+  - license_level: Enterprise — contact sales pricing; plan comparison page lists
+      features.
+    active:
+      value: yes — active users consume a license.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+    suspended_disabled:
+      value: yes — suspended users continue to occupy a user license.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+    archived:
+      value: not applicable — no 'archived' user state documented.
+      reference: https://developers.dropbox.com/dbx-team-administration-guide
+  lifecycle_options:
+  - invited
+  - active
+  - suspended
+  - deleted
+  - disconnected
+  rbac_support:
+    value: yes — tiered admin roles (team, user management, support, billing, content,
+      compliance, reporting, security) and company-managed groups for access control.
+    reference: https://help.dropbox.com/security/change-admin-rights
+  rbac_api_assignment:
+    value: yes — admin role assignment via API (e.g., /2/team/members/set_admin_permissions);
+      group CRUD and membership via /2/team/groups/*.
+    reference: https://www.dropbox.com/developers/reference/migration-guide
+  documentation_links:
+  - https://help.dropbox.com/security/sso-admin
+  - https://help.dropbox.com/security/supported-identity-providers
+  - https://help.dropbox.com/integrations/microsoft-azure-ad
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/dropboxforbusiness-provisioning-tutorial
+  - https://help.dropbox.com/integrations/google-cloud-identity
+  - https://docs.pingidentity.com/r/en-us/configuration_guides/config_saml_dropbox_pingfed
+  - https://docs.pingidentity.com/integrations/dropbox/pf_dropbox_connector.html
+  - https://developers.dropbox.com/dbx-team-administration-guide
+  - https://developers.dropbox.com/oauth-guide
+  - https://www.dropbox.com/developers/reference/auth-types
+  - https://www.dropbox.com/developers/reference/events-migration-guide
+  - https://help.dropbox.com/plans/large-deployments
+  - https://github.com/dropbox/DropboxBusinessAdminTool
+  - https://github.com/watermint/toolbox/blob/main/docs/commands/dropbox-team-member-batch-suspend.md
+  - https://saml-doc.okta.com/Provisioning_Docs/Dropbox_Business_Provisioning.html
+  - https://www.dropboxforum.com/discussions/101000014/team-logget-events-v2-doesnt-bring-events-of-event-type-file-add/785945
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Login events are present in the team audit log with event types such
+        as login_success, login_fail, and logout; events include normalized fields
+        (timestamp, event_category=logins, event_type, actor, origin, etc.) as defined
+        for team_log/get_events v2.
+      reference: https://www.dropbox.com/developers/reference/events-migration-guide
+    role_assignment:
+      value: Admin role assignments are logged under members with event type member_change_admin_role;
+        membership status changes (invite/join/suspend/unsuspend/leave/recover) are
+        covered by member_change_status.
+      reference: https://www.dropbox.com/developers/reference/events-migration-guide
+    api_call:
+      value: There is no separate API-request log stream; actions performed via the
+        API appear in the audit log and are attributed with actor.type=application
+        and origin fields indicating the API client when actions are executed programmatically.
+      reference: https://www.dropbox.com/developers/reference/events-migration-guide
+    data_export:
+      value: File download activity is captured (event_type file_download under event_category
+        file_operations), which records downloads of files/folders as part of the
+        audit log schema.
+      reference: https://dropbox-sdk-python.readthedocs.io/en/latest/api/team_log.html
+    configuration_change:
+      value: Configuration and settings changes are logged under categories including
+        team_policies (e.g., sso_change_policy, tfa_change_policy, web_sessions_change_*),
+        sso (login/logout URL and cert changes), and related administrative actions.
+      reference: https://www.dropbox.com/developers/reference/events-migration-guide
+    user_account_creation:
+      value: Team membership lifecycle events (invites, joins, removals, suspensions,
+        recoveries) are logged under members via the member_change_status event type
+        with actor/context information.
+      reference: https://www.dropbox.com/developers/reference/events-migration-guide
+    security_policy_change:
+      value: Security policy changes (e.g., two‑factor auth policy, SSO policy, sharing/link
+        policies, device approvals, data placement restriction) are logged under team_policies
+        with specific event types like tfa_change_policy and sso_change_policy.
+      reference: https://www.dropbox.com/developers/reference/events-migration-guide
+  event_logs_licensing_level:
+    value: File-level audit logging (file_operations such as adds/edits/moves/deletes/downloads)
+      requires higher tiers; Dropbox Help notes “File operations” appear in team activity
+      reports only for Business Plus, Advanced, and Enterprise plans. Standard still
+      includes other categories (e.g., logins, apps, members, sharing, etc.).
+    reference: https://help.dropbox.com/account-access/view-activity
+  monitoring_products:
+  - value: Sumo Logic Dropbox integration (Cloud‑to‑Cloud Source) ingests Dropbox
+      Team events via API and provides dashboards for logins, devices/sessions, file
+      operations, admin actions; includes sample JSON and uses team_log events.
+    reference: https://help.sumologic.com/docs/integrations/saas-cloud/dropbox/
+  - value: Exabeam Dropbox Business Cloud Connector pulls audit events from the get_events
+      API (OAuth2; scopes include events.read, team_data.member, etc.) and maps access/admin/file/security
+      events.
+    reference: dubious claim, hallucinated reference
+  - value: Splunk “Dropbox Business App for Splunk” (archived) collected team_log/get_events
+      data and provided CIM‑mapped dashboards for authentication, sharing, devices,
+      apps, and security activity.
+    reference: https://apps.splunk.com/app/2755/
+  - value: Panther SIEM supports Dropbox audit logs by querying the Dropbox Business
+      API; use cases include monitoring sign‑ins, admin role changes, file/folder
+      actions, and sharing/link activity.
+    reference: https://docs.panther.com/data-onboarding/supported-logs/dropbox
+  ingestion_methods:
+  - value: API polling of team audit logs using /2/team_log/get_events with time filters
+      and cursor‑based pagination via /2/team_log/get_events/continue for near‑real‑time
+      updates.
+    reference: https://developers.dropbox.com/detecting-changes-guide
+  - value: Admin console export of activity reports as CSV to a “Dropbox Business
+      reports” folder (filter by date/activity/people/content); covers many categories
+      including logins, members, sharing, team policies; file operations available
+      per plan.
+    reference: https://help.dropbox.com/account-access/view-activity
+  - value: Direct SIEM/cloud collector integrations that call the Dropbox Business
+      API (e.g., Sumo Logic Cloud‑to‑Cloud Dropbox Source) to ingest Team events without
+      local collectors.
+    reference: https://help.sumologic.com/docs/integrations/saas-cloud/dropbox/
+  log_export_options:
+    tools_connectors:
+      value: Export options include HTTP API endpoints (team_log/get_events and …/continue)
+        for programmatic retrieval and CSV report generation from the Admin console;
+        documentation states audit logs can be downloaded in CSV or integrated into
+        SIEMs via the Dropbox Business API.
+      reference: https://www.dropbox.com/business/trust/security/control-visibility
+  documentation_links:
+  - https://www.dropbox.com/developers/reference/events-migration-guide
+  - https://developers.dropbox.com/detecting-changes-guide
+  - https://help.dropbox.com/account-access/view-activity
+  - https://help.sumologic.com/docs/integrations/saas-cloud/dropbox/
+  - https://docs.exabeam.com/en/cloud-connectors/all/configuration/126644-dropbox-business-cloud-connector.html
+  - https://apps.splunk.com/app/2755/
+  - https://docs.panther.com/data-onboarding/supported-logs/dropbox
+  - https://dropbox-sdk-python.readthedocs.io/en/latest/api/team_log.html
+  - https://www.dropbox.com/developers/2018/05/new-team-events-api-available-now/
+  - https://dropbox.tech/developers/converting-the-dropbox-activity-log-into-common-event-framework-
+  - https://www.dropbox.com/business/plans-comparison
+  - https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/If-get-values-has-team-file-events-is-disabled-how-to-enable-so/td-p/560812
+  - https://www.dropboxforum.com/discussions/101000014/team-logget-events-v2-doesnt-bring-events-of-event-type-file-add/785945
+  - https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/Inquiry-on-team-log-get-events-Endpoint-Behavior-with-Empty/td-p/751325
+  - https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/team-log-get-events-sometimes-missing-the-last-event/td-p/558219
+  - https://www.dropboxforum.com/discussions/101001020/can-we-have-our-dropbox-team-audits-streamed-to-microsoft-sentinel/831581
+  - https://github.com/watermint/toolbox/blob/main/docs/commands/dropbox-team-activity-event.md
+  - https://github.com/dropbox/dropbox-sdk-python
+  - https://www.dropbox.com/developers/documentation/javascript
+incident_response:
+  suspend_user_api:
+    value: Dropbox Business API supports suspending and unsuspending team members
+      via /2/team/members/suspend and /2/team/members/unsuspend; suspension can optionally
+      wipe data from linked devices.
+    reference: https://developers.dropbox.com/dbx-team-administration-guide
+  invalidate_sessions_api:
+    value: Uncertain — API exposes devices/session listing for investigation (/2/team/devices/list_member_devices
+      and /2/team/devices/list_members_devices) but a documented endpoint to terminate
+      specific or all web/device sessions via API was not found; admins can terminate
+      sessions and wipe devices via the console.
+    reference: https://developers.dropbox.com/dbx-team-administration-guide
+  revoke_api_key_api:
+    value: Individual OAuth tokens (short‑lived access tokens and their corresponding
+      refresh tokens) can be programmatically revoked using the tokenRevoke method
+      (/2/auth/token/revoke) — revoking the presented short‑lived access token and
+      associated refresh token(s).
+    reference: https://www.dropboxforum.com/t5/Dropbox-API-Support-Feedback/Revoke-credential/td-p/527376
+  user_toggle_api:
+    value: Yes — toggling a user to Suspended (via API or admin console) disables
+      access; suspended accounts are logged out of all devices and can be unsuspended
+      later.
+    reference: https://help.dropbox.com/security/suspend-member
+  user_status_api:
+    value: Yes — /2/team/members/list (and get_info) returns each member’s status
+      (active, suspended, invited, removed), enabling programmatic checks of user
+      state.
+    reference: https://developers.dropbox.com/dbx-team-administration-guide
+  session_timeout_configuration:
+    value: Web Session Control lets admins configure Fixed session length (default
+      ~1 month; minimum 1 day) and Idle session length (10 minutes–48 hours) for dropbox.com
+      sessions; configured in Admin Console and does not affect desktop/mobile apps.
+    reference: https://learn.dropbox.com/video-library/what-is-web-session-control
+  known_automation_tools:
+  - value: Splunk App for Dropbox Business — SIEM ingestion using /2/team_log/get_events
+      with dashboards for logins, devices, apps, sharing, and security metrics.
+    reference: https://apps.splunk.com/app/2755/
+  - value: Cortex XSOAR “Dropbox Event Collector” — SOAR integration to authorize
+      and fetch Dropbox audit events, with commands like dropbox-get-events and an
+      auth flow for API v2.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/dropbox-events-collector
+  - value: Cortex XSOAR playbook “DropBox - Massive scale operations on files” — investigation/remediation
+      workflow for large downloads/alterations alerts (account and IP enrichment,
+      blocking, etc.).
+    reference: https://xsoar.pan.dev/docs/reference/playbooks/drop-box---massive-scale-operations-on-files
+  - value: Tines Dropbox actions — prebuilt actions to Suspend/Unsuspend members,
+      revoke web/desktop/mobile sessions, revoke linked app access, and enumerate
+      team members/devices via Dropbox API.
+    reference: https://www.tines.com/solutions/products/dropbox/
+  - value: Official Python SDK (dropbox on PyPI) — API client usable for investigative
+      enrichment and IR automations (e.g., suspend members, list events/devices).
+    reference: https://pypi.org/project/dropbox/
+  - value: Official JavaScript SDK (dropbox npm package) — API client for Node/JS
+      automations, includes team examples (e.g., listing team devices).
+    reference: https://www.npmjs.com/package/dropbox
+  - value: Dropbox Forensics Investigation Toolkit (GitHub) — investigative tooling
+      and Autopsy plugin for analyzing Dropbox artifacts on endpoints (config.dbx,
+      deleted.dbx, filecache.dbx).
+    reference: https://github.com/HoganRichardson/dropboxforensics
+  documentation_links:
+  - https://developers.dropbox.com/dbx-team-administration-guide
+  - https://developers.dropbox.com/detecting-changes-guide
+  - https://help.dropbox.com/security/web-session-control
+  - https://help.dropbox.com/security/suspend-member
+  - https://help.dropbox.com/security/device-list-remote-sign-out
+  - https://help.dropbox.com/integrations/third-party-apps
+  - https://www.dropboxforum.com/discussions/101000042/logs-integration/626272
+  - https://developers.dropbox.com/oauth-guide
+  - https://www.dropbox.com/developers/reference/migration-guide
+  - https://apps.splunk.com/app/2755/
+  - https://xsoar.pan.dev/docs/reference/integrations/dropbox-events-collector
+  - https://www.tines.com/solutions/products/dropbox/
+  - https://help.dropbox.com/delete-restore/remote-wipe

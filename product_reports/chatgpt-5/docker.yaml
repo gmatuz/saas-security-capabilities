@@ -1,0 +1,314 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 and Azure AD (OIDC); SP‑initiated only; JIT provisioning
+      supported
+    reference: https://docs.docker.com/security/for-admins/single-sign-on/
+  sso_license_level_requirement:
+    value: Docker Business
+    reference: https://docs.docker.com/security/for-admins/single-sign-on/
+  scim_support:
+    value: yes — SCIM 2.0 provisioning (create, update, de/rea‑activate users; group
+      mapping; role mapping)
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  scim_licensing_level_requirement:
+    value: Docker Business
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  scim_authentication_mechanisms:
+    value: Bearer API token (SCIM API Token) obtained from Admin Console; used by
+      IdP to authenticate to Docker’s SCIM endpoint
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  scim_authentication_acquisition_steps:
+    value: 1) Sign in to Docker Home; 2) Open Admin Console → SSO and SCIM; 3) In
+      your SSO connection, choose Setup SCIM; 4) Copy SCIM Base URL and API Token;
+      5) Paste into your IdP’s SCIM app configuration.
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  user_management_api_support:
+    value: 'yes — Docker Hub API supports lifecycle actions outside SCIM: bulk invites
+      (CSV/API), resend/cancel invites, add/remove members, manage teams and team
+      permissions'
+    reference: https://docs.docker.com/admin/organization/members/
+  user_management_api_licensing_level:
+    value: Organization management APIs apply to organizations (available to Docker
+      Team and Business subscribers/owners)
+    reference: https://docs.docker.com/admin/
+  user_management_api_authentication_mechanisms:
+    value: Bearer token for Hub API (via Authentication API or tokens); Organization/Personal
+      Access Tokens for repository‑scoped operations
+    reference: https://docs.docker.com/docker-hub/repos/manage/access/
+  user_management_api_authentication_acquisition_steps:
+    value: 'To get a token usable with API/CLI: 1) Sign in to Docker Home; 2) Account
+      settings → Personal access tokens; 3) Generate new token (set scopes/expiry);
+      4) Store the token; use as password in CLI or as Bearer token for APIs.'
+    reference: https://docs.docker.com/security/for-developers/access-tokens/
+  seat_costs:
+  - license_level: Team
+    active:
+      value: Billed per active user seat — $15/user/month (annual) or $16/user/month
+        (monthly) per pricing table
+      reference: https://www.docker.com/blog/docker-hub-image-retention-policy-delayed-and-subscription-updates/
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Business
+    active:
+      value: Billed per active user seat — $24/user/month (annual)
+      reference: https://www.docker.com/blog/docker-hub-image-retention-policy-delayed-and-subscription-updates/
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited (pending) — pending invitations occupy a seat
+  - member (active)
+  - removed from organization
+  - deactivated (SCIM)
+  - reactivated (SCIM)
+  rbac_support:
+    value: yes — organization roles (member, editor, owner), teams, and repository‑level
+      permissions
+    reference: https://docs.docker.com/security/for-admins/roles-and-permissions/
+  rbac_api_assignment:
+    value: yes — assign repo access via Teams/Repository Teams API; role assignment
+      via SCIM role mapping at provisioning time
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  documentation_links:
+  - https://docs.docker.com/security/for-admins/single-sign-on/
+  - https://docs.docker.com/enterprise/security/single-sign-on/connect/
+  - https://docs.docker.com/security/for-admins/single-sign-on/troubleshoot/
+  - https://docs.docker.com/security/for-admins/provisioning/scim/
+  - https://docs.docker.com/admin/organization/members/
+  - https://docs.docker.com/admin/organization/manage-a-team/
+  - https://docs.docker.com/security/for-admins/roles-and-permissions/
+  - https://docs.docker.com/admin/organization/activity-logs/
+  - https://docs.docker.com/enterprise/security/access-tokens/
+  - https://docs.docker.com/security/for-developers/access-tokens/
+  - https://docs.docker.com/docker-hub/repos/manage/access/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/docker-tutorial
+  - https://docs.docker.com/reference/api/hub/deprecated/
+  - https://docs.docker.com/admin/organization/orgs/
+  - https://docs.docker.com/security/for-admins/domain-audit/
+  - https://github.com/stormalf/pydockerhubapi
+  - https://github.com/RyanTheAllmighty/Docker-Hub-API
+  - https://github.com/shangteus/py-dockerhub
+  - https://learn.microsoft.com/en-us/answers/questions/1302555/i-cannot-provision-groups-on-azure-for-configuring
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Docker’s Admin Console provides a Desktop insights CSV export that includes
+        a “Last Logged-In Date” for each organization member (web login to Docker
+        Hub/Home). This is not a per-event audit stream but a periodic export field
+        indicating the most recent login date.
+      reference: https://docs.docker.com/admin/organization/insights/
+    role_assignment:
+      value: Docker Hub Activity logs record organization role and membership changes,
+        including events such as Member Role Changed, Team Member Added/Removed, and
+        Organization Member Added/Removed, allowing administrators to audit role assignments.
+      reference: https://docs.docker.com/admin/organization/activity-logs/
+    api_call:
+      value: Docker Engine exposes a real‑time events stream (docker system events
+        / docker events) that logs API-triggered actions across object types (e.g.,
+        container create/start/stop, image pull/push, network/volume create, daemon
+        reload). This serves as the primary operational audit feed from the daemon.
+      reference: https://docs.docker.com/reference/cli/docker/system/events/
+    data_export:
+      value: Container filesystem export actions are logged by the Docker Engine events
+        stream under the container “export” event, enabling detection of data export
+        operations from containers.
+      reference: https://docs.docker.com/reference/cli/docker/system/events/
+    configuration_change:
+      value: 'Administrative configuration changes are reflected in audit/event surfaces:
+        Docker Hub Activity logs include “Organization Settings Updated” and related
+        policy toggles; Docker Engine logs daemon-level changes via the “reload” event
+        and object “update” events in the events stream.'
+      reference: https://docs.docker.com/admin/organization/activity-logs/
+    user_account_creation:
+      value: 'Organization-level user onboarding is observable: the Admin Console
+        supports exporting a members CSV that includes an “Account Created” timestamp,
+        and Activity logs show Organization Member Added events.'
+      reference: https://docs.docker.com/admin/organization/members/
+    security_policy_change:
+      value: Security-relevant policy changes are captured in Docker Hub Activity
+        logs, including Policy created/updated/deleted, Enforce SSO, Enforce SCIM,
+        and SSO/SCIM connection modifications, providing auditable records of policy
+        state changes.
+      reference: https://docs.docker.com/admin/organization/activity-logs/
+  event_logs_licensing_level:
+    value: Access to Docker Hub Activity logs is available to organizations with Team
+      or Business subscriptions, with logs retained for three months (Docker advises
+      exporting regularly to preserve older data).
+    reference: https://docs.docker.com/admin/organization/activity-logs/
+  monitoring_products:
+  - value: Splunk integration via the official Docker Splunk logging driver, which
+      ships container stdout/stderr directly to Splunk HTTP Event Collector (HEC)
+      with configurable formats (inline/json/raw) and options (splunk-url, splunk-token).
+    reference: https://docs.docker.com/engine/logging/drivers/splunk/
+  - value: Graylog and other GELF-compatible SIEMs using Docker’s GELF logging driver;
+      supports UDP/TCP endpoints and structured fields suitable for SIEM ingestion.
+    reference: https://docs.docker.com/engine/logging/drivers/gelf/
+  - value: Fluentd-based pipelines using the Docker Fluentd logging driver to send
+      container logs to a local or remote Fluentd daemon for routing to SIEM/data
+      lakes.
+    reference: https://docs.docker.com/engine/logging/drivers/fluentd/
+  - value: Elastic integration using Filebeat Docker autodiscover; Filebeat watches
+      Docker start/stop events and harvests container logs with container metadata
+      for Elastic SIEM.
+    reference: https://www.elastic.co/guide/en/beats/filebeat/current/configuration-autodiscover.html
+  - value: Datadog Docker integration collects Docker events (e.g., die/oom/pause/restart)
+      and metrics, enabling monitoring of Docker operational events in Datadog.
+    reference: https://docs.datadoghq.com/integrations/docker/
+  - value: Wazuh’s Docker listener module ingests Docker Engine events to detect container
+      lifecycle and engine interactions, supporting security monitoring use cases.
+    reference: https://documentation.wazuh.com/current/user-manual/capabilities/container-security/monitoring-docker.html
+  - value: Splunk Connect for Docker (Docker logging plugin) sends container logs
+      to Splunk HEC as an alternative to the built-in driver, configurable via daemon.json
+      or per-container options.
+    reference: https://github.com/splunk/docker-logging-plugin
+  - value: Docker SDK for Python enables programmatic streaming of the Docker events
+      API (client.events) and retrieval of container logs, useful for building custom
+      security collectors.
+    reference: https://docker-py.readthedocs.io/en/stable/client.html
+  - value: Dockerode (Node.js) provides access to the Docker Remote API, including
+      event streaming (getEvents) and container log retrieval, enabling custom collectors
+      or forwarders.
+    reference: https://www.npmjs.com/package/dockerode
+  ingestion_methods:
+  - value: Stream operational audit events from the Docker Engine using “docker system
+      events” (CLI) or the equivalent API; supports filtering by type/event and JSON
+      output for ingestion.
+    reference: https://docs.docker.com/reference/cli/docker/system/events/
+  - value: Configure Splunk logging driver to forward container stdout/stderr to Splunk
+      HEC over HTTPS with token-based authentication and selectable message formats.
+    reference: https://docs.docker.com/engine/logging/drivers/splunk/
+  - value: Use the GELF logging driver to emit structured logs to Graylog/Logstash/Fluentd
+      via UDP/TCP, including tag/labels/env enrichment.
+    reference: https://docs.docker.com/engine/logging/drivers/gelf/
+  - value: Use the Fluentd logging driver to forward logs to a Fluentd daemon (default
+      localhost:24224) which can route to multiple SIEM/backends.
+    reference: https://docs.docker.com/engine/logging/drivers/fluentd/
+  - value: Ship logs to Amazon CloudWatch via the awslogs logging driver for downstream
+      SIEM ingestion or cross-account forwarding.
+    reference: https://docs.docker.com/engine/logging/drivers/awslogs/
+  - value: On Windows Server, Docker Engine writes to the Windows Application event
+      log; collect via native Windows event log collectors/agents to your SIEM.
+    reference: https://learn.microsoft.com/de-de/virtualization/windowscontainers/troubleshooting
+  - value: Filebeat Docker autodiscover harvests container logs and enriches with
+      container metadata, launching inputs dynamically based on Docker events/labels.
+    reference: https://www.elastic.co/guide/en/beats/filebeat/current/configuration-autodiscover.html
+  - value: Wazuh docker-listener module reads Docker Engine events on the host and
+      forwards security-relevant events to the Wazuh manager for alerting.
+    reference: https://documentation.wazuh.com/current/proof-of-concept-guide/monitoring-docker.html
+  - value: Docker Hub audit logs can be retrieved via the documented auditlogs/{account}
+      API endpoints (subject to auth/plan), enabling programmatic ingestion to SIEMs.
+    reference: https://www.postman.com/dockerdev/docker-hub/folder/psrh2cj/auditlogs-account
+  log_export_options:
+    tools_connectors:
+      value: Docker supports multiple built‑in logging drivers (json-file/local by
+        default) and remote drivers (splunk, gelf, fluentd, awslogs, syslog, journald)
+        configurable per-daemon (daemon.json) or per-container; these provide the
+        primary connectors for exporting container logs to external systems.
+      reference: https://docs.docker.com/engine/logging/configure/
+  documentation_links:
+  - https://docs.docker.com/admin/organization/activity-logs/
+  - https://docs.docker.com/reference/cli/docker/system/events/
+  - https://docs.docker.com/engine/logging/configure/
+  - https://docs.docker.com/engine/logging/drivers/splunk/
+  - https://docs.docker.com/engine/logging/drivers/gelf/
+  - https://docs.docker.com/engine/logging/drivers/fluentd/
+  - https://docs.docker.com/engine/logging/drivers/awslogs/
+  - https://docs.docker.com/engine/logging/
+  - https://docs.docker.com/admin/organization/members/
+  - https://docs.docker.com/admin/organization/insights/
+  - https://docs.docker.com/reference/api/hub/changelog/
+  - https://www.elastic.co/guide/en/beats/filebeat/current/configuration-autodiscover.html
+  - https://docs.datadoghq.com/integrations/docker/
+  - https://documentation.wazuh.com/current/user-manual/capabilities/container-security/monitoring-docker.html
+  - https://documentation.wazuh.com/current/proof-of-concept-guide/monitoring-docker.html
+  - https://www.postman.com/dockerdev/docker-hub/folder/psrh2cj/auditlogs-account
+  - https://github.com/splunk/docker-logging-plugin
+  - https://docker-py.readthedocs.io/en/stable/client.html
+incident_response:
+  suspend_user_api:
+    value: 'Supported via SCIM for Docker Business: de‑provision (disable) a user
+      by setting the SCIM user attribute active=false in your IdP; SCIM then deactivates
+      and removes the user from the Docker organization.'
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  invalidate_sessions_api:
+    value: Uncertain — no documented Docker Hub API to invalidate a user's web/CLI
+      sessions. Sessions expire by policy (Docker Hub/Home ~24h; Docker Desktop 90
+      days or 30 days inactivity). Session lifetime can be influenced via SAML 'Docker
+      session minutes' attribute in SSO. For immediate containment, revoke/deactivate
+      access tokens.
+    reference: https://docs.docker.com/security/faqs/general/
+  revoke_api_key_api:
+    value: Organization access tokens (OATs) can be deactivated or deleted by org/company
+      owners (Team/Business). Page also confirms Personal Access Tokens (PATs) exist
+      and must be used with certain products; use PAT management for users. Use these
+      to revoke credentials during incident response.
+    reference: https://docs.docker.com/enterprise/security/access-tokens/
+  user_toggle_api:
+    value: 'Supported via SCIM (Business): toggle a user''s ability to access by setting
+      the SCIM ''active'' attribute true/false; deactivation removes them from the
+      org, re-activation re-enables access.'
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  user_status_api:
+    value: 'Supported via SCIM (Business): the SCIM user object includes the ''active''
+      attribute to indicate if a user is enabled or disabled; SCIM can also re-activate
+      users.'
+    reference: https://docs.docker.com/security/for-admins/provisioning/scim/
+  session_timeout_configuration:
+    value: 'Docker manages sessions with tokens: Docker Hub/Home sessions ~24h; Docker
+      Desktop signs out after 90 days or 30 days of inactivity. When using SSO, you
+      can configure session timeout via a SAML attribute (''Docker session minutes'')
+      in your IdP.'
+    reference: https://docs.docker.com/security/faqs/general/
+  known_automation_tools:
+  - value: 'Docker Hub API (Service APIs): recent additions include organization access
+      token (OAT) management and access to audit logs for OATs — enables programmatic
+      token lifecycle control and audit retrieval for integration/automation.'
+    reference: https://docs.docker.com/reference/api/hub/changelog/
+  - value: 'Docker Hub experimental CLI (hub-tool): CLI to interact with Docker Hub
+      for maintenance/automation tasks (e.g., image/repo operations) usable in incident
+      workflows.'
+    reference: https://github.com/docker/hub-tool
+  - value: 'pydockerhubapi (Python): example client invoking Docker Hub endpoints
+      for access tokens, including listing and deleting tokens — usable to automate
+      credential revocation.'
+    reference: https://github.com/stormalf/pydockerhubapi
+  - value: 'docker-hub-api (Node.js): NPM package wrapping Docker Hub endpoints (login,
+      logout, collaborators, repo/user queries) — usable in SOAR custom actions.'
+    reference: https://www.npmjs.com/package/docker-hub-api
+  - value: Manage organization members via API (invites/resend/cancel, add/remove
+      members/teams) described in Docker docs with explicit note to use 'Bulk create
+      invites' and related Hub API endpoints — enables user lifecycle automation during
+      incident response.
+    reference: https://docs.docker.com/admin/organization/members/
+  - value: 'Activity logs (Team/Business): organization/repository audit trail (member
+      added/removed, role changes, token created/updated/deleted, SSO/SCIM events);
+      retain 3 months — supports investigation and can be exported manually.'
+    reference: https://docs.docker.com/admin/organization/activity-logs/
+  - value: 'Rapid7 InsightConnect ''Docker Engine'' plugin (listed among free/open-source
+      service plugins): enables automated actions on Docker containers as part of
+      response workflows.'
+    reference: https://docs.rapid7.com/insightconnect/free-and-open-source-service-plugins/
+  - value: 'Splunk Connect for Docker (logging plugin): ships container logs directly
+      to Splunk HEC; useful to centralize runtime evidence alongside account/audit
+      data.'
+    reference: https://github.com/splunk/docker-logging-plugin
+  documentation_links:
+  - https://docs.docker.com/security/for-admins/provisioning/scim/
+  - https://docs.docker.com/admin/organization/activity-logs/
+  - https://docs.docker.com/security/faqs/general/
+  - https://docs.docker.com/enterprise/security/access-tokens/
+  - https://docs.docker.com/security/for-developers/access-tokens/
+  - https://docs.docker.com/admin/organization/members/
+  - https://docs.docker.com/admin/company/users/
+  - https://docs.docker.com/docker-hub/repos/manage/access/
+  - https://docs.docker.com/reference/api/hub/changelog/
+  - https://docs.docker.com/reference/api/hub/deprecated/
+  - https://docs.docker.com/admin/organization/activity-logs/
+  - https://docs.docker.com/docker-hub/release-notes/

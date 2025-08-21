@@ -1,194 +1,280 @@
-user_management:
-  sso_support:
-    value: Notion supports SAML-based Single Sign-On (SSO). It can be configured with
-      various identity providers like Okta, Google, Azure AD, and OneLogin.
-    reference: https://www.notion.so/help/saml-sso-configuration
-  sso_licensing_level_requirement:
-    value: Business Plan or Enterprise Plan.
-    reference: https://www.notion.so/pricing
-  scim_support:
-    value: 'yes'
-    reference: https://www.notion.so/help/provision-users-and-groups-with-scim
-  scim_licensing_level_requirement:
-    value: Enterprise Plan.
-    reference: https://www.notion.so/help/provision-users-and-groups-with-scim
-  scim_authentication_mechanisms:
-    value: API key
-    reference: https://www.notion.so/help/set-up-idp-for-scim
-  scim_authentication_acquisition_steps: "1. The user must be an Organization Owner\
-    \ in a Notion Enterprise Plan workspace.\n2. Navigate to 'Settings & Members'\
-    \ in the left-hand sidebar.\n3. In the new window, select 'Identity & provisioning'\
-    \ from the sidebar.\n4. In the 'SCIM provisioning' section, click '+ Add token'\
-    \ to generate a new SCIM API token (also referred to as a Secret Token or Bearer\
-    \ Token).\n5. Copy the generated token. This token is required to configure the\
-    \ connection in the Identity Provider (e.g., Okta, Azure AD)."
-  user_management_api_support:
-    value: 'yes'
-    reference: https://developers.notion.com/reference/user
-  user_management_api_licensing_level:
-    value: Available on all plans, including the Free plan. Advanced features or higher
-      rate limits may require a paid plan.
-    reference: https://www.cloudeagle.ai/blog/notion-pricing-guide
-  user_management_api_authentication_mechanisms:
-    value: Authentication token
-    reference: https://developers.notion.com/docs/authorization
-  user_management_api_authentication_acquisition_steps: "1. Go to your Notion integrations\
-    \ page at https://www.notion.so/my-integrations.\n2. Click the '+ New integration'\
-    \ button.\n3. Give your integration a name and associate it with a workspace.\n\
-    4. Set the necessary 'Content Capabilities' and ensure 'User Capabilities' includes\
-    \ 'Read user information including email addresses'.\n5. Click 'Submit' to create\
-    \ the integration.\n6. On the next screen, navigate to the 'Secrets' tab.\n7. Click\
-    \ 'Show' and copy the 'Internal Integration Token'. This token acts as the API\
-    \ key and is used in the 'Authorization: Bearer <token>' header for API requests."
-  seat_costs:
-  - license_level: Free
-    active:
-      value: 'yes'
-      reference: https://www.notion.so/pricing
-    suspended_disabled:
-      value: n/a
-      reference: https://www.notion.so/help/add-and-remove-members
-    archived:
-      value: n/a
-      reference: https://www.notion.so/help/add-and-remove-members
-  - license_level: Plus
-    active:
-      value: 'yes'
-      reference: https://www.notion.so/pricing
-    suspended_disabled:
-      value: 'no'
-      reference: https://www.notion.so/help/add-and-remove-members
-    archived:
-      value: 'no'
-      reference: https://www.notion.so/help/add-and-remove-members
-  - license_level: Business
-    active:
-      value: 'yes'
-      reference: https://www.notion.so/pricing
-    suspended_disabled:
-      value: 'no'
-      reference: https://www.notion.so/help/add-and-remove-members
-    archived:
-      value: 'no'
-      reference: https://www.notion.so/help/add-and-remove-members
-  - license_level: Enterprise
-    active:
-      value: 'yes'
-      reference: https://www.notion.so/pricing
-    suspended_disabled:
-      value: 'no'
-      reference: https://www.notion.so/help/provision-users-and-groups-with-scim
-    archived:
-      value: 'no'
-      reference: https://www.notion.so/help/provision-users-and-groups-with-scim
-  lifecycle_options:
-  - Create
-  - Read (Retrieve)
-  - Deactivate (Remove/Deprovision)
-  - Update
-  rbac_support:
-    value: 'yes'
-    reference: https://www.notion.so/help/user-roles-and-permissions
-  rbac_api_assignment:
-    value: Group and user membership can be managed via the SCIM API for Enterprise
-      Plan customers. The standard User Management API allows listing users but does
-      not support programmatic role or group assignment.
-    reference: https://www.notion.so/help/provision-users-and-groups-with-scim
+identity_and_access:
   documentation_links:
-  - https://www.notion.so/help/saml-sso-configuration
-  - https://www.notion.so/help/provision-users-and-groups-with-scim
-  - https://www.notion.so/help/set-up-idp-for-scim
-  - https://developers.notion.com/
-  - https://developers.notion.com/reference/user
-  - https://developers.notion.com/docs/authorization
+  - https://developers.notion.com/reference/authentication
+  - https://developers.notion.com/reference/create-a-token
   - https://www.notion.so/pricing
-  - https://www.notion.so/help/add-and-remove-members
-  - https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/notion-provisioning-tutorial
-  - https://www.okta.com/integrations/notion/
+  lifecycle_options:
+  - Active
+  - Deactivated (removed from workspace via SCIM)
+  - Invited (Just-in-Time provisioning allows automatic joining as member)
+  rbac_api_assignment:
+    reference: https://notionmastery.com/notion-member-onboarding-with-scim/
+    value: yes - SCIM supports provisioning groups and group memberships, which allows
+      for managing user access to Notion teamspaces and content via groups defined
+      in the Identity Provider. The Notion API allows for sharing pages/databases
+      with integrations, which could be part of a bespoke RBAC solution.
+  rbac_support:
+    reference: https://www.windmill.dev/
+    value: yes - Notion supports granular admin roles (Enterprise Plan), advanced
+      teamspace permissions (Enterprise Plan), and private teamspaces (Business Plan
+      and Enterprise Plan). Permissions can be set at the page level. SCIM can provision
+      groups and group memberships.
+  scim_authentication_acquisition_steps:
+    reference: https://www.notion.com/help/set-up-identity-provider-for-scim
+    value: 1. Log in to Notion as a Workspace Owner. 2. Go to Settings & Members ->
+      Identity & Provisioning tab. 3. Scroll down to the SCIM provisioning section.
+      4. Select '+ Add token' to generate a new token or copy an existing one. This
+      token will be used as the Secret Token in your Identity Provider's SCIM configuration.
+  scim_authentication_mechanisms:
+    reference: https://www.notion.com/help/set-up-identity-provider-for-scim
+    value: API tokens (Bearer Tokens)
+  scim_licensing_level_requirement:
+    reference: https://www.notion.com/help/provision-users-and-groups-with-scim
+    value: Enterprise Plan
+  scim_support:
+    reference: https://www.notion.com/help/provision-users-and-groups-with-scim
+    value: yes - SCIM V2. Supports creating users, updating user attributes (if the
+      user has a verified email domain), deactivating users, and pushing groups. Integrations
+      available for Microsoft Entra ID, Okta, Google, and OneLogin. SCIM API includes
+      endpoints for managing users (/Users) and (/Groups).
+  seat_costs:
+  - archived:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+    license_level: Free Plan
+    suspended_disabled:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+  - archived:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+    license_level: Plus Plan ($10 per user/month annually, $12 per user/month monthly)
+    suspended_disabled:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+  - archived:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+    license_level: Business Plan ($15 per user/month annually, $18 per user/month
+      monthly)
+    suspended_disabled:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+  - archived:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+    license_level: Enterprise Plan (Custom Pricing)
+    suspended_disabled:
+      reference: https://www.notion.com/help/managed-users-dashboard
+      value: uncertain
+  sso_license_level_requirement:
+    reference: https://www.notion.com/help/saml-sso-configuration
+    value: Business Plan or Enterprise Plan
+  sso_support:
+    reference: https://www.notion.com/help/saml-sso-configuration
+    value: yes - SAML 2.0. Supports IdP-initiated and SP-initiated SSO with identity
+      providers like Microsoft Entra ID (formerly Azure AD), Okta, Google, OneLogin,
+      and Practice Protect. Workspace owners can bypass SAML SSO with email and password
+      for recovery purposes. Guests are not supported with SAML SSO.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://automation-docs.rea.pro/integrations/builtin/credentials/notion/
+    value: 'For Internal Integration Token (API Key): 1. Log in to Notion as a Workspace
+      Owner. 2. Access ''My integrations'' in the Notion developer portal. 3. Click
+      ''+ New integration''. 4. Name the integration and select an associated workspace.
+      5. Click ''Submit''. 6. On the integration''s page, go to the ''Secrets'' section,
+      click ''Show'' and copy the token. 7. The integration then needs to be shared
+      with specific pages or databases to access their content. For Public OAuth Integration:
+      1. Create a new integration on the Notion developers page to obtain a client
+      ID and client secret. 2. Implement an OAuth 2.0 flow: redirect users to Notion''s
+      authorization page, handle the callback to receive an authorization code, and
+      exchange this code for an access token using a POST request to `https://api.notion.com/v1/oauth/token`
+      with Basic Authentication.'
+  user_management_api_authentication_mechanisms:
+    reference: hallucinated link doublecheck content
+    value: Bearer Tokens (API keys) for internal integrations, OAuth 2.0 for public
+      integrations. Basic Authentication is used when exchanging an OAuth code for
+      an access token.
+  user_management_api_licensing_level:
+    reference: hallucinated link doublecheck content
+    value: uncertain - The Notion API itself is available for use by anyone, but access
+      to certain features or the ability to create integrations might be tied to a
+      Notion account. While the API itself is not explicitly tied to a paid plan for
+      basic usage, leveraging it for robust user management might require functionalities
+      available on paid plans, particularly the Enterprise plan for SCIM-based provisioning.
+  user_management_api_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Notion API is not strictly a user management API, but allows for
+      creating and managing 'integrations' which can interact with Notion data. These
+      integrations can be used to read and write content, and a user creating an integration
+      must grant it specific permissions. The API can create/retrieve pages and databases
+      and interact with data within them, which can be leveraged for user-related
+      actions indirectly.
 security_monitoring:
+  documentation_links:
+  - https://www.notion.com/help/add-security-and-compliance-integrations
+  - https://www.notion.com/help/security-and-privacy
+  - https://splunkbase.splunk.com/app/6931
+  - https://www.notion.com/pricing
   event_logs:
-    user_login:
-      value: "User login and logout events are captured in the Audit Log under 'Account events'. The log includes the user, timestamp, and IP address."
-      reference: "https://www.notion.so/help/audit-log"
-    role_assignment:
-      value: "The 'Member role updated' event is logged in the Audit Log. This captures changes to a user's role within the workspace (e.g., from Member to Workspace Owner)."
-      reference: "https://www.notion.so/help/audit-log"
     api_call:
-      value: "High-level integration events like 'Integration added to approved connections' are logged. However, a detailed log of every individual API call made by a bot or integration is not available in the native Audit Log. Third-party proxy tools can be used for monitoring."
-      reference: "https://www.apideck.com/integrations/notion/monitor"
-    data_export:
-      value: "The 'Workspace content exported' event is logged when a user exports content from a page or the entire workspace."
-      reference: "https://www.notion.so/help/audit-log"
+      reference: https://www.notion.com/help/add-security-and-compliance-integrations
+      value: Notion's SIEM integrations can receive webhook events that correspond
+        to audit log events. While a direct 'API call' event schema isn't explicitly
+        detailed, the existence of API keys for SIEM integrations and the use of HTTP
+        Request nodes in tools like n8n suggest that API interactions are part of
+        the logged activities.
     configuration_change:
-      value: "Numerous workspace configuration changes are logged, including 'Workspace name changed', 'Workspace icon changed', 'Workspace domain changed', and toggling security settings like 'Public page sharing toggled'."
-      reference: "https://www.notion.so/help/audit-log"
-    user_account_creation:
-      value: "User account lifecycle events are logged, including 'Member invited' and 'Member joined'. User provisioning via SCIM is also a source for this activity."
-      reference: "https://www.notion.so/help/audit-log"
+      reference: https://www.notion.com/help/security-and-privacy
+      value: Notion logs include system changes and administrator changes. The audit
+        log captures events related to workspace settings and teamspace activities.
+    data_export:
+      reference: https://docs.panther.com/data-onboarding/supported-logs/notion
+      value: Notion's audit logs record data export actions. This includes the ability
+        to export audit logs themselves in CSV format. Panther monitors Notion for
+        potential data exfiltration, including workspace exports or large volumes
+        of pages, and can trigger alerts.
+    role_assignment:
+      reference: https://www.notion.so/help/security-and-privacy
+      value: Notion's audit logs can capture changes to permissions, which may include
+        role assignments. Notion also supports role-based access controls for managing
+        permissions.
     security_policy_change:
-      value: "Changes to key security settings are logged as distinct events, such as 'Disable guests toggled', 'Export toggled', 'Disable moving or duplicating pages to other workspaces', and 'Public page sharing toggled'."
-      reference: "https://www.notion.so/help/audit-log"
+      reference: https://www.notion.com/pricing
+      value: Notion's Enterprise plan provides advanced workspace and teamspace security
+        controls, allowing for the setting of workspace-level rules. Changes to these
+        settings would fall under configuration changes and would be captured in the
+        audit logs.
+    user_account_creation:
+      reference: https://m.youtube.com/watch?v=qvFRKC5Ft88
+      value: The audit log includes 'Account events' which cover activities related
+        to user accounts in the workspace. It also logs when members or guests are
+        removed and invited.
+    user_login:
+      reference: https://www.notion.com/help/security-and-privacy
+      value: Notion's audit logs record user login events, including failed and successful
+        attempts. These logs also capture account-related events.
   event_logs_licensing_level:
-    value: "Enterprise Plan"
-    reference: "https://www.notion.so/help/audit-log"
-  monitoring_products:
-    - value: "Splunk"
-      reference: "https://splunkbase.splunk.com/app/6926"
-    - value: "Datadog"
-      reference: "https://docs.datadoghq.com/integrations/notion/"
-    - value: "Panther"
-      reference: "https://panther.com/blog/monitor-notion-audit-logs-with-panther/"
-    - value: "Nightfall DLP"
-      reference: "https://docs.nightfall.ai/docs/manage-notion-events"
-    - value: "ToolJet"
-      reference: "https://tooljet.com/docs/data-sources/notion"
+    reference: https://www.notion.com/help/guides/notion-enterprise-security-provisions
+    value: Audit logs are available to organization owners on Notion's Enterprise
+      Plan. Audit log events are recorded starting from the time of upgrade to an
+      Enterprise Plan.
   ingestion_methods:
-    - value: "HTTP Webhook: Notion can stream audit logs in near real-time to a specified webhook endpoint, using HMAC signatures (x-notion-signature) for verification."
-      reference: "https://docs.panther.com/data-sources-and-transports/supported-logs/notion-logs"
-    - value: "Manual Export: The entire audit log can be manually exported as a CSV file directly from the workspace settings UI."
-      reference: "https://www.notion.so/help/audit-log"
+  - reference: https://www.notion.com/help/add-security-and-compliance-integrations
+    value: Notion's SIEM partner integrations receive webhook events, which are described
+      as being available in the SIEM platform once the connection is set up. RunReveal's
+      integration also uses a webhook URL for forwarding audit logs.
+  - reference: https://www.youtube.com/watch?v=qvFRKC5Ft88
+    value: Audit logs can be exported in CSV format. This CSV export can then be uploaded
+      to an Audit Log Visualizer for analysis.
+  - reference: https://splunkbase.splunk.com/app/6931
+    value: Some integrations, like Splunk, import Notion's audit logs. The Elastic
+      Notion Connector is written in Python.
   log_export_options:
     tools_connectors:
-      value: "Official integrations with SIEM platforms like Splunk, Datadog, and Panther that utilize a webhook-based streaming connection. Manual CSV export is also available from the admin settings."
-      reference: "https://www.notion.so/help/security-and-compliance-integrations"
-  documentation_links:
-    - "https://www.notion.so/help/audit-log"
-    - "https://www.notion.so/help/security-and-compliance-integrations"
-    - "https://developers.notion.com/"
-    - "https://docs.datadoghq.com/integrations/notion/"
-    - "https://splunkbase.splunk.com/app/6926"
-    - "https://panther.com/blog/monitor-notion-audit-logs-with-panther/"
-    - "https://www.notion.so/enterprise/security"
+      reference: https://www.notion.so/help/security-and-privacy
+      value: Notion's audit logs can be exported in CSV format. This exported CSV
+        can be used with an Audit Log Visualizer. SIEM integrations receive webhook
+        events for log information. There are third-party tools like n8n, Pabbly Connect,
+        Onlizer, Census, and Relay.app that facilitate data transfer and automation
+        between Notion and various applications, including SIEMs.
+  monitoring_products:
+  - reference: https://www.notion.com/help/add-security-and-compliance-integrations
+    value: Notion integrates with SIEM solutions to provide visibility into user and
+      workspace activity for better analysis, searches, and correlations, and to configure
+      off-the-shelf alerts on unusual user activity in real-time. Notion uses a SIEM
+      internally for log ingestion and automated logging/alerting.
+  - reference: https://splunkbase.splunk.com/app/6931
+    value: Notion has an integration with Splunk that allows users to manage and monitor
+      their Notion workspace activity in Splunk's SIEM suite, importing audit logs
+      for real-time monitoring, alerting, and analysis.
+  - reference: https://panther.com/integrations/notion
+    value: Panther integrates with Notion to monitor activity logs for potential threats
+      like suspicious logins, permission updates, pages being made public, or access
+      changes, providing real-time alerts.
+  - reference: https://n8n.io/integrations/notion/
+    value: Notion can connect with Splunk, Elasticsearch, and CrowdStrike using n8n.io
+      to automate workflows and transfer data.
+  - reference: https://www.pabbly.com/connect/integrations/notion/
+    value: Pabbly Connect allows integrating Notion and Splunk Enterprise, as well
+      as over 2,000+ other apps, for automation workflows.
+  - reference: https://onlizer.com/integrations/elasticsearch/
+    value: Onlizer provides a no-code visual builder to connect Elasticsearch and
+      Notion for data sync and automation. Census also offers syncing Elasticsearch
+      data to Notion.
 incident_response:
-  suspend_user_management_api:
-    value: "User suspension and de-provisioning are available via the SCIM API, which is an Enterprise Plan feature. The 'User suspended' event appears in the audit log."
-    reference: "https://developers.notion.com/docs/scim"
-  invalidate_sessions_api:
-    value: "Workspace owners on the Enterprise Plan can manually log out a managed user from the UI. This action is recorded in the audit log as 'Log out one managed user'. A direct, public API endpoint for this action has not been found."
-    reference: "https://www.notion.so/help/audit-log"
-  revoke_api_key_api:
-    value: "Manual process. Integration tokens (API keys for bots) are managed and revoked through the Notion workspace settings UI under 'Settings & Members' > 'Connections'. There is no documented API endpoint to programmatically revoke tokens."
-    reference: "https://developers.notion.com/docs/getting-started"
-  user_toggle_api:
-    value: "User activation and deactivation (suspension) are handled via the SCIM API, available on the Enterprise Plan. This allows for automated user lifecycle management from a central identity provider."
-    reference: "https://support.google.com/a/answer/12024765?hl=en"
-  user_status_api:
-    value: "A user's information, which may include their active status, can be retrieved via the standard REST API using the GET /v1/users/{id} endpoint. User status can also be managed and queried via the SCIM API."
-    reference: "https://developers.notion.com/reference/get-user"
-  session_timeout_configuration:
-    value: "A configurable session timeout setting for automatic logout after a period of inactivity is not a publicly documented feature."
-    reference: "https://www.notion.so/help/workspace-settings"
-  known_automation_tools:
-    - value: "Identity providers like Google Workspace, Okta, and Microsoft Entra ID can automate user provisioning and de-provisioning (suspension) via Notion's SCIM API."
-      reference: "https://developers.notion.com/docs/scim"
-    - value: "SOAR platforms (e.g., Splunk SOAR, Palo Alto XSOAR) can be configured to call the SCIM provider's API to suspend a Notion user based on an alert, providing an indirect automation capability."
-      reference: "https://www.notion.so/help/security-and-compliance-integrations"
-    - value: "DLP solutions like Nightfall can take automated actions on findings, such as notifying admins or quarantining content, though they do not directly suspend users."
-      reference: "https://docs.nightfall.ai/docs/manage-notion-events"
   documentation_links:
-    - "https://developers.notion.com/docs/scim"
-    - "https://developers.notion.com/reference/user-object"
-    - "https://www.notion.so/help/audit-log"
-    - "https://support.google.com/a/answer/12024765?hl=en"
-    - "https://www.notion.so/enterprise"
-    - "https://www.notion.so/help/security"
+  - https://www.notion.com/help/guides/notion-enterprise-security-provisions
+  - https://developers.notion.com/docs/best-practices-for-handling-api-keys
+  - https://www.notion.com/templates/incidents-management
+  - https://chmyos.notion.site/Managing-API-Keys-86d6df83d3934fd5b440cffcc143be57
+  - https://www.youtube.com/watch?v=4Ihv0N8EVwo
+  - https://www.notion.com/help/add-security-and-compliance-integrations
+  - https://clickup.com/templates/notion/security-incident-report
+  - https://www.notion.com/templates/category/incident-report
+  - https://www.notion.com/integrations/incident-io
+  - https://developers.notion.com/reference/revoke-token
+  - https://zapier.com/pricing
+  - https://www.youtube.com/watch?v=xKFkVQxrb3U
+  - https://n8n.io/itops/
+  - https://community.latenode.com/t/how-to-manage-user-access-and-roles-in-notions-beta-api/8993
+  invalidate_sessions_api:
+    reference: https://m.youtube.com/watch?v=xKFkVQxrb3U
+    value: Workspace owners on the Enterprise plan can log out all users at once.
+  known_automation_tools:
+  - reference: https://www.notion.com/integrations
+    value: Notion's API allows for integrations that can connect to tools like Jira,
+      Google Drive, and Slack for workflow automation.
+  - reference: https://www.notion.com/help/add-security-and-compliance-integrations
+    value: Notion offers SIEM integrations with partners like Datadog to bring Notion
+      audit log information into a shared platform for visibility, alerts, and incident
+      investigation.
+  - reference: https://www.notion.com/templates/incidents-management
+    value: There are Notion templates available for incident management, allowing
+      teams to track, resolve, and learn from IT incidents. These templates can include
+      features like AI summaries, automated status updates, and team notifications.
+  - reference: https://www.youtube.com/watch?v=4Ihv0N8EVwo
+    value: A Postman AI Agent can automate incident reporting by creating Slack incident
+      channels, monitoring messages, and generating structured reports in Notion with
+      summaries and severity levels. This agent uses both Slack and Notion APIs. [6,
+      18]
+  - reference: https://www.notion.com/integrations/incident-io
+    value: Incident.io integrates with Notion to automatically send rich incident
+      post-mortem documents to a Notion workspace.
+  - reference: https://zapier.com/pricing
+    value: Zapier can integrate Notion with other applications for automation, including
+      creating Notion tasks from Slack messages. Zapier's Enterprise plan also offers
+      a Zap Runs API to export activity to a SIEM tool.
+  - reference: https://n8n.io/itops/
+    value: n8n is an open-source workflow automation tool that can integrate with
+      Notion and is used for IT Ops automation, including alerts and incident management.
+  - reference: https://www.reddit.com/r/Notion/comments/1bpca5j/automation_tools_that_play_well_with_notion/
+    value: Make (formerly Integromat) is an automation tool that integrates with Notion.
+  - reference: https://www.windmill.dev/
+    value: Windmill is an open-source developer platform and workflow engine with
+      over 100 integrations, including Notion, that can be used for automation.
+  revoke_api_key_api:
+    reference: https://developers.notion.com/reference/revoke-token
+    value: API keys for Notion integrations can be revoked by deleting the integration
+      from the integration dashboard. A new integration with the same capabilities
+      can then be created. Notion recommends immediately revoking a compromised key
+      and generating a new one.
+  session_timeout_configuration:
+    reference: https://notion.helloapi.co/api-playground/settings
+    value: Uncertain. There is no specific documentation found regarding session timeout
+      configuration in Notion.
+  suspend_user_api:
+    reference: https://developers.yousign.com/changelog/suspend-or-reactivate-a-user-from-the-api
+    value: Notion's API has an endpoint (PATCH /users/{userId}) to suspend or reactivate
+      existing app users. Additionally, Notion workspace owners can manually suspend
+      users through the managed user dashboard on the Enterprise plan, which prevents
+      them from logging in, receiving notifications, or accessing resources, but keeps
+      them as billable seats and preserves their content and integrations.
+  user_status_api:
+    reference: https://developers.notion.com/reference/user
+    value: The Notion API's User object includes a 'type' property that can be "person"
+      or "bot", and a 'name' property for display. Suspended users will have their
+      profile photo appear as a gray crossed out silhouette.
+  user_toggle_api:
+    reference: https://developers.yousign.com/changelog/suspend-or-reactivate-a-user-from-the-api
+    value: An existing app User can be suspended or reactivated using the PATCH /users/{userId}
+      endpoint. Suspending a user prevents them from logging in.

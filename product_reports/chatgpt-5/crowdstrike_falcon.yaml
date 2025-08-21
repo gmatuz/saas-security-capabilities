@@ -1,0 +1,280 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 SSO for Falcon Console; supports both SP- and IdP‑initiated
+      flows via Microsoft Entra ID (Azure AD). CrowdStrike requires submitting IdP
+      metadata to enable SSO on the Falcon side.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/crowdstrike-falcon-platform-tutorial
+  sso_license_level_requirement:
+    value: unclear — public docs state a valid CrowdStrike Falcon subscription is
+      required and setup involves CrowdStrike Support; no published tiering info.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/crowdstrike-falcon-platform-tutorial
+  scim_support:
+    value: no — SCIM user provisioning not supported for Falcon Console users (per
+      CrowdStrike staff response).
+    reference: https://www.reddit.com/r/crowdstrike/comments/x3cdpa
+  scim_licensing_level_requirement:
+    value: not applicable — SCIM not supported.
+    reference: https://www.reddit.com/r/crowdstrike/comments/x3cdpa
+  scim_authentication_mechanisms:
+    value: none — SCIM endpoint is not available for Falcon; no authentication mechanisms
+      applicable.
+    reference: https://www.reddit.com/r/crowdstrike/comments/x3cdpa
+  scim_authentication_acquisition_steps:
+    value: not applicable — SCIM is not available for Falcon Console user provisioning.
+    reference: https://www.reddit.com/r/crowdstrike/comments/x3cdpa
+  user_management_api_support:
+    value: 'yes — bespoke REST APIs for user lifecycle and RBAC (create, update, delete
+      users; grant/revoke roles). Examples: POST /user-management/entities/users/v1,
+      POST /user-management/entities/user-role-actions/v1, DELETE /user-management/entities/users/v1.'
+    reference: https://github.com/MartinMulder/openapi-crowdstrike-falcon-php/blob/master/docs/Api/UserManagementApi.md
+  user_management_api_licensing_level:
+    value: unclear — requires an API client with appropriate scopes created in Falcon
+      Console; public sources do not specify license tier gating.
+    reference: https://docs.redcanary.com/docs/create-api-credentials-to-integrate-your-existing-crowdstrike-falcon-environment-with-red-canary
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 (client credentials) using client_id and client_secret; Swagger
+      references per cloud (US‑1, US‑2, EU‑1, US‑GOV‑1).
+    reference: https://www.tines.com/blog/getting-connected-to-the-crowdstrike-api/
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Log in to Falcon Console as a user with rights to manage API clients.
+      2) Navigate to Support > API Clients and Keys. 3) Create API client, select
+      required scopes, and save. 4) Securely store the presented Client ID/Client
+      Secret; the secret is shown once.
+    reference: https://docs.redcanary.com/docs/create-api-credentials-to-integrate-your-existing-crowdstrike-falcon-environment-with-red-canary
+  seat_costs:
+  - license_level: Falcon bundles are priced per endpoint/device per year (e.g., Go,
+      Pro, Enterprise) — not per admin user.
+    active:
+      value: not applicable — pricing is per protected endpoint, not per admin user
+        seat.
+      reference: https://www.crowdstrike.com/en-us/pricing/
+    suspended_disabled:
+      value: not applicable — admin user status does not affect licensing; pricing
+        is per device.
+      reference: https://www.crowdstrike.com/en-us/pricing/
+    archived:
+      value: not applicable — admin user archival does not affect licensing; pricing
+        is per device.
+      reference: https://www.crowdstrike.com/en-us/pricing/
+  lifecycle_options:
+  - invited (activation email sent when creating user without password)
+  - active
+  - password reset (action via API)
+  - 2FA reset (action via API)
+  - deleted
+  rbac_support:
+    value: yes — Falcon supports roles and role assignments; multiple user/role endpoints
+      exist (query roles, grant/revoke roles).
+    reference: https://github.com/CrowdStrike/crimson-falcon/blob/main/README.md
+  rbac_api_assignment:
+    value: yes — role assignment via API (POST /user-management/entities/user-role-actions/v1)
+      to grant or revoke roles.
+    reference: https://github.com/CrowdStrike/crimson-falcon/blob/main/README.md
+  documentation_links:
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/crowdstrike-falcon-platform-tutorial
+  - https://help.okta.com/wf/en-us/content/topics/workflows/connector-reference/crowdstrike/actions/createuser.htm
+  - https://www.okta.com/integrations/crowdstrike-falcon/
+  - https://www.tines.com/blog/getting-connected-to-the-crowdstrike-api/
+  - https://developer.crowdstrike.com/docs/sdks/
+  - https://docs.falconpy.io/Service-Collections/User-Management.html
+  - https://github.com/MartinMulder/openapi-crowdstrike-falcon-php/blob/master/docs/Api/UserManagementApi.md
+  - https://github.com/CrowdStrike/crimson-falcon
+  - https://www.reddit.com/r/crowdstrike/comments/x3cdpa
+  - https://docs.pingidentity.com/integrations/crowdstrike/pf_crowdstrike_ik.html
+  - https://www.crowdstrike.com/blog/remote-remediation-real-time-response/
+  - https://www.reddit.com/r/crowdstrike/comments/uxtf9v
+  - https://www.reddit.com/r/crowdstrike/comments/md0pzj
+  - https://www.reddit.com/r/crowdstrike/comments/ot0lwf
+  - https://www.reddit.com/r/crowdstrike/comments/1bl6r3z
+security_monitoring:
+  event_logs:
+    user_login:
+      value: CrowdStrike Falcon records administrative user authentications in the
+        Falcon UI Audit Trail and makes these available in Event Search (Audit tab).
+        Events include fields such as OperationName (e.g., twoFactorAuthenticate),
+        ServiceName ("CrowdStrike Authentication"), UserId, UserIp, and Success, and
+        can be streamed via the Event Streams/API-backed integrations.
+      reference: https://www.reddit.com/r/crowdstrike/comments/shx47z
+    role_assignment:
+      value: uncertain
+      reference: no evidence
+    api_call:
+      value: Administrative and API activity is exposed as audit events on the Event
+        Streams feed (ExternalApiType=Event_ExternalApiEvent / UserActivityAuditEvent)
+        with fields including OperationName, ServiceName, UserId, UserIp, Success,
+        and AuditKeyValues; this enables monitoring of console actions and API-driven
+        changes.
+      reference: https://docs.panther.com/data-onboarding/supported-logs/crowdstrike/event-streams
+    data_export:
+      value: uncertain
+      reference: no evidence
+    configuration_change:
+      value: The Falcon platform emits audit events for console configuration changes
+        (e.g., host groups and other admin actions are visible in the Audit dashboard
+        when Falcon Insight is enabled), allowing “who/what/when” tracking of modifications.
+      reference: https://www.reddit.com/r/crowdstrike/comments/ofqkcz
+    user_account_creation:
+      value: Creation of new Falcon administrative users appears in audit activity;
+        example searches show OperationName=createUser (and CreateApiClient) within
+        UserActivity audit events for tracking who created users or API clients.
+      reference: https://github.com/Marchelled/csfalcon
+    security_policy_change:
+      value: Policy modifications are logged as UserActivity audit events with ServiceName
+        identifying the policy family and OperationName describing the action (e.g.,
+        ServiceName=device_control_policy and OperationName=update_class_action),
+        suitable for alerting or scheduled searches.
+      reference: https://www.reddit.com/r/crowdstrike/comments/1cu8h79
+  event_logs_licensing_level:
+    value: Access to the Falcon UI Audit Trail for console activities is available
+      with the Falcon Insight subscription; additional raw telemetry export via Falcon
+      Data Replicator (FDR) is a separately licensed add-on.
+    reference: https://www.reddit.com/r/crowdstrike/comments/ofqkcz
+  monitoring_products:
+  - value: Splunk – CrowdStrike Falcon Event Streams Technical Add-On (TA) creates
+      a persistent connection to the Event Streams API to ingest detection, incident,
+      event, and audit data.
+    reference: https://splunkbase.splunk.com/app/5082/
+  - value: Rapid7 InsightIDR – supports ingestion from Falcon via Cloud Connection
+      (Event Streams API) or via the on-prem Falcon SIEM Connector with syslog output;
+      includes sample log guidance.
+    reference: https://docs.rapid7.com/insightidr/crowdstrike-falcon-event-source/
+  - value: IBM QRadar – DSM for CrowdStrike Falcon collects events forwarded by the
+      Falcon SIEM Connector over Syslog.
+    reference: https://www.ibm.com/docs/SS42VS_DSM/com.ibm.dsm.doc/c_dsm_guide_CrowdStrike_Falcon_Host_overview.html
+  - value: Google Chronicle/SecOps – parser and collection guide for CrowdStrike Falcon
+      Stream logs, including mapping to UDM and guidance using Bindplane and the SIEM
+      Connector.
+    reference: https://cloud.google.com/chronicle/docs/ingestion/default-parsers/crowdstrike-stream
+  - value: Microsoft Sentinel – CrowdStrike Falcon Data Replicator V2 connector ingests
+      raw Falcon events from the FDR-managed S3/SQS feed into Log Analytics tables.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/crowdstrike-falcon-data-replicator-v2
+  - value: Elastic – official integration supports Falcon SIEM Connector, CrowdStrike
+      REST APIs, Falcon Data Replicator, and Event Streams as ingestion modes to Elastic
+      Security.
+    reference: https://www.elastic.co/guide/en/integrations/current/crowdstrike.html
+  - value: Panther – native data source integrations for CrowdStrike Event Streams
+      and FDR with documented schemas for audit and detection events.
+    reference: https://docs.panther.com/data-onboarding/supported-logs/crowdstrike/event-streams
+  - value: Falcon Integration Gateway (open source) – forwards CrowdStrike detections
+      and audit events to a chosen backend (third-party dashboards).
+    reference: https://github.com/CrowdStrike/falcon-integration-gateway
+  ingestion_methods:
+  - value: Event Streams API (streaming). Discover streams via GET /sensors/entities/datafeed/v2
+      (listAvailableStreamsOAuth2) and maintain sessions/refresh via POST /sensors/entities/datafeed-actions/v1;
+      supports json/flatjson.
+    reference: https://docs.falconpy.io/Service-Collections/Event-Streams.html
+  - value: Falcon SIEM Connector service (on-prem) connects to the Event Streams API
+      and forwards JSON/CEF/LEEF via syslog to SIEMs; configurable output and proxy
+      settings.
+    reference: https://docs.rapid7.com/insightidr/crowdstrike-falcon-event-source/
+  - value: Falcon Data Replicator (FDR) – CrowdStrike-managed S3/SQS feed of raw telemetry;
+      customers pull gz JSON from S3 using credentials/queue details supplied via
+      the Falcon console.
+    reference: https://github.com/CrowdStrike/FDR
+  - value: Falcon console audit/API endpoints observed for audit logs (e.g., api2/audit-logs
+      query/entities) used by the UI; community discussions reference using these
+      to retrieve audit details like comments.
+    reference: https://github.com/CrowdStrike/falconpy/discussions/1144
+  log_export_options:
+    tools_connectors:
+      value: Supported export paths include (a) streaming via Event Streams API, (b)
+        syslog forwarding using the Falcon SIEM Connector with JSON/CEF/LEEF output,
+        and (c) bulk export/replication via Falcon Data Replicator (FDR) to AWS S3/SQS
+        for downstream collection.
+      reference: https://docs.rapid7.com/insightidr/crowdstrike-falcon-event-source/
+  documentation_links:
+  - https://developer.crowdstrike.com/docs/openapi/
+  - https://docs.falconpy.io/Service-Collections/Event-Streams.html
+  - https://splunkbase.splunk.com/app/5082/
+  - https://www.crowdstrike.com/resources/guides/crowdstrike-falcon-event-streams-add-on-for-splunk-guide-v3-5/
+  - https://apps.splunk.com/app/5599/
+  - https://docs.panther.com/data-onboarding/supported-logs/crowdstrike/event-streams
+  - https://docs.panther.com/data-onboarding/supported-logs/crowdstrike/falcon-data-replicator
+  - https://www.ibm.com/docs/SS42VS_DSM/com.ibm.dsm.doc/c_dsm_guide_CrowdStrike_Falcon_Host_overview.html
+  - https://cloud.google.com/chronicle/docs/ingestion/default-parsers/crowdstrike-stream
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/crowdstrike-falcon-data-replicator-v2
+  - https://github.com/CrowdStrike/FDR
+  - https://github.com/CrowdStrike/aws-security-lake
+  - https://elastic.ac.cn/guide/en/integrations/current/crowdstrike.html
+  - https://docs.rapid7.com/insightidr/crowdstrike-falcon-event-source/
+  - https://github.com/CrowdStrike/falcon-integration-gateway
+incident_response:
+  suspend_user_api:
+    value: uncertain — No documented API endpoint to suspend/disable a Falcon console
+      user. The User Management API exposes actions limited to resetting a user’s
+      password or 2FA (POST /user-management/entities/user-actions/v1) and supports
+      permanent deletion of users (DELETE /users/entities/users/v1).
+    reference: https://docs.falconpy.io/Service-Collections/User-Management.html
+  invalidate_sessions_api:
+    value: Falcon Fusion SOAR integrations provide identity-session revocation for
+      user compromise via Microsoft Entra ID actions (e.g., “Revoke Existing Sign-in
+      Sessions”). This is implemented as Fusion SOAR response actions, not as a public
+      Falcon-console session invalidation API.
+    reference: https://marketplace.crowdstrike.com/listings/microsoft-entra-id-soar-actions
+  revoke_api_key_api:
+    value: uncertain — Evidence indicates there is no public API to rotate or revoke
+      OAuth2 API client credentials programmatically; rotation is performed by creating
+      a new API client and removing the old one in the Falcon UI. Community confirmation
+      from FalconPy maintainer states no endpoint is available for key rotation.
+    reference: https://www.reddit.com/r/crowdstrike/comments/w7sly0
+  user_toggle_api:
+    value: uncertain — No disable/enable endpoint is documented for Falcon console
+      users. Available mitigations include revoking roles (DELETE /user-roles/entities/user-roles/v1)
+      and deleting the user (DELETE /users/entities/users/v1). It is not documented
+      that these actions invalidate existing Falcon UI sessions.
+    reference: https://docs.falconpy.io/Service-Collections/User-Management.html
+  user_status_api:
+    value: APIs exist to retrieve users and role assignments (e.g., RetrieveUser,
+      retrieve_user_uuids_by_cid) to validate user existence and privileges. An explicit
+      active/suspended state isn’t documented in accessible references.
+    reference: https://docs.falconpy.io/Service-Collections/User-Management.html
+  session_timeout_configuration:
+    value: Console session behavior can be altered in the UI using the dashboard’s
+      Settings > Display > “Stay Signed In” toggle; community reports default timeouts
+      around 10–15 minutes without it. Minimum configurable values are not documented.
+    reference: https://www.reddit.com/r/crowdstrike/comments/teovc1
+  known_automation_tools:
+  - value: FalconPy (Python SDK) — Full coverage client for Falcon OAuth2 APIs (detections,
+      incidents, RTR, user management) for custom investigation/response automation.
+    reference: https://pypi.org/project/crowdstrike-falconpy/
+  - value: PSFalcon (PowerShell module) — Automate Falcon APIs and Real Time Response
+      from PowerShell for IR workflows and bulk operations.
+    reference: https://www.powershellgallery.com/packages/psfalcon/2.2.8
+  - value: gofalcon (Go SDK) — Go client with examples for detections, RTR commands,
+      and event streaming to build responders.
+    reference: https://github.com/CrowdStrike/gofalcon
+  - value: Splunk Falcon Event Streams Technical Add-on — Maintains a persistent connection
+      to the Event Streams API to stream detections/incidents/audit into Splunk for
+      IR workflows.
+    reference: https://splunkbase.splunk.com/app/5082
+  - value: Microsoft Sentinel CrowdStrike FDR V2 connector — Ingests Falcon Data Replicator
+      events to Sentinel to power investigations and automated playbooks.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/crowdstrike-falcon-data-replicator-v2
+  - value: Torq — “CrowdStrike Streaming” trigger integration to launch SOAR workflows
+      from Falcon event streams for automated response.
+    reference: https://kb.torq.io/en/articles/10050660-crowdstrike-streaming
+  - value: Torq — “CrowdStrike Identity Protection” steps to authenticate and execute
+      identity-protection actions in workflows.
+    reference: https://kb.torq.io/en/articles/11161122-crowdstrike-identity-protection
+  - value: Tines — Practical guide to authenticate and call CrowdStrike APIs (OAuth2,
+      base URLs, rate limits) for investigation/response automation.
+    reference: https://www.tines.com/blog/getting-connected-to-the-crowdstrike-api/
+  - value: CrowdStrike Event Streams Add-on for Splunk (official guide) — Deployment/config
+      guidance for continuous Event Streams ingestion.
+    reference: https://www.crowdstrike.com/resources/guides/crowdstrike-falcon-event-streams-add-on-for-splunk-guide-v3-5/
+  documentation_links:
+  - https://developer.crowdstrike.com/docs/openapi/
+  - https://docs.falconpy.io/Service-Collections/User-Management.html
+  - https://www.crowdstrike.com/tech-hub/identity-protection/threat-hunting-with-falcon-identity-protection/
+  - https://marketplace.crowdstrike.com/listings/microsoft-entra-id-soar-actions
+  - https://marketplace.crowdstrike.com/listings/okta-soar-actions
+  - https://www.crowdstrike.com/tech-hub/ng-siem/leveraging-identity-data-to-stop-attacks-with-falcon-next-gen-siem/
+  - https://splunkbase.splunk.com/app/5082
+  - https://splunk.github.io/splunk-add-on-for-crowdstrike-fdr/Configureinputs/
+  - https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/crowdstrike-falcon-data-replicator-v2
+  - https://www.tines.com/blog/getting-connected-to-the-crowdstrike-api/
+  - https://kb.torq.io/en/articles/10050660-crowdstrike-streaming
+  - https://kb.torq.io/en/articles/11161122-crowdstrike-identity-protection
+  - https://www.reddit.com/r/crowdstrike/comments/x3cdpa
+  - https://www.reddit.com/r/crowdstrike/comments/teovc1
+  - https://www.crowdstrike.com/platform/identity-protection/caep/

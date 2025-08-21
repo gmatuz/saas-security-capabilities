@@ -1,0 +1,299 @@
+identity_and_access:
+  sso_support:
+    value: yes — inbound federation to sign in to Okta using external IdPs via SAML
+      2.0 and OpenID Connect (account linking and JIT supported).
+    reference: https://developer.okta.com/docs/concepts/identity-providers/
+  sso_license_level_requirement:
+    value: uncertain — Okta pricing pages list SSO in plan bundles but don’t specify
+      licensing for inbound federation to Okta; consult sales.
+    reference: https://www.okta.com/pricing/
+  scim_support:
+    value: uncertain — official docs emphasize Okta acting as a SCIM client to downstream
+      apps; no clear evidence that Okta (Workforce Identity) exposes an inbound SCIM
+      v2 server to provision users into Okta.
+    reference: https://help.okta.com/en-us/Content/Topics/Apps/apps-about-scim.htm
+  scim_licensing_level_requirement:
+    value: Outbound SCIM provisioning appears under Identity Governance bundles; inbound
+      SCIM generally documented for Customer Identity Cloud (Auth0), not Workforce
+      Okta.
+    reference: https://www.okta.com/pricing/
+  scim_authentication_mechanisms:
+    value: uncertain — no evidence of an Okta (Workforce) inbound SCIM endpoint to
+      authenticate against; Okta typically authenticates outbound to your SCIM server.
+    reference: https://help.okta.com/en-us/Content/Topics/Apps/apps-about-scim.htm
+  scim_authentication_acquisition_steps:
+    value: uncertain — no steps found to obtain credentials for an Okta (Workforce)
+      inbound SCIM endpoint; guidance instead covers configuring Okta to call external
+      SCIM servers.
+    reference: https://developer.okta.com/docs/guides/scim-provisioning-integration-prepare/main/
+  user_management_api_support:
+    value: yes — Users API supports create, update, lifecycle (activate, deactivate,
+      suspend, etc.), and delete operations.
+    reference: https://developer.okta.com/docs/api/resources/users
+  user_management_api_licensing_level:
+    value: uncertain — management APIs are documented for all orgs; rate-limit capacities
+      vary by subscription.
+    reference: https://developer.okta.com/docs/reference/rate-limits/index.html
+  user_management_api_authentication_mechanisms:
+    value: SSWS API token; OAuth 2.0 for Okta (service app, client credentials with
+      private key/JWT).
+    reference: https://developer.okta.com/docs/guides/create-an-api-token/main/
+  user_management_api_authentication_acquisition_steps:
+    value: '1) Admin Console: Security > API > Tokens; 2) Tokens tab > Create Token;
+      3) Name token and Create; 4) Copy token once shown; optional: set token network/rate
+      limits.'
+    reference: https://help.okta.com/en-us/content/topics/security/api.htm
+  seat_costs:
+  - license_level: Starter — listed at $6 per user/month
+    active:
+      value: yes — per-user/month pricing applies to active seats per plan listing.
+      reference: https://www.okta.com/en-nl/pricing/
+    suspended_disabled:
+      value: uncertain — no official billing rule published for suspended/disabled
+        users.
+      reference: https://www.okta.com/en-nl/pricing/
+    archived:
+      value: uncertain — no official ‘archived user’ billing policy found.
+      reference: https://www.okta.com/en-nl/pricing/
+  - license_level: Essentials — listed at $17 per user/month
+    active:
+      value: yes — per-user/month pricing applies to active seats per plan listing.
+      reference: https://www.okta.com/en-nl/pricing/
+    suspended_disabled:
+      value: uncertain — no official billing rule published for suspended/disabled
+        users.
+      reference: https://www.okta.com/en-nl/pricing/
+    archived:
+      value: uncertain — no official ‘archived user’ billing policy found.
+      reference: https://www.okta.com/en-nl/pricing/
+  lifecycle_options:
+  - STAGED
+  - PROVISIONED
+  - ACTIVE
+  - RECOVERY
+  - PASSWORD_EXPIRED
+  - LOCKED_OUT
+  - SUSPENDED
+  - DEPROVISIONED
+  rbac_support:
+    value: yes — admin RBAC with standard and custom roles; resource sets; group administration.
+    reference: https://developer.okta.com/docs/reference/api/roles/
+  rbac_api_assignment:
+    value: yes — roles can be assigned via API (e.g., POST /api/v1/users/{userId}/roles;
+      scopes such as okta.roles.manage).
+    reference: https://developer.okta.com/docs/api/openapi/okta-management/management/tag/RoleAssignmentAUser/
+  documentation_links:
+  - https://developer.okta.com/docs/concepts/identity-providers/
+  - https://developer.okta.com/docs/guides/add-an-external-idp/openidconnect/main/
+  - https://developer.okta.com/docs/guides/add-an-external-idp/saml2/main/
+  - https://help.okta.com/oie/en-us/Content/Topics/Security/idp-inbound-saml-reference.htm
+  - https://help.okta.com/en-us/content/topics/directory/ad-desktop-sso-main.htm
+  - https://developer.okta.com/docs/api/resources/users
+  - https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/
+  - https://developer.okta.com/docs/reference/api/groups/index.html
+  - https://developer.okta.com/docs/reference/api/roles/
+  - https://developer.okta.com/docs/reference/api/openapi/okta-management/management/tag/RoleAssignmentAUser/
+  - https://developer.okta.com/docs/reference/api/system-log/
+  - https://developer.okta.com/docs/reference/system-log-query/
+  - https://help.okta.com/en-us/Content/Topics/Apps/apps-about-scim.htm
+  - https://developer.okta.com/docs/concepts/scim/
+  - https://help.okta.com/en-us/content/topics/users-groups-profiles/usgp-import-users-csv.htm
+  - https://help.okta.com/wf/en-us/content/topics/workflows/connector-reference/okta/actions/bulkuserimport.htm
+  - https://github.com/okta/terraform-provider-okta
+  - https://github.com/okta/okta-sdk-python
+  - https://www.npmjs.com/package/%40okta/okta-sdk-nodejs
+  - https://github.com/okta/okta-sdk-golang
+  - https://developer.okta.com/docs/guides/create-an-api-token/main/
+  - https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/
+  - https://developer.okta.com/docs/concepts/monitor/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Okta records user sign-in activity in the System Log with event types
+        such as user.session.start, user.authentication.verify, and user.authentication.sso;
+        the Okta Security article provides example System Log queries to retrieve
+        these events for a user, IP, or session.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: Administrative role changes are audited via System Log events user.account.privilege.grant
+        and user.account.privilege.revoke indicating assignment and revocation of
+        admin privileges.
+      reference: https://developer.okta.com/docs/reference/api/event-types/
+    api_call:
+      value: API activity can be investigated in the System Log, including correlation
+        by API token using transaction.detail.requestApiTokenId; this enables grouping
+        of events generated by a specific API token.
+      reference: https://developer.okta.com/docs/reference/system-log-query/
+    data_export:
+      value: Report export actions are logged with analytics.reports.export.request,
+        analytics.reports.export.generate, and analytics.reports.export.download,
+        providing an audit trail of requested, generated, and downloaded report files.
+      reference: https://developer.okta.com/docs/reference/api/event-types/
+    configuration_change:
+      value: Configuration changes are captured, including application lifecycle updates
+        (application.lifecycle.*) and policy lifecycle and rule modifications (policy.lifecycle.*
+        and policy.rule.*) visible via the System Log.
+      reference: https://developer.okta.com/docs/reference/system-log-query/
+    user_account_creation:
+      value: Account lifecycle events, including user.lifecycle.create for new user
+        creation, are available in the System Log and retrievable via System Log queries.
+      reference: https://developer.okta.com/docs/reference/system-log-query/
+    security_policy_change:
+      value: Security policy changes are audited through policy lifecycle and rule
+        events (policy.lifecycle.* and policy.rule.*), enabling tracking of activations,
+        updates, and deletions.
+      reference: https://developer.okta.com/docs/reference/system-log-query/
+  event_logs_licensing_level:
+    value: Okta maintains a 90‑day sliding window of System Log data accessible via
+      the Admin Console and APIs; for longer retention Okta recommends exporting to
+      external systems. The page doesn’t specify a special license for viewing System
+      Log data.
+    reference: https://developer.okta.com/docs/concepts/monitor/
+  monitoring_products:
+  - value: Splunk Add‑on for Okta Identity Cloud supports Okta System Log Streaming
+      to Splunk Cloud via HEC and modular inputs for historical/API collection.
+    reference: dubious claim, hallucinated reference
+  - value: Elastic Filebeat Okta module ingests Okta System Log events via the Okta
+      System Log API with pagination and rate‑limit awareness.
+    reference: https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-okta.html
+  - value: Datadog Okta integration collects Okta System Event Logs via OAuth or API
+      token to Datadog Log Management.
+    reference: https://docs.datadoghq.com/integrations/okta/
+  - value: Google Chronicle (Google Security Operations) ingests Okta System Log events
+      via the Okta API and normalizes to UDM for detections.
+    reference: https://cloud.google.com/chronicle/docs/ingestion/default-parsers/okta
+  - value: Sumo Logic Okta Source polls Okta System Log (and user/group APIs) for
+      collection into Hosted Collectors.
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/okta-source/
+  - value: Panther SIEM integrates with Okta by polling the System Log API at a configurable
+      interval for real‑time monitoring and long‑term retention.
+    reference: https://panther.com/integrations/okta
+  - value: Grafana okta-logs-collector (open source) polls the Okta System Log API
+      and outputs to stdout for forwarding to Loki via Promtail/Alloy.
+    reference: https://github.com/grafana/okta-logs-collector
+  - value: Logstash input/plugin solutions exist for pulling Okta System Log events
+      into Logstash (for example, community logstash-input-okta_system_log).
+    reference: https://github.com/SecurityRiskAdvisors/logstash-input-okta_system_log
+  - value: Okta Java SDK exposes getLogs(...) for System Log retrieval (packaged via
+      Maven), enabling custom collectors.
+    reference: https://developer.okta.com/okta-sdk-java/8.1.0/apidocs/com/okta/sdk/client/Client.html
+  - value: Okta Node.js SDK supports System Log polling via collection.subscribe for
+      streaming-style ingestion in Node environments.
+    reference: https://www.npmjs.com/package/%40okta/okta-sdk-nodejs
+  ingestion_methods:
+  - value: System Log API (REST) — programmatic, near real‑time, read‑only access
+      to System Log events; supports okta.logs.read scope and pagination.
+    reference: https://developer.okta.com/docs/api/openapi/okta-management/management/tag/SystemLog/
+  - value: Log Streaming to Splunk Cloud — native push from Okta to Splunk Cloud HEC
+      configured under Reports > Log Streaming.
+    reference: https://help.okta.com/oie/en-us/Content/Topics/Reports/log-streaming/add-splunk-log-stream.htm
+  - value: Log Streaming to AWS EventBridge — native push to an EventBridge partner
+      event source from Okta Log Streaming.
+    reference: https://help.okta.com/oie/en-us/Content/Topics/Reports/log-streaming/add-aws-eb-log-stream.htm
+  - value: Event Hooks (webhooks) for event-hook-eligible System Log events deliver
+      LogEvent JSON payloads via HTTPS POST to external receivers.
+    reference: https://developer.okta.com/docs/concepts/event-hooks/
+  - value: CSV export from the System Log UI — Admin Console provides “Download CSV
+      file” for the visible System Log table.
+    reference: https://help.okta.com/oie/en-us/content/topics/reports/reports_syslog.htm
+  log_export_options:
+    tools_connectors:
+      value: Export options include polling the System Log API (/api/v1/logs) and
+        configuring native Log Streaming connectors managed via the Log Streaming
+        API; supported providers include aws_eventbridge and splunk_cloud_logstreaming.
+      reference: https://developer.okta.com/docs/api/openapi/okta-management/management/tag/LogStream/
+  documentation_links:
+  - https://developer.okta.com/docs/reference/api/event-types/
+  - https://developer.okta.com/docs/reference/system-log-query/
+  - https://developer.okta.com/docs/api/openapi/okta-management/management/tag/SystemLog/
+  - https://help.okta.com/en-us/Content/Topics/Reports/log-streaming/about-log-streams.htm
+  - https://docs.splunk.com/Documentation/AddOns/latest/OktaIDC/ConfigureLogging
+  - https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-okta.html
+  - https://docs.datadoghq.com/integrations/okta/
+  - https://cloud.google.com/chronicle/docs/ingestion/default-parsers/okta
+  - https://sec.okta.com/articles/articles/2023/02/user-sign-and-recovery-events-okta-system-log/
+  - https://devforum.okta.com/t/enabling-log-streaming/26746
+incident_response:
+  suspend_user_api:
+    value: Okta Management API supports programmatic suspension of a user via POST
+      /api/v1/users/{id}/lifecycle/suspend (requires okta.users.manage). Suspended
+      users can’t sign in; their app/group assignments are retained until unsuspended
+      or deactivated.
+    reference: https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/
+  invalidate_sessions_api:
+    value: 'Programmatically revoke all IdP sessions for a user with DELETE /api/v1/users/{userId}/sessions;
+      optional query oauthTokens=true also revokes that user’s issued OIDC/OAuth refresh
+      and access tokens. Note: this operation doesn’t clear sessions created for web
+      or native apps.'
+    reference: https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserSessions/
+  revoke_api_key_api:
+    value: 'Okta exposes API Token management endpoints: DELETE /api/v1/api-tokens/current
+      revokes the calling token; GET/DELETE /api/v1/api-tokens/{apiTokenId} retrieves
+      or revokes a specific API token. API tokens are user-scoped (“personal”) and
+      require okta.apiTokens.manage/okta.apiTokens.read as appropriate.'
+    reference: https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApiToken/
+  user_toggle_api:
+    value: Toggling user state is available via lifecycle actions (Suspend/Unsuspend/Deactivate).
+      Per Okta help, suspending a user stops all active Okta sessions and prevents
+      new sessions; deactivation also removes app assignments.
+    reference: https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-deactivate-user-account.htm
+  user_status_api:
+    value: The Users API returns a user object containing a status field (for example
+      ACTIVE, SUSPENDED, LOCKED_OUT, DEPROVISIONED). You can retrieve or list users
+      and filter/search by status to determine if they’re active/suspended/disabled.
+    reference: https://developer.okta.com/docs/api/resources/users
+  session_timeout_configuration:
+    value: 'Admin Console session lifetime is configurable on the Okta Admin Console
+      app Sign On tab. Maximum app session lifetime: up to 24 hours (minimum 1 minute).
+      Maximum idle time: up to 2 hours (minimum 1 minute). These Admin Console settings
+      are independent of the global session policy.'
+    reference: https://help.okta.com/en-us/content/topics/security/policies/configure-admin-session.htm
+  known_automation_tools:
+  - value: Splunk SOAR Okta app providing actions such as disable user, clear user
+      sessions, reset/set password, list/assign roles and groups for automated response.
+    reference: https://apps.splunk.com/app/5921/
+  - value: Cortex XSOAR “Okta v2” integration offering commands to unlock/suspend
+      users, set passwords, manage group membership, and more; supports OAuth scopes
+      like okta.users.manage and okta.sessions.manage.
+    reference: https://xsoar.pan.dev/docs/reference/integrations/okta-v2
+  - value: Tines Okta integration with prebuilt actions (Suspend/Unsuspend User, Revoke
+      all User Sessions, Reset Password, List System Log Events) and generic HTTP
+      support to call any Okta API.
+    reference: https://www.tines.com/solutions/products/okta/
+  - value: LogRhythm “Invoke-Okta” PowerShell module/SmartResponse scripts to clear
+      user sessions, suspend/unsuspend users, reset passwords, unlock users, and query
+      users/groups for SIEM-driven response.
+    reference: https://github.com/LogRhythm-Labs/Invoke-Okta
+  - value: Okta Node.js Management SDK (@okta/okta-sdk-nodejs) for programmatic automation
+      (for example revokeUserSessions, manage users/groups/apps) with API token or
+      OAuth private key auth.
+    reference: https://www.npmjs.com/package/%40okta/okta-sdk-nodejs
+  - value: Okta Python SDK (PyPI “okta”) to automate management actions against the
+      Okta Management APIs (users, sessions, groups, etc.).
+    reference: https://pypi.org/project/okta/
+  - value: Okta Workflows “Clear User Sessions” card to remove all IdP sessions for
+      a user and optionally revoke OAuth tokens—usable in incident playbooks without
+      code.
+    reference: https://help.okta.com/wf/ja-jp/Content/Topics/Workflows/connector-reference/okta/actions/clearusersessions.htm
+  - value: Okta PowerShell CLI cmdlets (e.g., Suspend-OktaUser, Invoke-OktaUnsuspendUser,
+      Unlock-OktaUser) for scripted administration and response.
+    reference: https://github.com/okta/okta-powershell-cli/blob/main/docs/OktaUserApi.md
+  documentation_links:
+  - https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/
+  - https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserSessions/
+  - https://developer.okta.com/docs/guides/revoke-tokens/-/main/
+  - https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApiToken/
+  - https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationTokens/
+  - https://developer.okta.com/docs/api/resources/users
+  - https://help.okta.com/en-us/content/topics/security/policies/configure-admin-session.htm
+  - https://developer.okta.com/docs/reference/api/policy/index.html
+  - https://help.okta.com/oie/en-us/content/topics/identity-engine/policies/add-okta-sign-on-policy-rule.htm
+  - https://help.okta.com/oie/en-us/content/topics/reports/suspicious-activity-report.htm
+  - https://developer.okta.com/docs/api/openapi/okta-management/management/tag/SystemLog/
+  - https://developer.okta.com/docs/reference/system-log-query/
+  - https://developer.okta.com/docs/reference/api/event-types/
+  - https://help.okta.com/oie/en-us/Content/Topics/Security/slo/session-revoke.htm
+  - https://apps.splunk.com/app/5921/
+  - https://xsoar.pan.dev/docs/reference/integrations/okta-v2
+  - https://www.tines.com/solutions/products/okta/
+  - https://help.okta.com/wf/ja-jp/Content/Topics/Workflows/connector-reference/okta/actions/clearusersessions.htm

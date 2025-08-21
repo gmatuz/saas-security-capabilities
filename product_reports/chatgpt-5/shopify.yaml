@@ -1,0 +1,277 @@
+identity_and_access:
+  sso_support:
+    value: yes – SAML 2.0 for Shopify Plus organization users; prebuilt guides for
+      Okta, OneLogin, and Microsoft Entra; SP- and IdP-initiated flows supported
+    reference: dubious claim, hallucinated reference
+  sso_license_level_requirement:
+    value: Shopify Plus only (plan requirement for SAML SSO)
+    reference: dubious claim, hallucinated reference
+  scim_support:
+    value: yes – SCIM v2 (create users, update/assign groups, deactivate users); requires
+      domain verification and SAML configured first
+    reference: dubious claim, hallucinated reference
+  scim_licensing_level_requirement:
+    value: Shopify Plus only (plan requirement for SCIM tokens and provisioning)
+    reference: dubious claim, hallucinated reference
+  scim_authentication_mechanisms:
+    value: API token (bearer/secret token) presented to IdP; SCIM base URL https://shopifyscim.com/scim/v2/
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/shopify-plus-provisioning-tutorial
+  scim_authentication_acquisition_steps:
+    value: 1) In Shopify admin go to Settings > Users > Security; 2) In SCIM integration
+      click Generate API token; 3) Copy the generated token; 4) Provide token (and
+      base URL if required) to the IdP’s SCIM provisioning config.
+    reference: dubious claim, hallucinated reference
+  user_management_api_support:
+    value: partial – Admin API exposes staff listing/attributes (read_users) but no
+      public API to create/activate/deactivate staff; provisioning/deprovisioning
+      is via SCIM or the admin UI
+    reference: https://community.shopify.com/c/storefront-api-and-sdks/shopify-apis-for-user-management/td-p/1201476
+  user_management_api_licensing_level:
+    value: StaffMember read via GraphQL requires read_users scope; app must be finance
+      embedded or installed on Advanced or Plus store (contact Shopify to enable scope)
+    reference: https://shopify.dev/docs/api/admin-graphql/2025-01/objects/StaffMember
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 access tokens for public/custom apps; for custom (merchant) apps
+      an Admin API access token generated in the Shopify admin; tokens sent in X-Shopify-Access-Token
+      header
+    reference: https://shopify.dev/docs/api/admin-rest/2022-07#authentication
+  user_management_api_authentication_acquisition_steps:
+    value: 'Option A (OAuth): Implement Authorization Code Grant to obtain Admin API
+      access token from https://{shop}.myshopify.com/admin/oauth/access_token after
+      user consents. Option B (Custom app): Create a custom app in Shopify Admin and
+      install it to generate an Admin API access token.'
+    reference: https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens
+  seat_costs:
+  - license_level: Grow (formerly Shopify) – up to 5 admin users included (plan-based;
+      no per-seat pricing)
+    suspended_disabled:
+      value: Not applicable – users are not billed per-seat; when downgrading, excess
+        users are suspended per policy
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: Not applicable – users can be removed; billing is plan-based, not per
+        archived user
+      reference: dubious claim, hallucinated reference
+  - license_level: Advanced – up to 15 admin users included (plan-based; no per-seat
+      pricing)
+    suspended_disabled:
+      value: Not applicable – users are not billed per-seat; when downgrading, excess
+        users are suspended per policy
+      reference: dubious claim, hallucinated reference
+    archived:
+      value: Not applicable – users can be removed; billing is plan-based, not per
+        archived user
+      reference: dubious claim, hallucinated reference
+  - license_level: Shopify Plus – unlimited admin users included (no per-seat pricing)
+    suspended_disabled:
+      value: Not applicable – unlimited users on Plus; no per-seat charges
+      reference: https://www.shopify.com/pricing?country=us&lang=en
+    archived:
+      value: Not applicable – users can be removed; billing is plan-based, not per
+        archived user
+      reference: dubious claim, hallucinated reference
+  lifecycle_options:
+  - 'invited (AccountType: INVITED)'
+  - pending (SCIM-created, pending until first SSO login)
+  - active
+  - 'SAML (AccountType: SAML; sign-in enforced via SSO)'
+  - 'restricted (AccountType: RESTRICTED)'
+  - deactivated/suspended (admin action)
+  - removed
+  rbac_support:
+    value: yes – role-based access control (roles at store and organization levels,
+      predefined and custom roles; groups on Plus; migration from legacy permissions)
+    reference: dubious claim, hallucinated reference
+  rbac_api_assignment:
+    value: 'uncertain – no public documentation for assigning staff user roles via
+      API; RBAC managed in admin UI. Note: B2B/company role assignments exist via
+      Admin GraphQL (companyContactAssignRoles/companyLocationAssignRoles) but these
+      are not staff RBAC.'
+    reference: dubious claim, hallucinated reference
+  documentation_links:
+  - https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/saml
+  - https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/shopify-plus-tutorial
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/shopify-plus-provisioning-tutorial
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Shopify-Plus.html
+  - https://help.shopify.com/en/manual/your-account/users/users-plan-requirements
+  - https://help.shopify.com/en/manual/your-account/staff-accounts/create-staff-accounts/
+  - https://help.shopify.com/en/manual/your-account/users/roles/migrate-to-roles
+  - https://help.shopify.com/en/manual/your-account/users/roles
+  - https://shopify.dev/docs/api/admin-graphql/2025-01/objects/StaffMember
+  - https://shopify.dev/docs/api/admin-rest/2022-07#authentication
+  - https://www.npmjs.com/package/%40shopify/shopify-api
+  - https://pypi.org/project/ShopifyAPI/
+  - https://github.com/Shopify/shopify_python_api
+  - https://shopify.dev/docs/api/admin-graphql/latest/mutations/companyLocationAssignRoles
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Login history for administrative users is available in the Shopify admin
+        UI and shows per-session details such as date, IP address, ISP, approximate
+        location, and browser/OS; only the five most recent sessions per user are
+        shown in the UI and there is no export function mentioned.
+      reference: dubious claim, hallucinated reference
+    role_assignment:
+      value: A User management activity log records administrative user-management
+        events (for example, when a user or a user role is created, edited, deleted,
+        or assigned). The log lists Event, Resource, Date (with timezone), and User;
+        accessible in Settings > Users > Security in the admin.
+      reference: dubious claim, hallucinated reference
+    api_call:
+      value: An Audit events webhook topic exists that triggers for each auditable
+        Admin API request. Delivery requires Google Cloud Pub/Sub or AWS EventBridge,
+        and it is limited to one active subscription per Plus store; the read_audit_events
+        scope is required. Access is restricted to custom apps.
+      reference: https://shopify.dev/docs/api/admin-graphql/2024-10/enums/WebhookSubscriptionTopic
+    data_export:
+      value: uncertain
+      reference: no evidence
+    configuration_change:
+      value: The Store activity log in the admin records recent administrative changes
+        such as changing a store setting and granting app access, including the actor
+        (person/app/channel) and timestamp; it is view-only with a display cap of
+        250 entries and cannot be exported.
+      reference: dubious claim, hallucinated reference
+    user_account_creation:
+      value: Creation and management of administrative users are recorded in the User
+        management activity log (for example, user created/edited/deleted). The log
+        is available from Settings > Users > Security.
+      reference: dubious claim, hallucinated reference
+    security_policy_change:
+      value: Security settings for organizations (Shopify Plus) such as enforcing
+        two-step authentication, setting up SAML SSO, SCIM, domain verification, and
+        reviewing the organization’s user activity log are managed under Users > Security.
+        While the page documents reviewing the user activity log, it does not enumerate
+        specific policy-change event types.
+      reference: dubious claim, hallucinated reference
+  event_logs_licensing_level:
+    value: Admin API audit event streaming of API activity (audit_events/admin_api_activity)
+      requires Shopify Plus, is restricted to a single active subscription per Plus
+      store, requires delivery via Google Cloud Pub/Sub or AWS EventBridge, and needs
+      the read_audit_events scope; access is for custom apps. General Store activity
+      and User management activity logs are visible in the admin UI (with limitations)
+      without a documented Plus requirement.
+    reference: https://shopify.dev/docs/api/admin-graphql/2024-10/enums/WebhookSubscriptionTopic
+  monitoring_products:
+  - value: Splunk Add-on for Shopify (Avotrix) pulls data from Shopify APIs into Splunk
+      (inventory items, orders, locations, customers, and other events).
+    reference: https://splunkbase.splunk.com/app/7229
+  - value: DNIF HYPERCLOUD Shopify Connector ingests Shopify events/logs using a store
+      URL and an Admin API access token with appropriate read scopes.
+    reference: https://dnif.it/kb/connectors/supported-connectors/shopify-connector/
+  - value: CloudQuery can export Shopify API data to Splunk via configuration-driven
+      syncs.
+    reference: https://hub.cloudquery.io/export-data/shopify/splunk
+  - value: n8n provides workflow automation nodes to connect Shopify and IBM QRadar
+      via HTTP/API calls, enabling custom flows for forwarding events/logs.
+    reference: https://n8n.io/integrations/qradar/and/shopify/
+  ingestion_methods:
+  - value: Standard HTTPS webhooks (subscribe to supported topics; JSON or XML payloads)
+      to push events to a receiver you control.
+    reference: https://shopify.dev/docs/api/admin-rest/2025-10/resources/webhook
+  - value: Amazon EventBridge delivery for webhooks via the eventBridgeWebhookSubscriptionCreate/Update
+      GraphQL mutations; use the partner event source ARN.
+    reference: https://shopify.dev/docs/api/admin-graphql/latest/mutations/eventbridgewebhooksubscriptioncreate
+  - value: Google Cloud Pub/Sub delivery for webhooks via pubSubWebhookSubscriptionCreate;
+      configured through app configuration or GraphQL API.
+    reference: https://shopify.dev/docs/api/webhooks/2024-07
+  - value: Admin API audit events stream (audit_events/admin_api_activity) for auditable
+      Admin API requests, delivered via EventBridge or Pub/Sub (Plus-only, custom
+      apps, read_audit_events scope).
+    reference: https://shopify.dev/docs/api/admin-graphql/2024-10/enums/WebhookSubscriptionTopic
+  - value: Polling shop resource Events using the Admin API Event resource to retrieve
+      records of actions generated by supported resources; not realtime and paginated.
+    reference: https://shopify.dev/docs/api/admin-rest/unstable/resources/event
+  - value: Manual review in the Shopify admin for Store activity log (view-only, no
+      export) and per-user Login history (shows last five sessions with IP/ISP/location/UA).
+    reference: dubious claim, hallucinated reference
+  log_export_options:
+    tools_connectors:
+      value: 'Export/forward options include: 1) Streaming webhooks to HTTPS endpoints
+        you manage; 2) EventBridge targets/rules for routing to downstream systems
+        (e.g., collectors or pipelines); 3) Google Pub/Sub topics for downstream processing;
+        4) Programmatic retrieval via Admin API (Event resource) for periodic pulls.
+        The Store activity log UI is non-exportable, and per-user Login history is
+        UI-only.'
+      reference: https://shopify.dev/docs/api/webhooks/2024-07
+  documentation_links:
+  - https://shopify.dev/docs/api/admin-graphql/2024-10/enums/WebhookSubscriptionTopic
+  - https://changelog.shopify.com/posts/webhook-topic-for-auditing-the-store-admin
+  - https://shopify.dev/docs/api/webhooks/2024-07
+  - https://shopify.dev/docs/api/admin-graphql/latest/mutations/eventbridgewebhooksubscriptioncreate
+  - https://shopify.dev/docs/api/admin-rest/unstable/resources/event
+  - https://help.shopify.com/en/manual/shopify-admin/activity-logs
+  - https://help.shopify.com/en/manual/your-account/staff-accounts/security/user-management-activity-log
+  - https://help.shopify.com/en/manual/organization-settings/users/security
+  - https://github.com/Shopify/shopify_app/blob/main/docs/shopify_app/webhooks.md
+  - https://github.com/Shopify/shopify-api-js/issues/228
+  - https://community.shopify.com/c/shopify-apps/product-quot-events-quot-object-in-graphql-doesn-t-reflect/td-p/3020907
+  - https://splunkbase.splunk.com/app/7229
+  - https://hub.cloudquery.io/export-data/shopify/splunk
+  - https://dnif.it/kb/connectors/supported-connectors/shopify-connector/
+  - https://help.shopify.com/ja/manual/fulfillment/setup/notifications/webhooks
+incident_response:
+  suspend_user_api:
+    value: No direct Admin API endpoint to suspend/deactivate staff users was found.
+      For Shopify Plus, user deactivation can be automated via SCIM through your identity
+      provider (create users, assign groups, deactivate users).
+    reference: dubious claim, hallucinated reference
+  invalidate_sessions_api:
+    value: No documented API to invalidate all admin sessions for a staff user. The
+      Shopify admin UI provides “Revoke access” for a specific device/app to force
+      logout and require re‑authentication.
+    reference: dubious claim, hallucinated reference
+  revoke_api_key_api:
+    value: You can programmatically revoke Shopify Storefront API tokens using the
+      Admin GraphQL mutation storefrontAccessTokenDelete. This deletes a specific
+      storefront access token.
+    reference: https://shopify.dev/docs/api/admin-graphql/2022-07/mutations/storefrontAccessTokenDelete
+  user_toggle_api:
+    value: No Admin API to toggle staff users between active/suspended was found.
+      The REST User resource is read‑only (“only lets you retrieve information about
+      staff”); suspension remains a UI/IdP (SCIM) action.
+    reference: https://shopify.dev/docs/api/admin-rest/unstable/resources/user
+  user_status_api:
+    value: Yes. The Admin GraphQL API exposes staffMember with an active field to
+      check if a user is active. Access requires read_users scope and appropriate
+      plan eligibility.
+    reference: https://shopify.dev/docs/api/admin-graphql/latest/queries/staffMember
+  session_timeout_configuration:
+    value: No official setting to extend admin session timeout was found; community
+      guidance indicates automatic logout after inactivity and that the timeout isn’t
+      configurable in admin.
+    reference: https://community.shopify.com/c/shopify-discussions/shopify-logs-me-out-after-30-minutes-of-inactivity/td-p/2481594
+  known_automation_tools:
+  - value: Shopify Plus SCIM user management to automate provisioning and deprovisioning
+      (including deactivate users) via IdPs (Okta, OneLogin, Microsoft Entra).
+    reference: dubious claim, hallucinated reference
+  - value: Microsoft Entra (Azure AD) SCIM provisioning for Shopify Plus, including
+      setup of Tenant URL and Secret Token for automatic user lifecycle management.
+    reference: https://learn.microsoft.com/en-us/entra/identity/saas-apps/shopify-plus-provisioning-tutorial
+  - value: Splunkbase “Shopify Add-on for Splunk” to ingest Shopify data (orders,
+      customers, inventory, events) into Splunk via Shopify APIs for analysis/detection
+      content.
+    reference: https://splunkbase.splunk.com/app/7229
+  - value: CloudQuery source for Shopify with Splunk destination to ETL Shopify API
+      data into Splunk on a schedule for security analytics.
+    reference: https://hub.cloudquery.io/export-data/shopify/splunk
+  - value: HMAC‑verified Shopify webhook receiver (Node/Express example) to securely
+      validate Shopify webhooks for downstream automation or SOAR ingestion.
+    reference: https://github.com/adarsh-anncode/Shopify-Webhook-HMAC-Verification
+  - value: Official Shopify Admin API client libraries (Node.js and Ruby) for automating
+      Admin GraphQL/REST operations and webhook handling in custom SOAR/IR tooling.
+    reference: https://shopify.dev/docs/api/admin-rest/2022-07
+  documentation_links:
+  - https://help.shopify.com/en/manual/your-account/staff-accounts/manage-staff-accounts
+  - https://help.shopify.com/en/manual/your-account/staff-accounts/security/user-management-activity-log
+  - https://help.shopify.com/en/manual/shopify-admin/activity-logs
+  - https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features
+  - https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/saml
+  - https://help.shopify.com/en/manual/your-account/users/security/advanced-security-features/scim
+  - https://shopify.dev/docs/api/admin-graphql/latest/queries/staffMember
+  - https://shopify.dev/docs/api/admin-graphql/2024-10/queries/staffMembers
+  - https://shopify.dev/docs/api/admin-rest/unstable/resources/user
+  - https://shopify.dev/docs/api/admin-graphql/2022-07/mutations/storefrontAccessTokenDelete
+  - https://shopify.dev/docs/api/admin-graphql/latest/mutations/delegateAccessTokenDestroy
+  - https://shopify.dev/docs/api/admin-graphql/latest/mutations/appUninstall

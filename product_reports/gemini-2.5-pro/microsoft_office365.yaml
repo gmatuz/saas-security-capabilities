@@ -1,144 +1,355 @@
-user_management:
-  sso_support:
-    value: "Yes, Microsoft 365 supports SSO via SAML and OpenID Connect protocols. It uses Microsoft Entra ID (formerly Azure Active Directory) as its identity provider, which can also be federated with other third-party IdPs."
-    reference: "https://learn.microsoft.com/en-us/microsoft-365/enterprise/about-microsoft-365-identity"
-  sso_licensing_level_requirement:
-    value: "Basic SSO features are included with Microsoft 365 subscriptions. More advanced features, such as conditional access policies, require a Microsoft Entra ID Premium P1 or P2 license."
-    reference: "https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id-pricing"
-  scim_support:
-    value: "yes"
-    reference: "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups"
-  scim_licensing_level_requirement:
-    value: "Automated user provisioning from an HR app to Microsoft Entra ID and outbound provisioning to other applications requires a Microsoft Entra ID Premium P1 or P2 license."
-    reference: "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/what-is-provisioning#what-license-do-i-need"
-  scim_authentication_mechanisms:
-    value: "Authentication token"
-    reference: "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups#step-2-configure-provisioning-for-your-scim-endpoint"
-  scim_authentication_acquisition_steps: "When configuring SCIM for an application in the Microsoft Entra admin center, the 'Tenant URL' and 'Secret Token' are provided by the target SaaS application. For inbound SCIM to Entra ID, you must configure an application in Entra ID that acts as the SCIM endpoint. The authentication token is generated within the configuration of the SCIM-enabled application you are provisioning to."
-  user_management_api_support:
-    value: "yes"
-    reference: "https://learn.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0"
-  user_management_api_licensing_level:
-    value: "Access to the Microsoft Graph API is included with Microsoft 365 and Microsoft Entra ID subscriptions. However, using certain API features may require specific licenses (e.g., Premium P1/P2 for advanced identity governance features)."
-    reference: "https://learn.microsoft.com/en-us/graph/overview#what-is-microsoft-graph"
-  user_management_api_authentication_mechanisms:
-    value: "Authentication token"
-    reference: "https://learn.microsoft.com/en-us/graph/auth/auth-concepts"
-  user_management_api_authentication_acquisition_steps: "1. Sign in to the Microsoft Entra admin center. 2. Navigate to 'Identity' > 'Applications' > 'App registrations' and select 'New registration'. 3. Provide a name for the application and configure the supported account types. 4. Once registered, the 'Application (client) ID' and 'Directory (tenant) ID' will be available on the overview page. 5. Go to 'Certificates & secrets' and create a new client secret. Copy the secret's value immediately as it will not be visible again. 6. Go to 'API permissions', click 'Add a permission', select 'Microsoft Graph', and choose the required permissions (e.g., User.ReadWrite.All, Directory.ReadWrite.All). 7. Grant admin consent for the selected permissions. 8. Use the client ID, client secret, and tenant ID to request an OAuth 2.0 access token from the Microsoft identity platform endpoint."
-  seat_costs:
-    - license_level: "Any licensed plan (e.g., Business, Enterprise)"
-      active:
-        value: "yes"
-        reference: "https://learn.microsoft.com/en-us/microsoft-365/enterprise/manage-user-accounts-and-licenses-with-microsoft-365-powershell"
-      suspended_disabled:
-        value: "no"
-        reference: "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/remove-licenses-from-users?view=o365-worldwide#what-happens-when-you-remove-a-license"
-      archived:
-        value: "n/a"
-        reference: "https://learn.microsoft.com/en-us/purview/archive-mailboxes"
-  lifecycle_options:
-    - "Active"
-    - "Disabled/Blocked"
-    - "Soft-deleted"
-    - "Hard-deleted"
-  rbac_support:
-    value: "yes"
-    reference: "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/overview"
-  rbac_api_assignment:
-    value: "Yes, role assignments can be managed via the Microsoft Graph API using the 'roleManagement' resource."
-    reference: "https://learn.microsoft.com/en-us/graph/api/resources/rolemanagement?view=graph-rest-1.0"
+identity_and_access:
   documentation_links:
-    - "https://learn.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0"
-    - "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups"
-    - "https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow"
-    - "https://learn.microsoft.com/en-us/graph/api/resources/rolemanagement?view=graph-rest-1.0"
-    - "https://learn.microsoft.com/en-us/microsoft-365/enterprise/about-microsoft-365-identity"
-    - "https://github.com/microsoftgraph/msgraph-sdk-python"
-    - "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso"
-    - "https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0&tabs=http"
-    - "https://developer.microsoft.com/en-us/graph/graph-explorer"
-    - "https://learn.microsoft.com/en-us/entra/identity-governance/lifecycle-workflows-overview"
+  - https://learn.microsoft.com/en-us/azure/active-directory/governance/what-are-lifecycle-workflows
+  - https://learn.microsoft.com/en-us/azure/active-directory/governance/licensing-fundamentals
+  - https://medium.com/@sousounibajis/microsoft-365s-incident-response-guides-a-detailed-review-a9cf29906666
+  lifecycle_options:
+  - Joiner (Onboarding)
+  - Mover (Role changes, internal transfers)
+  - Leaver (Offboarding)
+  - Active
+  - Inactive
+  - Disabled
+  - Deleted
+  - Away
+  - Busy
+  - In a call
+  - In a meeting
+  - Do Not Disturb
+  - Be right back
+  - Offline
+  - Status unknown
+  - Out of Office
+  rbac_api_assignment:
+    reference: hallucinated link doublecheck content
+    value: yes - Roles and rights can be assigned through the Microsoft Graph API
+      by managing user properties and group memberships. Lifecycle workflows can automate
+      assigning and removing access packages.
+  rbac_support:
+    reference: hallucinated link doublecheck content
+    value: yes - Supports roles, rights, and groups for access control. Administrators
+      can delegate actions without granting full administrative rights.
+  scim_authentication_acquisition_steps:
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/app-provisioning/configure-automatic-user-provisioning-portal
+    value: '1. In Azure portal, go to Microsoft Entra ID > Enterprise Applications.
+      2. Create or select an application. 3. Under ''Manage'', click ''Provisioning''
+      and set ''Provisioning Mode'' to ''Automatic''. 4. Obtain SCIM API endpoint
+      URL and SCIM API token (bearer token) from the service provider (e.g., from
+      Flexopus Dashboard Settings > Integrations). 5. Paste the URL and token into
+      ''Admin Credentials'' in Azure AD. 6. Test Connection. For Okta: 1. Enable API
+      Integration in the Provisioning tab. 2. Authenticate with Microsoft Office 365
+      using admin credentials.'
+  scim_authentication_mechanisms:
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/app-provisioning/user-provisioning
+    value: Bearer token (client secret), OAuth 2.0.
+  scim_licensing_level_requirement:
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/governance/licensing-fundamentals
+    value: SCIM provisioning is part of Identity Governance features. These features
+      are generally available with Microsoft Entra ID P1 (included with Microsoft
+      365 E3 and Business Premium) and Microsoft Entra ID P2 (included with Microsoft
+      365 E5).
+  scim_support:
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/app-provisioning/user-provisioning
+    value: yes - SCIM v2.0 support for automated user provisioning and deprovisioning
+      through Microsoft Entra ID (formerly Azure Active Directory).
+  seat_costs:
+  - archived:
+      reference: hallucinated link doublecheck content
+      value: Yes, $0.05 USD per GB per month for archived storage.
+    license_level: Archived OneDrive accounts (with retention policies, unlicensed
+      for >93 days)
+    suspended_disabled:
+      reference: hallucinated link doublecheck content
+      value: uncertain
+  sso_license_level_requirement:
+    reference: hallucinated link doublecheck content
+    value: Microsoft Entra ID Free (up to 10 apps per user), Microsoft Entra ID P1
+      (included with Microsoft 365 E3 and Business Premium), Microsoft Entra ID P2
+      (included with Microsoft 365 E5).
+  sso_support:
+    reference: hallucinated link doublecheck content
+    value: yes - SAML 2.0, WS-Federation, WS-Trust, Primary Refresh Token (PRT), Secure
+      Web Authentication (SWA). Supported IDPs include Okta, Ping, Azure Active Directory,
+      ADFS.
+  user_management_api_authentication_acquisition_steps:
+    reference: https://learn.microsoft.com/en-us/graph/auth-v2-service
+    value: 1. Register application in Microsoft Entra admin center (Application ID,
+      Redirect URI/URL). 2. Acquire access token from Microsoft identity platform.
+      3. Grant necessary permissions (delegated or application permissions) to the
+      application. 4. For programmatic access, implement MSAL authentication flows.
+  user_management_api_authentication_mechanisms:
+    reference: https://learn.microsoft.com/en-us/graph/auth/auth-concepts
+    value: Access tokens from Microsoft identity platform (OAuth, OpenID Connect).
+      Permissions (scopes) like UserAuthenticationMethod.ReadWrite.All granted to
+      the application. Authentication can be performed via interactive user sign-in
+      or programmatic flows (e.g., Authorization Code, Client Credential).
+  user_management_api_licensing_level:
+    reference: https://learn.microsoft.com/en-us/azure/active-directory/governance/licensing-fundamentals
+    value: Microsoft Entra ID Free, P1, and P2. Microsoft Entra ID Governance licenses
+      for advanced identity governance.
+  user_management_api_support:
+    reference: https://learn.microsoft.com/en-us/graph/use-the-api
+    value: yes - Microsoft Graph API, PowerShell cmdlets.
 security_monitoring:
+  documentation_links:
+  - https://learn.microsoft.com/en-us/purview/audit-mailboxes
+  - https://learn.microsoft.com/microsoft-365/troubleshoot/audit-logs/mailbox-audit-logs
+  - https://learn.microsoft.com/en-us/office365/securitycompliance/turn-audit-log-search-on-or-off
+  - https://learn.microsoft.com/microsoft-365/compliance/audit-log-search
+  - https://www.microsoft.com/security/blog/2018/10/30/office-365-atp-can-now-be-integrated-into-your-siem/
+  - https://www.microsoft.com/security/blog/2024/04/24/siem-server-integration-with-microsoft-365-services-and-applications/
+  - https://www.zelarsoft.com/post/office-365-siem-integration-accelerator
+  - https://samsig.com/preparing-azure-ad-office-365-for-siem-integration-part-1/
+  - https://www.youtube.com/watch?v=yYn9N55S_jA
+  - https://www.youtube.com/watch?v=J0QUgUW8sAs
+  - https://www.youtube.com/watch?v=zLyY08o0k-g
+  - https://www.youtube.com/watch?v=B6M2Olq0beM
+  - https://www.youtube.com/watch?v=5i03o_0UWx4
+  - https://www.youtube.com/watch?v=Dk380mk-xh0
+  - https://www.youtube.com/watch?v=jpTRdV5eZYE
+  - https://www.youtube.com/watch?v=wzJqU_4H-s0
+  - https://www.youtube.com/watch?v=o04iL80838o
+  - https://www.youtube.com/watch?v=gT13sWf5PjU
+  - https://www.youtube.com/watch?v=d_xVzS2j2jM
   event_logs:
-    user_login:
-      value: "UserLoggedIn"
-      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
-    role_assignment:
-      value: "Add member to role."
-      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
     api_call:
-      value: "All activities are logged and available through the Office 365 Management Activity API."
-      reference: "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference"
-    data_export:
-      value: "DataExport"
-      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+      reference: https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-search
+      value: The Office 365 Management Activity API (now part of the Graph Security
+        API/Purview Audit) allows pulling audit logs into SIEM systems or custom dashboards.
+        This API provides access to events from Office 365 audit logs, offering the
+        same data as the search log with minor differences. The Office 365 Management
+        Activity API retrieves information about user, admin, system, and policy actions
+        and events from Microsoft 365 and Microsoft Entra activity logs. It contains
+        a common schema and product-specific schemas, providing a fixed schema for
+        all data sources like Exchange, SharePoint, Azure Active Directory, Yammer,
+        and OneDrive for Business. The AuditLog Query Graph API (also known as the
+        Microsoft Purview Audit Search API) is a preview feature to create and run
+        search queries and retrieve search results programmatically, similar to how
+        Purview operates.
     configuration_change:
-      value: "Updated channel configuration."
-      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
-    user_account_creation:
-      value: "UserAdded"
-      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+      reference: https://www.syskit.com/blog/how-to-keep-up-with-microsoft-365-tenant-configuration-changes/
+      value: Audit logs capture details about system configuration changes. Auditable
+        activities may include admin activities like changes to tenant configuration
+        settings in Exchange Online and SharePoint Online. The Office 365 unified
+        audit log tracks every user and account action across Office 365 services,
+        including configuration changes. The Audit.General content type in the Office
+        365 Management Activity API includes all other workloads not covered by specific
+        content types like Azure Active Directory or Exchange, making it relevant
+        for configuration changes.
+    data_export:
+      reference: https://learn.microsoft.com/microsoft-365/compliance/audit-log-search
+      value: Microsoft captures granular details on user activity, including suspicious
+        volume of data being downloaded and data exported from services like OneDrive
+        and SharePoint sites. This information is available through the Office 365
+        audit logs. To find events relating to file sharing and access request activities
+        in SharePoint and OneDrive, you need to search the Unified Audit Logs in the
+        Office 365 Security & Compliance Center. The Audit.SharePoint content type
+        in the Office 365 Management Activity API specifically covers web-based collaborative
+        platform events, which would include data export actions.
+    role_assignment:
+      reference: https://www.coreview.com/blog/an-admins-guide-to-navigating-audit-logs-in-office-365
+      value: Changes to important roles are logged in Microsoft 365. Administrators
+        can find this information by visiting the Azure portal and performing a search
+        on the Core Directory service and RoleManagement categories. Alternatively,
+        the Unified Audit Log via the Office 365 Security & Compliance Center also
+        includes logs of all Microsoft 365 applications, including role changes.
     security_policy_change:
-      value: "New-AdminAuditLogSearch or New-ComplianceSearch"
-      reference: "https://learn.microsoft.com/en-us/purview/audit-log-activities"
+      reference: https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-log-search
+      value: The Office 365 Activity Management API retrieves information about policy
+        actions and events from your organization's Microsoft 365 activity logs. This
+        includes security policy changes. The DLP.All content type in the Office 365
+        Management Activity API is specifically for Data Loss Prevention workloads,
+        which are a type of security policy.
+    user_account_creation:
+      reference: hallucinated link doublecheck content
+      value: User account creation events are logged within Microsoft 365. You can
+        find audit logs related to the creation of resources, including user accounts,
+        in the Azure portal by searching the UserManagement and GroupManagement categories
+        under the Azure Active Directory section. Alternatively, the Unified Audit
+        Log in the Office 365 Security & Compliance Center will list all resources
+        that are created and modified, which would include user account creation.
+    user_login:
+      reference: https://www.lepide.com/how-to/check-login-activity-history-in-microsoft-office-365.html
+      value: Microsoft 365 offers comprehensive logging capabilities, including user
+        login activities. These logs are crucial for security monitoring and compliance.
+        You can identify suspicious or brute force login attempts through these audit
+        logs. The Office 365 Management Activity API retrieves information about user
+        actions and events from Microsoft 365 and Microsoft Entra activity logs. For
+        user login activities, the Azure AD Sign-in logs are available. Starting November
+        2020, audit logs for Microsoft Entra sign-in activities are ingested into
+        the unified audit log from Microsoft Entra Event Hubs. The ErrorCode property
+        in the Microsoft Entra logon auditing schema now matches AADSTS error codes.
+        However, the UserId parameter will not be populated for UserAccountNotFound
+        errors because the user name doesn't exist in the organization's Microsoft
+        Entra directory. Logs are generally retained for 30 days with an Azure AD
+        P1 license or 7 days with an Azure AD Free license.
   event_logs_licensing_level:
-    value: "Microsoft Purview Audit (Standard) is included with most Microsoft 365 and Office 365 subscriptions and provides a default 180-day retention for audit logs. Audit (Premium) requires higher-tier licensing (like E5) for longer retention (up to 10 years), and access to higher API bandwidth and more intelligent insights."
-    reference: "https://learn.microsoft.com/en-us/purview/audit-solutions-overview"
-  monitoring_products:
-  - value: "Microsoft Sentinel"
-    reference: "https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-365-defender"
-  - value: "Splunk Add-on for Microsoft Office 365"
-    reference: "https://splunkbase.splunk.com/app/4055"
-  - value: "Datadog"
-    reference: "https://docs.datadoghq.com/integrations/microsoft_365/"
-  - value: "M365 Manager Plus"
-    reference: "https://www.manageengine.com/microsoft-365-manager-plus/microsoft-365-auditing.html"
+    reference: https://learn.microsoft.com/en-us/purview/audit-log-retention-policies
+    value: The level of logging available in Office 365 is dependent on the licensing
+      levels purchased. For instance, tenants with Purview Audit (standard) licenses
+      (Office 365 E3) can access audit events for 180 days, while those with Purview
+      Audit (premium) licenses can access events for 365 days. It is possible to retain
+      Office 365 audit logs for up to 10 years, but the user must also be assigned
+      a 10-year audit log retention add-on license in addition to an E5 license. Microsoft
+      Defender for Office 365 Plan 1 or 2, or Office 365 E5, allows you to use the
+      Microsoft Defender for Office 365 schema for SIEM integration. Azure AD Sign-in
+      logs require an Azure AD P1 or higher license to export into Log Analytics,
+      and are retained for 30 days with a P1 license or 7 days with a Free license.
   ingestion_methods:
-  - value: "Office 365 Management Activity API"
-    reference: "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference"
-  - value: "Microsoft Sentinel data connectors"
-    reference: "https://learn.microsoft.com/en-us/azure/sentinel/connect-office-365"
+  - reference: https://learn.microsoft.com/en-us/purview/audit-log-search
+    value: 'API: The primary method for programmatic ingestion is the Office 365 Management
+      Activity API (now part of the Graph Security API/Purview Audit) and Microsoft
+      Graph API. These APIs allow SIEM systems and custom applications to pull audit
+      logs.'
+  - reference: https://docs.rapid7.com/insightidr/microsoft-office-365/
+    value: 'Cloud Collection/On-premises Collector: Rapid7 InsightIDR offers two ways
+      to send data: event collection through the Cloud or through an on-premises Rapid7
+      Collector.'
+  - reference: https://learn.microsoft.com/en-us/purview/audit-log-search
+    value: 'Manual Download (CSV/Excel): Logs can be downloaded manually via the Microsoft
+      Purview Compliance Center (Security & Compliance Center) web interface, often
+      as CSV or Excel files, though this is not scalable for large volumes.'
   log_export_options:
     tools_connectors:
-      value: "Logs can be exported via the Microsoft Purview compliance portal as a CSV file. Programmatic access is available through the Office 365 Management Activity API, which is used by various SIEM connectors and third-party tools."
-      reference: "https://learn.microsoft.com/en-us/purview/audit-log-export"
-  documentation_links:
-  - "https://learn.microsoft.com/en-us/purview/audit-solutions-overview"
-  - "https://learn.microsoft.com/en-us/office/office-365-management-api/office-365-management-apis-overview"
-  - "https://learn.microsoft.com/en-us/azure/sentinel/connect-office-365"
-  - "https://splunkbase.splunk.com/app/4055"
-  - "https://docs.datadoghq.com/integrations/microsoft_365/"
-  - "https://learn.microsoft.com/en-us/purview/audit-log-search?tabs=new-audit-search"
+      reference: https://learn.microsoft.com/en-us/purview/audit-log-search
+      value: Microsoft Office 365 provides APIs as the primary method for log export,
+        specifically the Office 365 Management Activity API (now part of the Graph
+        Security API/Purview Audit) and the Microsoft Graph API. These APIs allow
+        pulling audit logs into SIEM systems or custom dashboards. Some SIEM solutions
+        also offer dedicated connectors or scripts to ingest M365 logs. Manual export
+        of logs as CSV or Excel files is also possible from the Microsoft Purview
+        Compliance Center, although this has export limits (e.g., 5,000 records from
+        the web interface) and is not ideal for large-scale ingestion. Third-party
+        monitoring tools and CASBs also use M365 logs via API. For certain integrations
+        like USM Appliance with Microsoft Office 365 Cloud App Security, a SIEM Agent
+        (JAR file) is used on a separate machine to forward syslog messages. Solutions
+        like Zelarsoft's accelerator save audit logs to Azure blob storage in JSON
+        format and retrieve data from the API.
+  monitoring_products:
+  - reference: https://splunk.github.io/splunk-add-on-for-microsoft-office-365/
+    value: Splunk is a commonly integrated SIEM solution for Microsoft 365 logs, allowing
+      correlation of cloud activities with on-premises events. ManageEngine M365 Manager
+      Plus also offers integration with Splunk.
+  - reference: https://docs.rapid7.com/insightidr/microsoft-office-365/
+    value: Rapid7 InsightIDR supports Microsoft 365, Microsoft 365 Government Community
+      Cloud (GCC), and Microsoft 365 GCC High, and can parse event types like Audit.AzureActiveDirectory,
+      Audit.Exchange, Audit.General, and Audit.SharePoint.
+  - reference: https://www.sumologic.com/blog/how-to-secure-office365-with-cloud-siem
+    value: Sumo Logic Cloud SIEM provides full security and compliance visibility
+      for SaaS apps, including Office 365, offering monitoring, auditing, and real-time
+      analysis capabilities.
+  - reference: https://panther.com/integrations/microsoft-365
+    value: Panther, a cloud SIEM platform, can collect, normalize, and monitor Microsoft
+      365 audit logs for real-time suspicious activity identification. It pulls audit
+      logs from Microsoft's Office 365 Management Activity API every 5 minutes.
+  - reference: https://channelvisionmag.com/blumira-offers-cloud-siem-with-integrated-detection-response-for-smbs/
+    value: Blumira's cloud-based SIEM includes pre-tuned detections for Microsoft
+      365 threats and automates integration through Cloud Connectors, eliminating
+      the need for a sensor.
 incident_response:
-  suspend_user_management_api:
-    value: "Update user's 'accountEnabled' property to 'false' via Microsoft Graph API."
-    reference: "https://learn.microsoft.com/en-us/graph/api/user-update?view=graph-rest-1.0&tabs=http"
-  invalidate_sessions_api:
-    value: "POST /users/{id | userPrincipalName}/revokeSignInSessions"
-    reference: "https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0&tabs=http"
-  revoke_api_key_api:
-    value: "Revocation is managed at the application level within Microsoft Entra ID (formerly Azure AD) by removing secrets or certificates from the application registration, rather than a per-user API key."
-    reference: "https://learn.microsoft.com/en-us/entra/identity-platform/howto-remove-app-role-from-user"
-  user_toggle_api:
-    value: "The 'accountEnabled' property on the user resource in Microsoft Graph API can be set to true or false to enable or disable the user account."
-    reference: "https://learn.microsoft.com/en-us/graph/api/user-update?view=graph-rest-1.0&tabs=http"
-  user_status_api:
-    value: "GET /users/{id | userPrincipalName}"
-    reference: "https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http"
-  session_timeout_configuration:
-    value: "Session lifetimes can be configured through Conditional Access policies in Microsoft Entra ID."
-    reference: "https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-session-lifetime"
-  known_automation_tools:
-  - value: "Microsoft Sentinel (SOAR)"
-    reference: "https://learn.microsoft.com/en-us/azure/sentinel/tutorial-respond-threats-playbook"
-  - value: "Microsoft Power Automate"
-    reference: "https://powerautomate.microsoft.com/en-us/connectors/details/shared_office365/office-365-users/"
-  - value: "Splunk SOAR"
-    reference: "https://splunkbase.splunk.com/app/5087"
   documentation_links:
-  - "https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0"
-  - "https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0"
-  - "https://learn.microsoft.com/en-us/powershell/module/azuread/revoke-azureaduserallrefreshtoken?view=azureadps-2.0"
-  - "https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview"
-  - "https://developer.microsoft.com/en-us/graph/graph-explorer"
-  - "https://www.vasil-mitrev.com/archive/2022/02/how-to-immediately-revoke-access-to-office-365-applications-updated-for-2022/"
+  - https://learn.microsoft.com/en-us/defender-office-365/air-about
+  - https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0
+  - https://www.rapid7.com/blog/post/2019/10/29/end-to-end-office-365-administration-with-insightconnect/
+  - https://www.penthara.com/how-to-enforce-session-timeout-policies-in-microsoft-365-across-all-devices/
+  - https://www.helpnetsecurity.com/2019/09/10/office-365-incident-response/
+  - https://www.stellarinfo.com/blog/automated-investigation-response-for-emails-in-office-365/
+  - https://learn.microsoft.com/en-us/defender-office-365/responding-to-a-compromised-email-account
+  - https://learn.microsoft.com/en-us/graph/api/user-invalidateallrefreshtokens?view=graph-rest-beta
+  - https://melbits.com.au/melbourne/cybersecurity/cybersecurity-playbooks/microsoft-365-compromised-account-playbook/
+  - https://sousouni-bajis.medium.com/microsoft-365s-incident-response-guides-a-detailed-review-04d7602c9284
+  - https://vertexaisearch.google.com/u/0/search?q=open+issues+incident+response+Microsoft+Office365&ie=UTF-8&filter=0&pfsd=true
+  invalidate_sessions_api:
+    reference: https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0
+    value: The Microsoft Graph API provides the `revokeSignInSessions` endpoint (POST
+      /me/revokeSignInSessions or POST /users/{id | userPrincipalName}/revokeSignInSessions)
+      to invalidate all refresh tokens issued to applications for a user, as well
+      as session cookies in a user's browser. [10] This action resets the `signInSessionsValidFromDateTime`
+      user property to the current date-time, forcing the user to sign in again to
+      all applications. [10] There might be a small delay of a few minutes before
+      tokens are revoked. [10] This API does not revoke sign-in sessions for external
+      users. [10] An older beta API, `invalidateAllRefreshTokens`, exists but Microsoft
+      recommends using `revokeSignInSessions` instead. [19] While an API to revoke
+      specific access tokens directly is not available, invalidating refresh tokens
+      forces re-authentication and effectively ends active sessions for applications.
+      [24, 37, 38]
+  known_automation_tools:
+  - reference: https://learn.microsoft.com/en-us/defender-office-365/air-about
+    value: Microsoft Defender for Office 365 Plan 2 includes Automated Investigation
+      and Response (AIR) capabilities, which automatically triage high-impact alerts
+      and queue remediation actions for approval by SecOps teams. [8, 9, 11, 15, 17]
+      AIR can be triggered by specific alerts or initiated manually via Threat Explorer.
+      [8, 9, 16] These playbooks correlate similar emails and suspicious activities
+      for users. [16] Recent updates allow AIR to carry out pre-approved remediation
+      actions without manual approval. [15]
+  - reference: https://www.rapid7.com/blog/post/2019/10/29/end-to-end-office-365-administration-with-insightconnect/
+    value: Rapid7 InsightConnect (SOAR) integrates with Office 365, enabling automation
+      of tasks like user onboarding/offboarding, group management, disabling/enabling
+      users, blocking senders, and purging malicious emails. [4] This integration
+      leverages Azure Active Directory Admin and Microsoft Office 365 Email Security
+      functionalities. [4]
+  - reference: https://xsoar.pan.dev/docs/reference/integrations/office-365-feed
+    value: Cortex XSOAR has various integrations with Microsoft Azure and Office 365,
+      including modules for Azure Active Directory (managing users, groups, terminating
+      sessions, blocking users), O365 (file management, Teams integration), Microsoft
+      Graph API (generic endpoint calls), Audit Logs (ingesting security events),
+      and Exchange/EWS (managing mailboxes, compliance searches). [29, 34] The Office
+      365 Feed integration fetches indicators like IP addresses and URLs from Microsoft's
+      public feeds for use in SIEM or firewall policies. [29]
+  - reference: https://docs.fortinet.com/document/fortisoar/1.1.0/microsoft-defender-office-365/536/microsoft-defender-office-365-v1-1-0
+    value: FortiSOAR offers a Microsoft Defender for Office 365 connector that can
+      retrieve and update alert details, including status and classification. [40]
+  - reference: https://www.convergepoint.com/incident-management-software/
+    value: ConvergePoint Incident Management Software is built on Microsoft 365 SharePoint,
+      centralizing incident reporting, investigations, root cause analysis, and corrective
+      actions with custom forms, automated workflows, and real-time case tracking.
+      [30]
+  revoke_api_key_api:
+    reference: https://learn.microsoft.com/en-us/graph/api/user-revokesigninsessions?view=graph-rest-1.0
+    value: While specific API endpoints for revoking "API keys" (like personal tokens
+      or global keys) were not explicitly found in the search results, the `revokeSignInSessions`
+      API invalidates all refresh tokens, which would effectively force re-authentication
+      for applications that rely on these tokens for continued access. [10] In a compromised
+      account scenario, it is noted that app passwords are not automatically revoked
+      when a user's password is reset and the user should delete existing app passwords
+      and create new ones. [18] This suggests a user-driven mechanism for revoking
+      app-specific access.
+  session_timeout_configuration:
+    reference: hallucinated link doublecheck content
+    value: Microsoft 365 offers an idle session timeout feature that automatically
+      signs users out of web apps after a period of inactivity. [2, 3, 5, 6, 7] This
+      can be configured in the Microsoft 365 admin center under Org Settings > Security
+      & privacy > Idle session timeout. [2, 3, 5, 7] Administrators can choose a default
+      setting or set a custom time between 5 and 1440 minutes (24 hours). [2, 3, 5]
+      This feature applies to web-based Microsoft 365 apps like Outlook Web App, SharePoint
+      Online, OneDrive for Business, and the Microsoft 365 Admin Center, but does
+      not affect desktop or mobile apps. [3, 5, 6, 7] Conditional Access policies
+      in Microsoft Entra admin center can also be used to enforce session timeout
+      specifically for unmanaged devices. [2, 5]
+  suspend_user_api:
+    reference: https://www.rapid7.com/blog/post/2019/10/29/end-to-end-office-365-administration-with-insightconnect/
+    value: While a direct "suspend user" API for Office 365 specifically wasn't explicitly
+      found, it is possible to suspend a user account via the Azure AD or M365 Admin
+      Center, which is a common immediate containment step in a compromised account
+      playbook. [20] Rapid7's InsightConnect SOAR integration with Azure Active Directory
+      Admin allows for quickly disabling users. [4] This implies an underlying API
+      capability for user state management.
+  user_status_api:
+    reference: https://xsoar.pan.dev/docs/reference/articles/MS_Azure_Integrations
+    value: The Microsoft Graph API includes functionalities for managing users in
+      Azure Active Directory, such as listing, creating, and updating users, which
+      implies the ability to retrieve user status (active/disabled). [34] SOAR platforms
+      like Cortex XSOAR integrate with Azure Active Directory Users to manage user
+      states including blocking users. [34] Reviewing recent sign-in activity in Azure
+      Active Directory (Azure AD) or the M365 Security & Compliance Center is a key
+      step in investigating user activity and compromise, which would involve checking
+      user status and login patterns. [20]
+  user_toggle_api:
+    reference: https://www.rapid7.com/blog/post/2019/10/29/end-to-end-office-365-administration-with-insightconnect/
+    value: While a direct "toggle user status" API (active/suspended/disabled) with
+      explicit confirmation of session invalidation was not found as a standalone
+      API, suspending a user account in Azure AD or the M365 Admin Center is a documented
+      immediate containment step in a compromised account playbook. [20] This action
+      is implicitly understood to disable active sessions. Rapid7's integration with
+      Azure Active Directory Admin allows for quickly disabling or enabling users.
+      [4]

@@ -1,0 +1,314 @@
+identity_and_access:
+  sso_support:
+    value: 'yes — Cloud: SAML 2.0 via Atlassian Guard (formerly Access); Data Center:
+      built‑in SAML 2.0 and OpenID Connect (OIDC) options'
+    reference: https://confluence.atlassian.com/kb/single-sign-on-integration-with-the-atlassian-stack-794495126.html
+  sso_license_level_requirement:
+    value: 'Cloud: requires Atlassian Guard Standard subscription for SAML SSO; Data
+      Center: SSO included with Data Center products'
+    reference: https://confluence.atlassian.com/kb/single-sign-on-integration-with-the-atlassian-stack-794495126.html
+  scim_support:
+    value: yes — SCIM 2.0 user provisioning for Atlassian Cloud (users and groups;
+      group sync available for Jira and Confluence)
+    reference: https://support.atlassian.com/provisioning-users/docs/understand-user-provisioning/
+  scim_licensing_level_requirement:
+    value: Atlassian Guard Standard subscription required
+    reference: https://support.atlassian.com/provisioning-users/docs/configure-user-provisioning-with-an-identity-provider/
+  scim_authentication_mechanisms:
+    value: Bearer API key (directory SCIM API key) presented in Authorization header;
+      per-directory SCIM base URL
+    reference: https://developer.atlassian.com/cloud/admin/user-provisioning/rest/intro/
+  scim_authentication_acquisition_steps:
+    value: 1) Go to admin.atlassian.com and select your organization; 2) Security
+      > Identity providers; 3) Select your Identity provider directory; 4) Select
+      ‘Set up user provisioning’; 5) Copy SCIM base URL and API key; 6) Save configuration
+      (keys now expire in one year).
+    reference: https://support.atlassian.com/provisioning-users/docs/configure-user-provisioning-with-an-identity-provider/
+  user_management_api_support:
+    value: 'yes — Atlassian Admin ‘User management REST API’ for managed accounts
+      (get/update profiles, deactivate/delete); Organizations REST API for users/groups;
+      note: product-level APIs do not manage Atlassian accounts directly'
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/intro/
+  user_management_api_licensing_level:
+    value: Available to Organization admins on Atlassian Cloud (all plans) via Admin
+      APIs
+    reference: https://support.atlassian.com/organization-administration/docs/manage-an-organization-with-the-admin-apis/
+  user_management_api_authentication_mechanisms:
+    value: Bearer API key (organization admin API key) for Admin/Organizations APIs;
+      user API tokens (Basic) used where applicable for product APIs
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/intro/
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Go to admin.atlassian.com; 2) Settings > API keys; 3) Choose ‘API keys
+      with scopes’ (or without); 4) Create API key (expires ≤ 1 year); 5) Copy API
+      key and use as Bearer token for Admin/Organization APIs.
+    reference: https://support.atlassian.com/organization-administration/docs/manage-an-organization-with-the-admin-apis/
+  seat_costs:
+  - license_level: Confluence Cloud Free
+    active:
+      value: Billed $0; Free plan has up to 10 users; audit log not included (see
+        Cloud licensing).
+      reference: https://www.atlassian.com/licensing/cloud
+    suspended_disabled:
+      value: not billed — suspending access or removing user stops billing
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+    archived:
+      value: uncertain — no documented ‘archived user’ state for billing; only suspend/remove/deactivate
+        are documented
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+  - license_level: Confluence Cloud Standard
+    active:
+      value: billed per active user with product access; maximum-quantity billing
+        applies; no mid-cycle credit for removals
+      reference: https://www.atlassian.com/licensing/cloud
+    suspended_disabled:
+      value: not billed — suspending user access stops billing
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+    archived:
+      value: uncertain — no documented ‘archived user’ state for billing; only suspend/remove/deactivate
+        are documented
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+  - license_level: Confluence Cloud Premium
+    active:
+      value: billed per active user with product access; maximum-quantity billing
+        applies; no mid-cycle credit for removals
+      reference: https://www.atlassian.com/licensing/cloud
+    suspended_disabled:
+      value: not billed — suspending user access stops billing
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+    archived:
+      value: uncertain — no documented ‘archived user’ state for billing; only suspend/remove/deactivate
+        are documented
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+  - license_level: Confluence Cloud Enterprise
+    active:
+      value: billed per active user (Enterprise has centralized per-user pricing;
+        product access determines billable users)
+      reference: https://www.atlassian.com/licensing/cloud
+    suspended_disabled:
+      value: not billed — suspending user access stops billing
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+    archived:
+      value: uncertain — no documented ‘archived user’ state for billing; only suspend/remove/deactivate
+        are documented
+      reference: https://support.atlassian.com/user-management/docs/remove-or-suspend-a-user/
+  lifecycle_options:
+  - invited
+  - active
+  - suspended access (organization/site)
+  - removed from organization/site
+  - deactivated managed account
+  - deleted managed account
+  rbac_support:
+    value: yes — global permissions, space permissions, and content restrictions;
+      group-based access control supported
+    reference: https://support.atlassian.com/confluence-cloud/docs/what-are-confluence-cloud-permissions-and-restrictions/
+  rbac_api_assignment:
+    value: yes — manage groups and membership via REST (add/remove users to groups);
+      manage space permissions via REST
+    reference: https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-group/
+  documentation_links:
+  - https://support.atlassian.com/security-and-access-policies/docs/configure-saml-single-sign-on-with-an-identity-provider/
+  - https://support.atlassian.com/provisioning-users/docs/configure-user-provisioning-with-an-identity-provider/
+  - https://developer.atlassian.com/cloud/admin/user-provisioning/rest/intro/
+  - https://developer.atlassian.com/cloud/admin/user-management/rest/intro/
+  - https://developer.atlassian.com/cloud/admin/organization/rest/api-group-users/
+  - https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-group/
+  - https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space-permissions/
+  - https://support.atlassian.com/confluence-cloud/docs/view-the-audit-log/
+  - https://support.atlassian.com/organization-administration/docs/track-organization-activities-from-the-audit-log/
+  - https://support.atlassian.com/provisioning-users/docs/configure-user-provisioning-with-okta/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/atlassian-cloud-provisioning-tutorial
+  - https://confluence.atlassian.com/cloudkb/onelogin-configure-and-manage-scim-group-syncing-1488591017.html
+  - https://github.com/atlassian-api/atlassian-python-api
+  - https://pkg.go.dev/github.com/chrisccoy/go-atlassian/admin
+  - https://confluence.atlassian.com/cloudkb/use-postman-to-create-users-in-jira-cloud-via-rest-apis-1318891779.html
+  - https://developer.atlassian.com/cloud/admin/organization/suspend-user/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Confluence Data Center’s audit log records authentication events under
+        the Authentication category; at Full coverage level it logs user login successful,
+        user login failed (with noted SSO caveat), and user logout. Events include
+        details like IPs and node ID in the audit UI.
+      reference: https://confluence.atlassian.com/doc/audit-log-events-in-confluence-1005333793.html
+    role_assignment:
+      value: In Data Center, the Users and groups category logs user and group administration
+        such as user created/deleted/renamed, user details updated, group created/deleted,
+        and user added to or removed from group.
+      reference: https://confluence.atlassian.com/doc/audit-log-events-in-confluence-1005333793.html
+    api_call:
+      value: For Confluence (Server/Data Center), API access logging can be enabled
+        via AccessLogFilter to capture REST/XML‑RPC/SOAP calls by configuring log4j
+        and web.xml; this produces entries for API requests that can be forwarded
+        to a SIEM.
+      reference: https://support.atlassian.com/confluence/kb/how-to-enable-api-access-logging-in-confluence/
+    data_export:
+      value: Data Center audit events include Import/Export actions (e.g., Space import,
+        Space export, Space exported to PDF). Confluence Cloud’s audit API also states
+        records include events like space exports.
+      reference: https://confluence.atlassian.com/doc/audit-log-events-in-confluence-1005333793.html
+    configuration_change:
+      value: Global configuration changes are audited; examples include Global settings
+        changed, Security configuration updated, rate limiting settings updated, read‑only
+        mode changes, app installs/uninstalls, etc., under Global administration and
+        related categories.
+      reference: https://confluence.atlassian.com/doc/audit-log-events-in-confluence-1005333793.html
+    user_account_creation:
+      value: Account provisioning events are logged in Data Center under Users and
+        groups (e.g., User created, User deleted), providing traceability of administrative
+        user management actions.
+      reference: https://confluence.atlassian.com/doc/audit-log-events-in-confluence-1005333793.html
+    security_policy_change:
+      value: Security‑relevant policy changes (e.g., Security configuration updated,
+        allowlist changes, 2SV configuration/login events) are captured across categories
+        such as Global administration, Authentication, and 2SV configuration.
+      reference: https://confluence.atlassian.com/doc/audit-log-events-in-confluence-1005333793.html
+  event_logs_licensing_level:
+    value: 'Confluence Cloud: audit log is not available on the Free plan; paid plans
+      include a product audit log. Additional organization/user‑management audit logging
+      may require Atlassian Guard Standard or an Enterprise plan. Confluence Data
+      Center includes auditing features with configurable coverage levels.'
+    reference: https://support.atlassian.com/migration/docs/differences-administering-confluence-data-center-and-cloud/
+  monitoring_products:
+  - value: Microsoft Sentinel connector (using Azure Functions) pulls Confluence audit
+      records via the REST API into the Confluence_Audit_CL table.
+    reference: https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/atlassian-confluence-audit?utm_source=openai))
+  - value: 'Splunk: Confluence Cloud Audit Log Ingestor add‑on ingests Atlassian Cloud
+      audit logs via the Organizations API into Splunk.'
+    reference: https://splunkbase.splunk.com/app/6445
+  - value: 'Splunk: Atlassian Cloud Audit Logs modular input fetches audit logs from
+      api.atlassian.com for Splunk Enterprise/Cloud.'
+    reference: https://splunkbase.splunk.com/app/7371
+  - value: 'Datadog Cloud SIEM: preconfigured dashboards for Atlassian (Jira and Confluence)
+      audit records to monitor key admin and user events.'
+    reference: https://www.datadoghq.com/blog/datadog-cloud-siem-atlassian/
+  - value: Sumo Logic Atlassian Source (cloud-to-cloud) ingests Atlassian Organizations
+      audit logs; notes licensing for user-created activity (Guard Premium or Enterprise).
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/atlassian-source/
+  - value: 'Atlassian guidance for Data Center SIEM forwarding: use Splunk Universal
+      Forwarder (with atlassian-audit sourcetype), Filebeat (ELK), Sumo installed
+      collectors, or CloudWatch agent to ship JSON audit log files.'
+    reference: https://confluence.atlassian.com/display/SECURITY/Audit+log+integrations+in+Confluence
+  ingestion_methods:
+  - value: 'Confluence Cloud REST API: GET /wiki/rest/api/audit (with OAuth scope
+      read:audit-log:confluence), GET /wiki/rest/api/audit/since, and GET /wiki/rest/api/audit/export
+      (CSV/ZIP).'
+    reference: https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-audit/
+  - value: Data Center JSON audit log files per node (written to <home>/log/audit/)
+      can be tailed/forwarded by agents (Splunk UF, Filebeat, Sumo collectors) or
+      CloudWatch.
+    reference: https://confluence.atlassian.com/display/SECURITY/Audit+log+integrations+in+Confluence
+  - value: 'Data Center REST API: /rest/api/audit, /rest/api/audit/since, /rest/api/audit/export;
+      pagination and default limit parameters documented.'
+    reference: https://docs.atlassian.com/ConfluenceServer/rest/8.3.2/
+  - value: Enable API access logging (AccessLogFilter) to capture REST/XML‑RPC/SOAP
+      calls in application logs for ingestion by your log pipeline.
+    reference: https://support.atlassian.com/confluence/kb/how-to-enable-api-access-logging-in-confluence/
+  - value: 'Data Center UI export: up to 100,000 latest or filtered audit events exportable
+      to CSV from the Audit log screen.'
+    reference: https://confluence.atlassian.com/security/auditing-in-confluence-1409093175.html
+  - value: Atlassian organization audit log export (CSV via Atlassian Admin) with
+      up to 10,000 activities from the past 180 days or via Organizations REST API.
+    reference: https://support.atlassian.com/security-and-access-policies/docs/export-audit-logs/
+  log_export_options:
+    tools_connectors:
+      value: Export via API (Cloud/Data Center audit export endpoints return CSV/ZIP);
+        forward Data Center JSON audit files using Splunk Universal Forwarder, Filebeat
+        (ELK), Sumo Logic collectors, or AWS CloudWatch Agent; per‑node file naming
+        YYYYMMDD-XXXXX.audit.log for rotation.
+      reference: https://confluence.atlassian.com/display/SECURITY/Audit+log+integrations+in+Confluence
+  documentation_links:
+  - https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-audit/
+  - https://confluence.atlassian.com/doc/audit-log-events-in-confluence-1005333793.html
+  - https://confluence.atlassian.com/security/auditing-in-confluence-1409093175.html
+  - https://confluence.atlassian.com/display/SECURITY/Audit+log+integrations+in+Confluence
+  - https://support.atlassian.com/confluence-cloud/docs/view-the-audit-log/
+  - https://support.atlassian.com/migration/docs/differences-administering-confluence-data-center-and-cloud/
+  - https://docs.atlassian.com/ConfluenceServer/rest/8.3.2/
+  - https://support.atlassian.com/confluence/kb/how-to-enable-api-access-logging-in-confluence/
+  - https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/sentinel/data-connectors/atlassian-confluence-audit.md
+  - https://splunkbase.splunk.com/app/6445
+  - https://splunkbase.splunk.com/app/7371
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/atlassian-source/
+  - https://support.atlassian.com/security-and-access-policies/docs/export-audit-logs/
+  - https://support.atlassian.com/confluence/kb/how-to-fetch-audit-logs-via-rest-api-beyond-1000-record-limitation/
+incident_response:
+  suspend_user_api:
+    value: 'Cloud (Org-level): Suspend a user’s access to Atlassian apps (including
+      Confluence) via Organizations REST API POST /admin/v1/orgs/{orgId}/directory/users/{accountId}/suspend-access;
+      requires Org API key and Org Admin. Useful for containment without deleting
+      the account.'
+    reference: https://developer.atlassian.com/cloud/admin/organization/suspend-user/
+  invalidate_sessions_api:
+    value: 'uncertain - Confluence Cloud: no public API found to terminate a specific
+      user’s active sessions. Confluence Data Center/Server: Atlassian documents no
+      in-product feature to “kill” user sessions; workaround is to clear remember-me
+      tokens from the DB and restart to force all users to re-authenticate (cluster-aware).
+      Jira DC has a per-user REST endpoint, but this is not available for Confluence.'
+    reference: https://confluence.atlassian.com/kb/how-to-force-all-users-of-atlassian-on-prem-products-to-re-authenticate-their-sessions-on-the-browser-1141985219.html
+  revoke_api_key_api:
+    value: 'Per-user API token revocation is available via User management REST API:
+      GET /users/{account_id}/manage/api-tokens and DELETE /users/{account_id}/manage/api-tokens/{tokenId}
+      to revoke specific personal tokens; Org-wide bulk revocation is also available
+      (see documentation links).'
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-api-tokens/
+  user_toggle_api:
+    value: 'Cloud (Account-level): User management REST API supports lifecycle disable/enable
+      to block/unblock Atlassian account login (POST /users/{account_id}/manage/lifecycle/disable
+      and /enable). Session invalidation effects are not documented.'
+    reference: https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-lifecycle/
+  user_status_api:
+    value: 'Cloud (Org directory): Organizations Users APIs return managed accounts
+      with status fields (e.g., status/accountStatus=active) to check whether users
+      are active, along with product access info.'
+    reference: https://developer.atlassian.com/cloud/admin/organization/rest/api-group-users/
+  session_timeout_configuration:
+    value: 'Cloud: Idle session duration is configured in Authentication Policies
+      (Atlassian Guard); default is 30 days for managed accounts; can be adjusted
+      per policy (does not immediately log users out—applies on next login). Data
+      Center: session idle timeout and “remember me” cookie lifetime can be tuned
+      in web.xml and seraph-config.xml (minutes/seconds) — see documentation links.'
+    reference: https://support.atlassian.com/security-and-access-policies/docs/update-idle-session-duration/
+  known_automation_tools:
+  - value: Splunk SOAR (Phantom) Confluence connector – actions to create/update/get/delete
+      Confluence content for automated IR runbooks.
+    reference: https://github.com/splunk-soar-connectors/confluence
+  - value: Cortex XSOAR – Atlassian Confluence Cloud integration (content and permissions
+      operations; can be used in IR playbooks).
+    reference: https://xsoar.pan.dev/docs/reference/integrations/atlassian-confluence-cloud
+  - value: Splunkbase “Confluence Cloud Audit Log Ingestor” – pulls Confluence Cloud
+      org audit data to Splunk for detection/IR.
+    reference: https://splunkbase.splunk.com/app/6445
+  - value: Sumo Logic Atlassian Source – collects Atlassian Organizations audit logs
+      (incl. Confluence app/admin activity) with Guard/Enterprise prerequisites.
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/atlassian-source/
+  - value: fetch-confluence (npm) – typed client for Confluence Cloud REST, including
+      Audit API endpoints (get audit records/export/retention) for investigations.
+    reference: https://www.npmjs.com/package/fetch-confluence
+  - value: atlassian-python-api (PyPI/GitHub) – Python wrappers for Confluence REST
+      (pages/spaces/users/audit) for custom IR automations.
+    reference: https://github.com/atlassian-api/atlassian-python-api
+  - value: Confluence Data Center audit log integration guide – details forwarding
+      audit logs to Splunk/Filebeat/Sumo for SIEM correlation.
+    reference: https://confluence.atlassian.com/security/audit-log-integrations-in-confluence-1409093179.html
+  documentation_links:
+  - https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-audit/
+  - https://support.atlassian.com/confluence-cloud/docs/view-the-audit-log/
+  - https://confluence.atlassian.com/security/audit-log-events-in-confluence-1409093177.html
+  - https://developer.atlassian.com/cloud/admin/organization/rest/api-group-directory/
+  - https://developer.atlassian.com/cloud/admin/organization/remove-user/
+  - https://developer.atlassian.com/cloud/admin/organization/suspend-user/
+  - https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-lifecycle/
+  - https://developer.atlassian.com/cloud/admin/user-management/rest/api-group-api-tokens/
+  - https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/
+  - https://support.atlassian.com/security-and-access-policies/docs/update-idle-session-duration/
+  - https://support.atlassian.com/confluence/kb/how-to-adjust-the-session-timeout-for-confluence/
+  - https://confluence.atlassian.com/kb/how-to-force-all-users-of-atlassian-on-prem-products-to-re-authenticate-their-sessions-on-the-browser-1141985219.html
+  - https://xsoar.pan.dev/docs/reference/integrations/atlassian-confluence-cloud
+  - https://splunkbase.splunk.com/app/6445
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/atlassian-source/
+  - https://confluence.atlassian.com/security/audit-log-integrations-in-confluence-1409093179.html
+  - https://developer.atlassian.com/cloud/confluence/rest/v1/intro/
+  - https://developer.atlassian.com/cloud/admin/organization/user-last-active-dates/
+  - https://community.atlassian.com/forums/Trust-Security-articles/App-activity-logs-are-coming-to-Atlassian-Audit-Logs-in/ba-p/2968277
+  - https://tecnofor.es/control-accesos-atlassian-cloud/

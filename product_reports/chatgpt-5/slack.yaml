@@ -1,0 +1,343 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 SSO and Google Workspace SSO (either OAuth 2.0 “Google Auth”
+      or SAML 2.0); multi‑IdP supported (up to 12 SSO configurations). Slack provides
+      setup guides for Auth0, Google Workspace, Microsoft Entra, Okta, OneLogin, and
+      Ping. No evidence of Kerberos login support found.
+    reference: https://slack.com/help/articles/203772216-SAML-single-sign-on-SAML-single-sign-on
+  sso_license_level_requirement:
+    value: Available on Free, Pro, Business+, and Enterprise plans (separate sections
+      for “Free, Pro, and Business+ plans” vs “Enterprise plans” in SSO settings).
+    reference: https://slack.com/help/articles/220403548-Manage-single-sign-on-settings
+  scim_support:
+    value: yes — SCIM supported; Slack documents both SCIM v1.1 and SCIM v2.0 endpoints
+      and resources.
+    reference: https://docs.slack.dev/reference/scim-api
+  scim_licensing_level_requirement:
+    value: Business+ and Enterprise Grid only (SCIM not available on Free or Pro).
+    reference: https://slack.com/help/articles/212572638-manage-members-with-scim-provisioning
+  scim_authentication_mechanisms:
+    value: 'OAuth 2.0 bearer token with admin scope (Authorization: Bearer …). Optional
+      IP allowlisting for tokens. No basic auth or API keys documented.'
+    reference: https://docs.slack.dev/admins/scim-api/
+  scim_authentication_acquisition_steps:
+    value: '1) Create a Slack app (privately distributed). 2) Add the admin OAuth
+      scope. 3) Install the app (Business+: workspace Owner/Admin; Enterprise Grid:
+      Org Owner installs). 4) Use the generated OAuth user token (bearer) in Authorization
+      header for SCIM calls.'
+    reference: https://api.slack.com/admins/scim
+  user_management_api_support:
+    value: 'yes — Non‑SCIM Admin Web API (admin.*) for Enterprise Grid: invite/assign/remove
+      users, and change roles (setAdmin, setOwner, setRegular); also role assignment
+      APIs (admin.roles.*).'
+    reference: https://docs.slack.dev/admins/managing-users
+  user_management_api_licensing_level:
+    value: Enterprise Grid only (Admin API methods explicitly note Enterprise Grid
+      restriction).
+    reference: https://api.slack.com/methods/admin.users.setOwner
+  user_management_api_authentication_mechanisms:
+    value: OAuth 2.0 user tokens (xoxp) with admin.* scopes (e.g., admin.users:write)
+      for Admin Web API; no basic auth or API keys.
+    reference: https://api.slack.com/methods/admin.users.setAdmin
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Create a Slack app. 2) Request admin.* scopes (e.g., admin.users:write;
+      admin.teams:read/write as needed). 3) Initiate OAuth install as an Enterprise
+      Grid Owner/Admin and install at the org level (not a single workspace). 4) Use
+      the resulting user token to call admin.* endpoints.
+    reference: https://docs.slack.dev/admins/managing-users
+  seat_costs:
+  - license_level: Pro — billed per active member per month; see pricing page for
+      current USD price.
+    active:
+      value: Yes — active members are billable; Slack charges per active member.
+      reference: https://slack.com/help/articles/218915077-Slacks-fair-billing-policy
+    suspended_disabled:
+      value: Not billed — deactivated or inactive members generate prorated credits;
+        invited members are not billed until they accept and sign in.
+      reference: https://slack.com/help/articles/218915077-Slacks-fair-billing-policy
+    archived:
+      value: uncertain — Slack documents archiving channels, not an ‘archived user’
+        state; no evidence of archived users affecting billing.
+      reference: https://slack.com/help/articles/213185307-Archive-or-delete-a-channel/
+  - license_level: Business+ — billed per active member per month; see pricing page
+      for current USD price.
+    active:
+      value: Yes — active members are billable; Slack charges per active member.
+      reference: https://slack.com/help/articles/218915077-Slacks-fair-billing-policy
+    suspended_disabled:
+      value: Not billed — deactivated or inactive members generate prorated credits;
+        invited members are not billed until they accept and sign in.
+      reference: https://slack.com/help/articles/218915077-Slacks-fair-billing-policy
+    archived:
+      value: uncertain — Slack documents archiving channels, not an ‘archived user’
+        state; no evidence of archived users affecting billing.
+      reference: https://slack.com/help/articles/213185307-Archive-or-delete-a-channel/
+  - license_level: Enterprise (Enterprise+/Enterprise Grid) — contact sales; billed
+      per active member under enterprise terms.
+    active:
+      value: Yes — active members are billable; Slack charges per active member.
+      reference: https://slack.com/help/articles/218915077-Slacks-fair-billing-policy
+    suspended_disabled:
+      value: Not billed — deactivated or inactive members generate prorated credits;
+        invited members are not billed until they accept and sign in.
+      reference: https://slack.com/help/articles/218915077-Slacks-fair-billing-policy
+    archived:
+      value: uncertain — Slack documents archiving channels, not an ‘archived user’
+        state; no evidence of archived users affecting billing.
+      reference: https://slack.com/help/articles/213185307-Archive-or-delete-a-channel/
+  lifecycle_options:
+  - invited
+  - active
+  - deactivated
+  - reactivated
+  - removed-from-workspace (Enterprise orgs)
+  - single-channel-guest
+  - multi-channel-guest
+  rbac_support:
+    value: yes — Roles (Owners, Admins, Members, Guests, Channel Managers) and additional
+      Org roles on Enterprise; system roles available on Business+ (limited) and Enterprise.
+    reference: https://slack.com/help/articles/201912948-Owners-and-Administrators
+  rbac_api_assignment:
+    value: yes — Admin Web API provides role changes (admin.users.setAdmin/setOwner/setRegular),
+      user removal/assignment, and system role assignment via admin.roles.addAssignments/removeAssignments
+      (Enterprise Grid).
+    reference: https://docs.slack.dev/admins/managing-users
+  documentation_links:
+  - https://slack.com/help/articles/203772216-SAML-single-sign-on-SAML-single-sign-on
+  - https://slack.com/hc/articles/204078066-G-Suite-single-sign-on
+  - https://slack.com/help/articles/220403548-Manage-single-sign-on-settings
+  - https://slack.com/help/articles/205168057-custom-saml-single-sign-on
+  - https://docs.pingidentity.com/configuration_guides/slack/config_saml_slack_pf.html
+  - https://docs.pingidentity.com/configuration_guides/slack/config_saml_slack_p1.html
+  - https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/slack-provisioning-tutorial
+  - https://slack.com/help/articles/212572638-manage-members-with-scim-provisioning
+  - https://api.slack.com/admins/scim2
+  - https://docs.slack.dev/reference/scim-api
+  - https://docs.slack.dev/admins/scim-api/
+  - https://docs.slack.dev/tools/python-slack-sdk/scim/
+  - https://api.slack.com/methods/admin.users.invite
+  - https://api.slack.com/methods/admin.users.setAdmin
+  - https://api.slack.com/methods/admin.users.setOwner
+  - https://api.slack.com/methods/admin.users.assign
+  - https://docs.slack.dev/admins/managing-users
+  - https://api.slack.com/types/usergroup
+  - https://api.slack.com/methods/usergroups.users.list
+  - https://slack.com/help/articles/201912948-Owners-and-Administrators
+  - https://slack.com/help/articles/218915077-Slacks-fair-billing-policy
+  - https://slack.com/help/articles/360024686174-Invited-members-in-Slack/
+  - https://slack.com/hc/en-us/articles/204475027-Deactivate-a-member-s-account
+  - https://slack.com/hc/articles/360002061747-Reactivate-a-member-s-account
+  - https://slack.com/help/articles/213185307-Archive-or-delete-a-channel/
+  - https://github.com/seratch/python-slack-scim
+  - https://github.com/suzuki-shunsuke/go-slack-scimapi
+  - https://github.com/jeremyschulman/slack-scim-rbac
+  - https://slack.dev/java-slack-sdk/guides/web-api-for-admins/
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Slack provides audit events for user logins via the Audit Logs API (Enterprise
+        Grid). Events include action "user_login" with fields such as date_create,
+        actor.user.id/email, entity.user, and context (enterprise/workspace location,
+        user agent, session_id, ip_address). Access Logs are also available (workspace-level)
+        with IP, user agent, and timestamps.
+      reference: https://docs.slack.dev/admins/audit-logs-api
+    role_assignment:
+      value: Role/permission changes are logged. Supported actions include role_assigned,
+        role_removed, role_change_to_admin/owner/user/guest and permissions_assigned/permissions_removed
+        under the "User" actions set in the Audit Logs API.
+      reference: https://docs.slack.dev/reference/audit-logs-api/methods-actions-reference
+    api_call:
+      value: Generic API call logs are not exposed as standalone audit events; however,
+        anomaly audit events can flag “unexpected API call volume.” Administrative
+        changes performed via APIs are recorded under their specific actions (e.g.,
+        user/session/policy events).
+      reference: https://slack.com/intl/zh-cn/help/articles/37193054707603-%E5%9C%A8-Slack-%E4%B8%AD%E9%85%8D%E7%BD%AE%E5%AE%A1%E6%A0%B8%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94
+    data_export:
+      value: Data export activities are audited. Workspace/organization actions include
+        channels_export_started, channels_export_completed, channels_export_downloaded,
+        channels_export_deleted, and corporate_exports_enabled/approved.
+      reference: https://docs.slack.dev/reference/audit-logs-api/methods-actions-reference
+    configuration_change:
+      value: Configuration and security preference changes are logged as workspace/org
+        preference actions (e.g., auth_policy_created/updated/entity_assigned, legal_hold_policy_*
+        updates, pref.anomaly_event_response_changed, various pref.* security toggles).
+      reference: https://docs.slack.dev/reference/audit-logs-api/methods-actions-reference
+    user_account_creation:
+      value: Account lifecycle events are present, including user_created, user_deactivated/reactivated,
+        guest_created/deactivated, and user_joined_workspace under the "User" actions.
+      reference: https://docs.slack.dev/reference/audit-logs-api/methods-actions-reference
+    security_policy_change:
+      value: Security policy changes are captured via actions like auth_policy_created/entity_assigned/entity_removed
+        and legal_hold_policy_created/updated/released, plus other pref.* policy updates
+        (e.g., anomaly response settings).
+      reference: https://docs.slack.dev/reference/audit-logs-api/methods-actions-reference
+  event_logs_licensing_level:
+    value: The Audit Logs API is only available on Slack Enterprise Grid; it is not
+      available on Free, Pro (Standard), or Business+ plans. (Access Logs via team.accessLogs
+      are available on paid plans but are separate from the Audit Logs API.)
+    reference: https://api.slack.com/admins/audit-logs
+  monitoring_products:
+  - value: Splunk Add-on for Slack collects Slack Enterprise Grid Audit Logs via the
+      Audit Logs API for ingestion into Splunk.
+    reference: https://splunkbase.splunk.com/app/4986
+  - value: Splunk Slack Audit App provides dashboards/visualizations for Slack audit
+      data (used with the Add-on).
+    reference: https://classic.splunkbase.splunk.com/app/5013/
+  - value: Sumo Logic Slack Source supports collection from Slack Web API and Audit
+      API (Enterprise Grid required for Audit API).
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/slack-source/
+  - value: Elastic Slack integration retrieves Slack audit events via APIs for indexing
+      in Elasticsearch.
+    reference: https://www.elastic.co/guide/en/integrations/current/slack.html
+  - value: Panther supports Slack Audit Logs (Enterprise Grid), Access Logs, and Integration
+      Logs via API collection.
+    reference: https://docs.panther.com/data-onboarding/supported-logs/slack
+  - value: Exabeam Slack App Cloud Connector ingests Slack Audit Logs API data by
+      creating a Slack app with auditlogs:read.
+    reference: dubious claim, hallucinated reference
+  - value: Python Slack SDK includes an AuditLogsClient for programmatic access to
+      /logs, /schemas, /actions endpoints.
+    reference: https://slack.dev/python-slack-sdk/audit-logs/index.html
+  - value: Java Slack SDK provides AuditClient and AsyncAuditClient supporting getLogs,
+      getSchemas, getActions for the Audit Logs API.
+    reference: https://slack.dev/java-slack-sdk/guides/audit-logs-api/
+  - value: Open-source “slack-auditor” (Node.js) implements a simple pub/sub client
+      for the Slack Audit Logs API.
+    reference: https://github.com/cpreid/slack-auditor
+  - value: Open-source “slack-auditapi-logger” (Python) queries the Audit Logs API
+      (e.g., user_login/logout, user_created) and forwards to SIEM/Logstash.
+    reference: https://github.com/eoghanmckee/slack-auditapi-logger
+  ingestion_methods:
+  - value: Audit Logs API (HTTPS GET) with endpoints /logs, /schemas, /actions; filtering
+      via oldest/latest/action/actor/entity; paginated by cursor; pull (polling) model.
+    reference: https://docs.slack.dev/reference/audit-logs-api/methods-actions-reference
+  - value: Access Logs via Web API method team.accessLogs (paid workspaces), returning
+      IP, user agent, and timestamps; supports cursor pagination.
+    reference: https://docs.slack.dev/reference/methods/team.accessLogs
+  - value: Integration Logs via Web API method team.integrationLogs (admins), listing
+      app/service additions, removals, enables/disables with scopes.
+    reference: https://docs.slack.dev/reference/methods/team.integrationLogs
+  - value: SIEM collectors typically poll Slack APIs on intervals (e.g., Sumo Logic
+      Slack Source lets you select polling interval in minutes).
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/slack-source/
+  - value: Manual export of Enterprise audit logs from the Slack admin UI as CSV for
+      offline analysis.
+    reference: https://slack.com/help/articles/360000394286-Audit-logs-in-Slack
+  log_export_options:
+    tools_connectors:
+      value: Export options include programmatic retrieval via the Audit Logs API
+        (GET /audit/v1/logs with OAuth user token granted auditlogs:read by an Enterprise
+        Grid org owner) and admin UI CSV export of audit logs; Web API methods also
+        provide access/integration logs. No native streaming/FTP export is documented.
+      reference: https://api.slack.com/admins/audit-logs-call
+  documentation_links:
+  - https://docs.slack.dev/admins/audit-logs-api
+  - https://docs.slack.dev/reference/audit-logs-api/methods-actions-reference
+  - https://api.slack.com/admins/audit-logs
+  - https://api.slack.com/admins/audit-logs-anomaly
+  - https://api.slack.com/methods/team.accessLogs
+  - https://docs.slack.dev/reference/methods/team.accessLogs
+  - https://docs.slack.dev/reference/methods/team.integrationLogs
+  - https://slack.dev/python-slack-sdk/audit-logs/index.html
+  - https://tools.slack.dev/python-slack-sdk/api-docs/slack_sdk/audit_logs/v1/client.html
+  - https://slack.dev/java-slack-sdk/guides/audit-logs-api/
+  - https://docs.panther.com/data-onboarding/supported-logs/slack
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/slack-source/
+  - https://www.elastic.co/guide/en/integrations/current/slack.html
+  - https://splunkbase.splunk.com/app/4986
+  - https://classic.splunkbase.splunk.com/app/5013/
+  - https://github.com/cpreid/slack-auditor
+  - https://github.com/eoghanmckee/slack-auditapi-logger
+  - https://github.com/maus-/slack-auditor
+  - https://github.com/slackapi/python-slack-sdk/issues/1370
+  - https://github.com/slackapi/java-slack-sdk/issues/1311
+  - https://slack.com/help/articles/360000394286-Audit-logs-in-Slack
+  - https://slack.com/intl/zh-cn/help/articles/37193054707603-%E5%9C%A8-Slack-%E4%B8%AD%E9%85%8D%E7%BD%AE%E5%AE%A1%E6%A0%B8%E6%97%A5%E5%BF%97%E5%BC%82%E5%B8%B8%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94
+incident_response:
+  suspend_user_api:
+    value: 'Yes. Slack supports programmatic suspension via the SCIM API: set active=false
+      with PATCH /Users/<id> (or DELETE /Users/<id> to mark deactivated). SCIM is
+      available only on Business+ and Enterprise Grid and requires an OAuth token
+      with the admin scope.'
+    reference: https://api.slack.com/admins/scim
+  invalidate_sessions_api:
+    value: 'Yes. Enterprise Grid Admin API admin.users.session.reset wipes all valid
+      sessions for a user (options: web_only, mobile_only) and requires admin.users:write
+      scope.'
+    reference: https://api.slack.com/methods/admin.users.session.reset
+  revoke_api_key_api:
+    value: 'Yes. To revoke access tokens: use auth.revoke to revoke a single user/bot
+      token, or apps.uninstall to revoke all tokens for an app installation; both
+      behaviors are documented under token rotation guidance.'
+    reference: https://api.slack.com/authentication/rotation
+  user_toggle_api:
+    value: 'Yes. Toggle account state via SCIM: PATCH /Users/<id> with active=true|false
+      to (re)enable or deactivate a user.'
+    reference: https://api.slack.com/admins/scim
+  user_status_api:
+    value: Yes. The SCIM API exposes the active attribute (GET /Users, etc.) to determine
+      if an account is active; it’s intended to indicate whether a user can sign in.
+    reference: https://docs.slack.dev/reference/scim-api
+  session_timeout_configuration:
+    value: 'Programmatic session duration is configurable via admin.users.session.setSettings
+      (Enterprise Grid): duration minimum 28,800 seconds (8 hours), maximum 315,569,520
+      seconds (~10 years); can also terminate session when the client closes.'
+    reference: https://api.slack.com/methods/admin.users.session.setSettings
+  known_automation_tools:
+  - value: 'Python Slack SDK (slack_sdk): exposes admin.users.session.reset/resetBulk/invalidate/list
+      and other admin, SCIM, and Audit Logs clients for automation.'
+    reference: https://tools.slack.dev/python-slack-sdk/api-docs/slack_sdk/index.html
+  - value: 'Node Slack SDK (@slack/web-api): Web API client for >200 Slack methods
+      to build custom investigation/response automations.'
+    reference: https://slack.dev/node-slack-sdk/web-api/
+  - value: 'Java Slack SDK (slack-api-client): Maven/Gradle client for Slack Web API,
+      suitable for automation services.'
+    reference: https://tools.slack.dev/java-slack-sdk/guides/web-api-client-setup/
+  - value: 'Cortex XSOAR Slack v3 integration: includes a slack-user-session-reset
+      command that triggers Slack Admin API session reset; supports Socket Mode mirroring
+      and incident workflows.'
+    reference: https://xsoar.pan.dev/docs/reference/integrations/slack-v3
+  - value: 'Splunk Add-on for Slack: collects Slack Enterprise Grid Audit Logs via
+      the Audit Logs API into Splunk for investigation/alerting.'
+    reference: https://apps.splunk.com/app/4986/
+  - value: 'Sumo Logic Slack Source: Cloud-to-Cloud collector for Slack Web API and
+      Audit Logs (Audit API requires Enterprise Grid).'
+    reference: https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/slack-source/
+  - value: 'Demisto/XSOAR Slack Event Collector: integration command slack-get-events
+      to ingest Audit Logs into a SOAR playbook pipeline.'
+    reference: https://github.com/demisto/content/blob/master//Packs/Slack/Integrations/SlackEventCollector/README.md
+  - value: 'slack_cleaner2 (Python): programmatic deletion of Slack messages and files
+      via Web API for containment/cleanup tasks.'
+    reference: https://github.com/sgratzl/slack_cleaner2
+  - value: 'slack-auditapi-logger: open-source utility to pull and log Slack Audit
+      Logs actions for SIEM ingestion.'
+    reference: https://github.com/eoghanmckee/slack-auditapi-logger
+  - value: 'incident-bot (i5o/incident-bot): open-source incident management framework
+      that runs with Slack (app manifest provided), automates incident channels and
+      workflows.'
+    reference: https://github.com/i5o/incident-bot
+  - value: 'incident-senpai: Slack bot that orchestrates incident-response flow (creates
+      private IR channels, assigns roles, exports timeline).'
+    reference: https://github.com/todokr/incident-senpai
+  documentation_links:
+  - https://api.slack.com/methods/admin.users.session.reset
+  - https://docs.slack.dev/reference/methods/admin.users.session.invalidate
+  - https://docs.slack.dev/reference/methods/admin.users.session.list
+  - https://api.slack.com/methods/admin.users.session.setSettings
+  - https://slack.com/help/articles/115005223763-Manage-session-duration-
+  - https://slack.com/help/articles/37193054707603-Configure-audit-log-anomaly-event-responses-in-Slack
+  - https://api.slack.com/admins/scim
+  - https://docs.slack.dev/reference/scim-api
+  - https://docs.slack.dev/admins/audit-logs-api
+  - https://api.slack.com/admins/audit-logs-call
+  - https://api.slack.com/methods/auth.revoke
+  - https://docs.slack.dev/reference/methods/apps.uninstall
+  - https://docs.slack.dev/reference/objects/user-object
+  - https://slack.com/help/articles/204475027-Deactivate-a-members-account/
+  - https://apps.splunk.com/app/4986/
+  - https://help.sumologic.com/docs/send-data/hosted-collectors/cloud-to-cloud-integration-framework/slack-source/
+  - https://slack.dev/python-slack-sdk/installation/index.html
+  - https://slack.dev/node-slack-sdk/web-api/
+  - https://xsoar.pan.dev/docs/reference/integrations/slack-v3
+  - https://github.com/demisto/content/blob/master//Packs/Slack/Integrations/SlackEventCollector/README.md
+  - https://github.com/sgratzl/slack_cleaner2

@@ -1,0 +1,284 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML SSO with any SAML-compliant IdP (provider guides for Auth0,
+      Google Cloud Identity, Okta, OneLogin; generic SAML setup available).
+    reference: https://docs.bugsnag.com/product/single-sign-on/
+  sso_license_level_requirement:
+    value: Preferred and Enterprise plans.
+    reference: https://docs.bugsnag.com/product/single-sign-on/
+  scim_support:
+    value: yes — SCIM v2; supports create users, update names/emails, deactivate users;
+      Okta also supports group push. Enterprise only.
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  scim_licensing_level_requirement:
+    value: Enterprise plan.
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  scim_authentication_mechanisms:
+    value: Personal auth token (generated in dashboard) used by IdP to authenticate
+      to Bugsnag SCIM endpoint; no OAuth noted.
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  scim_authentication_acquisition_steps:
+    value: 1) As an Organization Admin, in the Insight Hub dashboard go to Personal
+      auth tokens (g,u) and generate a token; 2) Go to Organization settings > Single
+      sign-on (g,o) and copy the SCIM Base URL; 3) In your IdP (e.g., Okta) open the
+      Bugsnag app Provisioning tab and enter the SCIM Base URL and the auth token;
+      4) Enable provisioning options.
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  user_management_api_support:
+    value: 'yes — non‑SCIM Data Access API includes collaborator management: list
+      org/project collaborators, invite collaborators (single/bulk), update collaborator
+      permissions, delete collaborator.'
+    reference: https://www.rubydoc.info/gems/bugsnag-api/Bugsnag/Api/Client/Collaborators
+  user_management_api_licensing_level:
+    value: uncertain
+    reference: no evidence
+  user_management_api_authentication_mechanisms:
+    value: Personal Auth Token (recommended) via Authorization header or auth_token
+      param; Basic auth available for on‑premise only.
+    reference: https://developer.smartbear.com/insight-hub/docs/data-access-authentication
+  user_management_api_authentication_acquisition_steps:
+    value: 'In the dashboard: My account > Personal auth tokens — generate a token;
+      then call the API with Authorization: token <your_token> (or auth_token param).'
+    reference: https://developer.smartbear.com/insight-hub/docs/data-access-authentication
+  seat_costs:
+  - license_level: Free
+    active:
+      value: 1 user included (plan limited to a single collaborator).
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Select
+    active:
+      value: Unlimited users; pricing based on events/spans, not per-seat.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Preferred
+    active:
+      value: Unlimited users; includes SAML SSO feature.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Enterprise
+    active:
+      value: Unlimited users; automatic user provisioning via SSO available.
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  - license_level: Open Source & Non‑Profit
+    active:
+      value: Up to 15 collaborators (free program).
+      reference: dubious claim, hallucinated reference
+    suspended_disabled:
+      value: uncertain
+      reference: no evidence
+    archived:
+      value: uncertain
+      reference: no evidence
+  lifecycle_options:
+  - invited (manual invite to collaborate)
+  - auto-provisioned (JIT) via SAML SSO
+  - provisioned via SCIM
+  - active collaborator
+  - deactivated (via SCIM deprovisioning)
+  rbac_support:
+    value: yes — roles and permissions with Organization Admin, Project Owner, Project
+      Member (Project Member on Enterprise); team-based access for projects.
+    reference: https://docs.bugsnag.com/product/roles-and-permissions/
+  rbac_api_assignment:
+    value: yes — API supports updating collaborator permissions and project access
+      (e.g., update_collaborator_permissions).
+    reference: https://www.rubydoc.info/gems/bugsnag-api/Bugsnag/Api/Client/Collaborators
+  documentation_links:
+  - https://docs.bugsnag.com/product/single-sign-on/
+  - https://docs.bugsnag.com/product/single-sign-on/okta/
+  - https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  - https://docs.bugsnag.com/product/single-sign-on/onelogin/
+  - https://docs.bugsnag.com/product/single-sign-on/google-cloud-identity/
+  - https://learn.microsoft.com/en-us/entra/identity/saas-apps/bugsnag-tutorial
+  - https://docs.bugsnag.com/product/single-sign-on/other/
+  - https://docs.bugsnag.com/api/data-access/
+  - https://docs.bugsnag.com/api/data-access/examples/
+  - https://developer.smartbear.com/insight-hub/docs/data-access-authentication
+  - https://docs.bugsnag.com/product/roles-and-permissions/
+  - https://docs.bugsnag.com/product/integrations/incident-management/
+  - https://www.bugsnag.com/pricing
+  - https://www.bugsnag.com/product/open-source/
+  - https://github.com/bugsnag/bugsnag-api-ruby/blob/master/README.md
+  - https://www.rubydoc.info/gems/bugsnag-api/Bugsnag/Api/Client/Collaborators
+  - https://cdn.cdata.com/help/FAK/api/bugsnag/pg_bugsnagviews-collaborators.htm
+  - https://help.splunk.com/en/splunk-cloud-platform/alert-and-respond/splunk-on-call/integrations-with-splunk-on-call/bugsnag-integration-for-splunk-on-call
+  - https://duo.com/docs/sso-bugsnag
+  - https://pybugsnag.readthedocs.io/en/latest/pybugsnag/quickstart.html
+security_monitoring:
+  event_logs:
+    user_login:
+      value: uncertain – no official documentation found that Bugsnag/Insight Hub
+        provides audit logs capturing collaborator login events.
+      reference: no evidence
+    role_assignment:
+      value: uncertain – roles and permissions are documented, but no evidence of
+        audit logs for role grants/changes.
+      reference: no evidence
+    api_call:
+      value: uncertain – no evidence that calls to the Data Access or other APIs are
+        themselves recorded in a provider-side audit log accessible to customers.
+      reference: no evidence
+    data_export:
+      value: uncertain – data can be retrieved via the Data Access API, but no evidence
+        of an audit trail specifically logging export/download actions.
+      reference: no evidence
+    configuration_change:
+      value: limited – certain user-driven actions (e.g., manual error state changes,
+        comments) can be forwarded as structured events to external systems via data
+        forwarding; no documentation of a comprehensive admin/configuration change
+        audit log.
+      reference: https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/
+    user_account_creation:
+      value: uncertain – SCIM provisioning is supported for creating/deactivating
+        users via SSO, but no evidence of a provider-side audit log for account creation
+        events within Bugsnag.
+      reference: no evidence
+    security_policy_change:
+      value: uncertain – no documentation found indicating audit logs for security
+        policy changes (e.g., SSO settings, 2FA policy) in the hosted product.
+      reference: no evidence
+  event_logs_licensing_level:
+    value: No documentation found on a dedicated audit logging feature or its licensing.
+      Data forwarding integrations used for activity/event notifications (e.g., Splunk
+      HEC, Amazon SQS) require the Enterprise plan; SSO is available on Preferred
+      and Enterprise plans.
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/
+  monitoring_products:
+  - value: 'Splunk integration (Enterprise): forwards Bugsnag events to Splunk via
+      HEC with configurable triggers and JSON payloads.'
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/
+  - value: 'Amazon SQS integration (Enterprise): forwards events to an SQS queue (optional
+      S3 offload for large payloads) for downstream processing into SIEM/data pipelines.'
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/sqs/
+  - value: 'Generic Webhook: HTTP POST of structured event payloads to any endpoint
+      for custom ingestion/bridge to SIEM or log pipelines.'
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/
+  - value: 'Prometheus exporter (community): exports Bugsnag error-event metrics for
+      Prometheus scraping.'
+    reference: https://github.com/ZeitOnline/bugsnag_exporter
+  ingestion_methods:
+  - value: Pull via Data Access API (v2) to retrieve organizations, projects, errors,
+      events, and more for custom integrations.
+    reference: https://docs.bugsnag.com/api/data-access/
+  - value: Push via Webhook (HTTP POST) with structured JSON payload triggered by
+      defined event conditions.
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/
+  - value: Push to Splunk via HTTP Event Collector (HEC), mapping structured JSON
+      payloads; Enterprise plan required.
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/
+  - value: Push to Amazon SQS (optional S3 offload for large payloads) for asynchronous
+      ingestion; Enterprise plan required.
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/sqs/
+  log_export_options:
+    tools_connectors:
+      value: Documented export/connect options include the Data Access API (pull),
+        and data forwarding connectors (push) for Webhook (HTTP), Splunk HEC, and
+        Amazon SQS. No documentation found for FTP or zip-file bulk log exports from
+        the provider.
+      reference: https://docs.bugsnag.com/product/integrations/data-forwarding/
+  documentation_links:
+  - https://docs.bugsnag.com/api/data-access/
+  - https://docs.bugsnag.com/api/data-access/examples/
+  - https://developer.smartbear.com/insight-hub/docs/data-access-authentication
+  - https://docs.bugsnag.com/product/integrations/data-forwarding/
+  - https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/
+  - https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/
+  - https://docs.bugsnag.com/product/integrations/data-forwarding/sqs/
+  - https://docs.bugsnag.com/product/roles-and-permissions/
+  - https://docs.bugsnag.com/product/single-sign-on/
+  - https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  - https://docs.bugsnag.com/security/overview/
+  - https://github.com/bugsnag/bugsnag-api-ruby/blob/master/README.md
+  - https://pybugsnag.readthedocs.io/en/latest/pybugsnag/quickstart.html
+  - https://github.com/adriankeenan/bugsnag-event-csv
+  - https://github.com/xljones/bugsnag-exporter
+  - https://status.bugsnag.com/
+incident_response:
+  suspend_user_api:
+    value: SCIM user provisioning supports deactivating users via your IdP; Bugsnag
+      documents SCIM “Deactivate users” as supported (Enterprise plans).
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  invalidate_sessions_api:
+    value: uncertain – no public Bugsnag API found to revoke/terminate all active
+      sessions for a specific user; session lifetime can be controlled by SAML using
+      SessionNotOnOrAfter from the IdP.
+    reference: https://docs.bugsnag.com/product/single-sign-on/other/
+  revoke_api_key_api:
+    value: Project notifier API keys can be regenerated via an API (used by third‑party
+      automation tooling); personal auth tokens are generated in the UI and no public
+      token‑revocation API was found (uncertain for personal token revocation).
+    reference: https://docs.composio.dev/toolkits/bugsnag
+  user_toggle_api:
+    value: Organization access can be removed programmatically by deleting a collaborator
+      via the Data Access API client library; SCIM deactivation via IdP is also supported
+      on Enterprise plans.
+    reference: https://github.com/bugsnag/bugsnag-api-ruby/blob/master/README.md
+  user_status_api:
+    value: uncertain – collaborator enumeration is available via the “/organizations/{id}/collaborators”
+      endpoint (returns users), but no documented field confirming active vs. suspended
+      status was found.
+    reference: https://docs.flexera.com/flexera/EN/SaaSManager/BugsnagIntegration.htm
+  session_timeout_configuration:
+    value: Session timeout can be set by the IdP using the SAML SessionNotOnOrAfter
+      value; Bugsnag uses this to set the dashboard session timeout.
+    reference: https://docs.bugsnag.com/product/single-sign-on/onelogin/
+  known_automation_tools:
+  - value: Splunk data forwarding integration (Enterprise) forwards error payloads
+      to Splunk HEC for downstream automation.
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/
+  - value: Webhook integration sends JSON payloads on triggers (e.g., new error, comment,
+      state change) to an HTTP endpoint for SOAR playbooks.
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/
+  - value: Amazon SQS data forwarding publishes events to SQS queues for serverless
+      or SOAR ingestion.
+    reference: https://docs.bugsnag.com/product/integrations/data-forwarding/
+  - value: PagerDuty/OpsGenie/Splunk On‑Call incident integrations to trigger incidents
+      from Bugsnag alerts.
+    reference: https://docs.bugsnag.com/product/integrations/incident-management/
+  - value: Official Ruby Data Access API client (bugsnag-api-ruby) enabling programmatic
+      org/project/error access and collaborator management.
+    reference: https://github.com/bugsnag/bugsnag-api-ruby
+  - value: pybugsnag – community Python wrapper for the Bugsnag Data Access API to
+      automate investigations.
+    reference: https://github.com/jpetrucciani/pybugsnag
+  - value: Roadie Backstage plugin demonstrates using a Bugsnag Personal Auth Token
+      and project keys to automate dashboard lookups.
+    reference: https://roadie.io/docs/integrations/bugsnag/
+  - value: Okta SCIM provisioning (Enterprise) to automatically create, update, and
+      deactivate users for access control automation.
+    reference: https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  documentation_links:
+  - https://developer.smartbear.com/insight-hub/docs/data-access
+  - https://docs.bugsnag.com/product/roles-and-permissions/
+  - https://docs.bugsnag.com/product/single-sign-on/
+  - https://docs.bugsnag.com/product/single-sign-on/okta-scim/
+  - https://docs.bugsnag.com/product/integrations/incident-management/
+  - https://docs.bugsnag.com/product/integrations/data-forwarding/
+  - https://docs.bugsnag.com/product/integrations/data-forwarding/webhook/
+  - https://docs.bugsnag.com/product/integrations/data-forwarding/splunk/
+  - https://docs.bugsnag.com/product/sensitive-data-management/
+  - https://docs.bugsnag.com/security/overview/
+  - https://docs.flexera.com/flexera/EN/SaaSManager/BugsnagIntegration.htm
+  - https://smartbear.com/insight-hub/pricing/

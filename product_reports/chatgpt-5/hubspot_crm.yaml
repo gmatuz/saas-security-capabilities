@@ -1,0 +1,291 @@
+identity_and_access:
+  sso_support:
+    value: yes — SAML 2.0 SSO for account login; documented setup with Okta, OneLogin,
+      Microsoft AD FS; can require SSO for all users
+    reference: https://knowledge.hubspot.com/account-security/set-up-single-sign-on-sso
+  sso_license_level_requirement:
+    value: Professional and Enterprise tiers across Marketing Hub, Sales Hub, Service
+      Hub, Operations Hub, and Content Hub
+    reference: https://knowledge.hubspot.com/account-security/set-up-single-sign-on-sso
+  scim_support:
+    value: yes — SCIM provisioning supported via Okta and Google; Azure/Entra SCIM
+      noted as in development in community updates
+    reference: https://knowledge.hubspot.com/user-management/provision-hubspot-users-with-scim-through-okta
+  scim_licensing_level_requirement:
+    value: Professional and Enterprise tiers across Marketing Hub, Sales Hub, Service
+      Hub, and Content Hub
+    reference: https://knowledge.hubspot.com/user-management/provision-hubspot-users-with-scim-through-okta
+  scim_authentication_mechanisms:
+    value: OAuth 2.0 app-to-app authorization initiated from IdP (Authenticate with
+      HubSpot) plus DNS TXT domain verification; no customer-managed SCIM bearer token
+    reference: https://knowledge.hubspot.com/user-management/provision-hubspot-users-with-scim-through-okta
+  scim_authentication_acquisition_steps:
+    value: 1) In Okta, add the HubSpot application; 2) Open the Provisioning tab and
+      click Configure API Integration; 3) Select Enable API integration and click
+      Authenticate with HubSpot, then choose the HubSpot account and Connect app;
+      4) Save; 5) Enable Create/Update/Deactivate options; 6) In HubSpot, verify your
+      email domain via DNS TXT in Integrations > Connected Apps > Okta SCIM.
+    reference: https://knowledge.hubspot.com/user-management/provision-hubspot-users-with-scim-through-okta
+  user_management_api_support:
+    value: yes — User Provisioning API (settings/v3/users) to create/manage users
+      and permissions; Users API for profile details; requires settings.users.* scopes
+    reference: https://developers.hubspot.com/docs/api/working-with-oauth?uuid=1d87620d-9ab0-4df5-aeaf-7fd8b4aebc7a
+  user_management_api_licensing_level:
+    value: 'Any account — settings.users.read/write scopes are marked ''Any account''
+      (note: some UI features like permission sets require Enterprise)'
+    reference: https://developers.hubspot.com/docs/api/working-with-oauth?uuid=1d87620d-9ab0-4df5-aeaf-7fd8b4aebc7a
+  user_management_api_authentication_mechanisms:
+    value: Private app static access token (Bearer) or Public app OAuth 2.0; legacy
+      API keys sunset
+    reference: https://community.hubspot.com/t5/Developer-Announcements/Upcoming-API-Key-Sunset/m-p/642739
+  user_management_api_authentication_acquisition_steps:
+    value: 1) Super Admin opens HubSpot > CRM Development > Private apps; 2) Create
+      or open a private app; 3) Configure scopes; 4) On Auth tab, copy the private
+      app access token; 5) Use token as Bearer in API calls; rotate token from the
+      same page as needed.
+    reference: https://developers.hubspot.com/docs/platform/create-private-apps-with-projects
+  seat_costs:
+  - license_level: Professional — Core Seats (additional seats $50/month per seat;
+      plan starts with 3 Core Seats)
+    active:
+      value: Yes — seats are billed; additional Core Seats Professional are $50/month
+        per seat (billed annually per catalog)
+      reference: https://legal.hubspot.com/services/hubspot-services-descriptions
+    suspended_disabled:
+      value: Deactivated users keep their paid seat; to stop paying you must unassign/remove
+        seats (billing changes apply at renewal)
+      reference: https://knowledge.hubspot.com/user-management/deactivate-hubspot-users
+    archived:
+      value: Removing a user's access does not auto-reduce purchased seats; you continue
+        to pay until you remove unassigned seats effective at next renewal
+      reference: https://knowledge.hubspot.com/account/manage-your-hubspot-subscription
+  - license_level: Enterprise — Core Seats (additional seats $75/month per seat; plan
+      starts with 5 Core Seats)
+    active:
+      value: Yes — seats are billed; additional Core Seats Enterprise are $75/month
+        per seat (billed annually per catalog)
+      reference: https://legal.hubspot.com/services/hubspot-services-descriptions
+    suspended_disabled:
+      value: Deactivated users keep their paid seat; to stop paying you must unassign/remove
+        seats (billing changes apply at renewal)
+      reference: https://knowledge.hubspot.com/account-management/manage-billing-for-seats
+    archived:
+      value: Removing/Unassigning seats only adjusts billing at the start of the next
+        term (remove unassigned seats in Account & Billing)
+      reference: https://knowledge.hubspot.com/account-management/manage-billing-for-seats
+  lifecycle_options:
+  - Active
+  - Deactivated
+  - Removed
+  rbac_support:
+    value: yes — Roles/Permission Sets and Teams; permission sets are Enterprise-only
+      and can be assigned to users
+    reference: https://knowledge.hubspot.com/user-management/create-permission-sets
+  rbac_api_assignment:
+    value: yes — assign user permissions/permission sets via User Provisioning API;
+      permission sets must be created in-app; requires settings.users.write
+    reference: https://www.postman.com/hubspot/hubspot-public-api-workspace/folder/vxy57se/user-provisioning-api
+  documentation_links:
+  - https://knowledge.hubspot.com/account-security/set-up-single-sign-on-sso
+  - https://knowledge.hubspot.com/account-securitys/set-up-single-sign-on-sso-using-active-directory-federation-services-adfs
+  - https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-HubSpot.html
+  - https://knowledge.hubspot.com/user-management/provision-hubspot-users-with-scim-through-okta
+  - https://knowledge.hubspot.com/account-security/provision-hubspot-users-with-scim-through-google
+  - https://community.hubspot.com/t5/HubSpot-Ideas/Provision-Users-with-Azure-AD/idi-p/707930
+  - https://developers.hubspot.com/docs/api/working-with-oauth?uuid=1d87620d-9ab0-4df5-aeaf-7fd8b4aebc7a
+  - https://developers.hubspot.com/docs/api/crm/users
+  - https://www.postman.com/hubspot/hubspot-public-api-workspace/folder/vxy57se/user-provisioning-api
+  - https://developers.hubspot.com/docs/api/settings/account-activity-api
+  - https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+  - https://legal.hubspot.com/services/hubspot-services-descriptions
+  - https://knowledge.hubspot.com/account-management/manage-billing-for-seats
+  - https://knowledge.hubspot.com/user-management/deactivate-hubspot-users
+  - https://knowledge.hubspot.com/user-management/manage-user-permissions
+  - https://knowledge.hubspot.com/user-management/create-permission-sets
+  - https://knowledge.hubspot.com/user-management/create-and-manage-teams
+  - https://developers.hubspot.com/docs/platform/create-private-apps-with-projects
+  - https://community.hubspot.com/t5/Developer-Announcements/Upcoming-API-Key-Sunset/m-p/642739
+  - https://github.com/HubSpot/hubspot-api-nodejs
+  - https://github.com/HubSpot/hubspot-api-python
+  - https://github.com/saurabhsaini-dev/terraform-provider-hubspot
+  - https://developers.hubspot.com/changelog/september-2023-rollup
+  - https://community.hubspot.com/t5/APIs-Integrations/Can-I-get-the-Hubspot-Activity-logs-via-API/m-p/412284
+security_monitoring:
+  event_logs:
+    user_login:
+      value: Login history is available via the Account Activity API (returns the
+        previous 90 days) and includes fields such as login timestamp, user email
+        address, IP address, location, login type, and user agent. In the UI, Admins
+        can also view/export Login History from the centralized Audit Logs page.
+      reference: https://developers.hubspot.com/docs/api/settings/account-activity-api
+    role_assignment:
+      value: Security Activity logs include permission changes such as adding or removing
+        admin permissions, impersonation, user deactivation/reactivation, and adding/removing
+        users. These events are viewable/exportable from the centralized Audit Logs
+        page.
+      reference: https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+    api_call:
+      value: 'API call logs are available via HubSpot UI: Super Admins can view the
+        last 7 days of API key-based calls under Settings > Integrations > API call
+        log, and OAuth app request logs under Developer Portal > Apps > Monitoring.
+        These logs help audit API requests but are not exposed via the Account Activity
+        API.'
+      reference: https://community.hubspot.com/t5/APIs-Integrations/API-Call-Log/m-p/688261
+    data_export:
+      value: Exports are audited. The Export Audit shows each export’s name/source,
+        record count, exporting user, date/time, with download history including downloader
+        IP addresses for eligible exports. Security Activity also logs export actions
+        (e.g., exporting contacts or users).
+      reference: https://knowledge.hubspot.com/import-and-export/view-a-log-of-your-users-exports-in-your-account
+    configuration_change:
+      value: Configuration-related events captured in Audit/Security Activity include
+        SSO/2FA requirement changes, enabling/disabling email tracking and attachment
+        logging, installing integrations, and sandbox creation/sync/deletion. Enterprise
+        accounts also see additional settings/content categories in the centralized
+        audit log.
+      reference: https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+    user_account_creation:
+      value: User lifecycle events—adding, removing, impersonating users/admins, and
+        user deactivation/reactivation—are included in Security Activity logs and
+        can be exported.
+      reference: https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+    security_policy_change:
+      value: Security policy changes such as requiring/adding/removing SSO or 2FA,
+        changes to email tracking/attachment logging, and updates to the 'Never Log'
+        list appear in Security Activity history and can be exported.
+      reference: https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+  event_logs_licensing_level:
+    value: All plans (Starter, Professional, Enterprise) can view/export Login History
+      and Security Activity. Enterprise adds a centralized audit log with more categories
+      (e.g., Approvals, Content, Workflows, CRM object actions) and a User Analytics
+      tab; some content activity export requires Content Hub Enterprise.
+    reference: https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+  monitoring_products:
+  - value: 'Splunk Add-On for HubSpot: third-party connector that ingests HubSpot
+      CRM data (contacts, owners, deals, tickets). Community feedback indicates it
+      does not include user activity/security logs; for those, use HubSpot’s Account
+      Activity API.'
+    reference: https://classic.splunkbase.splunk.com/app/7248/
+  - value: 'Google Chronicle: community guidance indicates no direct (native) HubSpot
+      audit log API connector; suggested approach is exporting HubSpot logs (e.g.,
+      CSV/JSON) to Cloud Storage and ingesting from there.'
+    reference: https://security.googlecloudcommunity.com/fid-2/tid-498
+  - value: 'HubSpot API NodeJS client (@hubspot/api-client): official SDK to call
+      HubSpot APIs, including Account Activity endpoints, suitable for building custom
+      log collectors to forward HubSpot audit/login/security events to a SIEM.'
+    reference: https://github.com/HubSpot/hubspot-api-nodejs
+  - value: 'HubSpot API Python client (hubspot-api-client): official SDK to programmatically
+      retrieve HubSpot data, including Account Activity API responses, for downstream
+      security monitoring/ingestion.'
+    reference: https://github.com/HubSpot/hubspot-api-python
+  - value: 'Account Activity API Postman collection: ready-made requests for retrieving
+      centralized audit logs (Enterprise only), login activity (90 days), and security
+      activity—useful for testing and building ingestion pipelines.'
+    reference: https://www.postman.com/hubspot/hubspot-public-api-workspace/folder/cop44hb/account-activity-api
+  ingestion_methods:
+  - value: 'HTTPS API pull: use the Account Activity API to programmatically retrieve
+      centralized audit logs (Enterprise only), login activity (90 days), and security
+      activity (fields include timestamps, user email, IP/location, action, affected
+      object, and URL).'
+    reference: https://developers.hubspot.com/docs/api/settings/account-activity-api
+  - value: 'UI export (CSV via email/notifications): from Audit Logs, Admins can export
+      filtered views of account activity; Security Activity and Login History can
+      be exported; emails include download links.'
+    reference: https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+  - value: 'Export audit log (downloads): Admins can review and download the export
+      audit and download history (including downloader IP addresses) for eligible
+      exports.'
+    reference: https://knowledge.hubspot.com/import-and-export/view-a-log-of-your-users-exports-in-your-account
+  - value: No native SIEM streaming connector documented for HubSpot audit/security
+      logs; community guidance suggests building custom collectors with the Account
+      Activity API or exporting to storage for SIEM ingestion.
+    reference: https://community.hubspot.com/t5/Account-Settings/Splunk-Integration/m-p/998849
+  log_export_options:
+    tools_connectors:
+      value: 'Options include: (1) Account Activity API endpoints (JSON over HTTPS)
+        to pull centralized audit logs (Enterprise), login activity (90 days), and
+        security activity; (2) UI-based exports of Audit Logs (CSV delivered via email/notifications);
+        (3) Export Audit for oversight of data exports. No official FTP/syslog/streaming
+        export is documented.'
+      reference: https://developers.hubspot.com/docs/api/settings/account-activity-api
+  documentation_links:
+  - https://developers.hubspot.com/docs/api/settings/account-activity-api
+  - https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+  - https://www.postman.com/hubspot/hubspot-public-api-workspace/folder/cop44hb/account-activity-api
+  - https://developers.hubspot.com/changelog/september-2023-rollup
+  - https://knowledge.hubspot.com/user-management/view-user-permissions-history
+  - https://knowledge.hubspot.com/import-and-export/view-a-log-of-your-users-exports-in-your-account
+  - https://community.hubspot.com/t5/Account-Settings/Splunk-Integration/m-p/998849
+  - https://classic.splunkbase.splunk.com/app/7248/
+  - https://community.hubspot.com/t5/APIs-Integrations/API-Call-Log/m-p/688261
+  - https://developers.hubspot.com/changelog/api-call-logs-available-for-api-key-users
+  - https://knowledge.hubspot.com/ja/account/export-security-activity-history
+  - https://knowledge.hubspot.com/es/account/export-security-activity-history
+  - https://knowledge.hubspot.com/pt/account/export-security-activity-history
+  - https://knowledge.hubspot.com/zh-cn/account-management/view-and-export-account-activity-history
+incident_response:
+  suspend_user_api:
+    value: Programmatic suspension is supported via SCIM user provisioning through
+      an IdP (e.g., Okta). In Okta’s HubSpot SCIM setup, you can enable Deactivate
+      Users to deprovision a user in HubSpot; prerequisites include SSO enabled and
+      sufficient HubSpot subscription (Professional/Enterprise tiers as documented).
+    reference: https://knowledge.hubspot.com/user-management/provision-hubspot-users-with-scim-through-okta
+  invalidate_sessions_api:
+    value: No public HubSpot API or admin control to force-log-out other users was
+      found. Community guidance states admins cannot force a logout; users can only
+      log out themselves (including ‘Log Out of All Sessions’) via UI.
+    reference: https://community.hubspot.com/t5/CRM/Log-Users-Out/m-p/688110
+  revoke_api_key_api:
+    value: Account-level API keys are deprecated and no longer supported; integrations
+      must use Private App access tokens or OAuth 2.0. There is no supported API to
+      manage legacy API keys; token rotation for Private Apps is handled in the UI.
+    reference: https://developers.hubspot.com/docs/api/developer-tools-overview
+  user_toggle_api:
+    value: Direct API endpoints to activate/deactivate (toggle) HubSpot users are
+      not available; the hs_deactivated property is read-only. Deactivation can be
+      performed via UI or automated via SCIM deprovisioning through an IdP.
+    reference: https://community.hubspot.com/t5/HubSpot-Ideas/Activate-and-Deactivate-users-via-API/idi-p/509933
+  user_status_api:
+    value: Use the CRM Users API to retrieve user records and properties; implement
+      status checks using returned user properties (e.g., read-only indicators of
+      deactivation) to identify deactivated vs active users for investigation.
+    reference: https://developers.hubspot.com/docs/api/crm/users
+  session_timeout_configuration:
+    value: Session inactivity timeout is configurable under Security > Login. The
+      login settings wizard documents a minimum of 15 minutes and a maximum of three
+      days for inactive session logout (defaults may differ by account).
+    reference: https://knowledge.hubspot.com/account-security/restrict-which-login-methods-users-can-use-to-access-your-account
+  known_automation_tools:
+  - value: 'Account Activity API: programmatic export of centralized audit logs, login
+      activity (last 90 days), and security activity for SIEM ingestion (Enterprise
+      required).'
+    reference: https://developers.hubspot.com/docs/api/settings/account-activity-api
+  - value: 'Workflows Webhooks: send signed POST/GET webhooks from HubSpot workflows
+      to external SOAR/SIEM, with retries and secrets support.'
+    reference: https://knowledge.hubspot.com/workflows/how-do-i-use-webhooks-with-hubspot-workflows
+  - value: 'Tines + HubSpot: SOAR-style automation actions for HubSpot (create/update
+      objects, list data, etc.) to build bespoke incident workflows.'
+    reference: https://www.tines.com/solutions/products/hubspot/
+  - value: 'Splunk Add-On for HubSpot: Splunk input to ingest HubSpot data via APIs
+      (primarily CRM object data); can be adapted with Account Activity API for security
+      events.'
+    reference: https://classic.splunkbase.splunk.com/app/7248/
+  - value: 'Official Node.js client (@hubspot/api-client): SDK for HubSpot APIs (supports
+      OAuth/private app tokens), suitable for building investigation/response automation.'
+    reference: https://github.com/HubSpot/hubspot-api-nodejs
+  - value: 'Official Python client (hubspot-api-client): SDK including helpers and
+      CMS audit logs access; useful for scripting audits and investigations.'
+    reference: https://pypi.org/project/hubspot-api-client/
+  documentation_links:
+  - https://developers.hubspot.com/docs/api/settings/account-activity-api
+  - https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history
+  - https://knowledge.hubspot.com/workflows/how-do-i-use-webhooks-with-hubspot-workflows
+  - https://knowledge.hubspot.com/workflows/set-when-a-webhook-is-received-workflow-triggers
+  - https://developers.hubspot.com/docs/api/crm/users
+  - https://knowledge.hubspot.com/user-management/provision-hubspot-users-with-scim-through-okta
+  - https://knowledge.hubspot.com/account-security/provision-hubspot-users-with-scim-through-google
+  - https://knowledge.hubspot.com/account-security/set-up-single-sign-on-sso
+  - https://knowledge.hubspot.com/account-security/restrict-which-login-methods-users-can-use-to-access-your-account
+  - https://knowledge.hubspot.com/account-management/log-out-of-hubspot
+  - https://developers.hubspot.com/docs/api/developer-tools-overview
+  - https://developers.hubspot.com/docs/api/private-apps?uuid=2c80bd5e-d905-410e-8c0e-88baa9bee6ab
